@@ -207,6 +207,15 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .show .dt span{font-size:11px;color:var(--muted);text-transform:uppercase}
 
 
+/* saber archive */
+.archive{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px}
+.arc{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.arc .nm{font-family:Oswald;font-size:19px;line-height:1.2}
+.arc .meta{font-size:12px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap}
+.arc .bl{height:10px;border-radius:6px;margin:4px 0 2px;display:flex;gap:6px}
+.arc .bl i{flex:1;border-radius:6px;display:block}
+.arc p{margin:0;font-size:13.5px;color:var(--muted)}
+.arc .btn{align-self:flex-start;margin-top:auto}
 /* sub-tabs */
 .subp{display:none}.subp.on{display:block}
 .subnav{display:flex;align-items:center;gap:8px}
@@ -366,7 +375,7 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 
 <!-- STAR WARS -->
 <section class="tab" id="t-starwars">
-  <div class="tabhead"><h2 style="color:var(--sw)">Star Wars</h2><span class="sub">News, saber workshop and trivia</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="starwars"><option value="news">News</option><option value="saber">Lightsaber workshop</option><option value="trivia">Trivia</option></select></div></div></div>
+  <div class="tabhead"><h2 style="color:var(--sw)">Star Wars</h2><span class="sub">News, saber workshop, saber archive and trivia</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="starwars"><option value="news">News</option><option value="saber">Lightsaber workshop</option><option value="archive">Saber archive</option><option value="trivia">Trivia</option></select></div></div></div>
   <div class="subp" data-tab="starwars" data-sub="saber">
   <div class="card">
     <h3>Lightsaber workshop <span class="tag">Build it, ignite it, save it</span></h3>
@@ -383,6 +392,20 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
     <div class="small muted" id="kyberNote" style="margin-top:12px"></div>
     <div id="savedWrap" style="margin-top:14px;display:none"><div class="small muted" style="font-weight:600;text-transform:uppercase;letter-spacing:.05em">Your collection</div><div class="savedsabers" id="savedSabers"></div></div>
   </div>
+  </div>
+  <div class="subp" data-tab="starwars" data-sub="archive">
+    <div class="card">
+      <h3>Saber archive <span class="tag">Iconic blades from the films and series</span></h3>
+      <div class="row" style="margin-bottom:12px">
+        <input type="text" id="arSearch" placeholder="Search character" style="width:180px">
+        <label class="small muted">Side <select id="arSide"><option value="">All</option><option>Jedi</option><option>Sith / dark side</option><option>Other</option></select></label>
+        <label class="small muted">Blade <select id="arColor"><option value="">All colors</option></select></label>
+        <label class="small muted">Style <select id="arStyle"><option value="">All styles</option></select></label>
+        <span class="sp"></span><span class="small dim" id="arCount"></span>
+      </div>
+      <div class="archive" id="archive"></div>
+      <div class="small dim" style="margin-top:10px">"Try in workshop" loads the blade color and style onto a hilt you build yourself.</div>
+    </div>
   </div>
   <div class="subp" data-tab="starwars" data-sub="news"><div class="card" style="max-width:900px"><h3>Latest from the galaxy</h3><div class="news" id="swNews"></div></div></div>
   <div class="subp" data-tab="starwars" data-sub="trivia"><div class="card quiz" style="--qc:var(--sw);max-width:760px"><h3>Star Wars trivia <span class="tag" id="swBest"></span></h3><div id="quiz-sw"></div></div></div>
@@ -488,7 +511,7 @@ function newsList(items,el,emptyMsg){
 
 /* ---------- tabs ---------- */
 const TABS=["home","nfl","starwars","games","workouts","wwe"];
-const SUBS={nfl:["overview","picks","stats","trivia"],starwars:["news","saber","trivia"],games:["news","trivia"],wwe:["news","trivia"]};
+const SUBS={nfl:["overview","picks","stats","trivia"],starwars:["news","saber","archive","trivia"],games:["news","trivia"],wwe:["news","trivia"]};
 const subState=lsGet("hq_subs",{});
 function showSub(tab,sub){if(!SUBS[tab])return;if(!SUBS[tab].includes(sub))sub=subState[tab]||SUBS[tab][0];subState[tab]=sub;lsSet("hq_subs",subState);
   $$(`.subp[data-tab="${tab}"]`).forEach(p=>p.classList.toggle("on",p.dataset.sub===sub));const sel=$(`.subsel[data-tab="${tab}"]`);if(sel)sel.value=sub;}
@@ -1185,6 +1208,54 @@ function wirePlayerStats(){
   renderPlayerStats();
 }
 function wireStats(){$("#teamStats").addEventListener("click",e=>{const th=e.target.closest("th[data-s]");if(!th)return;e.stopPropagation();const k=th.dataset.s;if(tsSort===k)tsDir*=-1;else{tsSort=k;tsDir=k==="name"?1:-1;}renderStats();});}
+
+/* =====================================================
+   SABER ARCHIVE (facts only, no prop replicas)
+   ===================================================== */
+const ARCHIVE=[
+ {n:"Luke Skywalker",side:"Jedi",blades:["Blue","Green"],style:"Single",first:"A New Hope (1977)",txt:"Used his father's blue saber until losing it on Cloud City, then built his own green saber for Return of the Jedi.",try:{blade:"Green",style:"Single"}},
+ {n:"Anakin Skywalker",side:"Jedi",blades:["Blue"],style:"Single",first:"Attack of the Clones (2002)",txt:"His blue saber later passed to Luke, then decades later to Rey.",try:{blade:"Blue",style:"Single"}},
+ {n:"Darth Vader",side:"Sith / dark side",blades:["Red"],style:"Single",first:"A New Hope (1977)",txt:"Anakin's Sith saber, wielded through the original trilogy and Obi-Wan Kenobi.",try:{blade:"Red",style:"Single"}},
+ {n:"Obi-Wan Kenobi",side:"Jedi",blades:["Blue"],style:"Single",first:"A New Hope (1977)",txt:"A classic Soresu defender. His blue blade appears from The Phantom Menace through his own series.",try:{blade:"Blue",style:"Single"}},
+ {n:"Yoda",side:"Jedi",blades:["Green"],style:"Shoto (short)",first:"Attack of the Clones (2002)",txt:"A short green blade sized for the Grand Master, wielded with acrobatic Form IV.",try:{blade:"Green",style:"Single",length:"Short"}},
+ {n:"Mace Windu",side:"Jedi",blades:["Purple"],style:"Single",first:"The Phantom Menace (1999)",txt:"One of the few purple blades in the Order, and a master of the aggressive Form VII.",try:{blade:"Purple",style:"Single"}},
+ {n:"Qui-Gon Jinn",side:"Jedi",blades:["Green"],style:"Single",first:"The Phantom Menace (1999)",txt:"Obi-Wan's master, who fell to Darth Maul on Naboo.",try:{blade:"Green",style:"Single"}},
+ {n:"Darth Maul",side:"Sith / dark side",blades:["Red"],style:"Double-bladed",first:"The Phantom Menace (1999)",txt:"His double-bladed red saber made one of the most memorable duels in the saga.",try:{blade:"Red",style:"Saberstaff"}},
+ {n:"Count Dooku",side:"Sith / dark side",blades:["Red"],style:"Single (curved hilt)",first:"Attack of the Clones (2002)",txt:"A curved hilt suited to his elegant Form II dueling style.",try:{blade:"Red",style:"Single"}},
+ {n:"Darth Sidious",side:"Sith / dark side",blades:["Red"],style:"Single",first:"Revenge of the Sith (2005)",txt:"Palpatine rarely drew a blade. When he did, against Mace Windu and Yoda, it was red.",try:{blade:"Red",style:"Single"}},
+ {n:"Kylo Ren",side:"Sith / dark side",blades:["Red"],style:"Crossguard",first:"The Force Awakens (2015)",txt:"A crackling, unstable blade powered by a cracked kyber crystal, with venting side blades.",try:{blade:"Red",style:"Crossguard"}},
+ {n:"Rey",side:"Jedi",blades:["Blue","Yellow"],style:"Single",first:"The Force Awakens (2015)",txt:"Carried the Skywalker blue saber, then revealed her own yellow blade at the end of The Rise of Skywalker.",try:{blade:"Yellow",style:"Single"}},
+ {n:"Leia Organa",side:"Jedi",blades:["Blue"],style:"Single",first:"The Rise of Skywalker (2019)",txt:"Seen training with Luke in a flashback. Her saber later passed to Rey.",try:{blade:"Blue",style:"Single"}},
+ {n:"Ahsoka Tano",side:"Jedi",blades:["White","White"],style:"Dual sabers",first:"The Clone Wars (2008)",txt:"Wielded green and yellow-green blades in The Clone Wars, then twin white sabers in Rebels, The Mandalorian and Ahsoka.",try:{blade:"White",style:"Single"}},
+ {n:"Asajj Ventress",side:"Sith / dark side",blades:["Red","Red"],style:"Dual curved sabers",first:"The Clone Wars (2008)",txt:"Dooku's assassin fought with two curved red sabers that could join into one weapon.",try:{blade:"Red",style:"Saberstaff"}},
+ {n:"Kanan Jarrus",side:"Jedi",blades:["Blue"],style:"Single",first:"Rebels (2014)",txt:"A Padawan who survived Order 66 and later trained Ezra Bridger.",try:{blade:"Blue",style:"Single"}},
+ {n:"Ezra Bridger",side:"Jedi",blades:["Blue","Green"],style:"Single",first:"Rebels (2014)",txt:"His first saber doubled as a blaster. After it was destroyed he built a green one.",try:{blade:"Green",style:"Single"}},
+ {n:"Baylan Skoll",side:"Sith / dark side",blades:["Orange"],style:"Single",first:"Ahsoka (2023)",txt:"A former Jedi turned mercenary, with an orange-red blade that shows he walks his own path.",try:{blade:"Orange",style:"Single"}},
+ {n:"Shin Hati",side:"Sith / dark side",blades:["Orange"],style:"Single",first:"Ahsoka (2023)",txt:"Baylan's apprentice, with a matching orange blade.",try:{blade:"Orange",style:"Single"}},
+ {n:"Din Djarin (Darksaber)",side:"Other",blades:["Black"],style:"Single (flat blade)",first:"The Mandalorian (2019)",txt:"An ancient Mandalorian blade with a black core and white edge, created by Tarre Vizsla. Its colors can't be reproduced in the workshop.",try:null},
+ {n:"General Grievous",side:"Sith / dark side",blades:["Blue","Green"],style:"Up to four sabers",first:"Revenge of the Sith (2005)",txt:"Collected sabers from fallen Jedi and spun up to four at once.",try:{blade:"Blue",style:"Single"}},
+ {n:"Cal Kestis",side:"Jedi",blades:["Blue","Green","Purple"],style:"Single or double",first:"Jedi: Fallen Order (2019 game)",txt:"In the games you can customize his blade color and switch between single and double-bladed stances.",try:{blade:"Cyan",style:"Saberstaff"}}
+];
+const AR_COL={Black:"#111",...BLADES};
+function renderArchive(){
+  const q=($("#arSearch").value||"").toLowerCase(),side=$("#arSide").value,col=$("#arColor").value,sty=$("#arStyle").value;
+  const rows=ARCHIVE.filter(a=>(!q||a.n.toLowerCase().includes(q))&&(!side||a.side===side)&&(!col||a.blades.includes(col))&&(!sty||a.style===sty));
+  $("#arCount").textContent=`${rows.length} saber${rows.length===1?"":"s"}`;
+  $("#archive").innerHTML=rows.length?rows.map(a=>`<div class="arc"><div class="nm">${esc(a.n)}</div>
+    <div class="bl">${a.blades.map(b=>`<i style="background:${AR_COL[b]};box-shadow:0 0 10px ${b==="Black"?"#fff":AR_COL[b]};${b==="Black"?"outline:1px solid #ddd":""}"></i>`).join("")}</div>
+    <div class="meta"><span class="pill">${esc(a.side)}</span><span class="pill">${esc(a.blades.filter((v,i,s)=>s.indexOf(v)===i).join(" / "))}</span><span class="pill">${esc(a.style)}</span></div>
+    <p>${esc(a.txt)}</p><div class="small dim">First seen: ${esc(a.first)}</div>
+    ${a.try?`<button class="btn sm" data-try="${ARCHIVE.indexOf(a)}">Try in workshop</button>`:""}</div>`).join(""):`<div class="empty">No sabers match.</div>`;
+}
+function wireArchive(){
+  const cols=[...new Set(ARCHIVE.flatMap(a=>a.blades))];$("#arColor").innerHTML=`<option value="">All colors</option>`+cols.map(c=>`<option>${c}</option>`).join("");
+  const st=[...new Set(ARCHIVE.map(a=>a.style))];$("#arStyle").innerHTML=`<option value="">All styles</option>`+st.map(c=>`<option>${esc(c)}</option>`).join("");
+  ["#arSide","#arColor","#arStyle"].forEach(id=>$(id).onchange=renderArchive);$("#arSearch").oninput=renderArchive;
+  $("#archive").addEventListener("click",e=>{const b=e.target.closest("[data-try]");if(!b)return;const a=ARCHIVE[+b.dataset.try];
+    saber=Object.assign({},saber,{blade:a.try.blade,style:a.try.style,length:a.try.length||"Standard"});lit=true;renderSaberOpts();renderSaber();
+    location.hash="starwars-saber";toast(`Loaded a ${a.try.blade.toLowerCase()} ${a.try.style==="Saberstaff"?"double-bladed":a.try.style.toLowerCase()} blade. Now build your hilt.`);});
+  renderArchive();
+}
 /* =====================================================
    BOOT
    ===================================================== */
@@ -1195,7 +1266,7 @@ function boot(){
   showTab();
   if(F){wireNFL();renderNFL();wirePicks();renderPicks();wireStats();renderStats();wirePlayerStats();newsList(F.starwars.news,$("#swNews"));wireGames();renderGames2();renderWWE();}
   ["nfl","sw","vg","wwe"].forEach(k=>{renderBest(k);startQuiz(k);});
-  renderSaberOpts();renderSaber();wireSaber();savedSabers();
+  renderSaberOpts();renderSaber();wireSaber();savedSabers();wireArchive();
   wireWorkouts();renderHome();
   Store.setNote();
   Store.onChange(()=>{if(F)renderPicks();renderWorkoutStats();renderDraft();savedSabers();["nfl","sw","vg","wwe"].forEach(renderBest);renderHome();});
