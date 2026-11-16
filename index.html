@@ -737,39 +737,56 @@ function segWire(sel,fn){const s=$(sel);s.querySelectorAll("button").forEach(b=>
 /* =====================================================
    LIGHTSABER WORKSHOP
    ===================================================== */
-const FIN={Chrome:["#f4f6f9","#9aa2ad","#e3e7ec","#5d646e"],Black:["#5b5f66","#1c1d21","#3b3e44","#0d0e10"],Brass:["#ffe9a8","#a77c2a","#e9c46a","#6e4f12"],Bronze:["#e6ad80","#7a4a2a","#c98457","#4a2a15"],White:["#ffffff","#c3c7ce","#eceef2","#8d929b"],Gunmetal:["#9aa3ad","#3d434b","#6b737d","#262a30"]};
+const FIN={Chrome:["#f4f6f9","#9aa2ad","#e3e7ec","#5d646e"],Black:["#5b5f66","#1c1d21","#3b3e44","#0d0e10"],Brass:["#ffe9a8","#a77c2a","#e9c46a","#6e4f12"],Bronze:["#e6ad80","#7a4a2a","#c98457","#4a2a15"],White:["#ffffff","#c3c7ce","#eceef2","#8d929b"],Gunmetal:["#9aa3ad","#3d434b","#6b737d","#262a30"],Copper:["#f6b48a","#9a4f2b","#e08a5c","#5a2a14"],"Rose gold":["#ffd6cf","#b9786e","#f0b0a4","#6e3e38"],Carbon:["#6b7686","#20252d","#3c4452","#0c0e12"],Obsidian:["#8a7fb0","#16131f","#3b3352","#07060b"],Titanium:["#e2e4e0","#7d8079","#c4c7c0","#4a4c47"]};
 const ACC={Black:"#111",Red:"#c1272d",Gold:"#d4a537",Blue:"#2b6cd4",Green:"#2f9e57"};
 const BLADES={Blue:"#2f7bff",Green:"#2ee65a",Red:"#ff2a2a",Purple:"#b04dff",Yellow:"#ffe23d",Orange:"#ff8a1f",White:"#f2f6ff",Cyan:"#2ff3ff"};
 const KYBER={Blue:"Blue blades are traditionally carried by Jedi Guardians, who favor combat and defense.",Green:"Green is associated with Jedi Consulars, who lean on diplomacy and the Force.",Red:"Red blades come from a crystal that has 'bled.' The mark of the Sith and dark-side users.",Purple:"Purple is rare and hints at a fighter who walks close to the edge.",Yellow:"Yellow is linked to Jedi Sentinels, who blend combat with investigation and security.",Orange:"Orange is uncommon. Some fans tie it to Jedi who drifted from the Order.",White:"White blades come from a purified crystal, freed from the dark side.",Cyan:"Cyan is an unusual, bright shade between blue and green."};
-const PARTS={emitter:["Shroud","Crown","Flared","Tapered"],sw:["Box switch","Ring buttons","Slide","Control plate"],grip:["Ribbed","T-tracks","Wrapped","Smooth"],pommel:["Domed","Flat cap","Spiked","Ring"]};
-let saber=lsGet("hq_saber",{emitter:"Shroud",sw:"Box switch",grip:"T-tracks",pommel:"Domed",finish:"Chrome",accent:"Black",blade:"Blue",style:"Single",length:"Standard"});
+const PARTS={emitter:["Shroud","Crown","Flared","Tapered","Vented","Claw","Ring stack","Hooded"],sw:["Box switch","Ring buttons","Slide","Control plate","Toggle cluster","Rotary dial","Crystal window","Screw plate"],grip:["Ribbed","T-tracks","Wrapped","Smooth","Diamond knurl","Cord wrap","Scales","Fins"],pommel:["Domed","Flat cap","Spiked","Ring","Faceted","Crystal cap","Weighted","Clasp"]};
+let saber=Object.assign({wear:"Factory new"},lsGet("hq_saber",{emitter:"Shroud",sw:"Box switch",grip:"T-tracks",pommel:"Domed",finish:"Chrome",accent:"Black",blade:"Blue",style:"Single",length:"Standard"}));
 let lit=false,sound=lsGet("hq_sound",true),audio=null,clipN=0;
 
-function cyl(x,w,f,h){h=h||30;const y=80-h/2;return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="2" fill="url(#g-${f})"/>`;}
+const gid=k=>String(k).replace(/[^A-Za-z0-9]/g,"");
+function cyl(x,w,f,h){h=h||30;const y=80-h/2;return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="2" fill="url(#g-${gid(f)})"/>`;}
 function partSVG(kind,name,x,w,f,acc){
   const C=FIN[f];let s="";
   if(kind==="pommel"){
-    if(name==="Domed"){s+=`<path d="M${x+w} 64 L${x+18} 64 Q${x} 64 ${x} 80 Q${x} 96 ${x+18} 96 L${x+w} 96 Z" fill="url(#g-${f})"/><rect x="${x+w-8}" y="62" width="6" height="36" rx="1" fill="${C[3]}"/>`;}
-    else if(name==="Flat cap"){s+=cyl(x+4,w-4,f,34)+`<rect x="${x}" y="61" width="10" height="38" rx="2" fill="url(#g-${f})"/>`;for(let i=0;i<3;i++)s+=`<rect x="${x+16+i*9}" y="63" width="3" height="34" fill="${C[3]}" opacity=".7"/>`;}
+    if(name==="Domed"){s+=`<path d="M${x+w} 64 L${x+18} 64 Q${x} 64 ${x} 80 Q${x} 96 ${x+18} 96 L${x+w} 96 Z" fill="url(#g-${gid(f)})"/><rect x="${x+w-8}" y="62" width="6" height="36" rx="1" fill="${C[3]}"/>`;}
+    else if(name==="Flat cap"){s+=cyl(x+4,w-4,f,34)+`<rect x="${x}" y="61" width="10" height="38" rx="2" fill="url(#g-${gid(f)})"/>`;for(let i=0;i<3;i++)s+=`<rect x="${x+16+i*9}" y="63" width="3" height="34" fill="${C[3]}" opacity=".7"/>`;}
     else if(name==="Spiked"){s+=cyl(x+8,w-8,f,32);s+=`<path d="M${x+8} 64 L${x} 58 L${x+14} 64 Z M${x+8} 96 L${x} 102 L${x+14} 96 Z M${x+8} 72 L${x-6} 80 L${x+8} 88 Z" fill="${C[1]}"/>`;s+=`<rect x="${x+w-10}" y="63" width="5" height="34" fill="${acc}"/>`;}
-    else{s+=cyl(x+12,w-12,f,30)+`<circle cx="${x+8}" cy="80" r="9" fill="none" stroke="url(#g-${f})" stroke-width="5"/>`;}
+    else if(name==="Faceted"){s+=cyl(x+12,w-12,f,32)+`<path d="M${x+12} 62 L${x+4} 68 L${x} 80 L${x+4} 92 L${x+12} 98 Z" fill="url(#g-${gid(f)})" stroke="${C[3]}" stroke-width=".8"/><path d="M${x+4} 68 L${x+12} 80 L${x+4} 92" fill="none" stroke="${C[3]}" stroke-width=".8"/><rect x="${x+w-8}" y="63" width="4" height="34" fill="${acc}"/>`;}
+    else if(name==="Crystal cap"){const kc=BLADES[saber.blade];s+=cyl(x+14,w-14,f,32)+`<path d="M${x+14} 68 L${x+2} 74 L${x+2} 86 L${x+14} 92 Z" fill="url(#g-${gid(f)})"/><path d="M${x+2} 74 L${x-6} 80 L${x+2} 86 Z" fill="${kc}" stroke="#fff" stroke-width=".6"/><circle cx="${x-2}" cy="80" r="6" fill="${kc}" opacity=".35" filter="url(#glow)"/>`;}
+    else if(name==="Weighted"){s+=cyl(x+16,w-16,f,30)+`<ellipse cx="${x+12}" cy="80" rx="13" ry="19" fill="url(#g-${gid(f)})" stroke="${C[3]}" stroke-width=".8"/><rect x="${x+5}" y="78" width="14" height="4" rx="2" fill="${acc}"/>`;}
+    else if(name==="Clasp"){s+=cyl(x+4,w-4,f,32)+`<rect x="${x}" y="62" width="8" height="36" rx="2" fill="url(#g-${gid(f)})"/><path d="M${x+14} 96 L${x+14} 112 Q${x+22} 120 ${x+30} 112 L${x+30} 96" fill="none" stroke="url(#g-${gid(f)})" stroke-width="4"/><rect x="${x+12}" y="94" width="20" height="5" rx="2" fill="${C[3]}"/>`;}
+    else{s+=cyl(x+12,w-12,f,30)+`<circle cx="${x+8}" cy="80" r="9" fill="none" stroke="url(#g-${gid(f)})" stroke-width="5"/>`;}
   }else if(kind==="grip"){
     s+=cyl(x,w,f,30);
     if(name==="Ribbed"){for(let i=6;i<w-4;i+=8)s+=`<rect x="${x+i}" y="65" width="4" height="30" rx="1" fill="${C[3]}" opacity=".85"/>`;}
     else if(name==="T-tracks"){for(let j=0;j<3;j++)s+=`<rect x="${x+6}" y="${68+j*9}" width="${w-12}" height="5" rx="2" fill="#111" opacity=".92"/>`;}
     else if(name==="Wrapped"){const cid="cw"+(++clipN);s+=`<clipPath id="${cid}"><rect x="${x}" y="65" width="${w}" height="30"/></clipPath><g clip-path="url(#${cid})">`;for(let i=-30;i<w+30;i+=11)s+=`<path d="M${x+i} 95 L${x+i+16} 65 L${x+i+22} 65 L${x+i+6} 95 Z" fill="#3a2a1d"/>`;s+=`</g>`;}
+    else if(name==="Diamond knurl"){const cid="ck"+(++clipN);s+=`<clipPath id="${cid}"><rect x="${x+4}" y="66" width="${w-8}" height="28"/></clipPath><g clip-path="url(#${cid})" stroke="${C[3]}" stroke-width="1.1" opacity=".75">`;for(let i=-30;i<w+30;i+=7)s+=`<path d="M${x+i} 94 L${x+i+28} 66 M${x+i} 66 L${x+i+28} 94"/>`;s+=`</g>`;}
+    else if(name==="Cord wrap"){const cc=acc==="#111"?"#2a2a2a":acc;for(let i=4;i<w-6;i+=6)s+=`<rect x="${x+i}" y="64" width="5" height="32" rx="2.5" fill="${cc}" stroke="#000" stroke-opacity=".5" stroke-width=".6"/>`;}
+    else if(name==="Scales"){const cid="cs"+(++clipN);s+=`<clipPath id="${cid}"><rect x="${x}" y="65" width="${w}" height="30"/></clipPath><g clip-path="url(#${cid})">`;for(let r=0;r<4;r++)for(let i=-10;i<w+10;i+=12)s+=`<path d="M${x+i+(r%2?6:0)} ${66+r*8} q6 9 12 0" fill="${C[1]}" stroke="${C[3]}" stroke-width=".8"/>`;s+=`</g>`;}
+    else if(name==="Fins"){for(let i=8;i<w-6;i+=14)s+=`<rect x="${x+i}" y="61" width="6" height="38" rx="2" fill="url(#g-${gid(f)})" stroke="${C[3]}" stroke-width=".7"/>`;s+=`<rect x="${x}" y="78" width="${w}" height="4" fill="${acc}" opacity=".9"/>`;}
     else{s+=`<rect x="${x+8}" y="65" width="4" height="30" fill="${acc}"/><rect x="${x+w-12}" y="65" width="4" height="30" fill="${acc}"/>`;}
   }else if(kind==="sw"){
     s+=cyl(x,w,f,32)+`<rect x="${x}" y="64" width="${w}" height="3" fill="${C[3]}" opacity=".5"/>`;
-    if(name==="Box switch"){s+=`<rect x="${x+w/2-16}" y="52" width="32" height="14" rx="2" fill="url(#g-${f})" stroke="${C[3]}"/><rect x="${x+w/2-6}" y="48" width="12" height="6" rx="2" fill="#d22"/>`;}
+    if(name==="Box switch"){s+=`<rect x="${x+w/2-16}" y="52" width="32" height="14" rx="2" fill="url(#g-${gid(f)})" stroke="${C[3]}"/><rect x="${x+w/2-6}" y="48" width="12" height="6" rx="2" fill="#d22"/>`;}
     else if(name==="Ring buttons"){for(let i=0;i<3;i++)s+=`<circle cx="${x+14+i*((w-28)/2)}" cy="70" r="4.5" fill="${i===0?"#e33":acc}" stroke="#000" stroke-width="1"/>`;}
     else if(name==="Slide"){s+=`<rect x="${x+8}" y="66" width="${w-16}" height="6" rx="3" fill="#111"/><rect x="${x+w/2-6}" y="62" width="12" height="12" rx="3" fill="${acc==="#111"?"#c33":acc}"/>`;}
+    else if(name==="Toggle cluster"){[0,1].forEach(i=>{const tx=x+16+i*24;s+=`<rect x="${tx-6}" y="58" width="14" height="8" rx="2" fill="#1a1a1a"/><path d="M${tx} 58 L${tx+5} 50" stroke="${i?acc==="#111"?"#ccc":acc:"#d22"}" stroke-width="3" stroke-linecap="round"/>`;});}
+    else if(name==="Rotary dial"){const cx=x+w/2;s+=`<ellipse cx="${cx}" cy="58" rx="14" ry="6" fill="url(#g-${gid(f)})" stroke="${C[3]}"/><rect x="${cx-14}" y="58" width="28" height="7" fill="url(#g-${gid(f)})"/>`;for(let i=0;i<6;i++)s+=`<rect x="${cx-12+i*5}" y="58" width="1.5" height="7" fill="${C[3]}"/>`;s+=`<circle cx="${cx}" cy="57" r="2.5" fill="${acc==="#111"?"#d22":acc}"/>`;}
+    else if(name==="Crystal window"){const kc=BLADES[saber.blade];s+=`<rect x="${x+12}" y="68" width="${w-24}" height="24" rx="5" fill="#0b0d12" stroke="${C[3]}" stroke-width="1.5"/><path d="M${x+w/2-12} 80 L${x+w/2} 72 L${x+w/2+12} 80 L${x+w/2} 88 Z" fill="${kc}"/><rect x="${x+14}" y="70" width="${w-28}" height="20" rx="4" fill="${kc}" opacity=".18"/>`;}
+    else if(name==="Screw plate"){s+=`<rect x="${x+6}" y="60" width="${w-12}" height="16" rx="3" fill="url(#g-${gid(f)})" stroke="${C[3]}"/>`;[x+11,x+w-11].forEach(sx=>s+=`<circle cx="${sx}" cy="68" r="2.4" fill="${C[3]}"/><path d="M${sx-1.6} 68 L${sx+1.6} 68" stroke="${C[2]}" stroke-width=".8"/>`);s+=`<rect x="${x+w/2-5}" y="64" width="10" height="8" rx="1.5" fill="${acc==="#111"?"#d22":acc}"/>`;}
     else{s+=`<rect x="${x+8}" y="62" width="${w-16}" height="14" rx="2" fill="#151515"/>`;["#3f3","#fc3","#f33","#3cf"].forEach((c,i)=>s+=`<rect x="${x+13+i*((w-30)/4)}" y="66" width="5" height="6" rx="1" fill="${c}"/>`);}
   }else if(kind==="emitter"){
-    if(name==="Shroud"){s+=cyl(x,w,f,34)+`<path d="M${x+6} 63 L${x+w} 52 L${x+w} 80 L${x+6} 80 Z" fill="url(#g-${f})" stroke="${C[3]}" stroke-width=".8"/><rect x="${x+w-4}" y="63" width="4" height="34" fill="${C[3]}"/>`;}
-    else if(name==="Crown"){s+=cyl(x,w-8,f,30)+`<path d="M${x+w-10} 60 L${x+w} 58 L${x+w} 102 L${x+w-10} 100 Z" fill="url(#g-${f})"/>`;for(let i=0;i<4;i++)s+=`<rect x="${x+w-3}" y="${60+i*11}" width="3" height="5" fill="#000" opacity=".6"/>`;}
-    else if(name==="Flared"){s+=`<path d="M${x} 65 L${x+w} 58 L${x+w} 102 L${x} 95 Z" fill="url(#g-${f})"/><rect x="${x+8}" y="63" width="4" height="34" fill="${acc}"/>`;}
-    else{s+=`<path d="M${x} 63 L${x+w} 68 L${x+w} 92 L${x} 97 Z" fill="url(#g-${f})"/><rect x="${x+w-6}" y="68" width="3" height="24" fill="${C[3]}"/>`;}
+    if(name==="Shroud"){s+=cyl(x,w,f,34)+`<path d="M${x+6} 63 L${x+w} 52 L${x+w} 80 L${x+6} 80 Z" fill="url(#g-${gid(f)})" stroke="${C[3]}" stroke-width=".8"/><rect x="${x+w-4}" y="63" width="4" height="34" fill="${C[3]}"/>`;}
+    else if(name==="Crown"){s+=cyl(x,w-8,f,30)+`<path d="M${x+w-10} 60 L${x+w} 58 L${x+w} 102 L${x+w-10} 100 Z" fill="url(#g-${gid(f)})"/>`;for(let i=0;i<4;i++)s+=`<rect x="${x+w-3}" y="${60+i*11}" width="3" height="5" fill="#000" opacity=".6"/>`;}
+    else if(name==="Flared"){s+=`<path d="M${x} 65 L${x+w} 58 L${x+w} 102 L${x} 95 Z" fill="url(#g-${gid(f)})"/><rect x="${x+8}" y="63" width="4" height="34" fill="${acc}"/>`;}
+    else if(name==="Vented"){s+=cyl(x,w-6,f,32)+`<rect x="${x+w-8}" y="61" width="8" height="38" rx="2" fill="url(#g-${gid(f)})"/>`;for(let i=0;i<4;i++)s+=`<rect x="${x+8+i*9}" y="67" width="4" height="26" rx="2" fill="#0b0b0d"/>`;}
+    else if(name==="Claw"){s+=cyl(x,w-14,f,32);[[60,-6],[80,0],[100,6]].forEach(([y,d])=>s+=`<path d="M${x+w-16} ${y-4+(d<0?4:0)} L${x+w} ${y+d*0.3} L${x+w-16} ${y+4-(d>0?4:0)} Z" fill="url(#g-${gid(f)})" stroke="${C[3]}" stroke-width=".7"/>`);s+=`<rect x="${x+6}" y="64" width="4" height="32" fill="${acc}"/>`;}
+    else if(name==="Ring stack"){[[0,30],[12,33],[24,36],[36,39]].forEach(([dx,hh])=>s+=`<rect x="${x+dx}" y="${80-hh/2}" width="${Math.min(14,w-dx)}" height="${hh}" rx="2" fill="url(#g-${gid(f)})" stroke="${C[3]}" stroke-width=".7"/>`);}
+    else if(name==="Hooded"){s+=cyl(x,w,f,32)+`<path d="M${x+4} 64 Q${x+w*0.6} 50 ${x+w} 56 L${x+w} 72 L${x+4} 72 Z" fill="url(#g-${gid(f)})" stroke="${C[3]}" stroke-width=".8"/><rect x="${x+10}" y="74" width="${w-16}" height="3" fill="${acc}"/>`;}
+    else{s+=`<path d="M${x} 63 L${x+w} 68 L${x+w} 92 L${x} 97 Z" fill="url(#g-${gid(f)})"/><rect x="${x+w-6}" y="68" width="3" height="24" fill="${C[3]}"/>`;}
   }
   return s;
 }
@@ -785,7 +802,7 @@ function bladeSVG(x,len,dir,col,vertical){
 function renderSaber(){
   const f=saber.finish,acc=ACC[saber.accent],col=BLADES[saber.blade];
   const len={Short:300,Standard:470,Long:560}[saber.length];
-  const defs=`<defs>${Object.keys(FIN).map(k=>{const c=FIN[k];return `<linearGradient id="g-${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[2]}"/><stop offset=".28" stop-color="${c[0]}"/><stop offset=".55" stop-color="${c[1]}"/><stop offset="1" stop-color="${c[3]}"/></linearGradient>`}).join("")}
+  const defs=`<defs>${Object.keys(FIN).map(k=>{const c=FIN[k];return `<linearGradient id="g-${gid(k)}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[2]}"/><stop offset=".28" stop-color="${c[0]}"/><stop offset=".55" stop-color="${c[1]}"/><stop offset="1" stop-color="${c[3]}"/></linearGradient>`}).join("")}
    <filter id="glow" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="4"/></filter><filter id="glow2" x="-20%" y="-300%" width="140%" height="700%"><feGaussianBlur stdDeviation="12"/></filter></defs>`;
   let hilt="",blades="";const W=1000;
   if(saber.style==="Saberstaff"){
@@ -802,8 +819,15 @@ function renderSaber(){
     hilt=partSVG("pommel",saber.pommel,x,pw,f,acc)+partSVG("grip",saber.grip,x+pw,gw,f,acc)+partSVG("sw",saber.sw,x+pw+gw,sw,f,acc)+partSVG("emitter",saber.emitter,x+pw+gw+sw,ew,f,acc);
     const bx=x+total;
     blades=bladeSVG(bx,len,1,col);
-    if(saber.style==="Crossguard"){const qx=bx-14;hilt+=`<rect x="${qx-8}" y="56" width="16" height="48" rx="3" fill="url(#g-${f})"/>`;blades+=bladeSVG(qx,62,-1,col,true)+bladeSVG(qx,62,1,col,true);}
+    if(saber.style==="Crossguard"){const qx=bx-14;hilt+=`<rect x="${qx-8}" y="56" width="16" height="48" rx="3" fill="url(#g-${gid(f)})"/>`;blades+=bladeSVG(qx,62,-1,col,true)+bladeSVG(qx,62,1,col,true);}
   }
+  if(saber.wear==="Battle-worn"){let sd=7+saber.emitter.length*3+saber.grip.length;const rnd=()=>((sd=(sd*9301+49297)%233280)/233280);
+    const [hx0,hx1]=saber.style==="Saberstaff"?[(W-2*(46+60+90))/2,(W+2*(46+60+90))/2]:[40,322];let wr=`<g opacity=".85" style="mix-blend-mode:multiply">`;
+    for(let i=0;i<26;i++){const sx=hx0+rnd()*(hx1-hx0),sy=65+rnd()*30,ln=4+rnd()*14;wr+=`<path d="M${sx} ${sy} l${ln} ${(rnd()-.5)*4}" stroke="#3a3128" stroke-width="${.6+rnd()}" stroke-linecap="round" opacity="${.35+rnd()*.4}"/>`;}
+    for(let i=0;i<9;i++){wr+=`<circle cx="${hx0+rnd()*(hx1-hx0)}" cy="${66+rnd()*28}" r="${1.5+rnd()*4}" fill="#4a3a2a" opacity="${.25+rnd()*.3}"/>`;}
+    wr+=`<rect x="${hx0}" y="64" width="${hx1-hx0}" height="32" fill="#5a4a3a" opacity=".18"/></g>`;
+    for(let i=0;i<14;i++){const sx=hx0+rnd()*(hx1-hx0),sy=66+rnd()*28;wr+=`<path d="M${sx} ${sy} l${3+rnd()*9} ${(rnd()-.5)*3}" stroke="#fff" stroke-width=".6" opacity=".45"/>`;}
+    hilt+=wr;}
   const glowBg=`<ellipse class="blade" style="transform-box:fill-box;transform-origin:${saber.style==="Saberstaff"?"center":"left center"}" cx="${saber.style==="Saberstaff"?500:560}" cy="80" rx="${saber.style==="Saberstaff"?480:300}" ry="45" fill="${col}" opacity=".10" filter="url(#glow2)"/>`;
   $("#stage").innerHTML=`<svg viewBox="0 0 1000 160" class="${lit?"hum":"saber-off"}" role="img" aria-label="Lightsaber preview">${defs}${glowBg}${blades}${hilt}</svg>`;
   updIgnite();
@@ -814,7 +838,7 @@ function updIgnite(){const col=BLADES[saber.blade];const b=$("#ignite");b.textCo
 function renderSaberOpts(){
   const grp=(label,key,list)=>`<div class="optgrp"><label>${label}</label><div class="chips">${list.map(v=>`<button data-k="${key}" data-v="${esc(v)}" class="${saber[key]===v?"on":""}">${esc(v)}</button>`).join("")}</div></div>`;
   const sw=(label,key,map)=>`<div class="optgrp"><label>${label}</label><div class="chips">${Object.keys(map).map(v=>`<button title="${v}" aria-label="${v}" class="sw ${saber[key]===v?"on":""}" data-k="${key}" data-v="${v}" style="background:${key==="finish"?`linear-gradient(${FIN[v][0]},${FIN[v][1]})`:map[v]};color:${key==="blade"?map[v]:"#888"}"></button>`).join("")}</div></div>`;
-  $("#saberOpts").innerHTML=sw("Blade color","blade",BLADES)+grp("Blade style","style",["Single","Saberstaff","Crossguard"])+grp("Blade length","length",["Short","Standard","Long"])+sw("Hilt finish","finish",FIN)+sw("Accent","accent",ACC)+grp("Emitter","emitter",PARTS.emitter)+grp("Activation","sw",PARTS.sw)+grp("Grip","grip",PARTS.grip)+(saber.style==="Saberstaff"?"":grp("Pommel","pommel",PARTS.pommel));
+  $("#saberOpts").innerHTML=sw("Blade color","blade",BLADES)+grp("Blade style","style",["Single","Saberstaff","Crossguard"])+grp("Blade length","length",["Short","Standard","Long"])+sw("Hilt finish","finish",FIN)+grp("Condition","wear",["Factory new","Battle-worn"])+sw("Accent","accent",ACC)+grp("Emitter","emitter",PARTS.emitter)+grp("Activation","sw",PARTS.sw)+grp("Grip","grip",PARTS.grip)+(saber.style==="Saberstaff"?"":grp("Pommel","pommel",PARTS.pommel));
 }
 function hum(on){
   if(!sound)return;
@@ -841,7 +865,7 @@ function wireSaber(){
   $("#ignite").onclick=()=>{lit=!lit;const svg=$("#stage svg");svg.classList.toggle("saber-off",!lit);svg.classList.toggle("hum",lit);updIgnite();hum(lit);};
   $("#soundBtn").textContent="Sound: "+(sound?"on":"off");
   $("#soundBtn").onclick=()=>{if(sound&&lit)hum(false);sound=!sound;lsSet("hq_sound",sound);$("#soundBtn").textContent="Sound: "+(sound?"on":"off");if(sound&&lit)hum(true);};
-  $("#randSaber").onclick=()=>{const pick=a=>a[Math.floor(Math.random()*a.length)];saber={emitter:pick(PARTS.emitter),sw:pick(PARTS.sw),grip:pick(PARTS.grip),pommel:pick(PARTS.pommel),finish:pick(Object.keys(FIN)),accent:pick(Object.keys(ACC)),blade:pick(Object.keys(BLADES)),style:Math.random()<.7?"Single":pick(["Saberstaff","Crossguard"]),length:pick(["Short","Standard","Standard","Long"])};renderSaberOpts();renderSaber();};
+  $("#randSaber").onclick=()=>{const pick=a=>a[Math.floor(Math.random()*a.length)];saber={emitter:pick(PARTS.emitter),sw:pick(PARTS.sw),grip:pick(PARTS.grip),pommel:pick(PARTS.pommel),finish:pick(Object.keys(FIN)),accent:pick(Object.keys(ACC)),blade:pick(Object.keys(BLADES)),style:Math.random()<.7?"Single":pick(["Saberstaff","Crossguard"]),length:pick(["Short","Standard","Standard","Long"]),wear:Math.random()<.35?"Battle-worn":"Factory new"};renderSaberOpts();renderSaber();};
   $("#saveSaber").onclick=async()=>{const name=($("#saberName").value||"").trim()||`${saber.blade} ${saber.style==="Single"?"saber":saber.style.toLowerCase()}`;Store.profile.sabers=(Store.profile.sabers||[]).concat([Object.assign({name},saber)]).slice(-30);await Store.saveProfile();savedSabers();$("#saberName").value="";toast(`Saved “${name}” to your collection`);};
   $("#savedSabers").addEventListener("click",async e=>{const d=e.target.closest("[data-del]");if(d){e.stopPropagation();const i=+d.dataset.del;const s=Store.profile.sabers[i];if(await confirmBox(`Delete “${s.name}” from your collection?`)){Store.profile.sabers.splice(i,1);await Store.saveProfile();savedSabers();}return;}const c=e.target.closest(".ss");if(c){const s=Store.profile.sabers[+c.dataset.i];saber=Object.assign({},s);delete saber.name;$("#saberName").value=s.name;renderSaberOpts();renderSaber();$("#stage").scrollIntoView({behavior:"smooth",block:"center"});}});
 }
