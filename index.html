@@ -344,15 +344,16 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
   </div>
   <div class="subp" data-tab="nfl" data-sub="stats">
   <div class="card" style="margin-bottom:16px"><h3>League leaders <span class="tag" id="leadTag"></span></h3><div class="leaders" id="leaders"></div></div>
-  <div class="card" style="margin-bottom:16px"><h3>Player stats <span class="tag">Filter by team, position or stat · tap a column to sort</span></h3>
+  <div class="card" style="margin-bottom:16px"><h3>Player stats <span class="tag" id="psTag">Filter by team, position or stat group · tap a column to sort</span></h3>
     <div class="row" style="margin-bottom:10px">
+      <input type="text" id="psSearch" placeholder="Search player" style="width:170px">
       <label class="small muted">Team <select id="psTeam"></select></label>
-      <label class="small muted">Position <select id="psPos"><option value="">All</option><option>QB</option><option>RB</option><option>WR</option><option value="DL">DL / Edge</option><option>LB</option><option value="DB">DB (CB/S)</option></select></label>
-      <label class="small muted">Stat <select id="psCat"></select></label>
+      <label class="small muted">Position <select id="psPos"><option value="">All</option><option>QB</option><option>RB</option><option>WR</option><option>TE</option><option value="DL">DL (DE/DT)</option><option>LB</option><option value="DB">DB (CB/S)</option></select></label>
+      <label class="small muted">Stats <select id="psView"><option value="all">All stats</option><option value="pass">Passing</option><option value="rush">Rushing</option><option value="rec">Receiving</option><option value="def">Defense</option></select></label>
       <span class="sp"></span><span class="small dim" id="psCount"></span>
     </div>
     <div style="overflow-x:auto"><div id="playerStats"></div></div>
-    <div class="small dim" style="margin-top:8px">Shows the top 5 in each category from ESPN. Positions: DL/Edge includes DE; DB includes CB and S.</div>
+    <div class="small dim" style="margin-top:8px" id="psNote"></div>
   </div>
   <div class="card"><h3>Team stats <span class="tag" id="tsTag"></span></h3>
     <div class="row" style="margin-bottom:10px"><label class="small muted">Conference <select id="tsConf"><option value="">All</option><option>AFC</option><option>NFC</option></select></label><label class="small muted">Division <select id="tsDiv"><option value="">All</option></select></label></div>
@@ -1144,23 +1145,40 @@ function renderStats(){
   $("#teamStats").innerHTML=`<table><thead><tr><th class="num">#</th>${th("name","Team")}${th("pct","Record",1)}${th("tot","Total TD",1)}${th("pg","TD / game",1)}${th("rush","Rush TD",1)}${th("rec","Pass TD",1)}</tr></thead><tbody>${rows.map((r,i)=>`<tr class="click ${r.t===nflTeam?"me":""}" data-ab="${r.t}"><td class="num dim">${i+1}</td><td><span class="chip">${r.t}</span>${esc(r.name)}</td><td class="num">${r.w}-${r.l}</td><td class="num"><b>${r.tot}</b><span class="tbar" style="width:${Math.round(r.tot/max*60)}px"></span></td><td class="num">${r.pg.toFixed(2)}</td><td class="num">${r.rush}</td><td class="num">${r.rec}</td></tr>`).join("")}</tbody></table>`;
 }
 
-let psSort="v",psDir=-1;
-const POSGRP={QB:"QB",RB:"RB",WR:"WR",TE:"WR",DE:"DL",DT:"DL",LB:"LB",CB:"DB",S:"DB"};
-function playerRows(){const L=F.nfl.leaders;const out=[];if(!L)return out;L.cats.forEach(c=>c.rows.forEach((r,i)=>out.push({n:r[0],t:r[1],v:r[2],pos:r[3]||"",cat:c.name,rk:i+1})));return out;}
+let psSort="tot",psDir=-1,psView="all";
+const POSGRP={QB:"QB",RB:"RB",FB:"RB",WR:"WR",TE:"TE",DE:"DL",DT:"DL",NT:"DL",LB:"LB",CB:"DB",S:"DB",DB:"DB"};
+const PS_COLS={
+ all:[["gp","GP"],["tot","Total yds"],["pyds","Pass yds"],["ptd","Pass TD"],["pint","INT"],["ryds","Rush yds"],["rtd","Rush TD"],["rec","Rec"],["cyds","Rec yds"],["ctd","Rec TD"],["tkl","Tkl"],["sck","Sacks"],["dint","Def INT"]],
+ pass:[["gp","GP"],["cmp","Cmp"],["att","Att"],["pct","Cmp%"],["pyds","Yds"],["ptd","TD"],["pint","INT"],["rate","Rating"]],
+ rush:[["gp","GP"],["ratt","Att"],["ryds","Yds"],["ravg","Avg"],["rtd","TD"],["rlng","Long"]],
+ rec:[["gp","GP"],["rec","Rec"],["cyds","Yds"],["cavg","Avg"],["ctd","TD"],["clng","Long"]],
+ def:[["gp","GP"],["tkl","Tackles"],["sck","Sacks"],["dint","INT"],["ff","FF"],["pd","PD"]]};
+const PS_DEFAULT={all:"tot",pass:"pyds",rush:"ryds",rec:"cyds",def:"tkl"};
+function flatPlayers(){return (F.nfl.players||[]).map(p=>{const o={n:p.n,pos:p.pos,t:p.t,gp:p.gp,has:{pass:!!p.pass,rush:!!p.rush,rec:!!p.rec,def:!!p.def}};
+  if(p.pass){const[c,a,y,td,i,r]=p.pass;Object.assign(o,{cmp:c,att:a,pct:a?+(c/a*100).toFixed(1):null,pyds:y,ptd:td,pint:i,rate:r});}
+  if(p.rush){const[a,y,td,l]=p.rush;Object.assign(o,{ratt:a,ryds:y,ravg:a?+(y/a).toFixed(1):null,rtd:td,rlng:l});}
+  if(p.rec){const[r,y,td,l]=p.rec;Object.assign(o,{rec:r,cyds:y,cavg:r?+(y/r).toFixed(1):null,ctd:td,clng:l});}
+  if(p.def){const[tk,sk,i,ff,pd]=p.def;Object.assign(o,{tkl:tk,sck:sk,dint:i,ff,pd});}
+  const ys=[o.pyds,o.ryds,o.cyds].filter(v=>v!=null);o.tot=ys.length?ys.reduce((a,b)=>a+b,0):null;return o;});}
+let PS_ROWS=null;
 function renderPlayerStats(){
-  const team_=$("#psTeam").value,pos_=$("#psPos").value,cat_=$("#psCat").value;
-  let rows=playerRows().filter(r=>(!team_||r.t===team_)&&(!pos_||POSGRP[r.pos]===pos_)&&(!cat_||r.cat===cat_));
-  const k=psSort;rows.sort((a,b)=>{let x=a[k],y=b[k];if(typeof x==="string")return x.localeCompare(y)*psDir*-1;return (x-y)*psDir||a.cat.localeCompare(b.cat);});
+  if(!PS_ROWS)PS_ROWS=flatPlayers();
+  const q=($("#psSearch").value||"").trim().toLowerCase(),tm=$("#psTeam").value,pos=$("#psPos").value;psView=$("#psView").value;
+  const cols=PS_COLS[psView];if(!cols.some(c=>c[0]===psSort)&&!["n","pos","t"].includes(psSort)){psSort=PS_DEFAULT[psView];psDir=-1;}
+  let rows=PS_ROWS.filter(r=>(!q||r.n.toLowerCase().includes(q))&&(!tm||r.t===tm)&&(!pos||POSGRP[r.pos]===pos)&&(psView==="all"||r.has[psView]));
+  const k=psSort;rows.sort((a,b)=>{const x=a[k],y=b[k];if(typeof x==="string"||typeof y==="string")return String(x||"").localeCompare(String(y||""))*(psDir<0?-1:1);if(x==null&&y==null)return a.n.localeCompare(b.n);if(x==null)return 1;if(y==null)return -1;return (x-y)*psDir||a.n.localeCompare(b.n);});
   $("#psCount").textContent=`${rows.length} player${rows.length===1?"":"s"}`;
+  const fmt=v=>v==null?'<span class="dim">–</span>':(typeof v==="number"?v.toLocaleString():esc(v));
   const th=(key,l,num)=>`<th class="sort ${num?"num":""} ${psSort===key?"on":""}" data-p="${key}">${l}${psSort===key?(psDir<0?" ↓":" ↑"):""}</th>`;
-  $("#playerStats").innerHTML=rows.length?`<table><thead><tr>${th("n","Player")}${th("pos","Pos")}${th("t","Team")}${th("cat","Stat")}${th("v","Value",1)}${th("rk","League rank",1)}</tr></thead><tbody>${rows.map(r=>`<tr class="${r.t===nflTeam?"me":""}"><td><b>${esc(r.n)}</b></td><td>${esc(r.pos)}</td><td><span class="chip">${r.t}</span>${esc(short(r.t))}</td><td class="muted">${esc(r.cat)}</td><td class="num"><b>${Number(r.v).toLocaleString()}</b></td><td class="num dim">#${r.rk}</td></tr>`).join("")}</tbody></table>`:`<div class="empty">No leaders match those filters. Try "All" for team or position.</div>`;
+  const shown=rows.slice(0,250);
+  $("#playerStats").innerHTML=rows.length?`<table><thead><tr>${th("n","Player")}${th("pos","Pos")}${th("t","Team")}${cols.map(c=>th(c[0],c[1],1)).join("")}</tr></thead><tbody>${shown.map(r=>`<tr class="${r.t===nflTeam?"me":""}"><td><b>${esc(r.n)}</b></td><td>${esc(r.pos)}</td><td><span class="chip">${r.t}</span></td>${cols.map(c=>`<td class="num">${fmt(r[c[0]])}</td>`).join("")}</tr>`).join("")}</tbody></table>`:`<div class="empty">No players match those filters.</div>`;
 }
 function wirePlayerStats(){
-  if(!F.nfl.leaders)return;
+  if(!F.nfl.players)return;
+  const S=F.nfl.playersSource||{};$("#psNote").innerHTML=`${esc(S.note||"")} Source: <a href="${esc(S.url)}" target="_blank" rel="noopener">${esc(S.name)}</a>, 2026-27 regular season.`;
   $("#psTeam").innerHTML=`<option value="">All teams</option>`+F.nfl.standings.slice().sort((a,b)=>a.name.localeCompare(b.name)).map(t=>`<option value="${t.abbr}">${esc(t.name)}</option>`).join("");
-  $("#psCat").innerHTML=`<option value="">All stats</option>`+F.nfl.leaders.cats.map(c=>`<option>${esc(c.name)}</option>`).join("");
-  ["#psTeam","#psPos","#psCat"].forEach(id=>$(id).onchange=renderPlayerStats);
-  $("#playerStats").addEventListener("click",e=>{const th=e.target.closest("th[data-p]");if(!th)return;const k=th.dataset.p;if(psSort===k)psDir*=-1;else{psSort=k;psDir=(k==="v")?-1:(k==="rk"?1:1);}renderPlayerStats();});
+  ["#psTeam","#psPos","#psView"].forEach(id=>$(id).onchange=renderPlayerStats);$("#psSearch").oninput=renderPlayerStats;
+  $("#playerStats").addEventListener("click",e=>{const th=e.target.closest("th[data-p]");if(!th)return;const k=th.dataset.p;if(psSort===k)psDir*=-1;else{psSort=k;psDir=["n","pos","t"].includes(k)?-1:-1;if(["n","pos","t"].includes(k))psDir=1;}renderPlayerStats();});
   const divs=[...new Set(F.nfl.standings.map(t=>t.div))].sort();$("#tsDiv").innerHTML=`<option value="">All</option>`+divs.map(d=>`<option>${d}</option>`).join("");
   $("#tsConf").onchange=()=>{const c=$("#tsConf").value;$("#tsDiv").innerHTML=`<option value="">All</option>`+divs.filter(d=>!c||d.startsWith(c)).map(d=>`<option>${d}</option>`).join("");renderStats();};
   $("#tsDiv").onchange=renderStats;
