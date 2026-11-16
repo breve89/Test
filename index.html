@@ -207,8 +207,14 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .show .dt span{font-size:11px;color:var(--muted);text-transform:uppercase}
 
 
+/* sub-tabs */
+.subp{display:none}.subp.on{display:block}
+.subnav{display:flex;align-items:center;gap:8px}
+.subsel{font-weight:700;font-size:15px;padding:8px 34px 8px 12px;border-radius:10px;border:1px solid var(--tc,var(--accent));background:var(--panel2);appearance:none;-webkit-appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 17px) 55%,calc(100% - 12px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+#t-nfl{--tc:var(--nfl)}#t-starwars{--tc:var(--sw)}#t-games{--tc:var(--vg)}#t-wwe{--tc:var(--wwe)}
+label.small select{margin-left:4px}
 /* stats */
-.leaders{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.leaders{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
 .ld{background:var(--panel2);border-radius:12px;padding:10px 12px}
 .ld .h{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
 .ld .r{display:flex;align-items:center;gap:8px;font-size:14px;padding:4px 0}
@@ -245,7 +251,8 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 /* banners */
 .banner{border-radius:16px;overflow:hidden;border:1px solid var(--line);margin-bottom:18px;position:relative;height:150px}
 .banner svg{display:block;width:100%;height:100%}
-.banner .bt{position:absolute;left:22px;bottom:16px}
+.banner:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,8,12,.75) 0%,rgba(6,8,12,.35) 30%,transparent 55%);pointer-events:none}
+.banner .bt{position:absolute;left:22px;bottom:16px;z-index:1}
 .banner .bt h2{font-size:38px;text-transform:uppercase;line-height:1;text-shadow:0 2px 12px rgba(0,0,0,.6)}
 .banner .bt .sub{color:#d6dbe6;font-size:14px;text-shadow:0 1px 8px rgba(0,0,0,.8)}
 @media (max-width:640px){.banner{height:120px}.banner .bt h2{font-size:30px}}
@@ -309,23 +316,15 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 <!-- NFL -->
 <section class="tab" id="t-nfl">
   <div class="tabhead"><h2 style="color:var(--nfl)">NFL</h2><span class="sub" id="nflWeek"></span>
-    <div class="teamsel" style="margin-left:auto"><span class="small muted">Team</span><select id="teamSel"></select></div>
+    <div class="row" style="margin-left:auto;gap:12px"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="nfl"><option value="overview">Team & scores</option><option value="picks">My picks</option><option value="stats">Stats</option><option value="trivia">Trivia</option></select></div>
+    <div class="teamsel"><span class="small muted">Team</span><select id="teamSel"></select></div></div>
   </div>
-  <div class="card" id="picksCard" style="margin-bottom:16px;border-color:#3a1d25">
-    <h3><span id="picksTitle">My picks</span><span class="seg" id="pickSort" style="margin-left:auto"><button data-v="time" class="on">By kickoff</button><button data-v="conf">By confidence</button></span></h3>
-    <div class="rec" id="pickRec"></div>
-    <div id="pickList"></div>
-    <div class="row" style="margin-top:12px"><button class="btn sm" id="copyPicks">Copy picks</button><button class="btn sm ghost" id="resetPicks">Reset to my picks</button><span class="sp"></span><span class="small dim" id="pickNote"></span></div>
-    <div class="small dim" id="pickSrc" style="margin-top:8px"></div>
-  </div>
-  <div class="card" style="margin-bottom:16px"><h3>League leaders <span class="tag" id="leadTag"></span></h3><div class="leaders" id="leaders"></div></div>
-  <div class="card" style="margin-bottom:16px"><h3>Team stats <span class="tag" id="tsTag"></span></h3><div style="overflow-x:auto"><div id="teamStats"></div></div></div>
+  <div class="subp" data-tab="nfl" data-sub="overview">
   <div class="cols">
     <div class="grid">
       <div class="card" id="teamCard"></div>
       <div class="card"><h3>Team news <span class="tag" id="teamNewsTag"></span></h3><div class="news" id="teamNews"></div></div>
       <div class="card"><h3>NFL podcasts</h3><div id="podsNfl"></div></div>
-      <div class="card quiz" style="--qc:var(--nfl)"><h3>NFL trivia <span class="tag" id="nflBest"></span></h3><div id="quiz-nfl"></div></div>
     </div>
     <div class="grid" style="align-content:start">
       <div class="card"><h3><span id="divName">Division</span> standings</h3><div id="divTable"></div></div>
@@ -333,12 +332,42 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
       <div class="card"><h3>Conference standings <span class="seg" id="confSeg" style="margin-left:auto"><button data-v="AFC" class="on">AFC</button><button data-v="NFC">NFC</button></span></h3><div id="confTable"></div></div>
     </div>
   </div>
+  </div>
+  <div class="subp" data-tab="nfl" data-sub="picks">
+  <div class="card" id="picksCard" style="border-color:#3a1d25">
+    <h3><span id="picksTitle">My picks</span><span class="seg" id="pickSort" style="margin-left:auto"><button data-v="time" class="on">By kickoff</button><button data-v="conf">By confidence</button></span></h3>
+    <div class="rec" id="pickRec"></div>
+    <div id="pickList"></div>
+    <div class="row" style="margin-top:12px"><button class="btn sm" id="copyPicks">Copy picks</button><button class="btn sm ghost" id="resetPicks">Reset to my picks</button><span class="sp"></span><span class="small dim" id="pickNote"></span></div>
+    <div class="small dim" id="pickSrc" style="margin-top:8px"></div>
+  </div>
+  </div>
+  <div class="subp" data-tab="nfl" data-sub="stats">
+  <div class="card" style="margin-bottom:16px"><h3>League leaders <span class="tag" id="leadTag"></span></h3><div class="leaders" id="leaders"></div></div>
+  <div class="card" style="margin-bottom:16px"><h3>Player stats <span class="tag">Filter by team, position or stat · tap a column to sort</span></h3>
+    <div class="row" style="margin-bottom:10px">
+      <label class="small muted">Team <select id="psTeam"></select></label>
+      <label class="small muted">Position <select id="psPos"><option value="">All</option><option>QB</option><option>RB</option><option>WR</option><option value="DL">DL / Edge</option><option>LB</option><option value="DB">DB (CB/S)</option></select></label>
+      <label class="small muted">Stat <select id="psCat"></select></label>
+      <span class="sp"></span><span class="small dim" id="psCount"></span>
+    </div>
+    <div style="overflow-x:auto"><div id="playerStats"></div></div>
+    <div class="small dim" style="margin-top:8px">Shows the top 5 in each category from ESPN. Positions: DL/Edge includes DE; DB includes CB and S.</div>
+  </div>
+  <div class="card"><h3>Team stats <span class="tag" id="tsTag"></span></h3>
+    <div class="row" style="margin-bottom:10px"><label class="small muted">Conference <select id="tsConf"><option value="">All</option><option>AFC</option><option>NFC</option></select></label><label class="small muted">Division <select id="tsDiv"><option value="">All</option></select></label></div>
+    <div style="overflow-x:auto"><div id="teamStats"></div></div></div>
+  </div>
+  <div class="subp" data-tab="nfl" data-sub="trivia">
+    <div class="card quiz" style="--qc:var(--nfl);max-width:760px"><h3>NFL trivia <span class="tag" id="nflBest"></span></h3><div id="quiz-nfl"></div></div>
+  </div>
 </section>
 
 <!-- STAR WARS -->
 <section class="tab" id="t-starwars">
-  <div class="tabhead"><h2 style="color:var(--sw)">Star Wars</h2><span class="sub">News, saber workshop and trivia</span></div>
-  <div class="card" style="margin-bottom:16px">
+  <div class="tabhead"><h2 style="color:var(--sw)">Star Wars</h2><span class="sub">News, saber workshop and trivia</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="starwars"><option value="news">News</option><option value="saber">Lightsaber workshop</option><option value="trivia">Trivia</option></select></div></div></div>
+  <div class="subp" data-tab="starwars" data-sub="saber">
+  <div class="card">
     <h3>Lightsaber workshop <span class="tag">Build it, ignite it, save it</span></h3>
     <div class="saberstage" id="stage"></div>
     <div class="row" style="margin:12px 0 14px">
@@ -353,15 +382,15 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
     <div class="small muted" id="kyberNote" style="margin-top:12px"></div>
     <div id="savedWrap" style="margin-top:14px;display:none"><div class="small muted" style="font-weight:600;text-transform:uppercase;letter-spacing:.05em">Your collection</div><div class="savedsabers" id="savedSabers"></div></div>
   </div>
-  <div class="cols">
-    <div class="card"><h3>Latest from the galaxy</h3><div class="news" id="swNews"></div></div>
-    <div class="card quiz" style="--qc:var(--sw)"><h3>Star Wars trivia <span class="tag" id="swBest"></span></h3><div id="quiz-sw"></div></div>
   </div>
+  <div class="subp" data-tab="starwars" data-sub="news"><div class="card" style="max-width:900px"><h3>Latest from the galaxy</h3><div class="news" id="swNews"></div></div></div>
+  <div class="subp" data-tab="starwars" data-sub="trivia"><div class="card quiz" style="--qc:var(--sw);max-width:760px"><h3>Star Wars trivia <span class="tag" id="swBest"></span></h3><div id="quiz-sw"></div></div></div>
 </section>
 
 <!-- VIDEO GAMES -->
 <section class="tab" id="t-games">
-  <div class="tabhead"><h2 style="color:var(--vg)">Video Games</h2><span class="sub" id="gtaLine"></span></div>
+  <div class="tabhead"><h2 style="color:var(--vg)">Video Games</h2><span class="sub" id="gtaLine"></span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="games"><option value="news">News & deals</option><option value="trivia">Trivia</option></select></div></div></div>
+  <div class="subp" data-tab="games" data-sub="news">
   <div class="plat" id="platBtns"></div>
   <div class="cols">
     <div class="card"><h3 id="platNewsH">News</h3><div class="news" id="platNews"></div></div>
@@ -370,7 +399,8 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
       <div class="card"><h3>All live deals</h3><div id="allDeals"></div></div>
     </div>
   </div>
-  <div class="card quiz" style="--qc:var(--vg);margin-top:16px"><h3>Video game trivia <span class="tag" id="vgBest"></span></h3><div id="quiz-vg"></div></div>
+  </div>
+  <div class="subp" data-tab="games" data-sub="trivia"><div class="card quiz" style="--qc:var(--vg);max-width:760px"><h3>Video game trivia <span class="tag" id="vgBest"></span></h3><div id="quiz-vg"></div></div></div>
 </section>
 
 <!-- WORKOUTS -->
@@ -407,7 +437,8 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 
 <!-- WWE -->
 <section class="tab" id="t-wwe">
-  <div class="tabhead"><h2 style="color:var(--wwe)">WWE</h2><span class="sub">News and upcoming premium live events</span></div>
+  <div class="tabhead"><h2 style="color:var(--wwe)">WWE</h2><span class="sub">News and upcoming premium live events</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="wwe"><option value="news">News & PPV card</option><option value="trivia">Trivia</option></select></div></div></div>
+  <div class="subp" data-tab="wwe" data-sub="news">
   <div class="cols">
     <div class="grid" style="align-content:start">
       <div id="wweEvents" class="grid"></div>
@@ -416,9 +447,10 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
     <div class="grid" style="align-content:start">
       <div class="card"><h3>Upcoming shows</h3><div id="wweShows"></div></div>
       <div class="card"><h3>WWE podcast</h3><div id="podsWwe"></div></div>
-      <div class="card quiz" style="--qc:var(--wwe)"><h3>WWE trivia <span class="tag" id="wweBest"></span></h3><div id="quiz-wwe"></div></div>
     </div>
   </div>
+  </div>
+  <div class="subp" data-tab="wwe" data-sub="trivia"><div class="card quiz" style="--qc:var(--wwe);max-width:760px"><h3>WWE trivia <span class="tag" id="wweBest"></span></h3><div id="quiz-wwe"></div></div></div>
 </section>
 
 </div>
@@ -455,7 +487,12 @@ function newsList(items,el,emptyMsg){
 
 /* ---------- tabs ---------- */
 const TABS=["home","nfl","starwars","games","workouts","wwe"];
-function showTab(){let t=(location.hash||"#home").slice(1);if(!TABS.includes(t))t="home";$$("section.tab").forEach(s=>s.classList.toggle("on",s.id==="t-"+t));$$("nav a").forEach(a=>a.classList.toggle("on",a.dataset.t===t));window.scrollTo(0,0);}
+const SUBS={nfl:["overview","picks","stats","trivia"],starwars:["news","saber","trivia"],games:["news","trivia"],wwe:["news","trivia"]};
+const subState=lsGet("hq_subs",{});
+function showSub(tab,sub){if(!SUBS[tab])return;if(!SUBS[tab].includes(sub))sub=subState[tab]||SUBS[tab][0];subState[tab]=sub;lsSet("hq_subs",subState);
+  $$(`.subp[data-tab="${tab}"]`).forEach(p=>p.classList.toggle("on",p.dataset.sub===sub));const sel=$(`.subsel[data-tab="${tab}"]`);if(sel)sel.value=sub;}
+function showTab(){let raw=(location.hash||"#home").slice(1);let [t,sb]=raw.split("-");if(!TABS.includes(t))t="home";showSub(t,sb);$$("section.tab").forEach(s=>s.classList.toggle("on",s.id==="t-"+t));$$("nav a").forEach(a=>a.classList.toggle("on",a.dataset.t===t));window.scrollTo(0,0);}
+document.addEventListener("change",e=>{const s=e.target.closest(".subsel");if(s){location.hash=s.dataset.tab+"-"+s.value;}});
 window.addEventListener("hashchange",showTab);
 
 /* =====================================================
@@ -932,7 +969,7 @@ function renderHome(){
   const cds=[
     {c:"var(--fit)",k:"Gym this week",v:`${wk} day${wk===1?"":"s"}`,d:wk?"Keep it rolling":"Log your first session this week",t:"workouts"},
     {c:"var(--vg)",k:"Live game deals",v:liveDeals,d:"Across PC, PlayStation, Xbox, Nintendo",t:"games"},
-    {c:"var(--nfl)",k:"My pick'em",v:F.nfl.picks?F.nfl.picks.games.filter(g=>!g.week||g.week===F.nfl.picks.week).length+" picks":"—",d:F.nfl.picks?F.nfl.picks.label:"",t:"nfl"},
+    {c:"var(--nfl)",k:"My pick'em",v:F.nfl.picks?F.nfl.picks.games.filter(g=>!g.week||g.week===F.nfl.picks.week).length+" picks":"—",d:F.nfl.picks?F.nfl.picks.label:"",t:"nfl-picks"},
     {c:"var(--sw)",k:"New podcast episodes",v:newPods,d:"Cody Rhodes · Gronk & Jules · Games with Names",t:"nfl"}
   ];
 
@@ -1099,11 +1136,35 @@ function renderStats(){
     $("#leaders").innerHTML=L.cats.map(c=>`<div class="ld"><div class="h">${esc(c.name)}</div>${c.rows.map((r,i)=>`<div class="r ${i===0?"top":""} ${r[1]===nflTeam?"me":""}"><span class="dim" style="width:14px">${i+1}</span><span class="chip">${r[1]}</span><span class="n">${esc(r[0])}</span><span class="v">${Number(r[2]).toLocaleString()}</span></div>`).join("")}</div>`).join("");}
   const T=F.nfl.teamStats;if(!T)return;
   $("#tsTag").innerHTML=`Offensive touchdowns · <a href="${esc(T.url)}" target="_blank" rel="noopener">${esc(T.source)}</a> · tap a column to sort`;
-  const rows=T.rows.map(r=>{const t=team(r.t);const gp=(t.w||0)+(t.l||0);return Object.assign({name:t.name,w:t.w,l:t.l,gp,pg:gp?r.tot/gp:0,pct:gp?t.w/gp:0},r);});
+  const cf=$("#tsConf")?$("#tsConf").value:"",df=$("#tsDiv")?$("#tsDiv").value:"";
+  const rows=T.rows.filter(r=>{const t=team(r.t);return (!cf||t.conf===cf)&&(!df||t.div===df);}).map(r=>{const t=team(r.t);const gp=(t.w||0)+(t.l||0);return Object.assign({name:t.name,w:t.w,l:t.l,gp,pg:gp?r.tot/gp:0,pct:gp?t.w/gp:0},r);});
   rows.sort((a,b)=>tsSort==="name"?a.name.localeCompare(b.name)*tsDir*-1:(a[tsSort]-b[tsSort])*tsDir);
   const max=Math.max(...rows.map(r=>r.tot));
   const th=(k,l,num)=>`<th class="sort ${num?"num":""} ${tsSort===k?"on":""}" data-s="${k}">${l}${tsSort===k?(tsDir<0?" ↓":" ↑"):""}</th>`;
   $("#teamStats").innerHTML=`<table><thead><tr><th class="num">#</th>${th("name","Team")}${th("pct","Record",1)}${th("tot","Total TD",1)}${th("pg","TD / game",1)}${th("rush","Rush TD",1)}${th("rec","Pass TD",1)}</tr></thead><tbody>${rows.map((r,i)=>`<tr class="click ${r.t===nflTeam?"me":""}" data-ab="${r.t}"><td class="num dim">${i+1}</td><td><span class="chip">${r.t}</span>${esc(r.name)}</td><td class="num">${r.w}-${r.l}</td><td class="num"><b>${r.tot}</b><span class="tbar" style="width:${Math.round(r.tot/max*60)}px"></span></td><td class="num">${r.pg.toFixed(2)}</td><td class="num">${r.rush}</td><td class="num">${r.rec}</td></tr>`).join("")}</tbody></table>`;
+}
+
+let psSort="v",psDir=-1;
+const POSGRP={QB:"QB",RB:"RB",WR:"WR",TE:"WR",DE:"DL",DT:"DL",LB:"LB",CB:"DB",S:"DB"};
+function playerRows(){const L=F.nfl.leaders;const out=[];if(!L)return out;L.cats.forEach(c=>c.rows.forEach((r,i)=>out.push({n:r[0],t:r[1],v:r[2],pos:r[3]||"",cat:c.name,rk:i+1})));return out;}
+function renderPlayerStats(){
+  const team_=$("#psTeam").value,pos_=$("#psPos").value,cat_=$("#psCat").value;
+  let rows=playerRows().filter(r=>(!team_||r.t===team_)&&(!pos_||POSGRP[r.pos]===pos_)&&(!cat_||r.cat===cat_));
+  const k=psSort;rows.sort((a,b)=>{let x=a[k],y=b[k];if(typeof x==="string")return x.localeCompare(y)*psDir*-1;return (x-y)*psDir||a.cat.localeCompare(b.cat);});
+  $("#psCount").textContent=`${rows.length} player${rows.length===1?"":"s"}`;
+  const th=(key,l,num)=>`<th class="sort ${num?"num":""} ${psSort===key?"on":""}" data-p="${key}">${l}${psSort===key?(psDir<0?" ↓":" ↑"):""}</th>`;
+  $("#playerStats").innerHTML=rows.length?`<table><thead><tr>${th("n","Player")}${th("pos","Pos")}${th("t","Team")}${th("cat","Stat")}${th("v","Value",1)}${th("rk","League rank",1)}</tr></thead><tbody>${rows.map(r=>`<tr class="${r.t===nflTeam?"me":""}"><td><b>${esc(r.n)}</b></td><td>${esc(r.pos)}</td><td><span class="chip">${r.t}</span>${esc(short(r.t))}</td><td class="muted">${esc(r.cat)}</td><td class="num"><b>${Number(r.v).toLocaleString()}</b></td><td class="num dim">#${r.rk}</td></tr>`).join("")}</tbody></table>`:`<div class="empty">No leaders match those filters. Try "All" for team or position.</div>`;
+}
+function wirePlayerStats(){
+  if(!F.nfl.leaders)return;
+  $("#psTeam").innerHTML=`<option value="">All teams</option>`+F.nfl.standings.slice().sort((a,b)=>a.name.localeCompare(b.name)).map(t=>`<option value="${t.abbr}">${esc(t.name)}</option>`).join("");
+  $("#psCat").innerHTML=`<option value="">All stats</option>`+F.nfl.leaders.cats.map(c=>`<option>${esc(c.name)}</option>`).join("");
+  ["#psTeam","#psPos","#psCat"].forEach(id=>$(id).onchange=renderPlayerStats);
+  $("#playerStats").addEventListener("click",e=>{const th=e.target.closest("th[data-p]");if(!th)return;const k=th.dataset.p;if(psSort===k)psDir*=-1;else{psSort=k;psDir=(k==="v")?-1:(k==="rk"?1:1);}renderPlayerStats();});
+  const divs=[...new Set(F.nfl.standings.map(t=>t.div))].sort();$("#tsDiv").innerHTML=`<option value="">All</option>`+divs.map(d=>`<option>${d}</option>`).join("");
+  $("#tsConf").onchange=()=>{const c=$("#tsConf").value;$("#tsDiv").innerHTML=`<option value="">All</option>`+divs.filter(d=>!c||d.startsWith(c)).map(d=>`<option>${d}</option>`).join("");renderStats();};
+  $("#tsDiv").onchange=renderStats;
+  renderPlayerStats();
 }
 function wireStats(){$("#teamStats").addEventListener("click",e=>{const th=e.target.closest("th[data-s]");if(!th)return;e.stopPropagation();const k=th.dataset.s;if(tsSort===k)tsDir*=-1;else{tsSort=k;tsDir=k==="name"?1:-1;}renderStats();});}
 /* =====================================================
@@ -1114,7 +1175,7 @@ function boot(){
   if(F&&F.updated){$("#upd").textContent="News updated "+fmtDate(F.updated,{month:"short",day:"numeric"})+", "+fmtTime(F.updated);}
   else $("#upd").textContent="News feed unavailable";
   showTab();
-  if(F){wireNFL();renderNFL();wirePicks();renderPicks();wireStats();renderStats();newsList(F.starwars.news,$("#swNews"));wireGames();renderGames2();renderWWE();}
+  if(F){wireNFL();renderNFL();wirePicks();renderPicks();wireStats();renderStats();wirePlayerStats();newsList(F.starwars.news,$("#swNews"));wireGames();renderGames2();renderWWE();}
   ["nfl","sw","vg","wwe"].forEach(k=>{renderBest(k);startQuiz(k);});
   renderSaberOpts();renderSaber();wireSaber();savedSabers();
   wireWorkouts();renderHome();

@@ -72,12 +72,12 @@ window.FEED = {
     leaders: {
       source:"ESPN",url:"https://www.espn.com/nfl/stats",asOf:"2026-11-16",
       cats:[
-        {name:"Passing yards",rows:[["Jordan Love","GB",2618],["Joe Burrow","CIN",2386],["Dak Prescott","DAL",2381],["Matthew Stafford","LA",2374],["Kirk Cousins","LV",2340]]},
-        {name:"Rushing yards",rows:[["Bijan Robinson","ATL",880],["Kenneth Walker III","KC",872],["Jahmyr Gibbs","DET",847],["Bucky Irving","TB",825],["James Cook III","BUF",814]]},
-        {name:"Receiving yards",rows:[["Jaxon Smith-Njigba","SEA",1036],["CeeDee Lamb","DAL",904],["Christian Watson","GB",879],["Matthew Golden","GB",783],["Tee Higgins","CIN",758]]},
-        {name:"Sacks",rows:[["Will Anderson Jr.","HOU",9.5],["Chase Young","NO",8],["Greg Rousseau","BUF",8],["T.J. Watt","PIT",7.5],["Andrew Van Ginkel","MIN",7.5]]},
-        {name:"Interceptions",rows:[["Amani Hooker","TEN",5],["Xavier McKinney","GB",5],["Alex Anzalone","TB",4],["Byron Murphy Jr.","MIN",4],["Zyon McCollum","TB",4]]},
-        {name:"Tackles",rows:[["Alex Singleton","DEN",107],["Nakobe Dean","LV",99],["Carson Schwesinger","CLE",89],["Ernest Jones IV","SEA",88],["Anthony Hill Jr.","TEN",82]]}
+        {name:"Passing yards",rows:[["Jordan Love","GB",2618,"QB"],["Joe Burrow","CIN",2386,"QB"],["Dak Prescott","DAL",2381,"QB"],["Matthew Stafford","LA",2374,"QB"],["Kirk Cousins","LV",2340,"QB"]]},
+        {name:"Rushing yards",rows:[["Bijan Robinson","ATL",880,"RB"],["Kenneth Walker III","KC",872,"RB"],["Jahmyr Gibbs","DET",847,"RB"],["Bucky Irving","TB",825,"RB"],["James Cook III","BUF",814,"RB"]]},
+        {name:"Receiving yards",rows:[["Jaxon Smith-Njigba","SEA",1036,"WR"],["CeeDee Lamb","DAL",904,"WR"],["Christian Watson","GB",879,"WR"],["Matthew Golden","GB",783,"WR"],["Tee Higgins","CIN",758,"WR"]]},
+        {name:"Sacks",rows:[["Will Anderson Jr.","HOU",9.5,"DE"],["Chase Young","NO",8,"DE"],["Greg Rousseau","BUF",8,"DE"],["T.J. Watt","PIT",7.5,"LB"],["Andrew Van Ginkel","MIN",7.5,"LB"]]},
+        {name:"Interceptions",rows:[["Amani Hooker","TEN",5,"S"],["Xavier McKinney","GB",5,"S"],["Alex Anzalone","TB",4,"LB"],["Byron Murphy Jr.","MIN",4,"CB"],["Zyon McCollum","TB",4,"CB"]]},
+        {name:"Tackles",rows:[["Alex Singleton","DEN",107,"LB"],["Nakobe Dean","LV",99,"LB"],["Carson Schwesinger","CLE",89,"LB"],["Ernest Jones IV","SEA",88,"LB"],["Anthony Hill Jr.","TEN",82,"LB"]]}
       ]
     },
     /* team offensive touchdowns (NFL.com, 2026 regular season) */
