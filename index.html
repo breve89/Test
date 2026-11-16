@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fan HQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0d12; --panel:#141821; --panel2:#1b202b; --line:#262c39; --text:#e9ecf2; --muted:#9aa3b5; --dim:#6b7489;
+  --accent:#4f8cff; --good:#3ddc84; --warn:#ffb648; --bad:#ff5a5f;
+  --nfl:#c8102e; --nfl2:#3a5bbf; --sw:#ffe81f; --vg:#a26bff; --fit:#2fd27c; --wwe:#ff3b3b;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,sans-serif}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3,.disp{font-family:Oswald,Impact,sans-serif;letter-spacing:.02em;margin:0}
+.wrap{max-width:1240px;margin:0 auto;padding:0 18px 60px}
+
+/* header + nav */
+header{position:sticky;top:0;z-index:20;background:rgba(11,13,18,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.hbar{max-width:1240px;margin:0 auto;padding:12px 18px 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{font-family:Oswald;font-weight:700;font-size:22px;letter-spacing:.06em;display:flex;align-items:center;gap:8px}
+.logo .dot{width:12px;height:12px;border-radius:3px;background:linear-gradient(135deg,var(--nfl),var(--sw),var(--vg),var(--fit),var(--wwe))}
+.upd{margin-left:auto;font-size:12px;color:var(--muted)}
+nav{max-width:1240px;margin:0 auto;padding:8px 12px 0;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{flex:none;text-decoration:none;padding:9px 14px 11px;border-radius:10px 10px 0 0;color:var(--muted);font-weight:600;font-size:14px;border-bottom:3px solid transparent;white-space:nowrap}
+nav a:hover{color:var(--text)}
+nav a.on{color:var(--text);border-bottom-color:var(--tc,var(--accent));background:var(--panel)}
+nav a[data-t=home]{--tc:var(--accent)} nav a[data-t=nfl]{--tc:var(--nfl)} nav a[data-t=starwars]{--tc:var(--sw)} nav a[data-t=games]{--tc:var(--vg)} nav a[data-t=workouts]{--tc:var(--fit)} nav a[data-t=wwe]{--tc:var(--wwe)}
+
+section.tab{display:none;padding-top:22px}
+section.tab.on{display:block}
+.tabhead{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.tabhead h2{font-size:30px;text-transform:uppercase}
+.tabhead .sub{color:var(--muted);font-size:14px}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.cols{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px}
+.cols>*{align-self:start}.cols>.grid{align-content:start}
+@media (max-width:900px){.cols{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
+.card h3{font-size:17px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.card h3 .tag{font-family:Inter;font-size:11px;font-weight:600;color:var(--muted);text-transform:none;letter-spacing:0;margin-left:auto}
+.muted{color:var(--muted)} .dim{color:var(--dim)} .small{font-size:13px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--panel2);color:var(--muted);border:1px solid var(--line)}
+.pill.live{color:#08130c;background:var(--good);border-color:transparent}
+.pill.soon{color:#1c1300;background:var(--warn);border-color:transparent}
+.pill.ended{opacity:.6}
+.pill.exp{color:var(--warn);border-color:var(--warn);background:transparent}
+.btn{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;font-weight:600;font-size:14px}
+.btn:hover{border-color:#3a4256}
+.btn.pri{background:var(--accent);border-color:transparent;color:#fff}
+.btn.sm{padding:5px 10px;font-size:13px}
+.btn.ghost{background:transparent}
+.btn:disabled{opacity:.5;cursor:default}
+input[type=text],input[type=number],input[type=date],select,textarea{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:8px 10px;outline:none;min-width:0}
+input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+select{cursor:pointer}
+
+/* news */
+.news{display:flex;flex-direction:column}
+.ni{padding:12px 0;border-top:1px solid var(--line);display:block;text-decoration:none}
+.ni:first-child{border-top:0;padding-top:2px}
+.ni .t{font-weight:600;font-size:15px;line-height:1.35}
+.ni:hover .t{text-decoration:underline;text-decoration-color:var(--dim)}
+.ni .s{color:var(--muted);font-size:13.5px;margin-top:3px}
+.ni .m{color:var(--dim);font-size:12px;margin-top:5px;display:flex;gap:8px}
+.empty{color:var(--dim);font-size:14px;padding:10px 0}
+
+/* home */
+.hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:16px}
+.cd{border-radius:var(--radius);padding:14px 16px;background:var(--panel);border:1px solid var(--line);position:relative;overflow:hidden;cursor:pointer}
+.cd:before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:var(--c)}
+.cd .k{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.cd .v{font-family:Oswald;font-size:28px;line-height:1.15;margin-top:4px}
+.cd .d{font-size:13px;color:var(--muted)}
+.hcard{cursor:pointer;transition:border-color .15s}
+.hcard:hover{border-color:#3a4256}
+.hcard h3 .bar{width:10px;height:10px;border-radius:2px;background:var(--c)}
+
+/* NFL */
+.teamsel{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.teamcard{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.tlogo{width:68px;height:68px;border-radius:16px;display:grid;place-items:center;font-family:Oswald;font-weight:700;font-size:24px;color:#fff;flex:none;box-shadow:inset 0 -10px 20px rgba(0,0,0,.25)}
+.trec{font-family:Oswald;font-size:40px;line-height:1}
+.tstats{display:flex;gap:22px;flex-wrap:wrap;margin-top:6px}
+.tstats div b{display:block;font-family:Oswald;font-size:18px;font-weight:600}
+.tstats div span{font-size:12px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--dim);text-align:left;font-weight:600;padding:6px 6px;border-bottom:1px solid var(--line)}
+td{padding:8px 6px;border-bottom:1px solid var(--line)}
+tr.me td{background:rgba(200,16,46,.12)}
+tr.click{cursor:pointer} tr.click:hover td{background:var(--panel2)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.chip{display:inline-block;width:38px;font-weight:700;font-size:12px}
+.game{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.game:first-child{border-top:0}
+.game .tm{display:flex;flex-direction:column;flex:1;gap:2px}
+.game .row{display:flex;justify-content:space-between}
+.game .row.w{font-weight:700}
+.game .row.l{color:var(--muted)}
+.game .meta{width:92px;text-align:right;font-size:12px;color:var(--dim)}
+.seg{display:inline-flex;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:3px;gap:2px}
+.seg button{border:0;background:transparent;padding:5px 10px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted)}
+.seg button.on{background:var(--bg);color:var(--text)}
+
+/* trivia */
+.quiz .q{font-size:18px;font-weight:600;margin:6px 0 14px;line-height:1.35}
+.quiz .opts{display:grid;gap:8px}
+.quiz .opt{text-align:left;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:11px 14px;cursor:pointer;font-weight:500}
+.quiz .opt:hover:not(:disabled){border-color:var(--qc,var(--accent))}
+.quiz .opt.right{border-color:var(--good);background:rgba(61,220,132,.14)}
+.quiz .opt.wrong{border-color:var(--bad);background:rgba(255,90,95,.12)}
+.quiz .opt:disabled{cursor:default}
+.quiz .exp{margin-top:12px;font-size:14px;color:var(--muted)}
+.quiz .top{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.prog{height:5px;background:var(--panel2);border-radius:5px;overflow:hidden;flex:1}
+.prog i{display:block;height:100%;background:var(--qc,var(--accent));transition:width .3s}
+.qend{text-align:center;padding:16px 0}
+.qend .big{font-family:Oswald;font-size:54px;line-height:1}
+
+/* lightsaber */
+.saberstage{background:radial-gradient(ellipse at 50% 60%,#121a2a 0%,#06080d 70%);border-radius:12px;border:1px solid var(--line);overflow:hidden;position:relative}
+.saberstage svg{display:block;width:100%;height:auto}
+.blade{transition:transform .45s cubic-bezier(.2,.9,.25,1)}
+.saber-off .blade{transform:scaleX(0)}
+.saber-off .bladev{transform:scaleY(0)}
+.bladev{transition:transform .35s cubic-bezier(.2,.9,.25,1) .1s}
+.hum .bladeg{animation:flick 2.4s infinite}
+@keyframes flick{0%,100%{opacity:1}48%{opacity:.93}50%{opacity:1}73%{opacity:.96}}
+.opts2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.optgrp label{display:block;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:13px;cursor:pointer}
+.chips button.on{border-color:var(--sw);color:var(--sw)}
+.sw{width:26px;height:26px;border-radius:50%;border:2px solid var(--line);cursor:pointer;padding:0}
+.sw.on{border-color:#fff;box-shadow:0 0 0 2px var(--bg),0 0 12px currentColor}
+.savedsabers{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:6px}
+.ss{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px;cursor:pointer;position:relative}
+.ss:hover{border-color:var(--sw)}
+.ss .n{font-size:13px;font-weight:600;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:18px}
+.ss .x{position:absolute;top:4px;right:6px;background:none;border:0;color:var(--dim);cursor:pointer;font-size:16px}
+
+/* games */
+.plat{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.plat button{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:7px 16px;font-weight:600;cursor:pointer;color:var(--muted)}
+.plat button.on{color:#fff;border-color:var(--pc);background:color-mix(in srgb,var(--pc) 22%,var(--panel))}
+.deal{padding:12px 0;border-top:1px solid var(--line)}
+.deal:first-child{border-top:0;padding-top:2px}
+.deal .t{font-weight:600;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.deal .s{color:var(--muted);font-size:13.5px;margin-top:3px}
+.deal .m{color:var(--dim);font-size:12px;margin-top:5px}
+
+/* workouts */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px}
+.kpi .k{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.kpi .v{font-family:Oswald;font-size:30px;line-height:1.1}
+.kpi .d{font-size:12px;color:var(--dim)}
+.heat{display:flex;gap:4px;padding-bottom:4px;max-width:760px}
+.heat .wk{display:flex;flex-direction:column;gap:4px;flex:1;max-width:30px}
+.heat i{width:100%;aspect-ratio:1;border-radius:4px;background:var(--panel2);display:block}
+.heat i.l1{background:#1d6b45}.heat i.l2{background:#25a463}.heat i.l3{background:var(--fit)}
+.heat i.today{outline:1px solid #fff}
+.exrow{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:10px}
+.exhead{display:flex;gap:8px;align-items:center}
+.exhead input{flex:1}
+.setrow{display:grid;grid-template-columns:34px 1fr 1fr 30px;gap:8px;align-items:center;margin-top:7px}
+.setrow .n{font-size:12px;color:var(--dim);text-align:center}
+.setrow input{width:100%}
+.iconbtn{background:none;border:0;color:var(--dim);cursor:pointer;font-size:18px;line-height:1;padding:4px}
+.iconbtn:hover{color:var(--bad)}
+.hist{display:flex;flex-direction:column}
+.hi{padding:10px 0;border-top:1px solid var(--line);display:flex;gap:12px;align-items:flex-start}
+.hi:first-child{border-top:0}
+.hi .dt{width:52px;flex:none;text-align:center;background:var(--panel2);border-radius:9px;padding:4px 0}
+.hi .dt b{display:block;font-family:Oswald;font-size:20px;line-height:1.1}
+.hi .dt span{font-size:11px;color:var(--muted);text-transform:uppercase}
+.hi .body{flex:1;min-width:0}
+.hi .body .t{font-weight:600}
+.hi .body .s{font-size:13px;color:var(--muted)}
+.chart svg{display:block;width:100%;height:auto}
+.prs{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px}
+.prs div{background:var(--panel2);border-radius:10px;padding:8px 10px}
+.prs b{font-family:Oswald;font-size:20px;display:block}
+.prs span{font-size:12px;color:var(--muted)}
+.storeNote{font-size:12px;color:var(--dim)}
+
+/* wwe */
+.match{border-top:1px solid var(--line);padding:12px 0}
+.match:first-child{border-top:0;padding-top:4px}
+.match .mt{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--wwe)}
+.match .vs{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-top:5px;font-size:14px}
+.match .vs .x{font-family:Oswald;color:var(--dim);font-size:13px}
+.match .vs div:last-child{text-align:right}
+.bigcd{font-family:Oswald;font-size:34px;line-height:1}
+.show{display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--line);align-items:center}
+.show:first-child{border-top:0}
+.show .dt{width:52px;flex:none;text-align:center;background:var(--panel2);border-radius:9px;padding:4px 0}
+.show .dt b{display:block;font-family:Oswald;font-size:20px;line-height:1.1}
+.show .dt span{font-size:11px;color:var(--muted);text-transform:uppercase}
+
+
+/* stats */
+.leaders{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.ld{background:var(--panel2);border-radius:12px;padding:10px 12px}
+.ld .h{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.ld .r{display:flex;align-items:center;gap:8px;font-size:14px;padding:4px 0}
+.ld .r .n{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ld .r .v{font-family:Oswald;font-size:16px}
+.ld .r.top .v{color:var(--sw)}
+.ld .r.me{background:rgba(200,16,46,.15);border-radius:6px;padding:4px 6px;margin:0 -6px}
+th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.on{color:var(--text)}
+.tbar{display:inline-block;height:6px;border-radius:3px;background:var(--nfl);vertical-align:middle;margin-left:6px;opacity:.8}
+/* picks */
+.pk{display:grid;grid-template-columns:34px minmax(0,1fr) 150px;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.pk:first-of-type{border-top:0}
+.pk .rank{font-family:Oswald;font-size:20px;text-align:center;color:var(--muted)}
+.pk .rank small{display:block;font-family:Inter;font-size:10px;color:var(--dim);margin-top:-3px}
+.pk .mu{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.pk .tb{border:1px solid var(--line);background:var(--panel2);border-radius:8px;padding:5px 10px;font-weight:700;cursor:pointer;font-size:14px;display:inline-flex;gap:6px;align-items:center}
+.pk .tb .nm{font-weight:500;color:var(--muted)}
+.pk .tb.mine{border-color:var(--nfl);background:color-mix(in srgb,var(--nfl) 25%,var(--panel2));color:#fff}
+.pk .tb.mine .nm{color:#fff}
+.pk .at{color:var(--dim);font-size:12px}
+.pk .why{font-size:13px;color:var(--muted);margin-top:6px}
+.pk .meta{font-size:12px;color:var(--dim);margin-top:4px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pbar{height:7px;border-radius:7px;background:var(--panel2);overflow:hidden}
+.pbar i{display:block;height:100%;border-radius:7px}
+.pk .pr{text-align:right}
+.pk .pr b{font-family:Oswald;font-size:20px}
+.pk .pr span{display:block;font-size:11px;color:var(--dim);margin-bottom:4px}
+.res{font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px}
+.res.w{background:rgba(61,220,132,.18);color:var(--good)}.res.l{background:rgba(255,90,95,.16);color:var(--bad)}
+.rec{display:flex;gap:18px;flex-wrap:wrap;margin:2px 0 8px}
+.rec div b{font-family:Oswald;font-size:22px;display:block;line-height:1.1}
+.rec div span{font-size:12px;color:var(--muted)}
+@media (max-width:640px){.pk{grid-template-columns:28px minmax(0,1fr)}.pk .pr{grid-column:2;text-align:left}}
+/* banners */
+.banner{border-radius:16px;overflow:hidden;border:1px solid var(--line);margin-bottom:18px;position:relative;height:150px}
+.banner svg{display:block;width:100%;height:100%}
+.banner .bt{position:absolute;left:22px;bottom:16px}
+.banner .bt h2{font-size:38px;text-transform:uppercase;line-height:1;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.banner .bt .sub{color:#d6dbe6;font-size:14px;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+@media (max-width:640px){.banner{height:120px}.banner .bt h2{font-size:30px}}
+
+/* big countdowns */
+.bigcds{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-bottom:14px}
+.bcd{border-radius:16px;padding:16px 18px;border:1px solid var(--line);background:linear-gradient(150deg,color-mix(in srgb,var(--c) 22%,var(--panel)) 0%,var(--panel) 60%);cursor:pointer;position:relative;overflow:hidden}
+.bcd .k{font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--c)}
+.bcd .t{font-family:Oswald;font-size:22px;line-height:1.2;margin:4px 0 2px}
+.bcd .d{font-size:13px;color:var(--muted)}
+.ticks{display:flex;gap:8px;margin-top:12px}
+.ticks div{background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:10px;padding:6px 0;width:64px;text-align:center}
+.ticks b{display:block;font-family:Oswald;font-size:26px;line-height:1.1;font-variant-numeric:tabular-nums}
+.ticks span{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim)}
+.bcd .wk{position:absolute;top:14px;right:16px}
+/* podcasts */
+.pod{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.pod:first-child{border-top:0;padding-top:2px}
+.pod .art{width:48px;height:48px;border-radius:10px;flex:none;display:grid;place-items:center;font-family:Oswald;font-weight:700;font-size:16px;color:#fff}
+.pod .nm{font-weight:700;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.pod .ep{font-size:14px;margin-top:2px}
+.pod .ep a{text-decoration:none}.pod .ep a:hover{text-decoration:underline}
+.pod .meta{font-size:12px;color:var(--dim);margin-top:3px}
+.pill.new{color:#08130c;background:var(--good);border-color:transparent}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(30px);opacity:0;background:#22283a;border:1px solid var(--line);padding:10px 16px;border-radius:10px;font-size:14px;transition:.25s;z-index:50;pointer-events:none;max-width:90vw}
+.toast.on{opacity:1;transform:translateX(-50%)}
+.modalbg{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;place-items:center;z-index:40}
+.modalbg.on{display:grid}
+.modal{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;max-width:380px;width:92vw}
+.modal p{margin:0 0 14px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.sp{flex:1}
+</style>
+</head>
+<body>
+<header>
+  <div class="hbar">
+    <div class="logo"><span class="dot"></span>FAN HQ</div>
+    <div class="upd" id="upd"></div>
+  </div>
+  <nav id="nav">
+    <a href="#home" data-t="home">Home</a>
+    <a href="#nfl" data-t="nfl">NFL</a>
+    <a href="#starwars" data-t="starwars">Star Wars</a>
+    <a href="#games" data-t="games">Video Games</a>
+    <a href="#workouts" data-t="workouts">Workouts</a>
+    <a href="#wwe" data-t="wwe">WWE</a>
+  </nav>
+</header>
+
+<div class="wrap">
+
+<!-- HOME -->
+<section class="tab" id="t-home">
+  <div class="tabhead"><h2>Today</h2><span class="sub" id="todayLbl"></span></div>
+  <div class="bigcds" id="bigCds"></div>
+  <div class="hero" id="countdowns"></div>
+  <div class="cols" style="margin-bottom:16px"><div class="card"><h3>Podcasts <span class="tag" id="podTag"></span></h3><div id="podsHome"></div></div><div class="grid g3" id="homeCards" style="grid-template-columns:1fr 1fr"></div></div>
+</section>
+
+<!-- NFL -->
+<section class="tab" id="t-nfl">
+  <div class="tabhead"><h2 style="color:var(--nfl)">NFL</h2><span class="sub" id="nflWeek"></span>
+    <div class="teamsel" style="margin-left:auto"><span class="small muted">Team</span><select id="teamSel"></select></div>
+  </div>
+  <div class="card" id="picksCard" style="margin-bottom:16px;border-color:#3a1d25">
+    <h3><span id="picksTitle">My picks</span><span class="seg" id="pickSort" style="margin-left:auto"><button data-v="time" class="on">By kickoff</button><button data-v="conf">By confidence</button></span></h3>
+    <div class="rec" id="pickRec"></div>
+    <div id="pickList"></div>
+    <div class="row" style="margin-top:12px"><button class="btn sm" id="copyPicks">Copy picks</button><button class="btn sm ghost" id="resetPicks">Reset to my picks</button><span class="sp"></span><span class="small dim" id="pickNote"></span></div>
+    <div class="small dim" id="pickSrc" style="margin-top:8px"></div>
+  </div>
+  <div class="card" style="margin-bottom:16px"><h3>League leaders <span class="tag" id="leadTag"></span></h3><div class="leaders" id="leaders"></div></div>
+  <div class="card" style="margin-bottom:16px"><h3>Team stats <span class="tag" id="tsTag"></span></h3><div style="overflow-x:auto"><div id="teamStats"></div></div></div>
+  <div class="cols">
+    <div class="grid">
+      <div class="card" id="teamCard"></div>
+      <div class="card"><h3>Team news <span class="tag" id="teamNewsTag"></span></h3><div class="news" id="teamNews"></div></div>
+      <div class="card"><h3>NFL podcasts</h3><div id="podsNfl"></div></div>
+      <div class="card quiz" style="--qc:var(--nfl)"><h3>NFL trivia <span class="tag" id="nflBest"></span></h3><div id="quiz-nfl"></div></div>
+    </div>
+    <div class="grid" style="align-content:start">
+      <div class="card"><h3><span id="divName">Division</span> standings</h3><div id="divTable"></div></div>
+      <div class="card"><h3>Scores &amp; schedule <span class="seg" id="gameSeg" style="margin-left:auto"><button data-v="up" class="on">Upcoming</button><button data-v="final">Final</button></span></h3><div id="gameList"></div></div>
+      <div class="card"><h3>Conference standings <span class="seg" id="confSeg" style="margin-left:auto"><button data-v="AFC" class="on">AFC</button><button data-v="NFC">NFC</button></span></h3><div id="confTable"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STAR WARS -->
+<section class="tab" id="t-starwars">
+  <div class="tabhead"><h2 style="color:var(--sw)">Star Wars</h2><span class="sub">News, saber workshop and trivia</span></div>
+  <div class="card" style="margin-bottom:16px">
+    <h3>Lightsaber workshop <span class="tag">Build it, ignite it, save it</span></h3>
+    <div class="saberstage" id="stage"></div>
+    <div class="row" style="margin:12px 0 14px">
+      <button class="btn pri" id="ignite" style="background:#2a2f3c">Ignite</button>
+      <button class="btn" id="randSaber">Randomize</button>
+      <button class="btn ghost sm" id="soundBtn">Sound: on</button>
+      <span class="sp"></span>
+      <input type="text" id="saberName" placeholder="Name your saber" maxlength="40" style="width:200px">
+      <button class="btn" id="saveSaber">Save</button>
+    </div>
+    <div class="opts2" id="saberOpts"></div>
+    <div class="small muted" id="kyberNote" style="margin-top:12px"></div>
+    <div id="savedWrap" style="margin-top:14px;display:none"><div class="small muted" style="font-weight:600;text-transform:uppercase;letter-spacing:.05em">Your collection</div><div class="savedsabers" id="savedSabers"></div></div>
+  </div>
+  <div class="cols">
+    <div class="card"><h3>Latest from the galaxy</h3><div class="news" id="swNews"></div></div>
+    <div class="card quiz" style="--qc:var(--sw)"><h3>Star Wars trivia <span class="tag" id="swBest"></span></h3><div id="quiz-sw"></div></div>
+  </div>
+</section>
+
+<!-- VIDEO GAMES -->
+<section class="tab" id="t-games">
+  <div class="tabhead"><h2 style="color:var(--vg)">Video Games</h2><span class="sub" id="gtaLine"></span></div>
+  <div class="plat" id="platBtns"></div>
+  <div class="cols">
+    <div class="card"><h3 id="platNewsH">News</h3><div class="news" id="platNews"></div></div>
+    <div class="grid" style="align-content:start">
+      <div class="card"><h3 id="platDealsH">Deals</h3><div id="platDeals"></div></div>
+      <div class="card"><h3>All live deals</h3><div id="allDeals"></div></div>
+    </div>
+  </div>
+  <div class="card quiz" style="--qc:var(--vg);margin-top:16px"><h3>Video game trivia <span class="tag" id="vgBest"></span></h3><div id="quiz-vg"></div></div>
+</section>
+
+<!-- WORKOUTS -->
+<section class="tab" id="t-workouts">
+  <div class="tabhead"><h2 style="color:var(--fit)">Workouts</h2><span class="sub storeNote" id="storeNote">Loading your log…</span></div>
+  <div class="kpis" id="kpis"></div>
+  <div class="card" style="margin-bottom:16px"><h3>Gym days <span class="tag">last 20 weeks</span></h3><div class="heat" id="heat"></div></div>
+  <div class="cols">
+    <div class="card" id="logCard">
+      <h3 id="logTitle">Log a workout</h3>
+      <div class="row" style="margin-bottom:12px">
+        <input type="date" id="wDate">
+        <input type="text" id="wName" placeholder="Workout name (e.g. Push day)" style="flex:1;min-width:160px" list="wNames">
+        <datalist id="wNames"><option>Push day</option><option>Pull day</option><option>Leg day</option><option>Upper body</option><option>Lower body</option><option>Full body</option><option>Chest &amp; triceps</option><option>Back &amp; biceps</option><option>Shoulders &amp; arms</option></datalist>
+      </div>
+      <div id="exList"></div>
+      <datalist id="exNames"></datalist>
+      <div class="row" style="margin-top:4px">
+        <button class="btn" id="addEx">+ Add exercise</button>
+        <span class="sp"></span>
+        <button class="btn ghost" id="cancelEdit" style="display:none">Cancel edit</button>
+        <button class="btn pri" id="saveW" style="background:var(--fit);color:#06180d">Save workout</button>
+      </div>
+      <textarea id="wNotes" placeholder="Notes (optional)" rows="2" style="width:100%;margin-top:10px;resize:vertical"></textarea>
+    </div>
+    <div class="grid" style="align-content:start">
+      <div class="card chart"><h3>Progress <select id="progEx" style="margin-left:auto;font-size:13px;padding:5px 8px"></select></h3>
+        <div class="seg" id="progSeg" style="margin-bottom:10px"><button data-v="top" class="on">Top weight</button><button data-v="e1rm">Est. 1-rep max</button><button data-v="vol">Volume</button></div>
+        <div id="progChart"></div><div class="prs" id="prs"></div></div>
+      <div class="card"><h3>History <span class="tag" id="histCount"></span></h3><div class="hist" id="hist"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WWE -->
+<section class="tab" id="t-wwe">
+  <div class="tabhead"><h2 style="color:var(--wwe)">WWE</h2><span class="sub">News and upcoming premium live events</span></div>
+  <div class="cols">
+    <div class="grid" style="align-content:start">
+      <div id="wweEvents" class="grid"></div>
+      <div class="card"><h3>WWE news</h3><div class="news" id="wweNews"></div></div>
+    </div>
+    <div class="grid" style="align-content:start">
+      <div class="card"><h3>Upcoming shows</h3><div id="wweShows"></div></div>
+      <div class="card"><h3>WWE podcast</h3><div id="podsWwe"></div></div>
+      <div class="card quiz" style="--qc:var(--wwe)"><h3>WWE trivia <span class="tag" id="wweBest"></span></h3><div id="quiz-wwe"></div></div>
+    </div>
+  </div>
+</section>
+
+</div>
+<div class="toast" id="toast"></div>
+<div class="modalbg" id="modal"><div class="modal"><p id="modalMsg"></p><div class="row" style="justify-content:flex-end"><button class="btn" id="modalNo">Cancel</button><button class="btn pri" id="modalYes" style="background:var(--bad)">Delete</button></div></div></div>
+
+<script src="feed.js"></script>
+<script>
+(function(){
+"use strict";
+const F = window.FEED || null;
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const TZ = "America/Chicago";
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("on");clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove("on"),2600);}
+function confirmBox(msg){return new Promise(res=>{$("#modalMsg").textContent=msg;const m=$("#modal");m.classList.add("on");const done=v=>{m.classList.remove("on");$("#modalYes").onclick=$("#modalNo").onclick=null;res(v)};$("#modalYes").onclick=()=>done(true);$("#modalNo").onclick=()=>done(false);});}
+const lsGet=(k,d)=>{try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}};
+const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+
+/* ---------- dates ---------- */
+function fmtDate(d,opt){return new Date(d).toLocaleDateString("en-US",Object.assign({timeZone:TZ},opt||{month:"short",day:"numeric"}));}
+function fmtTime(d){return new Date(d).toLocaleTimeString("en-US",{timeZone:TZ,hour:"numeric",minute:"2-digit"});}
+function ymd(d){const p=new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit"}).format(d);return p;}
+function newsDate(s){const d=new Date(s+"T12:00:00");return d.toLocaleDateString("en-US",{month:"short",day:"numeric"});}
+function until(iso){const ms=new Date(iso)-Date.now();if(ms<=0)return null;const d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4);return d>0?`${d}d ${h}h`:h>0?`${h}h ${m}m`:`${m}m`;}
+function dealStatus(dl){const today=ymd(new Date());if(dl.expected)return{c:"exp",t:"Expected"};if(today<dl.start)return{c:"soon",t:"Starts "+newsDate(dl.start)};if(today>dl.end)return{c:"ended",t:"Ended"};return{c:"live",t:"Live · ends "+newsDate(dl.end)};}
+
+function newsList(items,el,emptyMsg){
+  if(!items||!items.length){el.innerHTML=`<div class="empty">${esc(emptyMsg||"No stories right now.")}</div>`;return;}
+  const sorted=items.slice().sort((a,b)=>b.date.localeCompare(a.date));
+  el.innerHTML=sorted.map(n=>`<a class="ni" href="${esc(n.url)}" target="_blank" rel="noopener"><div class="t">${esc(n.title)}</div><div class="s">${esc(n.summary)}</div><div class="m"><span>${esc(n.source)}</span><span>·</span><span>${newsDate(n.date)}</span></div></a>`).join("");
+}
+
+/* ---------- tabs ---------- */
+const TABS=["home","nfl","starwars","games","workouts","wwe"];
+function showTab(){let t=(location.hash||"#home").slice(1);if(!TABS.includes(t))t="home";$$("section.tab").forEach(s=>s.classList.toggle("on",s.id==="t-"+t));$$("nav a").forEach(a=>a.classList.toggle("on",a.dataset.t===t));window.scrollTo(0,0);}
+window.addEventListener("hashchange",showTab);
+
+/* =====================================================
+   STORAGE: your account (db) when available, else this device
+   ===================================================== */
+const Store={mode:"local",db:null,uid:null,ready:null,
+  profile:lsGet("hq_profile",{sabers:[],best:{}}),
+  workouts:lsGet("hq_workouts",[]),
+  listeners:[],
+  onChange(f){this.listeners.push(f)},
+  emit(){this.listeners.forEach(f=>{try{f()}catch(e){console.error(e)}})},
+  profRef(){return this.db.doc("data/users/"+this.uid+"/profile")},
+  wRef(id){return this.profRef().collection("workouts").doc(id)},
+  async init(){
+    let db=null,user=null;
+    try{ if(window.claude&&typeof claude.use==="function"){[db,user]=await Promise.all([claude.use("db"),claude.use("user")]);} }catch(e){}
+    let uid=null; try{ uid=user?await user.id():null }catch(e){}
+    if(!db||!uid){this.setNote();return;}
+    this.db=db;this.uid=uid;
+    const timeout=new Promise((_,rej)=>setTimeout(()=>rej(new Error("timeout")),10000));
+    try{
+      const [p,ws]=await Promise.race([Promise.all([this.profRef().get(),this.profRef().collection("workouts").get()]),timeout]);
+      this.mode="cloud";
+      const cloudProf=p.exists?p.data():null;
+      const cloudW=ws.docs.map(d=>d.data());
+      // first run with account: carry over anything saved on this device
+      if(!cloudProf&&(this.profile.sabers.length||Object.keys(this.profile.best).length)){await this.saveProfile();}
+      else if(cloudProf){this.profile={sabers:cloudProf.sabers||[],best:cloudProf.best||{}};}
+      const cloudIds=new Set(cloudW.map(w=>w.id));
+      const localOnly=this.workouts.filter(w=>!cloudIds.has(w.id));
+      for(const w of localOnly){try{await this.wRef(w.id).set(w)}catch(e){}}
+      this.workouts=cloudW.concat(localOnly);
+      this.cache();
+    }catch(e){this.mode="local";}
+    this.setNote();this.emit();
+  },
+  setNote(){const n=$("#storeNote");if(!n)return;n.textContent=this.mode==="cloud"?"Saved to your account, so it follows you across devices":"Saved on this device only (sign in to sync across devices)";},
+  cache(){lsSet("hq_workouts",this.workouts);lsSet("hq_profile",this.profile);},
+  async saveProfile(){this.cache();if(this.mode!=="cloud")return true;try{await this.profRef().set({sabers:this.profile.sabers,best:this.profile.best});return true}catch(e){toast("Couldn't reach your account. Saved on this device.");return false}},
+  async putWorkout(w){const i=this.workouts.findIndex(x=>x.id===w.id);if(i>=0)this.workouts[i]=w;else this.workouts.push(w);this.cache();if(this.mode==="cloud"){try{await this.wRef(w.id).set(w)}catch(e){toast("Couldn't reach your account. Saved on this device.");}}},
+  async delWorkout(id){this.workouts=this.workouts.filter(w=>w.id!==id);this.cache();if(this.mode==="cloud"){try{await this.wRef(id).delete()}catch(e){}}}
+};
+
+/* =====================================================
+   TRIVIA ENGINE
+   ===================================================== */
+const TRIVIA={
+ nfl:[
+  ["Tom Brady was drafted by the Patriots in 2000 with which overall pick?",["199th","99th","32nd","250th"],0,"Brady went 199th overall in the 6th round and went on to win six Super Bowls in New England."],
+  ["How many Super Bowls did Tom Brady win in his career?",["5","6","7","8"],2,"Six with the Patriots and a seventh with Tampa Bay."],
+  ["The Patriots came back from 28-3 to beat which team in Super Bowl LI?",["Seattle Seahawks","Atlanta Falcons","Philadelphia Eagles","Los Angeles Rams"],1,"New England beat Atlanta 34-28 in the first overtime game in Super Bowl history."],
+  ["Who made the goal-line interception that sealed Super Bowl XLIX for New England?",["Malcolm Butler","Devin McCourty","Ty Law","Stephon Gilmore"],0,"Undrafted rookie Malcolm Butler picked off Russell Wilson at the 1-yard line."],
+  ["What was the Patriots' regular-season record in 2007?",["15-1","14-2","16-0","13-3"],2,"They went 16-0, then lost Super Bowl XLII to the Giants."],
+  ["Which kicker hit Super Bowl-winning field goals for the Patriots in XXXVI and XXXVIII?",["Stephen Gostkowski","Adam Vinatieri","Nick Folk","Gino Cappelletti"],1,"Adam Vinatieri delivered both game winners."],
+  ["Where do the Patriots play their home games?",["Foxborough, MA","Boston, MA","Providence, RI","Worcester, MA"],0,"Gillette Stadium is in Foxborough."],
+  ["Drake Maye played college football at which school?",["Duke","North Carolina","Clemson","NC State"],1,"Maye starred at UNC before New England took him 3rd overall in 2024."],
+  ["Mike Vrabel won three Super Bowls with New England as a player at which position?",["Linebacker","Tight end","Defensive tackle","Fullback"],0,"Vrabel was a linebacker who also caught touchdown passes in two Super Bowls."],
+  ["Which team completed the NFL's only perfect season, including the Super Bowl?",["1985 Bears","2007 Patriots","1972 Dolphins","1989 49ers"],2,"The 1972 Dolphins finished 17-0."],
+  ["Who holds the NFL record for career rushing yards?",["Walter Payton","Barry Sanders","Emmitt Smith","Adrian Peterson"],2,"Emmitt Smith ran for 18,355 yards."],
+  ["Who won the first Super Bowl?",["Kansas City Chiefs","Green Bay Packers","New York Jets","Baltimore Colts"],1,"Green Bay beat Kansas City in Super Bowl I."],
+  ["The Super Bowl trophy is named after which coach?",["George Halas","Paul Brown","Vince Lombardi","Don Shula"],2,"The Vince Lombardi Trophy."],
+  ["Before New England, Bill Belichick was head coach of which team?",["New York Jets","Cleveland Browns","New York Giants","Baltimore Ravens"],1,"He coached the Browns from 1991 to 1995."],
+  ["Who holds the NFL record for career receiving yards?",["Randy Moss","Larry Fitzgerald","Terrell Owens","Jerry Rice"],3,"Jerry Rice had 22,895 receiving yards."],
+  ["Which Patriots tight end was known as 'Gronk'?",["Hunter Henry","Rob Gronkowski","Ben Watson","Aaron Hernandez"],1,"Rob Gronkowski won three titles in New England and one in Tampa."],
+  ["How many teams are in the NFL?",["30","31","32","34"],2,"32 teams across the AFC and NFC."],
+  ["Which Giants receiver made the famous 'Helmet Catch' against the Patriots in Super Bowl XLII?",["Plaxico Burress","David Tyree","Amani Toomer","Steve Smith"],1,"David Tyree pinned the ball to his helmet on the game-winning drive."]
+ ],
+ sw:[
+  ["Who is Luke Skywalker's father?",["Obi-Wan Kenobi","Anakin Skywalker","Owen Lars","Han Solo"],1,"Anakin Skywalker, who became Darth Vader."],
+  ["Which planet did Luke grow up on?",["Naboo","Tatooine","Jakku","Dagobah"],1,"He grew up on his aunt and uncle's moisture farm on Tatooine."],
+  ["What color is Mace Windu's lightsaber?",["Green","Blue","Purple","Yellow"],2,"Purple, which is rare among the Jedi."],
+  ["Who was Han Solo's Wookiee co-pilot?",["Chewbacca","Tarfful","Lowbacca","Zaalbar"],0,"Chewie flew the Millennium Falcon alongside Han."],
+  ["What was the order that turned the clone troopers against the Jedi?",["Order 99","Order 66","Order 1138","Order 77"],1,"Palpatine issued Order 66 in Revenge of the Sith."],
+  ["What is Kylo Ren's birth name?",["Ben Solo","Jacen Solo","Ben Skywalker","Anakin Solo"],0,"Ben Solo, the son of Han and Leia."],
+  ["What is Emperor Palpatine's Sith name?",["Darth Plagueis","Darth Maul","Darth Sidious","Darth Tyranus"],2,"Darth Sidious."],
+  ["On which ice planet does The Empire Strikes Back open?",["Hoth","Ilum","Starkiller Base","Orto Plutonia"],0,"The Rebels' Echo Base is on Hoth."],
+  ["Who trained Obi-Wan Kenobi?",["Yoda","Qui-Gon Jinn","Mace Windu","Count Dooku"],1,"Qui-Gon Jinn, who fell to Darth Maul on Naboo."],
+  ["Where did Anakin and Obi-Wan duel in Revenge of the Sith?",["Mustafar","Utapau","Geonosis","Kashyyyk"],0,"The lava planet Mustafar."],
+  ["In what year was the original Star Wars released?",["1975","1977","1979","1980"],1,"May 25, 1977. It returns to theaters in restored form in February 2027."],
+  ["Who was Ahsoka Tano's Jedi master?",["Obi-Wan Kenobi","Plo Koon","Anakin Skywalker","Yoda"],2,"Anakin trained Ahsoka during the Clone Wars."],
+  ["What is the Mandalorian's real name?",["Bo-Katan","Din Djarin","Paz Vizsla","Jango Fett"],1,"Din Djarin."],
+  ["Which bounty hunter delivered a carbonite-frozen Han Solo to Jabba?",["Bossk","IG-88","Boba Fett","Cad Bane"],2,"Boba Fett."],
+  ["The Ewoks live on the forest moon of…",["Yavin 4","Endor","Felucia","Lothal"],1,"Endor, setting of the Return of the Jedi finale."],
+  ["Which droid carried the Death Star plans in A New Hope?",["C-3PO","BB-8","R2-D2","K-2SO"],2,"Leia hid the plans in R2-D2."],
+  ["Which actor stars in the upcoming 2027 film Star Wars: Starfighter?",["Ryan Gosling","Chris Pratt","Oscar Isaac","Pedro Pascal"],0,"Ryan Gosling leads the Shawn Levy-directed film."],
+  ["What crystal powers a lightsaber?",["Kyber","Beskar","Coaxium","Corusca"],0,"Kyber crystals focus a lightsaber's blade."]
+ ],
+ vg:[
+  ["What is the best-selling video game of all time?",["Tetris","GTA V","Minecraft","Wii Sports"],2,"Minecraft has sold more than 300 million copies."],
+  ["What was Mario's name in the original Donkey Kong?",["Mr. Video","Jumpman","Plumber Pete","Red"],1,"He was called Jumpman in 1981."],
+  ["Master Chief is the hero of which series?",["Gears of War","Destiny","Halo","Doom"],2,"Halo, Xbox's flagship franchise."],
+  ["In what year did the PS5 and Xbox Series X|S launch?",["2019","2020","2021","2022"],1,"Both launched in November 2020."],
+  ["When did the Nintendo Switch 2 launch?",["March 2025","June 2025","November 2025","January 2026"],1,"June 5, 2025."],
+  ["Which company created Sonic the Hedgehog?",["Nintendo","Capcom","Sega","Namco"],2,"Sega."],
+  ["Which studio developed Elden Ring?",["FromSoftware","Bandai Namco Studios","Team Ninja","Bluepoint"],0,"FromSoftware developed it; Bandai Namco published it."],
+  ["Which fictional state is GTA 6 set in?",["San Andreas","Liberty","Leonida","Alderney"],2,"Leonida, home to a modern-day Vice City."],
+  ["Who are GTA 6's two lead characters?",["Jason and Lucia","Tommy and Lance","Niko and Roman","Michael and Trevor"],0,"Jason and Lucia."],
+  ["Kratos is the star of which series?",["Devil May Cry","God of War","Bayonetta","Darksiders"],1,"God of War."],
+  ["Which Pokémon is #25 in the National Pokédex?",["Eevee","Pikachu","Jigglypuff","Meowth"],1,"Pikachu."],
+  ["Which company makes Fortnite?",["Valve","Riot Games","Epic Games","Activision"],2,"Epic Games."],
+  ["In what year did the original Xbox launch?",["1999","2001","2003","2005"],1,"November 2001. Xbox celebrated its 25th anniversary in November 2026."],
+  ["Which company made Pac-Man?",["Atari","Namco","Taito","Konami"],1,"Namco, in 1980."],
+  ["Valve's PC store is called…",["Origin","Uplay","Steam","Battle.net"],2,"Steam, launched in 2003."],
+  ["Nintendo's 1989 handheld was the…",["Game Gear","Game Boy","Lynx","Virtual Boy"],1,"The Game Boy."],
+  ["In The Legend of Zelda, what is the hero's name?",["Zelda","Link","Ganon","Navi"],1,"Link. Zelda is the princess."],
+  ["Contra and Metal Gear come from which publisher?",["Konami","Capcom","Sega","SNK"],0,"Konami, also famous for the Up, Up, Down, Down cheat code."]
+ ],
+ wwe:[
+  ["Who ended the Undertaker's WrestleMania winning streak?",["Triple H","Brock Lesnar","Roman Reigns","Shawn Michaels"],1,"Brock Lesnar at WrestleMania 30, ending the streak at 21-1."],
+  ["Who holds the record for the most world championship reigns in WWE?",["Ric Flair","Randy Orton","John Cena","Triple H"],2,"John Cena won his 17th at WrestleMania 41, passing Ric Flair."],
+  ["What is The Rock's real name?",["Dwayne Johnson","Rocky Maivia Jr.","Peter Maivia","Roman Anoa'i"],0,"Dwayne Johnson debuted in WWE as Rocky Maivia."],
+  ["What is Stone Cold Steve Austin's finishing move?",["The Pedigree","The Stunner","The Rock Bottom","The F5"],1,"The Stone Cold Stunner."],
+  ["Where was the first WrestleMania held in 1985?",["Pontiac Silverdome","Madison Square Garden","Rosemont Horizon","Los Angeles Sports Arena"],1,"Madison Square Garden in New York."],
+  ["In what year did Survivor Series debut?",["1985","1987","1989","1991"],1,"November 26, 1987. 2026 marks the 40th edition."],
+  ["Who did Hulk Hogan body slam at WrestleMania III?",["Big John Studd","King Kong Bundy","André the Giant","Earthquake"],2,"André the Giant, in front of a huge crowd at the Pontiac Silverdome."],
+  ["Roman Reigns' Universal Championship reign lasted roughly how long?",["600 days","900 days","1,316 days","2,000 days"],2,"1,316 days, until Cody Rhodes beat him at WrestleMania 40."],
+  ["Which nickname belongs to Shawn Michaels?",["The Heartbreak Kid","The Game","The Viper","The Nature Boy"],0,"HBK, the Heartbreak Kid, also called the Showstopper."],
+  ["Which faction did Rhea Ripley and Dominik Mysterio belong to?",["The Bloodline","The Judgment Day","The New Day","Imperium"],1,"The Judgment Day."],
+  ["Who won the very first Money in the Bank ladder match?",["Edge","CM Punk","Rob Van Dam","Mr. Kennedy"],0,"Edge won it at WrestleMania 21."],
+  ["Triple H and Shawn Michaels founded which group?",["Evolution","The Corporation","D-Generation X","nWo"],2,"D-Generation X."],
+  ["Who threw Mankind off the top of the Hell in a Cell in 1998?",["Kane","The Undertaker","Triple H","Big Show"],1,"The Undertaker at King of the Ring 1998."],
+  ["Who has won the men's Royal Rumble the most times?",["Hulk Hogan","Stone Cold Steve Austin","Roman Reigns","Randy Orton"],1,"Stone Cold won it three times."],
+  ["Which promotion created the WarGames match?",["ECW","NWA/WCW","AWA","TNA"],1,"Dusty Rhodes created WarGames for the NWA in 1987."],
+  ["Who leads Team USA in the Survivor Series 2026 elimination match?",["CM Punk","Cody Rhodes","Je'Von Evans","Seth Rollins"],1,"Cody Rhodes leads Team USA against Rey Mysterio's Team Mexico."],
+  ["Which city hosts Survivor Series: WarGames 2026?",["San Diego","Houston","Vancouver","Chicago"],1,"Houston, at Daikin Park."],
+  ["Kevin Owens' famous finisher is the…",["Stunner","Pop-up Powerbomb","Claymore","Spear"],1,"The Pop-up Powerbomb, though he also uses a Stunner."]
+ ]
+};
+const QUIZ_BEST_EL={nfl:"#nflBest",sw:"#swBest",vg:"#vgBest",wwe:"#wweBest"};
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function renderBest(key){const b=Store.profile.best[key];$(QUIZ_BEST_EL[key]).textContent=b!=null?`Best: ${b}/10`:"10 questions";}
+function startQuiz(key){
+  const el=$("#quiz-"+key);
+  const qs=shuffle(TRIVIA[key]).slice(0,10).map(q=>{const order=shuffle([0,1,2,3]);return{q:q[0],opts:order.map(i=>q[1][i]),ans:order.indexOf(q[2]),exp:q[3]};});
+  let i=0,score=0;
+  const draw=()=>{
+    if(i>=qs.length){
+      const prev=Store.profile.best[key];const newBest=prev==null||score>prev;
+      if(newBest){Store.profile.best[key]=score;Store.saveProfile();renderBest(key);}
+      const msg=score===10?"Perfect score!":score>=8?"Excellent!":score>=6?"Solid.":score>=4?"Not bad. Try again?":"Rough round. Run it back!";
+      el.innerHTML=`<div class="qend"><div class="big">${score}/10</div><div style="margin:6px 0 14px">${msg}${newBest&&prev!=null?" New personal best.":""}</div><button class="btn pri" style="background:var(--qc)">Play again</button></div>`;
+      el.querySelector("button").onclick=()=>startQuiz(key);return;
+    }
+    const q=qs[i];
+    el.innerHTML=`<div class="top"><span>Q${i+1}/10</span><div class="prog"><i style="width:${i*10}%"></i></div><span>Score ${score}</span></div><div class="q">${esc(q.q)}</div><div class="opts">${q.opts.map((o,k)=>`<button class="opt" data-k="${k}">${esc(o)}</button>`).join("")}</div><div class="exp" style="display:none"></div>`;
+    el.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+      const k=+b.dataset.k;const ok=k===q.ans;if(ok)score++;
+      el.querySelectorAll(".opt").forEach((x,xi)=>{x.disabled=true;if(xi===q.ans)x.classList.add("right");else if(xi===k)x.classList.add("wrong");});
+      const ex=el.querySelector(".exp");ex.style.display="block";ex.innerHTML=`<b style="color:${ok?"var(--good)":"var(--bad)"}">${ok?"Correct.":"Not quite."}</b> ${esc(q.exp)} <div style="margin-top:10px"><button class="btn sm">${i===9?"See score":"Next question"}</button></div>`;
+      ex.querySelector("button").onclick=()=>{i++;draw();};
+    });
+  };
+  draw();
+}
+
+/* =====================================================
+   NFL
+   ===================================================== */
+const TEAM_COLORS={ARI:"#97233F",ATL:"#A71930",BAL:"#241773",BUF:"#00338D",CAR:"#0085CA",CHI:"#0B162A",CIN:"#FB4F14",CLE:"#311D00",DAL:"#041E42",DEN:"#FB4F14",DET:"#0076B6",GB:"#203731",HOU:"#03202F",IND:"#002C5F",JAC:"#006778",KC:"#E31837",LV:"#3b3f45",LAC:"#0080C6",LA:"#003594",MIA:"#008E97",MIN:"#4F2683",NE:"#002244",NO:"#9a7f4a",NYG:"#0B2265",NYJ:"#125740",PHI:"#004C54",PIT:"#2b2b2b",SF:"#AA0000",SEA:"#002244",TB:"#D50A0A",TEN:"#0C2340",WAS:"#5A1414"};
+const ESPN_ABBR={JAC:"jax",LA:"lar",WAS:"wsh"};
+let nflTeam=lsGet("hq_team","NE"),gameMode="up",confMode="AFC";
+function team(abbr){return (F.nfl.standings.find(t=>t.abbr===abbr))||{abbr,name:abbr};}
+function short(abbr){const n=team(abbr).name||abbr;return n.split(" ").slice(-1)[0];}
+function pct(t){const g=t.w+t.l;return g?(t.w/g).toFixed(3).replace(/^0/,""):".000";}
+function gameRow(g,me){
+  const fin=g.status==="final";const aw=fin&&g.as>g.hs,hw=fin&&g.hs>g.as;
+  const r=(ab,sc,win)=>`<div class="row ${fin?(win?"w":"l"):""}" ${ab===me?'style="color:var(--text);font-weight:700"':''}><span><span class="chip">${ab}</span>${esc(short(ab))}</span><span>${fin?sc:""}</span></div>`;
+  return `<div class="game"><div class="tm">${r(g.away,g.as,aw)}${r(g.home,g.hs,hw)}</div><div class="meta">${fin?"Final":fmtDate(g.time,{weekday:"short",month:"short",day:"numeric"})+"<br>"+fmtTime(g.time)}${g.tag?"<br>"+esc(g.tag):""}</div></div>`;
+}
+function renderNFL(){
+  if(!F){return;}
+  const t=team(nflTeam);
+  $("#nflWeek").textContent=`Standings through Week ${F.nfl.week}`;
+  const games=F.nfl.games.filter(g=>g.away===nflTeam||g.home===nflTeam);
+  const last=games.filter(g=>g.status==="final").sort((a,b)=>b.time.localeCompare(a.time))[0];
+  const next=games.filter(g=>g.status!=="final").sort((a,b)=>a.time.localeCompare(b.time))[0];
+  let lastTxt="—",nextTxt="Bye week";
+  if(last){const home=last.home===nflTeam;const us=home?last.hs:last.as,them=home?last.as:last.hs;const opp=home?last.away:last.home;lastTxt=`${us>them?"W":us<them?"L":"T"} ${us}-${them} ${home?"vs":"@"} ${opp}`;}
+  if(next){const home=next.home===nflTeam;nextTxt=`${home?"vs":"@"} ${next.home===nflTeam?next.away:next.home} · ${fmtDate(next.time,{weekday:"short",month:"short",day:"numeric"})}`;}
+  else{const ng=(F.nfl.nextGames||{})[nflTeam];if(ng)nextTxt=`Bye, then Wk ${ng.week} ${ng.home?"vs":"@"} ${ng.opp} · ${fmtDate(ng.time,{weekday:"short",month:"short",day:"numeric"})}`;}
+  const espn="https://www.espn.com/nfl/team/_/name/"+(ESPN_ABBR[t.abbr]||t.abbr.toLowerCase());
+  $("#teamCard").innerHTML=`<div class="teamcard"><div class="tlogo" style="background:${TEAM_COLORS[t.abbr]||"#333"}">${t.abbr}</div>
+    <div style="flex:1;min-width:200px"><div class="small muted">${esc(t.div||"")}</div><h3 style="font-size:24px;margin:0">${esc(t.name)}</h3>
+      <div class="tstats"><div><b>${t.w}-${t.l}</b><span>Record</span></div><div><b>${ordinal(t.divRank)}</b><span>In division</span></div><div><b>${ordinal(t.confRank)}</b><span>In ${t.conf}</span></div><div><b>${esc(lastTxt)}</b><span>Last game</span></div><div><b>${esc(nextTxt)}</b><span>Next</span></div></div></div>
+    <a class="btn sm" href="${espn}" target="_blank" rel="noopener">Team page ↗</a></div>`;
+  // division table
+  const div=F.nfl.standings.filter(x=>x.div===t.div).sort((a,b)=>a.divRank-b.divRank);
+  $("#divName").textContent=t.div;
+  $("#divTable").innerHTML=standTable(div);
+  // team news
+  const tn=F.nfl.news.filter(n=>n.teams.includes(nflTeam));
+  $("#teamNewsTag").textContent=tn.length?"":"League headlines";
+  newsList(tn.length?tn:F.nfl.news,$("#teamNews"));
+  renderGames();renderConf();if(F.nfl.leaders)renderStats();
+}
+function ordinal(n){if(!n)return"—";const s=["th","st","nd","rd"],v=n%100;return n+(s[(v-20)%10]||s[v]||s[0]);}
+function standTable(rows,showRank){return `<table><thead><tr>${showRank?'<th class="num">#</th>':""}<th>Team</th><th class="num">W</th><th class="num">L</th><th class="num">Pct</th></tr></thead><tbody>${rows.map(r=>`<tr class="click ${r.abbr===nflTeam?"me":""}" data-ab="${r.abbr}">${showRank?`<td class="num dim">${r.confRank}</td>`:""}<td><span class="chip">${r.abbr}</span>${esc(r.name)}</td><td class="num">${r.w}</td><td class="num">${r.l}</td><td class="num">${pct(r)}</td></tr>`).join("")}</tbody></table>`;}
+function renderGames(){
+  let gs=F.nfl.games.filter(g=>gameMode==="up"?g.status!=="final":g.status==="final");
+  gs.sort((a,b)=>gameMode==="up"?a.time.localeCompare(b.time):b.time.localeCompare(a.time));
+  // favorite team first
+  const mine=gs.filter(g=>g.home===nflTeam||g.away===nflTeam);const rest=gs.filter(g=>!(g.home===nflTeam||g.away===nflTeam));
+  gs=mine.concat(rest).slice(0,14);
+  $("#gameList").innerHTML=gs.length?gs.map(g=>gameRow(g,nflTeam)).join(""):`<div class="empty">Nothing scheduled.</div>`;
+}
+function renderConf(){const rows=F.nfl.standings.filter(x=>x.conf===confMode).sort((a,b)=>a.confRank-b.confRank);$("#confTable").innerHTML=standTable(rows,true);}
+function wireNFL(){
+  const sel=$("#teamSel");
+  sel.innerHTML=F.nfl.standings.slice().sort((a,b)=>a.name.localeCompare(b.name)).map(t=>`<option value="${t.abbr}">${esc(t.name)}</option>`).join("");
+  sel.value=nflTeam;
+  sel.onchange=()=>{nflTeam=sel.value;lsSet("hq_team",nflTeam);renderNFL();};
+  document.addEventListener("click",e=>{const tr=e.target.closest("tr.click[data-ab]");if(tr){nflTeam=tr.dataset.ab;sel.value=nflTeam;lsSet("hq_team",nflTeam);renderNFL();$("#teamCard").scrollIntoView({behavior:"smooth",block:"start"});}});
+  segWire("#gameSeg",v=>{gameMode=v;renderGames();});
+  segWire("#confSeg",v=>{confMode=v;renderConf();});
+}
+function segWire(sel,fn){const s=$(sel);s.querySelectorAll("button").forEach(b=>b.onclick=()=>{s.querySelectorAll("button").forEach(x=>x.classList.toggle("on",x===b));fn(b.dataset.v);});}
+
+/* =====================================================
+   LIGHTSABER WORKSHOP
+   ===================================================== */
+const FIN={Chrome:["#f4f6f9","#9aa2ad","#e3e7ec","#5d646e"],Black:["#5b5f66","#1c1d21","#3b3e44","#0d0e10"],Brass:["#ffe9a8","#a77c2a","#e9c46a","#6e4f12"],Bronze:["#e6ad80","#7a4a2a","#c98457","#4a2a15"],White:["#ffffff","#c3c7ce","#eceef2","#8d929b"],Gunmetal:["#9aa3ad","#3d434b","#6b737d","#262a30"]};
+const ACC={Black:"#111",Red:"#c1272d",Gold:"#d4a537",Blue:"#2b6cd4",Green:"#2f9e57"};
+const BLADES={Blue:"#2f7bff",Green:"#2ee65a",Red:"#ff2a2a",Purple:"#b04dff",Yellow:"#ffe23d",Orange:"#ff8a1f",White:"#f2f6ff",Cyan:"#2ff3ff"};
+const KYBER={Blue:"Blue blades are traditionally carried by Jedi Guardians, who favor combat and defense.",Green:"Green is associated with Jedi Consulars, who lean on diplomacy and the Force.",Red:"Red blades come from a crystal that has 'bled.' The mark of the Sith and dark-side users.",Purple:"Purple is rare and hints at a fighter who walks close to the edge.",Yellow:"Yellow is linked to Jedi Sentinels, who blend combat with investigation and security.",Orange:"Orange is uncommon. Some fans tie it to Jedi who drifted from the Order.",White:"White blades come from a purified crystal, freed from the dark side.",Cyan:"Cyan is an unusual, bright shade between blue and green."};
+const PARTS={emitter:["Shroud","Crown","Flared","Tapered"],sw:["Box switch","Ring buttons","Slide","Control plate"],grip:["Ribbed","T-tracks","Wrapped","Smooth"],pommel:["Domed","Flat cap","Spiked","Ring"]};
+let saber=lsGet("hq_saber",{emitter:"Shroud",sw:"Box switch",grip:"T-tracks",pommel:"Domed",finish:"Chrome",accent:"Black",blade:"Blue",style:"Single",length:"Standard"});
+let lit=false,sound=lsGet("hq_sound",true),audio=null,clipN=0;
+
+function cyl(x,w,f,h){h=h||30;const y=80-h/2;return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="2" fill="url(#g-${f})"/>`;}
+function partSVG(kind,name,x,w,f,acc){
+  const C=FIN[f];let s="";
+  if(kind==="pommel"){
+    if(name==="Domed"){s+=`<path d="M${x+w} 64 L${x+18} 64 Q${x} 64 ${x} 80 Q${x} 96 ${x+18} 96 L${x+w} 96 Z" fill="url(#g-${f})"/><rect x="${x+w-8}" y="62" width="6" height="36" rx="1" fill="${C[3]}"/>`;}
+    else if(name==="Flat cap"){s+=cyl(x+4,w-4,f,34)+`<rect x="${x}" y="61" width="10" height="38" rx="2" fill="url(#g-${f})"/>`;for(let i=0;i<3;i++)s+=`<rect x="${x+16+i*9}" y="63" width="3" height="34" fill="${C[3]}" opacity=".7"/>`;}
+    else if(name==="Spiked"){s+=cyl(x+8,w-8,f,32);s+=`<path d="M${x+8} 64 L${x} 58 L${x+14} 64 Z M${x+8} 96 L${x} 102 L${x+14} 96 Z M${x+8} 72 L${x-6} 80 L${x+8} 88 Z" fill="${C[1]}"/>`;s+=`<rect x="${x+w-10}" y="63" width="5" height="34" fill="${acc}"/>`;}
+    else{s+=cyl(x+12,w-12,f,30)+`<circle cx="${x+8}" cy="80" r="9" fill="none" stroke="url(#g-${f})" stroke-width="5"/>`;}
+  }else if(kind==="grip"){
+    s+=cyl(x,w,f,30);
+    if(name==="Ribbed"){for(let i=6;i<w-4;i+=8)s+=`<rect x="${x+i}" y="65" width="4" height="30" rx="1" fill="${C[3]}" opacity=".85"/>`;}
+    else if(name==="T-tracks"){for(let j=0;j<3;j++)s+=`<rect x="${x+6}" y="${68+j*9}" width="${w-12}" height="5" rx="2" fill="#111" opacity=".92"/>`;}
+    else if(name==="Wrapped"){const cid="cw"+(++clipN);s+=`<clipPath id="${cid}"><rect x="${x}" y="65" width="${w}" height="30"/></clipPath><g clip-path="url(#${cid})">`;for(let i=-30;i<w+30;i+=11)s+=`<path d="M${x+i} 95 L${x+i+16} 65 L${x+i+22} 65 L${x+i+6} 95 Z" fill="#3a2a1d"/>`;s+=`</g>`;}
+    else{s+=`<rect x="${x+8}" y="65" width="4" height="30" fill="${acc}"/><rect x="${x+w-12}" y="65" width="4" height="30" fill="${acc}"/>`;}
+  }else if(kind==="sw"){
+    s+=cyl(x,w,f,32)+`<rect x="${x}" y="64" width="${w}" height="3" fill="${C[3]}" opacity=".5"/>`;
+    if(name==="Box switch"){s+=`<rect x="${x+w/2-16}" y="52" width="32" height="14" rx="2" fill="url(#g-${f})" stroke="${C[3]}"/><rect x="${x+w/2-6}" y="48" width="12" height="6" rx="2" fill="#d22"/>`;}
+    else if(name==="Ring buttons"){for(let i=0;i<3;i++)s+=`<circle cx="${x+14+i*((w-28)/2)}" cy="70" r="4.5" fill="${i===0?"#e33":acc}" stroke="#000" stroke-width="1"/>`;}
+    else if(name==="Slide"){s+=`<rect x="${x+8}" y="66" width="${w-16}" height="6" rx="3" fill="#111"/><rect x="${x+w/2-6}" y="62" width="12" height="12" rx="3" fill="${acc==="#111"?"#c33":acc}"/>`;}
+    else{s+=`<rect x="${x+8}" y="62" width="${w-16}" height="14" rx="2" fill="#151515"/>`;["#3f3","#fc3","#f33","#3cf"].forEach((c,i)=>s+=`<rect x="${x+13+i*((w-30)/4)}" y="66" width="5" height="6" rx="1" fill="${c}"/>`);}
+  }else if(kind==="emitter"){
+    if(name==="Shroud"){s+=cyl(x,w,f,34)+`<path d="M${x+6} 63 L${x+w} 52 L${x+w} 80 L${x+6} 80 Z" fill="url(#g-${f})" stroke="${C[3]}" stroke-width=".8"/><rect x="${x+w-4}" y="63" width="4" height="34" fill="${C[3]}"/>`;}
+    else if(name==="Crown"){s+=cyl(x,w-8,f,30)+`<path d="M${x+w-10} 60 L${x+w} 58 L${x+w} 102 L${x+w-10} 100 Z" fill="url(#g-${f})"/>`;for(let i=0;i<4;i++)s+=`<rect x="${x+w-3}" y="${60+i*11}" width="3" height="5" fill="#000" opacity=".6"/>`;}
+    else if(name==="Flared"){s+=`<path d="M${x} 65 L${x+w} 58 L${x+w} 102 L${x} 95 Z" fill="url(#g-${f})"/><rect x="${x+8}" y="63" width="4" height="34" fill="${acc}"/>`;}
+    else{s+=`<path d="M${x} 63 L${x+w} 68 L${x+w} 92 L${x} 97 Z" fill="url(#g-${f})"/><rect x="${x+w-6}" y="68" width="3" height="24" fill="${C[3]}"/>`;}
+  }
+  return s;
+}
+function mirrorG(inner,cx){return `<g transform="translate(${2*cx},0) scale(-1,1)">${inner}</g>`;}
+function bladeSVG(x,len,dir,col,vertical){
+  // dir: 1 right, -1 left. vertical: crossguard quillon
+  const core=saber.blade==="White"?"#fff":"#fff";
+  if(vertical){const y0=dir<0?80-len:80;const org=dir<0?"center bottom":"center top";
+    return `<g class="bladev" style="transform-box:fill-box;transform-origin:${org}"><g class="bladeg"><rect x="${x-7}" y="${y0}" width="14" height="${len}" rx="7" fill="${col}" opacity=".55" filter="url(#glow)"/><rect x="${x-3}" y="${y0}" width="6" height="${len}" rx="3" fill="${core}"/></g></g>`;}
+  const x0=dir>0?x:x-len;const org=dir>0?"left center":"right center";
+  return `<g class="blade" style="transform-box:fill-box;transform-origin:${org}"><g class="bladeg"><rect x="${x0}" y="70" width="${len}" height="20" rx="10" fill="${col}" opacity=".55" filter="url(#glow2)"/><rect x="${x0}" y="72" width="${len}" height="16" rx="8" fill="${col}" filter="url(#glow)"/><rect x="${x0}" y="75.5" width="${len}" height="9" rx="4.5" fill="${core}"/></g></g>`;
+}
+function renderSaber(){
+  const f=saber.finish,acc=ACC[saber.accent],col=BLADES[saber.blade];
+  const len={Short:300,Standard:470,Long:560}[saber.length];
+  const defs=`<defs>${Object.keys(FIN).map(k=>{const c=FIN[k];return `<linearGradient id="g-${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c[2]}"/><stop offset=".28" stop-color="${c[0]}"/><stop offset=".55" stop-color="${c[1]}"/><stop offset="1" stop-color="${c[3]}"/></linearGradient>`}).join("")}
+   <filter id="glow" x="-20%" y="-200%" width="140%" height="500%"><feGaussianBlur stdDeviation="4"/></filter><filter id="glow2" x="-20%" y="-300%" width="140%" height="700%"><feGaussianBlur stdDeviation="12"/></filter></defs>`;
+  let hilt="",blades="";const W=1000;
+  if(saber.style==="Saberstaff"){
+    // emitter | sw | grip | grip | sw | emitter (mirrored), centered
+    const ew=46,sw=60,gw=90,total=2*(ew+sw+gw);let x=(W-total)/2;const cx=W/2;
+    let half=partSVG("emitter",saber.emitter,x+total-ew,ew,f,acc)+partSVG("sw",saber.sw,x+total-ew-sw,sw,f,acc)+partSVG("grip",saber.grip,x+total-ew-sw-gw,gw,f,acc);
+    // half drawn on the right side (from center); mirror for left
+    const r=`<g>${half}</g>`;
+    hilt=mirrorG(r,cx)+r+`<rect x="${cx-5}" y="63" width="10" height="34" fill="${acc}"/>`;
+    const L=Math.min(len,360);
+    blades=bladeSVG(x+total,L,1,col)+bladeSVG(x,L,-1,col);
+  }else{
+    const pw=40,gw=120,sw=70,ew=52,total=pw+gw+sw+ew;const x=40;
+    hilt=partSVG("pommel",saber.pommel,x,pw,f,acc)+partSVG("grip",saber.grip,x+pw,gw,f,acc)+partSVG("sw",saber.sw,x+pw+gw,sw,f,acc)+partSVG("emitter",saber.emitter,x+pw+gw+sw,ew,f,acc);
+    const bx=x+total;
+    blades=bladeSVG(bx,len,1,col);
+    if(saber.style==="Crossguard"){const qx=bx-14;hilt+=`<rect x="${qx-8}" y="56" width="16" height="48" rx="3" fill="url(#g-${f})"/>`;blades+=bladeSVG(qx,62,-1,col,true)+bladeSVG(qx,62,1,col,true);}
+  }
+  const glowBg=`<ellipse class="blade" style="transform-box:fill-box;transform-origin:${saber.style==="Saberstaff"?"center":"left center"}" cx="${saber.style==="Saberstaff"?500:560}" cy="80" rx="${saber.style==="Saberstaff"?480:300}" ry="45" fill="${col}" opacity=".10" filter="url(#glow2)"/>`;
+  $("#stage").innerHTML=`<svg viewBox="0 0 1000 160" class="${lit?"hum":"saber-off"}" role="img" aria-label="Lightsaber preview">${defs}${glowBg}${blades}${hilt}</svg>`;
+  updIgnite();
+  $("#kyberNote").innerHTML=`<b style="color:${col}">${saber.blade} kyber.</b> ${esc(KYBER[saber.blade])}`;
+  lsSet("hq_saber",saber);
+}
+function updIgnite(){const col=BLADES[saber.blade];const b=$("#ignite");b.textContent=lit?"Deactivate":"Ignite";b.style.background=lit?col:"#2a2f3c";b.style.color=lit&&["White","Yellow","Cyan","Green","Orange"].includes(saber.blade)?"#111":"#fff";}
+function renderSaberOpts(){
+  const grp=(label,key,list)=>`<div class="optgrp"><label>${label}</label><div class="chips">${list.map(v=>`<button data-k="${key}" data-v="${esc(v)}" class="${saber[key]===v?"on":""}">${esc(v)}</button>`).join("")}</div></div>`;
+  const sw=(label,key,map)=>`<div class="optgrp"><label>${label}</label><div class="chips">${Object.keys(map).map(v=>`<button title="${v}" aria-label="${v}" class="sw ${saber[key]===v?"on":""}" data-k="${key}" data-v="${v}" style="background:${key==="finish"?`linear-gradient(${FIN[v][0]},${FIN[v][1]})`:map[v]};color:${key==="blade"?map[v]:"#888"}"></button>`).join("")}</div></div>`;
+  $("#saberOpts").innerHTML=sw("Blade color","blade",BLADES)+grp("Blade style","style",["Single","Saberstaff","Crossguard"])+grp("Blade length","length",["Short","Standard","Long"])+sw("Hilt finish","finish",FIN)+sw("Accent","accent",ACC)+grp("Emitter","emitter",PARTS.emitter)+grp("Activation","sw",PARTS.sw)+grp("Grip","grip",PARTS.grip)+(saber.style==="Saberstaff"?"":grp("Pommel","pommel",PARTS.pommel));
+}
+function hum(on){
+  if(!sound)return;
+  try{
+    if(!audio){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;audio={ctx:new AC()};}
+    const ctx=audio.ctx;if(ctx.state==="suspended")ctx.resume();
+    if(on){
+      const o1=ctx.createOscillator(),o2=ctx.createOscillator(),g=ctx.createGain(),lp=ctx.createBiquadFilter();
+      o1.type="sawtooth";o1.frequency.value=88;o2.type="sine";o2.frequency.value=90.5;lp.type="lowpass";lp.frequency.value=420;
+      o1.connect(lp);o2.connect(lp);lp.connect(g);g.connect(ctx.destination);g.gain.setValueAtTime(0,ctx.currentTime);g.gain.linearRampToValueAtTime(.09,ctx.currentTime+.25);
+      // ignition sweep
+      o1.frequency.setValueAtTime(260,ctx.currentTime);o1.frequency.exponentialRampToValueAtTime(88,ctx.currentTime+.35);
+      o1.start();o2.start();audio.nodes={o1,o2,g};
+    }else if(audio.nodes){const {o1,o2,g}=audio.nodes;const t=ctx.currentTime;g.gain.cancelScheduledValues(t);g.gain.setValueAtTime(g.gain.value,t);g.gain.linearRampToValueAtTime(0,t+.3);o1.frequency.exponentialRampToValueAtTime(40,t+.3);o1.stop(t+.35);o2.stop(t+.35);audio.nodes=null;}
+  }catch(e){}
+}
+function savedSabers(){
+  const list=Store.profile.sabers||[];
+  $("#savedWrap").style.display=list.length?"block":"none";
+  $("#savedSabers").innerHTML=list.map((s,i)=>`<div class="ss" data-i="${i}"><div style="height:10px;border-radius:5px;background:linear-gradient(90deg,${FIN[s.finish]?FIN[s.finish][1]:"#888"} 0 30%,${BLADES[s.blade]} 30%);box-shadow:0 0 10px ${BLADES[s.blade]}"></div><div class="n">${esc(s.name)}</div><div class="small muted">${esc(s.blade)} · ${esc(s.style)}</div><button class="x" data-del="${i}" title="Delete">×</button></div>`).join("");
+}
+function wireSaber(){
+  $("#saberOpts").addEventListener("click",e=>{const b=e.target.closest("button[data-k]");if(!b)return;saber[b.dataset.k]=b.dataset.v;renderSaberOpts();renderSaber();});
+  $("#ignite").onclick=()=>{lit=!lit;const svg=$("#stage svg");svg.classList.toggle("saber-off",!lit);svg.classList.toggle("hum",lit);updIgnite();hum(lit);};
+  $("#soundBtn").textContent="Sound: "+(sound?"on":"off");
+  $("#soundBtn").onclick=()=>{if(sound&&lit)hum(false);sound=!sound;lsSet("hq_sound",sound);$("#soundBtn").textContent="Sound: "+(sound?"on":"off");if(sound&&lit)hum(true);};
+  $("#randSaber").onclick=()=>{const pick=a=>a[Math.floor(Math.random()*a.length)];saber={emitter:pick(PARTS.emitter),sw:pick(PARTS.sw),grip:pick(PARTS.grip),pommel:pick(PARTS.pommel),finish:pick(Object.keys(FIN)),accent:pick(Object.keys(ACC)),blade:pick(Object.keys(BLADES)),style:Math.random()<.7?"Single":pick(["Saberstaff","Crossguard"]),length:pick(["Short","Standard","Standard","Long"])};renderSaberOpts();renderSaber();};
+  $("#saveSaber").onclick=async()=>{const name=($("#saberName").value||"").trim()||`${saber.blade} ${saber.style==="Single"?"saber":saber.style.toLowerCase()}`;Store.profile.sabers=(Store.profile.sabers||[]).concat([Object.assign({name},saber)]).slice(-30);await Store.saveProfile();savedSabers();$("#saberName").value="";toast(`Saved “${name}” to your collection`);};
+  $("#savedSabers").addEventListener("click",async e=>{const d=e.target.closest("[data-del]");if(d){e.stopPropagation();const i=+d.dataset.del;const s=Store.profile.sabers[i];if(await confirmBox(`Delete “${s.name}” from your collection?`)){Store.profile.sabers.splice(i,1);await Store.saveProfile();savedSabers();}return;}const c=e.target.closest(".ss");if(c){const s=Store.profile.sabers[+c.dataset.i];saber=Object.assign({},s);delete saber.name;$("#saberName").value=s.name;renderSaberOpts();renderSaber();$("#stage").scrollIntoView({behavior:"smooth",block:"center"});}});
+}
+
+/* =====================================================
+   VIDEO GAMES
+   ===================================================== */
+const PLAT=[{k:"pc",n:"PC",c:"#5aa9ff"},{k:"ps",n:"PlayStation",c:"#2f6bff"},{k:"xbox",n:"Xbox",c:"#2fbf4a"},{k:"nintendo",n:"Nintendo",c:"#ff3c3c"}];
+let plat=lsGet("hq_plat","pc");
+function dealHTML(d,showPlat){const st=dealStatus(d);return `<div class="deal"><div class="t">${showPlat?`<span class="pill">${showPlat}</span>`:""}<a href="${esc(d.url)}" target="_blank" rel="noopener" style="text-decoration:none">${esc(d.title)}</a><span class="pill ${st.c}">${esc(st.t)}</span></div><div class="s">${esc(d.detail)}</div><div class="m">${newsDate(d.start)} – ${newsDate(d.end)} · ${esc(d.source)}</div></div>`;}
+function renderGames2(){
+  if(!F)return;
+  const p=PLAT.find(x=>x.k===plat);
+  $("#platBtns").innerHTML=PLAT.map(x=>`<button data-p="${x.k}" class="${x.k===plat?"on":""}" style="--pc:${x.c}">${x.n}</button>`).join("");
+  $("#platNewsH").textContent=p.n+" news";$("#platDealsH").textContent=p.n+" deals";
+  const g=F.games[plat];newsList(g.news,$("#platNews"));
+  const order={live:0,soon:1,exp:2,ended:3};
+  const ds=g.deals.slice().sort((a,b)=>order[dealStatus(a).c]-order[dealStatus(b).c]);
+  $("#platDeals").innerHTML=ds.length?ds.map(d=>dealHTML(d)).join(""):`<div class="empty">No current deals.</div>`;
+  const live=[];PLAT.forEach(x=>F.games[x.k].deals.forEach(d=>{if(dealStatus(d).c==="live")live.push([d,x.n]);}));
+  $("#allDeals").innerHTML=live.length?live.map(([d,n])=>dealHTML(d,n)).join(""):`<div class="empty">No live deals right now.</div>`;
+  const u=until(F.games.gta6);$("#gtaLine").textContent=u?`GTA 6 launches in ${u}`:"GTA 6 is out now";
+}
+function wireGames(){$("#platBtns").addEventListener("click",e=>{const b=e.target.closest("button[data-p]");if(!b)return;plat=b.dataset.p;lsSet("hq_plat",plat);renderGames2();});}
+
+/* =====================================================
+   WORKOUTS
+   ===================================================== */
+const DEFAULT_EX=["Bench press","Incline bench press","Incline dumbbell press","Dumbbell bench press","Chest fly","Push-up","Dip","Overhead press","Dumbbell shoulder press","Lateral raise","Rear delt fly","Squat","Front squat","Leg press","Romanian deadlift","Deadlift","Lunge","Bulgarian split squat","Leg extension","Leg curl","Calf raise","Hip thrust","Pull-up","Chin-up","Lat pulldown","Barbell row","Dumbbell row","Seated cable row","Face pull","Barbell curl","Dumbbell curl","Hammer curl","Tricep pushdown","Skull crusher","Overhead tricep extension","Plank","Cable crunch","Hanging leg raise","Shrug"];
+let draft=null,editingId=null,progMetric="top";
+function blankDraft(){return{date:ymd(new Date()),name:"",notes:"",exercises:[{name:"",sets:[{reps:"",weight:""}]}]};}
+function exNames(){const s=new Set(DEFAULT_EX);Store.workouts.forEach(w=>w.exercises.forEach(e=>e.name&&s.add(e.name)));return Array.from(s).sort();}
+function renderDraft(){
+  $("#wDate").value=draft.date;$("#wName").value=draft.name;$("#wNotes").value=draft.notes||"";
+  $("#exNames").innerHTML=exNames().map(n=>`<option value="${esc(n)}">`).join("");
+  $("#exList").innerHTML=draft.exercises.map((ex,ei)=>`<div class="exrow" data-ei="${ei}"><div class="exhead"><input type="text" list="exNames" placeholder="Exercise (e.g. Bench press)" value="${esc(ex.name)}" data-f="name"><button class="iconbtn" data-act="delEx" title="Remove exercise">×</button></div>
+    <div class="setrow" style="margin-top:8px"><span class="n">SET</span><span class="small dim">Reps</span><span class="small dim">Weight (lbs)</span><span></span></div>
+    ${ex.sets.map((s,si)=>`<div class="setrow" data-si="${si}"><span class="n">${si+1}</span><input type="number" inputmode="numeric" min="0" placeholder="10" value="${esc(s.reps)}" data-f="reps"><input type="number" inputmode="decimal" min="0" step="2.5" placeholder="135" value="${esc(s.weight)}" data-f="weight"><button class="iconbtn" data-act="delSet" title="Remove set">−</button></div>`).join("")}
+    <button class="btn sm ghost" data-act="addSet" style="margin-top:8px">+ Set</button><span class="hint">${lastTimeHint(ex.name)}</span></div>`).join("");
+  $("#logTitle").textContent=editingId?"Edit workout":"Log a workout";$("#cancelEdit").style.display=editingId?"inline-block":"none";
+}
+function lastTimeHint(name){if(!name)return"";const prev=Store.workouts.filter(w=>w.id!==editingId&&w.exercises.some(e=>e.name.toLowerCase()===name.toLowerCase())).sort((a,b)=>b.date.localeCompare(a.date))[0];if(!prev)return"";const e=prev.exercises.find(e=>e.name.toLowerCase()===name.toLowerCase());return `<span class="small dim" style="margin-left:10px">Last time (${newsDate(prev.date)}): ${e.sets.map(s=>`${s.reps}×${s.weight||0}`).join(", ")}</span>`;}
+function wireWorkouts(){
+  draft=blankDraft();
+  $("#exList").addEventListener("input",e=>{const inp=e.target;const er=inp.closest(".exrow");if(!er)return;const ex=draft.exercises[+er.dataset.ei];const sr=inp.closest(".setrow[data-si]");if(sr){ex.sets[+sr.dataset.si][inp.dataset.f]=inp.value;}else if(inp.dataset.f==="name"){ex.name=inp.value;}});
+  $("#exList").addEventListener("change",e=>{if(e.target.dataset.f==="name"){const er=e.target.closest(".exrow");const h=er&&er.querySelector(".hint");if(h)h.innerHTML=lastTimeHint(draft.exercises[+er.dataset.ei].name);$("#exNames").innerHTML=exNames().map(n=>`<option value="${esc(n)}">`).join("");}});
+  $("#exList").addEventListener("click",e=>{const b=e.target.closest("[data-act]");if(!b)return;const er=b.closest(".exrow");const ei=+er.dataset.ei;const ex=draft.exercises[ei];
+    if(b.dataset.act==="addSet"){const last=ex.sets[ex.sets.length-1]||{};ex.sets.push({reps:last.reps||"",weight:last.weight||""});}
+    if(b.dataset.act==="delSet"){const si=+b.closest(".setrow").dataset.si;ex.sets.splice(si,1);if(!ex.sets.length)ex.sets.push({reps:"",weight:""});}
+    if(b.dataset.act==="delEx"){draft.exercises.splice(ei,1);if(!draft.exercises.length)draft.exercises.push({name:"",sets:[{reps:"",weight:""}]});}
+    renderDraft();});
+  $("#addEx").onclick=()=>{draft.exercises.push({name:"",sets:[{reps:"",weight:""}]});renderDraft();const rows=$$("#exList .exrow input[data-f=name]");rows[rows.length-1].focus();};
+  $("#wDate").onchange=e=>draft.date=e.target.value;$("#wName").oninput=e=>draft.name=e.target.value;$("#wNotes").oninput=e=>draft.notes=e.target.value;
+  $("#cancelEdit").onclick=()=>{editingId=null;draft=blankDraft();renderDraft();};
+  $("#saveW").onclick=async()=>{
+    const exercises=draft.exercises.map(e=>({name:e.name.trim(),sets:e.sets.filter(s=>s.reps!==""||s.weight!=="").map(s=>({reps:+s.reps||0,weight:+s.weight||0}))})).filter(e=>e.name&&e.sets.length);
+    if(!draft.date){toast("Pick a date");return;}
+    if(!exercises.length){toast("Add at least one exercise with a set");return;}
+    const w={id:editingId||("w"+Date.now().toString(36)+Math.random().toString(36).slice(2,6)),date:draft.date,name:(draft.name||"").trim()||"Workout",notes:(draft.notes||"").trim(),exercises,savedAt:Date.now()};
+    const btn=$("#saveW");btn.disabled=true;await Store.putWorkout(w);btn.disabled=false;
+    toast(editingId?"Workout updated":"Workout saved. Nice work!");
+    const firstEx=exercises[0].name;editingId=null;draft=blankDraft();renderDraft();renderWorkoutStats(firstEx);
+  };
+  $("#hist").addEventListener("click",async e=>{const d=e.target.closest("[data-del]");const ed=e.target.closest("[data-edit]");
+    if(d){const w=Store.workouts.find(x=>x.id===d.dataset.del);if(w&&await confirmBox(`Delete “${w.name}” from ${newsDate(w.date)}?`)){await Store.delWorkout(w.id);if(editingId===w.id){editingId=null;draft=blankDraft();renderDraft();}renderWorkoutStats();}return;}
+    if(ed){const w=Store.workouts.find(x=>x.id===ed.dataset.edit);if(!w)return;editingId=w.id;draft={date:w.date,name:w.name,notes:w.notes||"",exercises:w.exercises.map(e=>({name:e.name,sets:e.sets.map(s=>({reps:String(s.reps),weight:String(s.weight)}))}))};renderDraft();$("#logCard").scrollIntoView({behavior:"smooth",block:"start"});}});
+  $("#progEx").onchange=()=>renderProgress();
+  segWire("#progSeg",v=>{progMetric=v;renderProgress();});
+  renderDraft();renderWorkoutStats();
+}
+function weekStart(dstr){const d=new Date(dstr+"T12:00:00");const day=(d.getDay()+6)%7;d.setDate(d.getDate()-day);return d.toISOString().slice(0,10);}
+function renderWorkoutStats(selectEx){
+  const ws=Store.workouts.slice().sort((a,b)=>b.date.localeCompare(a.date));
+  const today=ymd(new Date());const thisWeek=weekStart(today);const month=today.slice(0,7);
+  const days=new Set(ws.map(w=>w.date));
+  const weekDays=new Set(ws.filter(w=>weekStart(w.date)===thisWeek).map(w=>w.date)).size;
+  const monthDays=new Set(ws.filter(w=>w.date.startsWith(month)).map(w=>w.date)).size;
+  // week streak: consecutive weeks (ending this or last week) with >=1 gym day
+  const weeks=new Set(ws.map(w=>weekStart(w.date)));let streak=0;let cur=new Date(thisWeek+"T12:00:00");if(!weeks.has(thisWeek))cur.setDate(cur.getDate()-7);
+  while(weeks.has(cur.toISOString().slice(0,10))){streak++;cur.setDate(cur.getDate()-7);}
+  let vol=0;ws.filter(w=>w.date.startsWith(month)).forEach(w=>w.exercises.forEach(e=>e.sets.forEach(s=>vol+=s.reps*s.weight)));
+  $("#kpis").innerHTML=[["This week",weekDays,"gym days"],["This month",monthDays,"gym days"],["Week streak",streak,streak===1?"week":"weeks in a row"],["Total",days.size,"gym days logged"],["Month volume",vol>=1e6?(vol/1e6).toFixed(2)+"M":vol>=1e4?Math.round(vol/1e3)+"k":vol.toLocaleString(),"lbs lifted"]].map(k=>`<div class="kpi"><div class="k">${k[0]}</div><div class="v">${k[1]}</div><div class="d">${k[2]}</div></div>`).join("");
+  // heatmap
+  const counts={};ws.forEach(w=>counts[w.date]=(counts[w.date]||0)+w.exercises.length);
+  const start=new Date(weekStart(today)+"T12:00:00");start.setDate(start.getDate()-7*19);
+  let h="";for(let wk=0;wk<20;wk++){h+=`<div class="wk">`;for(let d=0;d<7;d++){const dt=new Date(start);dt.setDate(start.getDate()+wk*7+d);const k=dt.toISOString().slice(0,10);const c=counts[k]||0;const lvl=c===0?"":c<3?"l1":c<5?"l2":"l3";const fut=k>today;h+=`<i class="${lvl} ${k===today?"today":""}" title="${newsDate(k)}${c?` · ${c} exercises`:""}" style="${fut?"opacity:.25":""}"></i>`;}h+=`</div>`;}
+  $("#heat").innerHTML=h+`<div class="small dim" style="align-self:flex-end;margin-left:8px;white-space:nowrap">Mon → Sun ↓</div>`;
+  // history
+  $("#histCount").textContent=ws.length?`${ws.length} workout${ws.length>1?"s":""}`:"";
+  $("#hist").innerHTML=ws.length?ws.slice(0,40).map(w=>{const d=new Date(w.date+"T12:00:00");const sets=w.exercises.reduce((a,e)=>a+e.sets.length,0);return `<div class="hi"><div class="dt"><b>${d.getDate()}</b><span>${d.toLocaleDateString("en-US",{month:"short"})}</span></div><div class="body"><div class="t">${esc(w.name)}</div><div class="s">${w.exercises.map(e=>esc(e.name)).join(" · ")}</div><div class="small dim">${w.exercises.length} exercises · ${sets} sets${w.notes?" · "+esc(w.notes):""}</div></div><button class="btn sm ghost" data-edit="${w.id}">Edit</button><button class="iconbtn" data-del="${w.id}" title="Delete">×</button></div>`}).join(""):`<div class="empty">No workouts yet. Log your first session on the left.</div>`;
+  // progress select
+  const used={};ws.forEach(w=>w.exercises.forEach(e=>used[e.name]=(used[e.name]||0)+1));
+  const names=Object.keys(used).sort((a,b)=>used[b]-used[a]);
+  const sel=$("#progEx");const keep=selectEx||sel.value;
+  sel.innerHTML=names.length?names.map(n=>`<option>${esc(n)}</option>`).join(""):`<option value="">No exercises yet</option>`;
+  if(keep&&names.includes(keep))sel.value=keep;
+  renderProgress();
+}
+function renderProgress(){
+  const name=$("#progEx").value;const el=$("#progChart");
+  if(!name){el.innerHTML=`<div class="empty">Log a few workouts and your progress chart shows up here.</div>`;$("#prs").innerHTML="";return;}
+  const pts=Store.workouts.filter(w=>w.exercises.some(e=>e.name===name)).sort((a,b)=>a.date.localeCompare(b.date)).map(w=>{
+    const sets=w.exercises.filter(e=>e.name===name).flatMap(e=>e.sets);
+    const top=Math.max(...sets.map(s=>s.weight));const e1=Math.max(...sets.map(s=>s.weight*(1+s.reps/30)));const vol=sets.reduce((a,s)=>a+s.reps*s.weight,0);const reps=Math.max(...sets.map(s=>s.reps));
+    return{date:w.date,top,e1rm:Math.round(e1),vol,reps};});
+  const key=progMetric;const vals=pts.map(p=>p[key]);
+  const best={top:Math.max(...pts.map(p=>p.top)),e1:Math.max(...pts.map(p=>p.e1rm)),vol:Math.max(...pts.map(p=>p.vol)),reps:Math.max(...pts.map(p=>p.reps))};
+  const W=520,H=210,pl=44,pr=14,pt=14,pb=28;
+  let mn=Math.min(...vals),mx=Math.max(...vals);if(mn===mx){mn=Math.max(0,mn-10);mx=mx+10;}const pad=(mx-mn)*.12;mn=Math.max(0,mn-pad);mx+=pad;
+  const X=i=>pts.length===1?(pl+(W-pl-pr)/2):pl+i*(W-pl-pr)/(pts.length-1);const Y=v=>pt+(H-pt-pb)*(1-(v-mn)/(mx-mn));
+  let grid="";for(let k=0;k<=4;k++){const v=mn+(mx-mn)*k/4;const y=Y(v);grid+=`<line x1="${pl}" x2="${W-pr}" y1="${y}" y2="${y}" stroke="#262c39"/><text x="${pl-8}" y="${y+4}" text-anchor="end" font-size="11" fill="#6b7489">${Math.round(v).toLocaleString()}</text>`;}
+  const path=pts.map((p,i)=>`${i?"L":"M"}${X(i).toFixed(1)} ${Y(p[key]).toFixed(1)}`).join(" ");
+  const area=pts.length>1?`${path} L${X(pts.length-1)} ${H-pb} L${X(0)} ${H-pb} Z`:"";
+  const step=Math.max(1,Math.ceil(pts.length/6));
+  const xl=pts.map((p,i)=>i%step===0||i===pts.length-1?`<text x="${X(i)}" y="${H-8}" text-anchor="middle" font-size="11" fill="#6b7489">${newsDate(p.date)}</text>`:"").join("");
+  const dots=pts.map((p,i)=>`<circle cx="${X(i)}" cy="${Y(p[key])}" r="4" fill="#2fd27c" stroke="#141821" stroke-width="2"><title>${newsDate(p.date)}: ${p[key].toLocaleString()} lbs</title></circle>`).join("");
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}"><defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2fd27c" stop-opacity=".28"/><stop offset="1" stop-color="#2fd27c" stop-opacity="0"/></linearGradient></defs>${grid}${area?`<path d="${area}" fill="url(#ag)"/>`:""}<path d="${path}" fill="none" stroke="#2fd27c" stroke-width="2.5" stroke-linejoin="round"/>${dots}${xl}</svg>`;
+  const first=pts[0][key],last=pts[pts.length-1][key];const ch=last-first;
+  $("#prs").innerHTML=`<div><b>${best.top.toLocaleString()} lbs</b><span>Heaviest set</span></div><div><b>${best.e1.toLocaleString()} lbs</b><span>Best est. 1RM</span></div><div><b>${best.vol.toLocaleString()}</b><span>Best session volume</span></div><div><b style="color:${ch>0?"var(--good)":ch<0?"var(--bad)":"inherit"}">${ch>0?"+":""}${ch.toLocaleString()}</b><span>Change since first log (${pts.length} sessions)</span></div>`;
+}
+
+/* =====================================================
+   WWE
+   ===================================================== */
+function renderWWE(){
+  if(!F)return;
+  $("#wweEvents").innerHTML=F.wwe.events.map(ev=>{const u=until(ev.date);return `<div class="card" style="border-color:#4a2024;background:linear-gradient(160deg,#2a1215 0%,var(--panel) 55%)">
+    <div class="row"><span class="pill" style="color:var(--wwe);border-color:#5a2a2e">${esc(ev.type)}</span><span class="small muted">${fmtDate(ev.date,{weekday:"long",month:"long",day:"numeric"})} · ${esc(ev.venue)}, ${esc(ev.city)}</span></div>
+    <div class="row" style="margin:8px 0 4px;align-items:flex-end"><h3 style="font-size:26px;margin:0">${esc(ev.name)}</h3><span class="sp"></span>${u?`<div style="text-align:right"><div class="bigcd">${u}</div><div class="small muted">to go</div></div>`:`<span class="pill">Happened</span>`}</div>
+    <div class="small muted" style="margin-bottom:10px">${esc(ev.note)} · Watch: ${esc(ev.watch)}</div>
+    ${ev.matches.map(m=>`<div class="match"><div class="mt">${esc(m.title)}</div><div class="vs"><div>${esc(m.a)}</div><div class="x">VS</div><div>${esc(m.b)}</div></div></div>`).join("")}
+    <div class="small dim" style="margin-top:8px">Announced card. More matches may be added. <a href="${esc(ev.url)}" target="_blank" rel="noopener">${esc(ev.source)}</a></div></div>`;}).join("");
+  newsList(F.wwe.news,$("#wweNews"));
+  $("#wweShows").innerHTML=F.wwe.shows.map(s=>{const d=new Date(s.date);const past=d<Date.now()-4*36e5;return `<div class="show" style="${past?"opacity:.5":""}"><div class="dt"><b>${fmtDate(s.date,{day:"numeric"})}</b><span>${fmtDate(s.date,{month:"short"})}</span></div><div style="flex:1"><div style="font-weight:600">${esc(s.name)}</div><div class="small muted">${esc(s.place)}</div></div><div class="small dim" style="text-align:right">${fmtDate(s.date,{weekday:"short"})} ${fmtTime(s.date)}<br>${esc(s.watch)}</div></div>`}).join("");
+}
+
+/* =====================================================
+   HOME
+   ===================================================== */
+function renderHome(){
+  $("#todayLbl").textContent=new Date().toLocaleDateString("en-US",{timeZone:TZ,weekday:"long",month:"long",day:"numeric"});
+  if(!F){$("#countdowns").innerHTML=`<div class="card">The news feed didn't load. Try refreshing.</div>`;return;}
+  const ne=team(nflTeam);
+  const myNext=F.nfl.games.filter(g=>(g.away===nflTeam||g.home===nflTeam)&&g.status!=="final").sort((a,b)=>a.time.localeCompare(b.time))[0];
+  const ss=F.wwe.events[0];
+  const wk=new Set(Store.workouts.filter(w=>weekStart(w.date)===weekStart(ymd(new Date()))).map(w=>w.date)).size;
+  const liveDeals=PLAT.reduce((a,x)=>a+F.games[x.k].deals.filter(d=>dealStatus(d).c==="live").length,0);
+  const newPods=(F.podcasts||[]).filter(p=>podIsNew(p.episodes[0])).length;
+  const cds=[
+    {c:"var(--fit)",k:"Gym this week",v:`${wk} day${wk===1?"":"s"}`,d:wk?"Keep it rolling":"Log your first session this week",t:"workouts"},
+    {c:"var(--vg)",k:"Live game deals",v:liveDeals,d:"Across PC, PlayStation, Xbox, Nintendo",t:"games"},
+    {c:"var(--nfl)",k:"My pick'em",v:F.nfl.picks?F.nfl.picks.games.filter(g=>!g.week||g.week===F.nfl.picks.week).length+" picks":"—",d:F.nfl.picks?F.nfl.picks.label:"",t:"nfl"},
+    {c:"var(--sw)",k:"New podcast episodes",v:newPods,d:"Cody Rhodes · Gronk & Jules · Games with Names",t:"nfl"}
+  ];
+
+  $("#countdowns").innerHTML=cds.map(x=>`<div class="cd" style="--c:${x.c}" data-go="${x.t}"><div class="k">${esc(x.k)}</div><div class="v">${esc(x.v)}</div><div class="d">${esc(x.d)}</div></div>`).join("");
+  const top=(arr,n)=>arr.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,n);
+  const card=(t,c,title,items)=>`<div class="card hcard" data-go="${t}" style="--c:${c}"><h3><span class="bar"></span>${title}<span class="tag">Open →</span></h3><div class="news">${items.map(n=>`<a class="ni" href="${esc(n.url)}" target="_blank" rel="noopener"><div class="t">${esc(n.title)}</div><div class="m"><span>${esc(n.source)}</span><span>·</span><span>${newsDate(n.date)}</span></div></a>`).join("")}</div></div>`;
+  const teamNews=F.nfl.news.filter(n=>n.teams.includes(nflTeam));
+  const allGames=[].concat(...PLAT.map(x=>F.games[x.k].news));
+  $("#homeCards").innerHTML=card("nfl","var(--nfl)",short(nflTeam)+" & NFL",top(teamNews.length?teamNews:F.nfl.news,3))+card("starwars","var(--sw)","Star Wars",top(F.starwars.news,3))+card("games","var(--vg)","Video games",top(allGames,3))+card("wwe","var(--wwe)","WWE",top(F.wwe.news,3));
+  renderBigCds();renderPods();
+}
+document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g&&!e.target.closest("a")){location.hash=g.dataset.go;}});
+
+
+/* =====================================================
+   PICK'EM
+   ===================================================== */
+let pickSort="time";
+function userPicks(){const P=F.nfl.picks;Store.profile.picks=Store.profile.picks||{};return Store.profile.picks["w"+P.week]||(Store.profile.picks["w"+P.week]={});}
+function finalFor(g){return F.nfl.games.find(x=>x.away===g.away&&x.home===g.home&&x.status==="final");}
+function gameTime(g){const m=F.nfl.games.find(x=>x.away===g.away&&x.home===g.home);return m?m.time:null;}
+function renderPicks(){
+  const P=F.nfl.picks;if(!P){$("#picksCard").style.display="none";return;}
+  $("#picksTitle").textContent="My picks · "+P.label;
+  const up=userPicks();
+  const wk=P.games.filter(g=>!g.week||g.week===P.week);
+  // confidence points: highest probability = most points (only current-week games)
+  const ranked=wk.slice().sort((a,b)=>b.prob-a.prob);const pts={};ranked.forEach((g,i)=>pts[g.away+g.home]=ranked.length-i);
+  let list=P.games.slice();
+  if(pickSort==="conf")list.sort((a,b)=>(b.week&&b.week!==P.week?-1:0)-(a.week&&a.week!==P.week?-1:0)||b.prob-a.prob);
+  else list.sort((a,b)=>(gameTime(a)||"").localeCompare(gameTime(b)||""));
+  let w=0,l=0,mw=0,ml=0;
+  $("#pickList").innerHTML=list.map(g=>{
+    const key=g.away+g.home;const mine=up[key]||g.pick;const changed=up[key]&&up[key]!==g.pick;
+    const fin=finalFor(g);let res="";
+    if(fin){const winner=fin.hs>fin.as?g.home:fin.as>fin.hs?g.away:null;const ok=winner===g.pick;const myOk=winner===mine;
+      if(!g.week||g.week===P.week){ok?w++:l++;myOk?mw++:ml++;}
+      res=`<span class="res ${myOk?"w":"l"}">${myOk?"✓ Hit":"✗ Miss"} · ${fin.as}-${fin.hs}</span>`;}
+    const t=gameTime(g);const conf=g.prob>=85?"Lock":g.prob>=70?"Strong":g.prob>=60?"Lean":"Toss-up";
+    const col=g.prob>=85?"var(--good)":g.prob>=70?"#7bd88f":g.prob>=60?"var(--warn)":"#ff8a5c";
+    const tb=ab=>`<button class="tb ${mine===ab?"mine":""}" data-pick="${key}" data-team="${ab}">${ab}<span class="nm">${esc(short(ab))}</span></button>`;
+    const isCur=!g.week||g.week===P.week;
+    return `<div class="pk"><div class="rank">${isCur?pts[key]:"–"}<small>${isCur?"pts":""}</small></div>
+      <div><div class="mu">${tb(g.away)}<span class="at">@</span>${tb(g.home)}${g.flip?`<span class="pill" style="color:#ff8a5c;border-color:#5a3a2a">Upset watch</span>`:""}${changed?`<span class="pill">Your call</span>`:""}${res}</div>
+      <div class="why"><b style="color:var(--text)">Pick: ${esc(team(g.pick).name)}.</b> ${esc(g.why)}</div>
+      <div class="meta">${g.tag?`<span>${esc(g.tag)}</span><span>·</span>`:""}${t?`<span>${fmtDate(t,{weekday:"short",month:"short",day:"numeric"})} ${fmtTime(t)}</span>`:""}</div></div>
+      <div class="pr"><span>${conf}${g.est?" · est.":""}</span><b style="color:${col}">${g.prob}%</b><div class="pbar"><i style="width:${g.prob}%;background:${col}"></i></div></div></div>`;
+  }).join("");
+  const hist=F.nfl.pickHistory||[];const sw=hist.reduce((a,h)=>a+h.w,0)+w,sl=hist.reduce((a,h)=>a+h.l,0)+l;
+  const changes=Object.keys(up).filter(k=>{const g=P.games.find(x=>x.away+x.home===k);return g&&up[k]!==g.pick;}).length;
+  $("#pickRec").innerHTML=`<div><b>${wk.length}</b><span>Games this week</span></div><div><b>${w+l?`${w}-${l}`:"—"}</b><span>This week (my picks)</span></div><div><b>${sw+sl?`${sw}-${sl}`:"—"}</b><span>Season (since tracking began)</span></div>${changes?`<div><b>${mw+ml?`${mw}-${ml}`:changes}</b><span>${mw+ml?"Your record":"Picks you changed"}</span></div>`:""}`;
+  $("#pickNote").textContent="Tap a team to make it your pick.";
+  $("#pickSrc").innerHTML=esc(P.note)+" Sources: "+P.sources.map(x=>`<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>`).join(" · ");
+}
+function wirePicks(){
+  if(!F.nfl.picks)return;
+  $("#pickList").addEventListener("click",async e=>{const b=e.target.closest("[data-pick]");if(!b)return;const up=userPicks();const g=F.nfl.picks.games.find(x=>x.away+x.home===b.dataset.pick);
+    if(b.dataset.team===g.pick)delete up[b.dataset.pick];else up[b.dataset.pick]=b.dataset.team;renderPicks();await Store.saveProfile();});
+  segWire("#pickSort",v=>{pickSort=v;renderPicks();});
+  $("#resetPicks").onclick=async()=>{Store.profile.picks["w"+F.nfl.picks.week]={};renderPicks();await Store.saveProfile();};
+  $("#copyPicks").onclick=async()=>{const P=F.nfl.picks;const up=userPicks();const wk=P.games.filter(g=>!g.week||g.week===P.week).sort((a,b)=>b.prob-a.prob);
+    const txt=`${P.label} picks (most confident first)\n`+wk.map((g,i)=>{const m=up[g.away+g.home]||g.pick;return `${wk.length-i} pts: ${team(m).name} (${g.away} @ ${g.home})`}).join("\n");
+    try{await navigator.clipboard.writeText(txt);toast("Picks copied. Paste them into your league app.");}catch(err){toast("Couldn't copy here. Try opening the page in its own tab.");}};
+}
+
+/* =====================================================
+   BANNERS (original illustrations)
+   ===================================================== */
+function stars(n,w,h,seed){let s="",x=seed||7;const r=()=>((x=(x*9301+49297)%233280)/233280);for(let i=0;i<n;i++){s+=`<circle cx="${(r()*w).toFixed(1)}" cy="${(r()*h).toFixed(1)}" r="${(r()*1.3+.3).toFixed(2)}" fill="#fff" opacity="${(r()*.7+.2).toFixed(2)}"/>`;}return s;}
+const BANNERS={
+ home:`<svg viewBox="0 0 1200 150" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bh" x1="0" x2="1"><stop offset="0" stop-color="#1a0d14"/><stop offset=".25" stop-color="#1b1b10"/><stop offset=".5" stop-color="#160f26"/><stop offset=".75" stop-color="#0c1d14"/><stop offset="1" stop-color="#220c0c"/></linearGradient></defs><rect width="1200" height="150" fill="url(#bh)"/>
+  <g opacity=".55"><ellipse cx="500" cy="80" rx="34" ry="21" fill="#7a3b1c" transform="rotate(-25 500 80)"/><path d="M482 78 L518 78 M490 72 L490 84 M500 72 L500 84 M510 72 L510 84" stroke="#fff" stroke-width="2" transform="rotate(-25 500 80)"/>
+  <rect x="560" y="32" width="44" height="12" rx="3" fill="#bbb"/><line x1="604" y1="38" x2="780" y2="38" stroke="#ffe81f" stroke-opacity=".5" stroke-width="10" stroke-linecap="round"/><line x1="604" y1="38" x2="780" y2="38" stroke="#fffbe0" stroke-width="4" stroke-linecap="round"/>
+  <rect x="640" y="70" width="80" height="44" rx="20" fill="#5b3fa8"/><circle cx="700" cy="86" r="5" fill="#fff"/><circle cx="710" cy="96" r="5" fill="#fff"/><rect x="654" y="88" width="20" height="6" fill="#fff"/><rect x="661" y="81" width="6" height="20" fill="#fff"/>
+  <rect x="820" y="86" width="140" height="6" fill="#aaa"/><rect x="835" y="66" width="12" height="46" rx="2" fill="#2fd27c"/><rect x="933" y="66" width="12" height="46" rx="2" fill="#2fd27c"/>
+  <rect x="1040" y="70" width="120" height="50" fill="none" stroke="#ff3b3b" stroke-width="3"/><line x1="1040" y1="85" x2="1160" y2="85" stroke="#ff3b3b" stroke-width="2"/><line x1="1040" y1="100" x2="1160" y2="100" stroke="#ff3b3b" stroke-width="2"/></g>
+  <defs><filter id="bf"><feGaussianBlur stdDeviation="2"/></filter></defs></svg>`,
+ nfl:`<svg viewBox="0 0 1200 150" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bn" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c1530"/><stop offset=".55" stop-color="#14204a"/><stop offset=".56" stop-color="#1d5c2c"/><stop offset="1" stop-color="#123d1d"/></linearGradient><radialGradient id="ln" cx=".5" cy="0" r=".6"><stop offset="0" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>
+  <rect width="1200" height="150" fill="url(#bn)"/><ellipse cx="300" cy="0" rx="260" ry="110" fill="url(#ln)"/><ellipse cx="900" cy="0" rx="260" ry="110" fill="url(#ln)"/>
+  ${[150,300,450,600,750,900,1050].map((x,i)=>`<path d="M${x} 83 L${x+(x-600)*.35} 150" stroke="#fff" stroke-opacity=".5" stroke-width="2"/><text x="${x+(x-600)*.12}" y="108" fill="#fff" fill-opacity=".45" font-family="Oswald" font-size="16" text-anchor="middle">${[10,20,30,40,30,20,10][i]}</text>`).join("")}
+  <rect x="0" y="80" width="1200" height="4" fill="#fff" opacity=".7"/>
+  <g transform="translate(940 60) rotate(-28)"><ellipse rx="56" ry="32" fill="#6b3416"/><ellipse rx="56" ry="32" fill="none" stroke="#3e1d0b" stroke-width="2"/><path d="M-24 0 L24 0" stroke="#fff" stroke-width="3"/>${[-16,-8,0,8,16].map(x=>`<path d="M${x} -6 L${x} 6" stroke="#fff" stroke-width="3"/>`).join("")}<path d="M-46 -10 Q-56 0 -46 10 M46 -10 Q56 0 46 10" stroke="#fff" stroke-width="3" fill="none"/></g>
+  ${[60,1130].map(x=>`<path d="M${x} 80 L${x} 30 M${x-30} 30 L${x+30} 30 M${x-30} 30 L${x-30} 0 M${x+30} 30 L${x+30} 0" stroke="#f5c400" stroke-width="5" fill="none"/>`).join("")}</svg>`,
+ starwars:`<svg viewBox="0 0 1200 150" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="bp" cx=".35" cy=".35"><stop offset="0" stop-color="#e6b77a"/><stop offset=".7" stop-color="#9a5a2a"/><stop offset="1" stop-color="#3a1d0c"/></radialGradient><radialGradient id="neb" cx=".5" cy=".5"><stop offset="0" stop-color="#5a2a8a" stop-opacity=".55"/><stop offset="1" stop-color="#5a2a8a" stop-opacity="0"/></radialGradient></defs>
+  <rect width="1200" height="150" fill="#04060c"/><ellipse cx="420" cy="70" rx="380" ry="110" fill="url(#neb)"/>${stars(220,1200,150,11)}
+  <circle cx="1020" cy="170" r="140" fill="url(#bp)"/><ellipse cx="1020" cy="170" rx="200" ry="26" fill="none" stroke="#e6c79a" stroke-opacity=".5" stroke-width="3" transform="rotate(-12 1020 170)"/>
+  <circle cx="820" cy="34" r="12" fill="#ffd9a0" opacity=".9"/><circle cx="848" cy="44" r="7" fill="#ffb070" opacity=".85"/>
+  <g transform="translate(640 56) rotate(-8)" fill="#c7ccd6"><path d="M0 0 L46 -6 L46 6 Z"/><rect x="-12" y="-4" width="14" height="8" rx="2"/><path d="M8 -4 L20 -18 L26 -18 L18 -4 Z M8 4 L20 18 L26 18 L18 4 Z" fill="#9aa2ad"/><circle cx="-14" cy="0" r="3" fill="#ff8a3d"/></g>
+  <path d="M560 60 L626 55" stroke="#ff8a3d" stroke-opacity=".5" stroke-width="2"/></svg>`,
+ games:`<svg viewBox="0 0 1200 150" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14062a"/><stop offset=".6" stop-color="#2a0a4a"/><stop offset="1" stop-color="#0b0418"/></linearGradient><linearGradient id="sun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd23d"/><stop offset="1" stop-color="#ff3cac"/></linearGradient></defs>
+  <rect width="1200" height="150" fill="url(#bg)"/>${stars(80,1200,80,3)}
+  <circle cx="600" cy="92" r="70" fill="url(#sun)"/>${[70,80,88,95,101].map((y,i)=>`<rect x="520" y="${y}" width="160" height="${2+i}" fill="#2a0a4a"/>`).join("")}
+  <rect x="0" y="92" width="1200" height="58" fill="#0b0418"/>
+  ${Array.from({length:25},(_,i)=>{const x=i*50;return `<line x1="${600+(x-600)*.15}" y1="92" x2="${x}" y2="150" stroke="#a26bff" stroke-opacity=".6"/>`}).join("")}
+  ${[96,102,111,124,142].map(y=>`<line x1="0" y1="${y}" x2="1200" y2="${y}" stroke="#a26bff" stroke-opacity=".55"/>`).join("")}
+  <g fill="#2ff3ff" opacity=".85">${[[120,40],[136,40],[104,48],[152,48],[104,56],[120,56],[136,56],[152,56],[112,64],[144,64]].map(([x,y])=>`<rect x="${x+240}" y="${y-22}" width="8" height="8"/>`).join("")}</g>
+  <g fill="#ffd23d" opacity=".9"><path d="M1040 50 A26 26 0 1 1 1040 51 L1066 66 Z" transform="rotate(30 1066 66)"/></g>${[1110,1140,1170].map(x=>`<circle cx="${x}" cy="66" r="4" fill="#ffd23d"/>`).join("")}</svg>`,
+ workouts:`<svg viewBox="0 0 1200 150" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="bw" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#07170e"/><stop offset="1" stop-color="#0e2a1a"/></linearGradient><linearGradient id="bar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e3e7ec"/><stop offset="1" stop-color="#6b737d"/></linearGradient></defs>
+  <rect width="1200" height="150" fill="url(#bw)"/>
+  ${Array.from({length:12},(_,i)=>`<rect x="${60+i*90}" y="${130-[20,28,24,36,32,44,40,52,60,56,70,84][i]}" width="54" height="${[20,28,24,36,32,44,40,52,60,56,70,84][i]}" rx="4" fill="#2fd27c" opacity="${.08+i*.035}"/>`).join("")}
+  <g transform="translate(560 70)"><rect x="-260" y="-5" width="520" height="10" rx="3" fill="url(#bar)"/>
+  ${[-1,1].map(d=>`<rect x="${d>0?150:-172}" y="-48" width="22" height="96" rx="4" fill="#1d1f24" stroke="#2fd27c" stroke-opacity=".5"/><rect x="${d>0?176:-194}" y="-38" width="18" height="76" rx="4" fill="#24262c"/><rect x="${d>0?198:-212}" y="-26" width="14" height="52" rx="3" fill="#2c2f36"/><rect x="${d>0?214:-224}" y="-12" width="10" height="24" rx="2" fill="#9aa2ad"/>`).join("")}</g></svg>`,
+ wwe:`<svg viewBox="0 0 1200 150" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="spot" cx=".5" cy="0" r="1"><stop offset="0" stop-color="#fff" stop-opacity=".28"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient><linearGradient id="bwr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#160406"/><stop offset="1" stop-color="#2a0a0e"/></linearGradient></defs>
+  <rect width="1200" height="150" fill="url(#bwr)"/>
+  <path d="M300 0 L460 150 L740 150 L560 0 Z" fill="url(#spot)"/><path d="M900 0 L640 150 L900 150 L1000 0 Z" fill="url(#spot)" opacity=".7"/>
+  ${stars(60,1200,60,5).replace(/#fff/g,"#ffd2a0")}
+  <path d="M330 120 L870 120 L940 150 L260 150 Z" fill="#e8e3da"/><path d="M330 120 L870 120 L870 126 L330 126 Z" fill="#c9c2b6"/>
+  ${[0,1,2].map(i=>`<path d="M${340-i*24} ${108-i*14} L${860+i*24} ${108-i*14}" stroke="${["#ff3b3b","#ffffff","#2b6cd4"][i]}" stroke-width="4"/>`).join("")}
+  ${[316,884].map(x=>`<rect x="${x-7}" y="70" width="14" height="80" fill="#888"/><rect x="${x-9}" y="66" width="18" height="10" rx="2" fill="#aaa"/>`).join("")}
+  <g transform="translate(600 46)"><circle r="22" fill="#d4a537"/><circle r="15" fill="#a87a1e"/><rect x="-70" y="-7" width="48" height="14" rx="4" fill="#3a2a10"/><rect x="22" y="-7" width="48" height="14" rx="4" fill="#3a2a10"/><circle r="6" fill="#ffe08a"/></g></svg>`
+};
+const BANNER_TEXT={home:["Fan HQ","Everything you follow, in one place","var(--text)"],nfl:["NFL","","var(--nfl)"],starwars:["Star Wars","News, saber workshop and trivia","var(--sw)"],games:["Video Games","","var(--vg)"],workouts:["Workouts","","var(--fit)"],wwe:["WWE","News and upcoming premium live events","var(--wwe)"]};
+function addBanners(){
+  Object.keys(BANNERS).forEach(k=>{const sec=$("#t-"+k);const head=sec.querySelector(".tabhead");const h2=head.querySelector("h2");const sub=head.querySelector(".sub");
+    const b=document.createElement("div");b.className="banner";b.innerHTML=BANNERS[k]+`<div class="bt"><h2 style="color:${BANNER_TEXT[k][2]}">${esc(BANNER_TEXT[k][0])}</h2></div>`;
+    sec.insertBefore(b,head);h2.remove();
+    // move the subtitle into the banner so it stays dynamic
+    if(sub){b.querySelector(".bt").appendChild(sub);}
+    if(!head.children.length)head.remove();else head.style.marginBottom="16px";});
+}
+
+/* =====================================================
+   COUNTDOWNS + PODCASTS
+   ===================================================== */
+function parts(iso){const ms=Math.max(0,new Date(iso)-Date.now());return{d:Math.floor(ms/864e5),h:Math.floor(ms%864e5/36e5),m:Math.floor(ms%36e5/6e4),s:Math.floor(ms%6e4/1e3),done:ms<=0};}
+function nextGameFor(ab){
+  const g=F.nfl.games.filter(g=>(g.away===ab||g.home===ab)&&g.status!=="final").sort((a,b)=>a.time.localeCompare(b.time))[0];
+  if(g)return{opp:g.home===ab?g.away:g.home,home:g.home===ab,time:g.time,week:F.nfl.picks&&F.nfl.picks.week,tv:g.tag||""};
+  const ng=(F.nfl.nextGames||{})[ab];return ng?Object.assign({bye:true},ng):null;}
+function renderBigCds(){
+  const ss=F.wwe.events.filter(e=>new Date(e.date)>Date.now()-6*36e5).sort((a,b)=>a.date.localeCompare(b.date))[0];
+  const t=team(nflTeam);const ng=nextGameFor(nflTeam);const curWeek=F.nfl.picks?F.nfl.picks.week:F.nfl.week+1;
+  const items=[];
+  if(ng)items.push({c:"var(--nfl)",go:"nfl",k:`${t.name} · ${t.w}-${t.l}`,t:`${ng.bye?`Week ${curWeek}: Bye · `:""}Next: Week ${ng.week||curWeek} ${ng.home?"vs":"@"} ${team(ng.opp).name}`,d:`${fmtDate(ng.time,{weekday:"long",month:"short",day:"numeric"})}, ${fmtTime(ng.time)} CT${ng.tv?" · "+ng.tv:""}${ng.venue?" · "+ng.venue:""}`,iso:ng.time});
+  if(ss)items.push({c:"var(--wwe)",go:"wwe",k:"Next WWE PPV",t:ss.name,d:`${fmtDate(ss.date,{weekday:"long",month:"short",day:"numeric"})}, ${fmtTime(ss.date)} CT · ${ss.city} · ${ss.watch.split(" · ")[0]}`,iso:ss.date});
+  items.push({c:"var(--vg)",go:"games",k:"GTA 6 launch",t:"Grand Theft Auto VI",d:"Thursday, Nov 19 · unlocks at midnight · PS5 & Xbox Series X|S",iso:F.games.gta6});
+  $("#bigCds").innerHTML=items.map((x,i)=>`<div class="bcd" style="--c:${x.c}" data-go="${x.go}"><div class="k">${esc(x.k)}</div><div class="t">${esc(x.t)}</div><div class="d">${esc(x.d)}</div><div class="ticks" data-iso="${x.iso}"></div></div>`).join("");
+  tick();
+}
+function tick(){$$(".ticks[data-iso]").forEach(el=>{const p=parts(el.dataset.iso);el.innerHTML=p.done?`<div style="width:auto;padding:6px 12px"><b style="font-size:20px">It's here!</b></div>`:[["d","Days"],["h","Hrs"],["m","Min"],["s","Sec"]].map(([k,l])=>`<div><b>${String(p[k]).padStart(k==="d"?1:2,"0")}</b><span>${l}</span></div>`).join("");});}
+const POD_ART={wwe:["#ff3b3b","WD"],nfl:["#002244","G&J"]};
+function podIsNew(ep){return (Date.now()-new Date(ep.date+"T12:00:00"))/864e5<=7;}
+function podHTML(list){return list.map(p=>{const ep=p.episodes[0];const nw=podIsNew(ep);const art=p.name.startsWith("Games")?["#b0601a","GwN"]:p.name.startsWith("What")?["#c8102e","WD"]:["#0b3d91","G&J"];
+  return `<div class="pod"><div class="art" style="background:${art[0]}">${art[1]}</div><div style="min-width:0"><div class="nm"><a href="${esc(p.link)}" target="_blank" rel="noopener" style="text-decoration:none">${esc(p.name)}</a>${nw?`<span class="pill new">New</span>`:""}</div>
+  <div class="small muted">${esc(p.host)}</div>
+  <div class="ep">Latest: <a href="${esc(ep.url)}" target="_blank" rel="noopener">${esc(ep.title)}</a></div>
+  ${ep.note?`<div class="small muted">${esc(ep.note)}</div>`:""}
+  <div class="meta">${ep.approx?"Around ":""}${newsDate(ep.date)}${p.episodes[1]?` · Before that: ${esc(p.episodes[1].title)} (${newsDate(p.episodes[1].date)})`:""}${p.status?` · ${esc(p.status)}`:""}</div></div></div>`;}).join("");}
+function renderPods(){
+  const P=F.podcasts||[];const n=P.filter(p=>podIsNew(p.episodes[0])).length;
+  $("#podTag").textContent=n?`${n} with new episodes this week`:"No new episodes this week";
+  $("#podsHome").innerHTML=podHTML(P);
+  $("#podsNfl").innerHTML=podHTML(P.filter(p=>p.topic==="nfl"));
+  $("#podsWwe").innerHTML=podHTML(P.filter(p=>p.topic==="wwe"));
+}
+
+/* =====================================================
+   NFL STATS
+   ===================================================== */
+let tsSort="tot",tsDir=-1;
+function renderStats(){
+  const L=F.nfl.leaders;
+  if(L){$("#leadTag").innerHTML=`2026 season · <a href="${esc(L.url)}" target="_blank" rel="noopener">${esc(L.source)}</a>`;
+    $("#leaders").innerHTML=L.cats.map(c=>`<div class="ld"><div class="h">${esc(c.name)}</div>${c.rows.map((r,i)=>`<div class="r ${i===0?"top":""} ${r[1]===nflTeam?"me":""}"><span class="dim" style="width:14px">${i+1}</span><span class="chip">${r[1]}</span><span class="n">${esc(r[0])}</span><span class="v">${Number(r[2]).toLocaleString()}</span></div>`).join("")}</div>`).join("");}
+  const T=F.nfl.teamStats;if(!T)return;
+  $("#tsTag").innerHTML=`Offensive touchdowns · <a href="${esc(T.url)}" target="_blank" rel="noopener">${esc(T.source)}</a> · tap a column to sort`;
+  const rows=T.rows.map(r=>{const t=team(r.t);const gp=(t.w||0)+(t.l||0);return Object.assign({name:t.name,w:t.w,l:t.l,gp,pg:gp?r.tot/gp:0,pct:gp?t.w/gp:0},r);});
+  rows.sort((a,b)=>tsSort==="name"?a.name.localeCompare(b.name)*tsDir*-1:(a[tsSort]-b[tsSort])*tsDir);
+  const max=Math.max(...rows.map(r=>r.tot));
+  const th=(k,l,num)=>`<th class="sort ${num?"num":""} ${tsSort===k?"on":""}" data-s="${k}">${l}${tsSort===k?(tsDir<0?" ↓":" ↑"):""}</th>`;
+  $("#teamStats").innerHTML=`<table><thead><tr><th class="num">#</th>${th("name","Team")}${th("pct","Record",1)}${th("tot","Total TD",1)}${th("pg","TD / game",1)}${th("rush","Rush TD",1)}${th("rec","Pass TD",1)}</tr></thead><tbody>${rows.map((r,i)=>`<tr class="click ${r.t===nflTeam?"me":""}" data-ab="${r.t}"><td class="num dim">${i+1}</td><td><span class="chip">${r.t}</span>${esc(r.name)}</td><td class="num">${r.w}-${r.l}</td><td class="num"><b>${r.tot}</b><span class="tbar" style="width:${Math.round(r.tot/max*60)}px"></span></td><td class="num">${r.pg.toFixed(2)}</td><td class="num">${r.rush}</td><td class="num">${r.rec}</td></tr>`).join("")}</tbody></table>`;
+}
+function wireStats(){$("#teamStats").addEventListener("click",e=>{const th=e.target.closest("th[data-s]");if(!th)return;e.stopPropagation();const k=th.dataset.s;if(tsSort===k)tsDir*=-1;else{tsSort=k;tsDir=k==="name"?1:-1;}renderStats();});}
+/* =====================================================
+   BOOT
+   ===================================================== */
+function boot(){
+  addBanners();
+  if(F&&F.updated){$("#upd").textContent="News updated "+fmtDate(F.updated,{month:"short",day:"numeric"})+", "+fmtTime(F.updated);}
+  else $("#upd").textContent="News feed unavailable";
+  showTab();
+  if(F){wireNFL();renderNFL();wirePicks();renderPicks();wireStats();renderStats();newsList(F.starwars.news,$("#swNews"));wireGames();renderGames2();renderWWE();}
+  ["nfl","sw","vg","wwe"].forEach(k=>{renderBest(k);startQuiz(k);});
+  renderSaberOpts();renderSaber();wireSaber();savedSabers();
+  wireWorkouts();renderHome();
+  Store.setNote();
+  Store.onChange(()=>{if(F)renderPicks();renderWorkoutStats();renderDraft();savedSabers();["nfl","sw","vg","wwe"].forEach(renderBest);renderHome();});
+  Store.init();
+  setInterval(()=>{renderHome();if(F){renderGames2();}},60000);setInterval(tick,1000);
+}
+boot();
+})();
+</script>
+</body>
+</html>
