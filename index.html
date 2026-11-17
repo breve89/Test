@@ -375,7 +375,7 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 
 <!-- STAR WARS -->
 <section class="tab" id="t-starwars">
-  <div class="tabhead"><h2 style="color:var(--sw)">Star Wars</h2><span class="sub">News, saber workshop, saber archive and trivia</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="starwars"><option value="news">News</option><option value="saber">Lightsaber workshop</option><option value="archive">Saber archive</option><option value="trivia">Trivia</option></select></div></div></div>
+  <div class="tabhead"><h2 style="color:var(--sw)">Star Wars</h2><span class="sub">News, saber workshop, saber archive, characters and trivia</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="starwars"><option value="news">News</option><option value="saber">Lightsaber workshop</option><option value="archive">Saber archive</option><option value="characters">Characters</option><option value="trivia">Trivia</option></select></div></div></div>
   <div class="subp" data-tab="starwars" data-sub="saber">
   <div class="card">
     <h3>Lightsaber workshop <span class="tag">Build it, ignite it, save it</span></h3>
@@ -407,6 +407,7 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
       <div class="small dim" style="margin-top:10px">Click any saber to open it in 3D. Spin it, take it apart and build it back up to learn what every part does. "Try in workshop" loads the blade onto a hilt you design yourself.</div>
     </div>
   </div>
+  <div class="subp" data-tab="starwars" data-sub="characters"><div class="card"><h3>Characters <span class="tag">Backstories and facts, in canon and Legends</span></h3><div id="swChars"></div></div></div>
   <div class="subp" data-tab="starwars" data-sub="news"><div class="card" style="max-width:900px"><h3>Latest from the galaxy</h3><div class="news" id="swNews"></div></div></div>
   <div class="subp" data-tab="starwars" data-sub="trivia"><div class="card quiz" style="--qc:var(--sw);max-width:760px"><h3>Star Wars trivia <span class="tag" id="swBest"></span></h3><div id="quiz-sw"></div></div></div>
 </section>
@@ -483,6 +484,7 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 
 <script src="feed.js"></script>
 <script src="saber3d.js"></script>
+<script src="characters.js"></script>
 <script>
 (function(){
 "use strict";
@@ -512,7 +514,7 @@ function newsList(items,el,emptyMsg){
 
 /* ---------- tabs ---------- */
 const TABS=["home","nfl","starwars","games","workouts","wwe"];
-const SUBS={nfl:["overview","picks","stats","trivia"],starwars:["news","saber","archive","trivia"],games:["news","trivia"],wwe:["news","trivia"]};
+const SUBS={nfl:["overview","picks","stats","trivia"],starwars:["news","saber","archive","characters","trivia"],games:["news","trivia"],wwe:["news","trivia"]};
 const subState=lsGet("hq_subs",{});
 function showSub(tab,sub){if(!SUBS[tab])return;if(!SUBS[tab].includes(sub))sub=subState[tab]||SUBS[tab][0];subState[tab]=sub;lsSet("hq_subs",subState);
   $$(`.subp[data-tab="${tab}"]`).forEach(p=>p.classList.toggle("on",p.dataset.sub===sub));const sel=$(`.subsel[data-tab="${tab}"]`);if(sel)sel.value=sub;}
