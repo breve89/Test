@@ -404,7 +404,7 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
         <span class="sp"></span><span class="small dim" id="arCount"></span>
       </div>
       <div class="archive" id="archive"></div>
-      <div class="small dim" style="margin-top:10px">"Try in workshop" loads the blade color and style onto a hilt you build yourself.</div>
+      <div class="small dim" style="margin-top:10px">Click any saber to open it in 3D. Spin it, take it apart and build it back up to learn what every part does. "Try in workshop" loads the blade onto a hilt you design yourself.</div>
     </div>
   </div>
   <div class="subp" data-tab="starwars" data-sub="news"><div class="card" style="max-width:900px"><h3>Latest from the galaxy</h3><div class="news" id="swNews"></div></div></div>
@@ -482,6 +482,7 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 <div class="modalbg" id="modal"><div class="modal"><p id="modalMsg"></p><div class="row" style="justify-content:flex-end"><button class="btn" id="modalNo">Cancel</button><button class="btn pri" id="modalYes" style="background:var(--bad)">Delete</button></div></div></div>
 
 <script src="feed.js"></script>
+<script src="saber3d.js"></script>
 <script>
 (function(){
 "use strict";
@@ -1265,17 +1266,18 @@ function renderArchive(){
   const q=($("#arSearch").value||"").toLowerCase(),side=$("#arSide").value,col=$("#arColor").value,sty=$("#arStyle").value;
   const rows=ARCHIVE.filter(a=>(!q||a.n.toLowerCase().includes(q))&&(!side||a.side===side)&&(!col||a.blades.includes(col))&&(!sty||a.style===sty));
   $("#arCount").textContent=`${rows.length} saber${rows.length===1?"":"s"}`;
-  $("#archive").innerHTML=rows.length?rows.map(a=>`<div class="arc"><div class="nm">${esc(a.n)}</div>
+  $("#archive").innerHTML=rows.length?rows.map(a=>`<div class="arc click" data-open="${ARCHIVE.indexOf(a)}" tabindex="0" role="button" aria-label="Open ${esc(a.n)} saber in 3D"><div class="nm">${esc(a.n)}</div>
     <div class="bl">${a.blades.map(b=>`<i style="background:${AR_COL[b]};box-shadow:0 0 10px ${b==="Black"?"#fff":AR_COL[b]};${b==="Black"?"outline:1px solid #ddd":""}"></i>`).join("")}</div>
     <div class="meta"><span class="pill">${esc(a.side)}</span><span class="pill">${esc(a.blades.filter((v,i,s)=>s.indexOf(v)===i).join(" / "))}</span><span class="pill">${esc(a.style)}</span></div>
     <p>${esc(a.txt)}</p><div class="small dim">First seen: ${esc(a.first)}</div>
-    ${a.try?`<button class="btn sm" data-try="${ARCHIVE.indexOf(a)}">Try in workshop</button>`:""}</div>`).join(""):`<div class="empty">No sabers match.</div>`;
+    <div class="row" style="gap:6px;margin-top:auto"><button class="btn sm pri" data-open="${ARCHIVE.indexOf(a)}">View in 3D</button>${a.try?`<button class="btn sm" data-try="${ARCHIVE.indexOf(a)}">Try in workshop</button>`:""}</div></div>`).join(""):`<div class="empty">No sabers match.</div>`;
 }
 function wireArchive(){
   const cols=[...new Set(ARCHIVE.flatMap(a=>a.blades))];$("#arColor").innerHTML=`<option value="">All colors</option>`+cols.map(c=>`<option>${c}</option>`).join("");
   const st=[...new Set(ARCHIVE.map(a=>a.style))];$("#arStyle").innerHTML=`<option value="">All styles</option>`+st.map(c=>`<option>${esc(c)}</option>`).join("");
   ["#arSide","#arColor","#arStyle"].forEach(id=>$(id).onchange=renderArchive);$("#arSearch").oninput=renderArchive;
-  $("#archive").addEventListener("click",e=>{const b=e.target.closest("[data-try]");if(!b)return;const a=ARCHIVE[+b.dataset.try];
+  $("#archive").addEventListener("keydown",e=>{const c=e.target.closest(".arc[data-open]");if(c&&(e.key==="Enter"||e.key===" ")&&e.target===c){e.preventDefault();window.SV&&SV.open(ARCHIVE[+c.dataset.open]);}});
+  $("#archive").addEventListener("click",e=>{const b=e.target.closest("[data-try]");if(!b){const o=e.target.closest("[data-open]");if(o&&window.SV)SV.open(ARCHIVE[+o.dataset.open]);return;}const a=ARCHIVE[+b.dataset.try];
     saber=Object.assign({},saber,{blade:a.try.blade,style:a.try.style,length:a.try.length||"Standard"});lit=true;renderSaberOpts();renderSaber();
     location.hash="starwars-saber";toast(`Loaded a ${a.try.blade.toLowerCase()} ${a.try.style==="Saberstaff"?"double-bladed":a.try.style.toLowerCase()} blade. Now build your hilt.`);});
   renderArchive();
@@ -1284,6 +1286,7 @@ function wireArchive(){
    BOOT
    ===================================================== */
 function boot(){
+  window.SWDATA={ARCHIVE,BLADES,FIN};
   addBanners();
   if(F&&F.updated){$("#upd").textContent="News updated "+fmtDate(F.updated,{month:"short",day:"numeric"})+", "+fmtTime(F.updated);}
   else $("#upd").textContent="News feed unavailable";
