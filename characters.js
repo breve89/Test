@@ -136,7 +136,145 @@ const C=[
  canon:{bio:"C-3PO is a protocol droid that young Anakin built on Tatooine, and R2-D2 is a Naboo astromech. They were in nearly every major event of the saga. 3PO's memory was wiped after Revenge of the Sith, but R2 never was.",
   facts:["C-3PO is fluent in over six million forms of communication.","R2 carried Leia's message to Obi-Wan and the Death Star plans.","Anthony Daniels played C-3PO in every live-action saga film."]},
  legends:{bio:"In Legends, the pair had adventures between the trilogies, including their own cartoon.",
-  facts:["The animated series Droids (1985) followed them under other owners.","3PO is also built by Anakin in Legends.","R2 keeps Luke's lightsaber in his dome in Return of the Jedi."]}}
+  facts:["The animated series Droids (1985) followed them under other owners.","3PO is also built by Anakin in Legends.","R2 keeps Luke's lightsaber in his dome in Return of the Jedi."]}},
+/* ---------- Legends-era characters (canon:null = no canon version) ---------- */
+{n:"Darth Revan",aff:"Jedi → Sith → Jedi",era:"Old Republic (~3,950 BBY)",species:"Human",home:"Unknown",first:"Knights of the Old Republic (2003)",lo:true,
+ canon:null,canonNote:"Revan has never been brought into canon. The character exists only in Legends.",
+ legends:{bio:"A Jedi Knight who defied the Council to lead the Republic against the Mandalorians, and won. Revan came back from the war as the Sith Lord Darth Revan, with his friend Malak as apprentice, and turned the fleet on the Republic. Malak betrayed him, and the Jedi captured him nearly dead. They wiped his memory and gave him a new identity. In Knights of the Old Republic he rediscovers who he was and chooses, depending on the player, to save the Republic or rule it.",
+  facts:["The canon choice for Legends is the light side ending, where he defeats Malak on the Star Forge.","He and Bastila Shan had a son, Vaner (the novel Revan, 2011).","Revan learned the Mandalorian Wars were a cover for a hidden Sith Emperor, Vitiate, who imprisoned him for 300 years.","His masked look is one of the most recognized in all of Star Wars games."]}},
+{n:"Darth Malak",aff:"Sith",era:"Old Republic (~3,956 BBY)",species:"Human",home:"Quelii sector",first:"Knights of the Old Republic (2003)",lo:true,
+ canon:null,canonNote:"Malak exists only in Legends.",
+ legends:{bio:"Revan's best friend and fellow Jedi, Alek Squinquargesimus followed Revan into the Mandalorian Wars and then into the dark side. As Darth Malak he ambushed Revan's flagship to take the title of Dark Lord, and he unleashed the Star Forge fleet on the galaxy.",
+  facts:["He bombarded Taris from orbit to try to kill Bastila Shan.","Most of his lower jaw was replaced by a metal prosthetic.","Revan defeats him in the final duel of Knights of the Old Republic."]}},
+{n:"Bastila Shan",aff:"Jedi",era:"Old Republic (~3,956 BBY)",species:"Human",home:"Talravin",first:"Knights of the Old Republic (2003)",lo:true,
+ canon:null,canonNote:"Bastila exists only in Legends.",
+ legends:{bio:"A young Jedi with the rare gift of Battle Meditation, the power to strengthen allies and break enemy morale across a whole battle. She led the strike that captured Darth Revan and was bonded to him through the Force afterward. She later fell to the dark side under Malak before Revan brought her back.",
+  facts:["Her Battle Meditation made her one of the Republic's most valuable weapons.","She wielded a double-bladed yellow saber.","She married Revan, and their bloodline leads to Satele Shan in The Old Republic era."]}},
+{n:"Darth Traya (Kreia)",aff:"Sith / Gray",era:"Old Republic (~3,951 BBY)",species:"Human",home:"Unknown",first:"Knights of the Old Republic II (2004)",lo:true,
+ canon:null,canonNote:"Kreia exists only in Legends.",
+ legends:{bio:"A former Jedi Master who once trained Revan, Kreia was cast out by both the Jedi and the Sith. As Darth Traya, the Lady of Betrayal, she was one of the Sith Triumvirate, until her apprentices Nihilus and Sion took her power. In KOTOR II she guides the Jedi Exile, aiming to free the galaxy from the will of the Force itself.",
+  facts:["She is widely considered one of the best-written characters in Star Wars games.","She lost a hand to Darth Sion.","She teaches that both the Jedi and the Sith depend too much on the Force."]}},
+{n:"Darth Nihilus",aff:"Sith",era:"Old Republic (~3,951 BBY)",species:"Human (formerly)",home:"Unknown",first:"Knights of the Old Republic II (2004)",lo:true,
+ canon:null,canonNote:"Nihilus exists only in Legends.",
+ legends:{bio:"The Lord of Hunger, a Sith whose body had become little more than a wound in the Force held inside a mask and robes. He fed on the Force itself and drained the life from entire planets, including the Miraluka world of Katarr.",
+  facts:["He commanded the warship Ravager.","He was so consumed by hunger that he rarely spoke, and then through a vocabulator.","The Jedi Exile defeats him aboard the Ravager."]}},
+{n:"Darth Sion",aff:"Sith",era:"Old Republic (~3,951 BBY)",species:"Human (undead)",home:"Unknown",first:"Knights of the Old Republic II (2004)",lo:true,
+ canon:null,canonNote:"Sion exists only in Legends.",
+ legends:{bio:"The Lord of Pain. His shattered body was held together only by hatred and the dark side, so he could recover from almost any wound. He hunted the Jedi Exile across the galaxy.",
+  facts:["He fought Kreia and took her hand.","The Exile beats him by convincing him to let go of his anger.","He was one of the three Sith of the Triumvirate, with Nihilus and Traya."]}},
+{n:"Darth Bane",aff:"Sith",era:"New Sith Wars (~1,000 BBY)",species:"Human",home:"Apatros",first:"Legends sourcebooks (1990s)",lo:false,
+ canon:{bio:"In canon, Bane is the ancient Sith Lord whose Rule of Two kept the Sith hidden for a thousand years. His spirit confronts Yoda on Moraband in The Clone Wars season 6.",
+  facts:["The Rule of Two: always two Sith, a master and an apprentice.","Palpatine's line of Sith traces back to him.","He is mentioned in canon books such as Dooku: Jedi Lost."]},
+ legends:{bio:"A miner on Apatros who killed an officer and fled into the Sith army. Bane decided that the Brotherhood of Darkness, with hundreds of Sith Lords, was weak and doomed. He tricked its leader into using a thought bomb on Ruusan that wiped out the Brotherhood, leaving him free to rebuild the Sith with one master and one apprentice.",
+  facts:["His apprentice was the young girl Darth Zannah.","Parasitic orbalisks covered his body, making him nearly invulnerable.","Drew Karpyshyn's trilogy Path of Destruction, Rule of Two and Dynasty of Evil tells his story."]}},
+{n:"Darth Zannah",aff:"Sith",era:"New Sith Wars (~1,000 BBY)",species:"Human",home:"Somov Rit",first:"Jedi vs. Sith (2001)",lo:true,
+ canon:null,canonNote:"Zannah exists only in Legends.",
+ legends:{bio:"Rain was a child on the battlefield of Ruusan when Darth Bane found her and took her as his only apprentice. As Darth Zannah she mastered Sith sorcery and eventually challenged Bane to continue the Rule of Two.",
+  facts:["She was a cousin of the Jedi Darovit.","Bane chose her after sensing her power on the battlefield of Ruusan.","She took Darth Cognus as her own apprentice."]}},
+{n:"Darth Plagueis",aff:"Sith",era:"Before the prequels",species:"Muun",home:"Mygeeto",first:"Revenge of the Sith (2005, mentioned)",lo:false,
+ canon:{bio:"Palpatine's master, a Sith Lord who could supposedly use the Force to create life and stop people from dying. Palpatine tells his story to Anakin as a tragedy, and admits he killed his master in his sleep.",
+  facts:["\"The Tragedy of Darth Plagueis the Wise\" is told in Revenge of the Sith.","He makes a brief canon appearance in The Acolyte (2024).","His research is hinted at as how Anakin was conceived."]},
+ legends:{bio:"In Legends, Plagueis is the Muun Hego Damask, a banker who used his wealth to shape the Republic. James Luceno's novel shows him training Palpatine and planning the Sith's return.",
+  facts:["Darth Plagueis (2012) is one of the most praised Legends novels.","He experiments with midi-chlorians to control life and death.","Palpatine kills him the night they believe they have won."]}},
+{n:"Exar Kun",aff:"Sith",era:"Great Sith War (~4,000 BBY)",species:"Human",home:"Unknown",first:"Tales of the Jedi: Dark Lords of the Sith (1994)",lo:true,
+ canon:null,canonNote:"Exar Kun exists only in Legends.",
+ legends:{bio:"A gifted, arrogant Jedi who went looking for Sith secrets and became a Dark Lord. With Ulic Qel-Droma he started the Great Sith War. When defeat came, he trapped his spirit in the temples of Yavin 4, where it lingered for 4,000 years.",
+  facts:["Legends credits him with creating the double-bladed lightsaber.","The Massassi temples on Yavin 4 were his.","His spirit returns to haunt Luke's students in the Jedi Academy trilogy."]}},
+{n:"Ulic Qel-Droma",aff:"Jedi → Sith → Jedi",era:"Great Sith War (~4,000 BBY)",species:"Human",home:"Alderaan",first:"Tales of the Jedi (1993)",lo:true,
+ canon:null,canonNote:"Ulic exists only in Legends.",
+ legends:{bio:"A Jedi who infiltrated the dark cult called the Krath to destroy it from within, and was corrupted. He became Exar Kun's partner in the Great Sith War and killed his own brother. Nomi Sunrider cut him off from the Force, and he spent his last years in remorse.",
+  facts:["His story is one of the earliest Legends tragedies about a fallen Jedi.","He helped the Jedi find Exar Kun's base at the end of the war.","A glory-seeking spacer named Hoggon killed him."]}},
+{n:"Nomi Sunrider",aff:"Jedi",era:"Great Sith War (~4,000 BBY)",species:"Human",home:"Unknown",first:"Tales of the Jedi (1993)",lo:true,
+ canon:null,canonNote:"Nomi exists only in Legends.",
+ legends:{bio:"Nomi became a Jedi after her husband, also a Jedi, was murdered. A master of Battle Meditation, she eventually led the Jedi Order and severed Ulic Qel-Droma from the Force.",
+  facts:["She took up her late husband's lightsaber.","Her daughter Vima also became a Jedi.","She later served as Grand Master of the Order."]}},
+{n:"Darth Malgus",aff:"Sith",era:"Cold War (~3,653 BBY)",species:"Human",home:"Dromund Kaas",first:"\"Deceived\" trailer, The Old Republic (2009)",lo:true,
+ canon:null,canonNote:"Malgus exists only in Legends.",
+ legends:{bio:"A Sith warrior of the returned Sith Empire. He led the sack of Coruscant and killed the Jedi Master Ven Zallow in the Jedi Temple. He later tried to build a new Sith Empire of his own.",
+  facts:["The \"Deceived\" cinematic trailer made him famous.","Paul S. Kemp's novel Deceived (2011) tells the story of the Coruscant attack.","He returns in the Onslaught expansion of The Old Republic."]}},
+{n:"Satele Shan",aff:"Jedi",era:"Cold War (~3,653 BBY)",species:"Human",home:"Unknown",first:"The Old Republic \"Hope\" trailer (2009)",lo:true,
+ canon:null,canonNote:"Satele exists only in Legends.",
+ legends:{bio:"A descendant of Revan and Bastila Shan who became Grand Master of the Jedi Order during the war with the Sith Empire. She inherited Bastila's gift for Battle Meditation.",
+  facts:["She fought Darth Malgus in the \"Hope\" trailer.","Her son Theron Shan is a Republic spy in The Old Republic.","She led the Jedi through the Galactic War."]}},
+{n:"Darth Vitiate (Sith Emperor)",aff:"Sith",era:"Old Republic (~5,000 to 3,600 BBY)",species:"Human",home:"Medriaas (Nathema)",first:"The Old Republic (2011)",lo:true,
+ canon:null,canonNote:"Vitiate exists only in Legends.",
+ legends:{bio:"A Sith Lord who survived for over a thousand years by draining the life from his whole homeworld in a single ritual. He rebuilt the Sith Empire in secret and launched the Great Galactic War. Over his long life he went by many names, including Valkorion.",
+  facts:["He captured Darth Revan and held him for 300 years.","The ritual that made him immortal killed every living thing on Nathema.","He is the main villain behind much of The Old Republic's story."]}},
+{n:"Mara Jade",aff:"Emperor's Hand → Jedi",era:"New Republic",species:"Human",home:"Unknown",first:"Heir to the Empire (1991)",lo:true,
+ canon:null,canonNote:"Mara Jade exists only in Legends. She is often requested for canon but has never been adapted.",
+ legends:{bio:"A secret agent of the Emperor, the Emperor's Hand, who heard his last command in her mind: \"You will kill Luke Skywalker.\" After working through her hatred during the Thrawn crisis, she became Luke's ally, then a Jedi Master and his wife.",
+  facts:["She and Luke married in the comic Union (1999).","Their son is Ben Skywalker.","Her nephew Jacen Solo, as Darth Caedus, killed her in Sacrifice (2007)."]}},
+{n:"Jacen Solo (Darth Caedus)",aff:"Jedi → Sith",era:"New Jedi Order & Legacy",species:"Human",home:"Coruscant",first:"The Last Command (1993)",lo:true,
+ canon:null,canonNote:"Han and Leia's twins exist only in Legends. In canon, their only child is Ben Solo.",
+ legends:{bio:"Han and Leia's son, a gifted Jedi who studied the Force in many forms after the Yuuzhan Vong war. Convinced he could prevent a terrible future, he took the Sith name Darth Caedus and seized control of the Galactic Alliance. His twin sister, Jaina, killed him.",
+  facts:["He killed his aunt Mara Jade.","Lumiya trained him as a Sith.","His fall echoes his grandfather's and inspired comparisons to Kylo Ren."]}},
+{n:"Jaina Solo",aff:"Jedi",era:"New Jedi Order & Legacy",species:"Human",home:"Coruscant",first:"The Last Command (1993)",lo:true,
+ canon:null,canonNote:"Jaina exists only in Legends.",
+ legends:{bio:"Jacen's twin sister: an ace pilot with Rogue Squadron and a Jedi Knight. Trained by Boba Fett to hunt her brother, she became the Sword of the Jedi and defeated Darth Caedus.",
+  facts:["She flew X-wings in Rogue Squadron.","She later married Jagged Fel.","The Sword of the Jedi title came from a prophecy in the Yuuzhan Vong war."]}},
+{n:"Ben Skywalker",aff:"Jedi",era:"Legacy era",species:"Human",home:"Coruscant",first:"Balance Point (2000)",lo:true,
+ canon:null,canonNote:"This Ben Skywalker exists only in Legends.",
+ legends:{bio:"Luke and Mara Jade's son, named after Obi-Wan. He was mentored for a time by his cousin Jacen, who pulled him toward the Sith, before he broke free.",
+  facts:["As a small child he cut himself off from the Force during the Yuuzhan Vong war.","He avenged his mother's death.","His adventures with Luke continue in the Fate of the Jedi series."]}},
+{n:"Kyle Katarn",aff:"Imperial → Rebel → Jedi",era:"Original trilogy & New Republic",species:"Human",home:"Sulon",first:"Dark Forces (1995)",lo:true,
+ canon:null,canonNote:"Kyle Katarn exists only in Legends.",
+ legends:{bio:"A former Imperial officer who became a mercenary for the Rebellion. In Legends he stole the original Death Star plans. He discovered the Force, became a Jedi in Jedi Knight, and later taught at Luke's Jedi Academy.",
+  facts:["He stars in the Dark Forces and Jedi Knight games.","He trains Jaden Korr in Jedi Academy (2003).","His partner was the pilot Jan Ors."]}},
+{n:"Starkiller (Galen Marek)",aff:"Sith → Rebel",era:"Early Empire",species:"Human",home:"Kashyyyk",first:"The Force Unleashed (2008)",lo:true,
+ canon:null,canonNote:"Starkiller exists only in Legends.",
+ legends:{bio:"Darth Vader's secret apprentice, taken as a boy from Kashyyyk after Vader killed his Jedi father. Vader sent him to gather the Emperor's enemies, then betrayed him. Galen's sacrifice inspired the founding of the Rebel Alliance.",
+  facts:["The Rebel crest is based on his family's symbol.","\"Starkiller\" was Luke's surname in George Lucas's early drafts.","A clone of him stars in The Force Unleashed II."]}},
+{n:"Darth Krayt",aff:"Sith",era:"Legacy era (~130 ABY)",species:"Human",home:"Tatooine",first:"Star Wars: Legacy (2006)",lo:true,
+ canon:null,canonNote:"Darth Krayt exists only in Legends.",
+ legends:{bio:"The Jedi A'Sharad Hett, a Tusken-raised Jedi from the Clone Wars, fell to the dark side and became Darth Krayt. He founded the One Sith, which threw out the Rule of Two in favor of an order of many Sith with one leader.",
+  facts:["Yuuzhan Vong technology kept him alive for over a century.","His One Sith took over the Galactic Empire around 130 ABY.","He clashes with Cade Skywalker in the Legacy comics."]}},
+{n:"Cade Skywalker",aff:"Bounty hunter → Jedi",era:"Legacy era (~130 ABY)",species:"Human",home:"Ossus",first:"Star Wars: Legacy (2006)",lo:true,
+ canon:null,canonNote:"Cade exists only in Legends.",
+ legends:{bio:"A descendant of Luke Skywalker. He gave up the Jedi path after the Sith wiped out the Jedi temple on Ossus. He worked as a bounty hunter and spice addict until he faced his destiny against Darth Krayt.",
+  facts:["He can bring people back from the edge of death, an ability tied to the dark side.","Luke's spirit visits him.","Darth Talon, Krayt's Twi'lek agent, hunts him repeatedly."]}},
+{n:"Prince Xizor",aff:"Black Sun",era:"Original trilogy",species:"Falleen",home:"Falleen",first:"Shadows of the Empire (1996)",lo:true,
+ canon:null,canonNote:"Xizor exists only in Legends.",
+ legends:{bio:"The head of the Black Sun crime syndicate and the third most powerful person in the galaxy. He plotted to kill Luke Skywalker to win Vader's place at the Emperor's side.",
+  facts:["Falleen like him give off pheromones that make people trust and want them.","Vader destroyed his space station, the Skyhook.","Shadows of the Empire was a multimedia event with a novel, game and soundtrack."]}},
+{n:"Dash Rendar",aff:"Rebel",era:"Original trilogy",species:"Human",home:"Corulag",first:"Shadows of the Empire (1996)",lo:true,
+ canon:null,canonNote:"Dash exists only in Legends.",
+ legends:{bio:"A smuggler and Han Solo's rival who helped Luke and Leia rescue Han and stop Prince Xizor. He flew the Outrider, a ship to rival the Millennium Falcon.",
+  facts:["He was created as a Han stand-in for the gap between Empire and Jedi.","He is the hero of the Shadows of the Empire game (1996).","Fans debated for years whether he died at the Skyhook."]}},
+{n:"Corran Horn",aff:"Jedi / Pilot",era:"New Republic",species:"Human",home:"Corellia",first:"X-wing: Rogue Squadron (1996)",lo:true,
+ canon:null,canonNote:"Corran exists only in Legends.",
+ legends:{bio:"A former Corellian security officer who joined Rogue Squadron. He later discovered he was the grandson of a Jedi and trained at Luke's academy.",
+  facts:["He stars in Michael Stackpole's X-wing books and I, Jedi (1998).","His grandfather was the Jedi Nejaa Halcyon.","He could absorb or redirect energy through the Force."]}},
+/* ---------- More canon characters ---------- */
+{n:"Jango Fett",aff:"Bounty hunter",era:"Prequels",species:"Human",home:"Concord Dawn",first:"Attack of the Clones (2002)",
+ canon:{bio:"A Mandalorian bounty hunter chosen as the template for the Republic's clone army. As payment, he got an unaltered clone to raise as his son, Boba. Mace Windu killed him at the Battle of Geonosis.",
+  facts:["Temuera Morrison played him; he later played Boba.","His ship was the Slave I.","He was hired by Count Dooku, posing as Darth Tyranus."]},
+ legends:{bio:"In Legends, Jango's past is told in games and comics before he became the clone template.",
+  facts:["He stars in the game Bounty Hunter (2002).","Legends ties him to the True Mandalorians.","He hunted Dooku's former student Komari Vosa."]}},
+{n:"Bo-Katan Kryze",aff:"Mandalorian",era:"Clone Wars to New Republic",species:"Human",home:"Kalevala, Mandalore",first:"The Clone Wars (2012)",
+ canon:{bio:"Duchess Satine's sister, first a member of the extremist Death Watch, then a leader in the fight to free Mandalore. She once held the Darksaber, lost it, and helped Din Djarin and the Mandalorians retake their homeworld.",
+  facts:["Katee Sackhoff voices and plays her.","She appeared in The Clone Wars, Rebels and The Mandalorian.","Ahsoka helped her retake Mandalore at the end of the Clone Wars."]},
+ legends:null,legendsNote:"Bo-Katan was created for The Clone Wars, which stayed canon, so she has no separate Legends version."},
+{n:"Hera Syndulla",aff:"Rebel",era:"Rebels to New Republic",species:"Twi'lek",home:"Ryloth",first:"Rebels (2014)",
+ canon:{bio:"The pilot and captain of the Ghost, and a founding leader of the Rebellion's Phoenix cell. She later becomes a New Republic general.",
+  facts:["Her father was the Ryloth freedom fighter Cham Syndulla.","Her son is Jacen Syndulla.","The Ghost is seen at the Battle of Scarif in Rogue One."]},
+ legends:null,legendsNote:"Hera was created after 2014, so there is no Legends version."},
+{n:"Cassian Andor",aff:"Rebel",era:"Early Rebellion",species:"Human",home:"Kenari",first:"Rogue One (2016)",
+ canon:{bio:"A rebel intelligence officer who survived a hard childhood and the Empire's prisons to join the Rebellion. He gave his life on Scarif helping steal the Death Star plans.",
+  facts:["Andor (2022 to 2025) tells his story in two seasons.","His droid partner in Rogue One was K-2SO.","Diego Luna plays him."]},
+ legends:null,legendsNote:"Cassian was created after 2014, so there is no Legends version."},
+{n:"Captain Rex",aff:"Clone trooper",era:"Clone Wars",species:"Human (clone)",home:"Kamino",first:"The Clone Wars (2008)",
+ canon:{bio:"Captain of the 501st Legion under Anakin and Ahsoka. He survived Order 66 after Ahsoka removed his inhibitor chip, then helped found the Rebellion.",
+  facts:["Temuera Morrison's voice was the base for the clones, and Dee Bradley Baker voices Rex.","He fought at the Battle of Endor.","He appears in Rebels and The Bad Batch."]},
+ legends:null,legendsNote:"Rex was created for The Clone Wars, so he has no separate Legends version."},
+{n:"Grand Moff Tarkin",aff:"Empire",era:"Original trilogy",species:"Human",home:"Eriadu",first:"A New Hope (1977)",
+ canon:{bio:"Wilhuff Tarkin rose from a hard frontier upbringing on Eriadu to command the Death Star. He ordered Alderaan destroyed and died when Luke destroyed the battle station.",
+  facts:["Peter Cushing played him in A New Hope.","His life story is the canon novel Tarkin (2014).","He knew Anakin during the Clone Wars."]},
+ legends:{bio:"In Legends, Tarkin wrote the Tarkin Doctrine: rule through fear of force rather than force itself. He mentored Admiral Natasi Daala.",
+  facts:["The Death Star novel (2007) follows its crew up to Yavin.","Daala carried on his secret research station, the Maw Installation.","His doctrine inspired the Death Star."]}},
+{n:"Supreme Leader Snoke",aff:"First Order",era:"Sequel trilogy",species:"Strand-cast (artificial)",home:"Exegol",first:"The Force Awakens (2015)",
+ canon:{bio:"The Supreme Leader of the First Order, who seduced Ben Solo to the dark side. Kylo Ren killed him in The Last Jedi, and The Rise of Skywalker revealed he was a creation of Palpatine.",
+  facts:["Andy Serkis played him through motion capture.","Clones of him were seen growing in tanks on Exegol.","He used a Force bond to link Rey and Kylo."]},
+ legends:null,legendsNote:"Snoke was created after 2014, so there is no Legends version."}
 ];
 const AFFC={"Jedi":"#4f8cff","Sith":"#ff3b3b","Jedi → Sith":"#b04dff","Rebel / Resistance":"#ff8a1f","Empire":"#9aa3b5","Separatist":"#c9a227","Bounty hunter":"#3ddc84","Mandalorian":"#7dd3c7","Foundling":"#7bd88f","Republic":"#e9c46a","Droids":"#ffe81f"};
 const col=a=>AFFC[a]||(a.includes("Jedi")?"#4f8cff":a.includes("Dark")||a.includes("Sith")?"#ff3b3b":"#9aa3b5");
@@ -160,25 +298,25 @@ function css(){if(document.getElementById("chCss"))return;const s=document.creat
 .ch-leg{border-left:3px solid #c9a227;padding-left:12px}
 @media(max-width:820px){.ch-wrap{grid-template-columns:1fr}.ch-list{max-height:none;flex-direction:row;overflow-x:auto}.ch-it{min-width:200px}}`;document.head.appendChild(s);}
 function list(){const q=(document.getElementById("chSearch").value||"").toLowerCase(),f=document.getElementById("chAff").value;
- const rows=C.map((c,i)=>[c,i]).filter(([c])=>(!q||c.n.toLowerCase().includes(q))&&(!f||c.aff===f));
- document.getElementById("chList").innerHTML=rows.map(([c,i])=>`<button class="ch-it${i===cur?" on":""}" data-i="${i}"><span class="ch-av" style="background:${col(c.aff)}">${ini(c.n)}</span><span><span class="t">${esc(c.n)}</span><br><span class="s">${esc(c.aff)} · ${esc(c.era)}</span></span></button>`).join("")||`<div class="small dim">No characters match.</div>`;}
-function detail(){const c=C[cur],L=c.legends,showLeg=mode==="legends";
+ const cf=document.getElementById("chCont").value;const rows=C.map((c,i)=>[c,i]).filter(([c])=>(!q||c.n.toLowerCase().includes(q))&&(!f||c.aff===f)&&(!cf||(cf==="lo"?!c.canon:cf==="leg"?!!c.legends:!!c.canon)));
+ document.getElementById("chList").innerHTML=rows.map(([c,i])=>`<button class="ch-it${i===cur?" on":""}" data-i="${i}"><span class="ch-av" style="background:${col(c.aff)}">${ini(c.n)}</span><span><span class="t">${esc(c.n)}</span><br><span class="s">${c.canon?"":"<b style=\"color:#c9a227\">Legends · </b>"}${esc(c.aff)} · ${esc(c.era)}</span></span></button>`).join("")||`<div class="small dim">No characters match.</div>`;}
+function detail(){const c=C[cur],L=c.legends;if(!c.canon)mode="legends";const showLeg=mode==="legends";
  const body=showLeg?(L?`<div class="ch-leg"><p>${esc(L.bio)}</p><ul>${L.facts.map(f=>`<li>${esc(f)}</li>`).join("")}</ul></div>`:`<div class="ch-leg"><p class="muted">${esc(c.legendsNote||NOLEG)}</p></div>`)
-  :`<p>${esc(c.canon.bio)}</p><div class="small dim" style="margin-top:12px">KEY FACTS</div><ul>${c.canon.facts.map(f=>`<li>${esc(f)}</li>`).join("")}</ul>`;
+  :!c.canon?`<p class="muted">${esc(c.canonNote)}</p>`:`<p>${esc(c.canon.bio)}</p><div class="small dim" style="margin-top:12px">KEY FACTS</div><ul>${c.canon.facts.map(f=>`<li>${esc(f)}</li>`).join("")}</ul>`;
  document.getElementById("chDetail").innerHTML=`<div class="ch-hd"><span class="ch-av" style="background:${col(c.aff)}">${ini(c.n)}</span><div><h3 style="font-size:24px">${esc(c.n)}</h3><div class="small muted">${esc(c.aff)}</div></div></div>
  <div class="ch-grid"><div><b>Species</b>${esc(c.species)}</div><div><b>Homeworld</b>${esc(c.home)}</div><div><b>Era</b>${esc(c.era)}</div><div><b>First appearance</b>${esc(c.first)}</div></div>
- <div class="ch-tabs"><button data-m="canon" class="${showLeg?"":"on"}">Canon</button><button data-m="legends" class="${showLeg?"on":""}">Legends${L?"":" (none)"}</button></div>
+ <div class="ch-tabs"><button data-m="canon" class="${showLeg?"":"on"}"${c.canon?"":" disabled style=\"opacity:.45;cursor:default\""}>Canon${c.canon?"":" (none)"}</button><button data-m="legends" class="${showLeg?"on":""}">Legends${L?"":" (none)"}</button></div>
  ${body}
  ${c.saber?`<button class="btn sm pri" id="chSaber" style="margin-top:14px">View their saber in 3D</button>`:""}
  <div class="small dim" style="margin-top:14px">${showLeg?"Legends is the Expanded Universe written before April 2014. Lucasfilm no longer counts it as official history, but new stories often borrow from it.":"Canon is the official Star Wars story: the films, the series, and books and games published since April 2014."}</div>`;}
 function render(){list();detail();}
 function init(){const root=document.getElementById("swChars");if(!root)return;css();
- const affs=[...new Set(C.map(c=>c.aff))];
- root.innerHTML=`<div class="row" style="margin-bottom:12px;gap:8px;flex-wrap:wrap"><input type="text" id="chSearch" placeholder="Search character" style="width:200px"><label class="small muted">Affiliation <select id="chAff"><option value="">All</option>${affs.map(a=>`<option>${esc(a)}</option>`).join("")}</select></label><span class="sp"></span><span class="small dim">${C.length} characters</span></div>
+ const affs=[...new Set(C.map(c=>c.aff))].sort();
+ root.innerHTML=`<div class="row" style="margin-bottom:12px;gap:8px;flex-wrap:wrap"><input type="text" id="chSearch" placeholder="Search character" style="width:200px"><label class="small muted">Affiliation <select id="chAff"><option value="">All</option>${affs.map(a=>`<option>${esc(a)}</option>`).join("")}</select></label><label class="small muted">Continuity <select id="chCont"><option value="">All</option><option value="canon">Has a canon story</option><option value="leg">Has a Legends story</option><option value="lo">Legends only</option></select></label><span class="sp"></span><span class="small dim">${C.length} characters · ${C.filter(c=>!c.canon).length} Legends-only</span></div>
  <div class="ch-wrap"><div class="ch-list" id="chList"></div><div class="ch-d" id="chDetail"></div></div>`;
- document.getElementById("chSearch").oninput=list;document.getElementById("chAff").onchange=list;
- document.getElementById("chList").onclick=e=>{const b=e.target.closest("[data-i]");if(!b)return;cur=+b.dataset.i;render();};
- document.getElementById("chDetail").onclick=e=>{const m=e.target.closest("[data-m]");if(m){mode=m.dataset.m;detail();return;}
+ document.getElementById("chSearch").oninput=list;document.getElementById("chAff").onchange=list;document.getElementById("chCont").onchange=list;
+ document.getElementById("chList").onclick=e=>{const b=e.target.closest("[data-i]");if(!b)return;cur=+b.dataset.i;if(C[cur].canon&&mode==="legends"&&!C[cur].legends)mode="canon";render();};
+ document.getElementById("chDetail").onclick=e=>{const m=e.target.closest("[data-m]");if(m){if(m.disabled)return;mode=m.dataset.m;detail();return;}
   if(e.target.id==="chSaber"){const D=window.SWDATA,a=D&&D.ARCHIVE.find(x=>x.n===C[cur].saber);if(a&&window.SV){location.hash="starwars-archive";setTimeout(()=>SV.open(a),50);}}};
  render();}
 window.SWCHARS={init,data:C};
