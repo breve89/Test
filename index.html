@@ -294,6 +294,16 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 .modal p{margin:0 0 14px}
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .sp{flex:1}
+.champgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;align-items:start}
+.champcol{border-radius:14px;border:1px solid var(--line);background:var(--panel);overflow:hidden}
+.champcol .bh{padding:12px 16px;font-family:Oswald,Impact,sans-serif;font-size:22px;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.champ{padding:12px 16px;border-top:1px solid var(--line);display:flex;gap:12px;align-items:center}
+.champ .belt{width:42px;height:42px;flex:none}
+.champ .t{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);font-weight:700}
+.champ .h{font-size:16.5px;font-weight:800;line-height:1.25}
+.champ.top .h{font-size:19px}
+.champ .m{font-size:12px;color:var(--muted)}
+.champ .d{margin-left:auto;text-align:right;flex:none}.champ .d b{display:block;font-size:20px;font-family:Oswald,Impact,sans-serif}.champ .d span{font-size:11px;color:var(--dim)}
 </style>
 </head>
 <body>
@@ -462,7 +472,7 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 
 <!-- WWE -->
 <section class="tab" id="t-wwe">
-  <div class="tabhead"><h2 style="color:var(--wwe)">WWE</h2><span class="sub">News and upcoming premium live events</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="wwe"><option value="news">News & PPV card</option><option value="trivia">Trivia</option></select></div></div></div>
+  <div class="tabhead"><h2 style="color:var(--wwe)">WWE</h2><span class="sub">News, champions and upcoming premium live events</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="wwe"><option value="news">News & PPV card</option><option value="champions">Champions</option><option value="trivia">Trivia</option></select></div></div></div>
   <div class="subp" data-tab="wwe" data-sub="news">
   <div class="cols">
     <div class="grid" style="align-content:start">
@@ -475,6 +485,7 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
     </div>
   </div>
   </div>
+  <div class="subp" data-tab="wwe" data-sub="champions"><div class="row" style="margin-bottom:10px"><h3 style="margin:0">Current champions</h3><span class="sp"></span><span class="small muted" id="wweChampAsOf"></span></div><div class="champgrid" id="wweChamps"></div><div class="small dim" id="wweChampSrc" style="margin-top:10px"></div></div>
   <div class="subp" data-tab="wwe" data-sub="trivia"><div class="card quiz" style="--qc:var(--wwe);max-width:760px"><h3>WWE trivia <span class="tag" id="wweBest"></span></h3><div id="quiz-wwe"></div></div></div>
 </section>
 
@@ -514,7 +525,7 @@ function newsList(items,el,emptyMsg){
 
 /* ---------- tabs ---------- */
 const TABS=["home","nfl","starwars","games","workouts","wwe"];
-const SUBS={nfl:["overview","picks","stats","trivia"],starwars:["news","saber","archive","characters","trivia"],games:["news","trivia"],wwe:["news","trivia"]};
+const SUBS={nfl:["overview","picks","stats","trivia"],starwars:["news","saber","archive","characters","trivia"],games:["news","trivia"],wwe:["news","champions","trivia"]};
 const subState=lsGet("hq_subs",{});
 function showSub(tab,sub){if(!SUBS[tab])return;if(!SUBS[tab].includes(sub))sub=subState[tab]||SUBS[tab][0];subState[tab]=sub;lsSet("hq_subs",subState);
   $$(`.subp[data-tab="${tab}"]`).forEach(p=>p.classList.toggle("on",p.dataset.sub===sub));const sel=$(`.subsel[data-tab="${tab}"]`);if(sel)sel.value=sub;}
@@ -993,6 +1004,12 @@ function renderProgress(){
 /* =====================================================
    WWE
    ===================================================== */
+function renderChamps(){const C=F.wwe&&F.wwe.champions;if(!C||!$("#wweChamps"))return;
+  const days=d=>Math.max(0,Math.floor((Date.now()-new Date(d+"T12:00:00"))/864e5));
+  const belt=(c,top)=>`<svg class="belt" viewBox="0 0 42 42" aria-hidden="true"><rect x="1" y="15" width="40" height="12" rx="4" fill="#1b1b1f" stroke="${c}" stroke-opacity=".5"/><ellipse cx="21" cy="21" rx="${top?12:10}" ry="${top?11:9}" fill="${top?"#e8c35a":"#c9ccd3"}" stroke="${c}" stroke-width="1.6"/><ellipse cx="21" cy="21" rx="${top?6.5:5.5}" ry="${top?6:5}" fill="none" stroke="#3a2c0a" stroke-opacity=".45"/><circle cx="21" cy="21" r="2.2" fill="${c}"/></svg>`;
+  $("#wweChamps").innerHTML=C.brands.map(b=>`<div class="champcol"><div class="bh" style="background:linear-gradient(90deg,${b.color},${b.color}55)">${esc(b.brand)}</div>${b.titles.map(t=>`<div class="champ${t.top?" top":""}">${belt(b.color,t.top)}<div style="min-width:0"><div class="t">${esc(t.title)}</div><div class="h">${esc(t.holder)}</div><div class="m">Won ${fmtDate(t.since+"T12:00:00",{month:"short",day:"numeric",year:"numeric"})}${t.event?" · "+esc(t.event):""}${t.note?" · "+esc(t.note):""}</div></div><div class="d"><b>${days(t.since)}</b><span>days</span></div></div>`).join("")}</div>`).join("");
+  $("#wweChampAsOf").textContent="Checked through "+fmtDate(C.asOf+"T12:00:00",{month:"long",day:"numeric"});
+  $("#wweChampSrc").innerHTML="Sources: "+C.sources.map(x=>`<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>`).join(" · ");}
 function renderWWE(){
   if(!F)return;
   $("#wweEvents").innerHTML=F.wwe.events.map(ev=>{const u=until(ev.date);return `<div class="card" style="border-color:#4a2024;background:linear-gradient(160deg,#2a1215 0%,var(--panel) 55%)">
@@ -1132,7 +1149,7 @@ const BANNERS={
   ${[316,884].map(x=>`<rect x="${x-7}" y="70" width="14" height="80" fill="#888"/><rect x="${x-9}" y="66" width="18" height="10" rx="2" fill="#aaa"/>`).join("")}
   <g transform="translate(600 46)"><circle r="22" fill="#d4a537"/><circle r="15" fill="#a87a1e"/><rect x="-70" y="-7" width="48" height="14" rx="4" fill="#3a2a10"/><rect x="22" y="-7" width="48" height="14" rx="4" fill="#3a2a10"/><circle r="6" fill="#ffe08a"/></g></svg>`
 };
-const BANNER_TEXT={home:["Fan HQ","Everything you follow, in one place","var(--text)"],nfl:["NFL","","var(--nfl)"],starwars:["Star Wars","News, saber workshop and trivia","var(--sw)"],games:["Video Games","","var(--vg)"],workouts:["Workouts","","var(--fit)"],wwe:["WWE","News and upcoming premium live events","var(--wwe)"]};
+const BANNER_TEXT={home:["Fan HQ","Everything you follow, in one place","var(--text)"],nfl:["NFL","","var(--nfl)"],starwars:["Star Wars","News, saber workshop and trivia","var(--sw)"],games:["Video Games","","var(--vg)"],workouts:["Workouts","","var(--fit)"],wwe:["WWE","News, champions and upcoming premium live events","var(--wwe)"]};
 function addBanners(){
   Object.keys(BANNERS).forEach(k=>{const sec=$("#t-"+k);const head=sec.querySelector(".tabhead");const h2=head.querySelector("h2");const sub=head.querySelector(".sub");
     const b=document.createElement("div");b.className="banner";b.innerHTML=BANNERS[k]+`<div class="bt"><h2 style="color:${BANNER_TEXT[k][2]}">${esc(BANNER_TEXT[k][0])}</h2></div>`;
@@ -1293,7 +1310,7 @@ function boot(){
   if(F&&F.updated){$("#upd").textContent="News updated "+fmtDate(F.updated,{month:"short",day:"numeric"})+", "+fmtTime(F.updated);}
   else $("#upd").textContent="News feed unavailable";
   showTab();
-  if(F){wireNFL();renderNFL();wirePicks();renderPicks();wireStats();renderStats();wirePlayerStats();newsList(F.starwars.news,$("#swNews"));wireGames();renderGames2();renderWWE();}
+  if(F){wireNFL();renderNFL();wirePicks();renderPicks();wireStats();renderStats();wirePlayerStats();newsList(F.starwars.news,$("#swNews"));wireGames();renderGames2();renderWWE();renderChamps();}
   ["nfl","sw","vg","wwe"].forEach(k=>{renderBest(k);startQuiz(k);});
   renderSaberOpts();renderSaber();wireSaber();savedSabers();wireArchive();
   wireWorkouts();renderHome();
