@@ -299,6 +299,8 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 .champcol .bh{padding:12px 16px;font-family:Oswald,Impact,sans-serif;font-size:22px;letter-spacing:.06em;text-transform:uppercase;color:#fff}
 .champ{padding:12px 16px;border-top:1px solid var(--line);display:flex;gap:12px;align-items:center}
 .champ .belt{width:42px;height:42px;flex:none}
+.champ .minibelt{width:128px;flex:none}.champ .minibelt svg{width:100%;height:auto;display:block;filter:drop-shadow(0 3px 6px rgba(0,0,0,.5))}
+@media(max-width:420px){.champ .minibelt{width:96px}}
 .champ .t{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);font-weight:700}
 .champ .h{font-size:16.5px;font-weight:800;line-height:1.25}
 .champ.top .h{font-size:19px}
@@ -1064,10 +1066,53 @@ function roundBelt(c,brand){const id="rb"+brand.replace(/\W/g,"");
   <path d="M0,-30 L6.5,-15 22,-15 9.5,-5.5 14,9 0,0.5 -14,9 -9.5,-5.5 -22,-15 -6.5,-15Z" fill="url(#${id}g)" stroke="#6b4c12" stroke-width=".8"/>
   <text x="0" y="20" text-anchor="middle" font-family="Oswald,Impact,sans-serif" font-size="10" letter-spacing="1.2" fill="#fff">${esc(brand.toUpperCase())}</text>
   <text x="0" y="29" text-anchor="middle" font-family="Oswald,Impact,sans-serif" font-size="5" letter-spacing="1.2" fill="#dbe4ff">UNDISPUTED CHAMPION</text></g></svg>`;}
+const BELTSTYLE={
+ "World Heavyweight Championship":["shield","gold","hex","WORLD"],
+ "Women's World Championship":["crest","rose","round","WOMEN'S WORLD"],
+ "Intercontinental Championship":["octagon","silver","pill","INTERCONTINENTAL"],
+ "Women's Intercontinental Championship":["diamond","white","round","WOMEN'S IC"],
+ "World Tag Team Championship":["tablet","bronze","square","WORLD TAG"],
+ "Undisputed WWE Championship":["round","silver","pill","UNDISPUTED"],
+ "WWE Women's Championship":["oval","white","diamond","WOMEN'S"],
+ "United States Championship":["hexagon","black","square","UNITED STATES"],
+ "Women's United States Championship":["diamond","gold","hex","WOMEN'S US"],
+ "WWE Tag Team Championship":["tablet","silver","round","TAG TEAM"],
+ "WWE Women's Tag Team Championship":["crest","silver","diamond","WOMEN'S TAG"],
+ "NXT Championship":["octagon","gold","diamond","NXT"],
+ "NXT Women's Championship":["shield","silver","round","NXT WOMEN'S"],
+ "NXT North American Championship":["hexagon","bronze","pill","NORTH AMERICAN"],
+ "NXT Women's North American Championship":["oval","rose","hex","WOMEN'S N. AMERICAN"],
+ "NXT Tag Team Championship":["tablet","black","diamond","NXT TAG"]};
+const METALS={gold:["#fff2b8","#e3b84a","#b8862a","#6b4c12"],silver:["#ffffff","#d7dde6","#8a94a3","#3d4654"],white:["#ffffff","#f1f3f7","#c7ccd6","#5b6475"],rose:["#ffe3d6","#e9a98b","#b9705a","#5e2f22"],bronze:["#f6d3a1","#c98a45","#8a5524","#4a2a10"],black:["#4a4a52","#26262c","#111114","#d9ab3c"]};
+function beltSVG(t,c,uid){const st=BELTSTYLE[t.title]||["shield","gold","hex",t.title.split(" ")[0].toUpperCase()];const[plate,metal,side,label]=st;const M=METALS[metal];const id="b"+uid;
+ const P={shield:"M-56,-48 L56,-48 L66,-30 L66,22 Q66,40 40,50 L0,58 L-40,50 Q-66,40 -66,22 L-66,-30 Z",
+  crest:"M-60,-20 Q-60,-52 0,-56 Q60,-52 60,-20 L60,18 Q60,40 0,58 Q-60,40 -60,18 Z",
+  octagon:"M-28,-54 L28,-54 L62,-24 L62,24 L28,54 L-28,54 L-62,24 L-62,-24 Z",
+  diamond:"M0,-58 Q8,-58 18,-48 L62,-6 Q68,0 62,6 L18,48 Q8,58 0,58 Q-8,58 -18,48 L-62,6 Q-68,0 -62,-6 L-18,-48 Q-8,-58 0,-58 Z",
+  tablet:"M-72,-38 Q-72,-46 -62,-46 L62,-46 Q72,-46 72,-38 L72,38 Q72,46 62,46 L-62,46 Q-72,46 -72,38 Z",
+  oval:"M0,-56 C40,-56 70,-30 70,0 C70,30 40,56 0,56 C-40,56 -70,30 -70,0 C-70,-30 -40,-56 0,-56 Z",
+  hexagon:"M-34,-54 L34,-54 L66,0 L34,54 L-34,54 L-66,0 Z",
+  round:"M0,-56 A56,56 0 1 1 0,56 A56,56 0 1 1 0,-56 Z"}[plate];
+ const sideShape=(x)=>{const g=`fill="url(#${id}m)" stroke="${M[3]}" stroke-width="1.3"`;let sh;
+  if(side==="hex")sh=`<polygon points="0,-24 20,-12 20,12 0,24 -20,12 -20,-12" ${g}/>`;
+  else if(side==="round")sh=`<circle r="21" ${g}/>`;
+  else if(side==="pill")sh=`<rect x="-25" y="-16" width="50" height="32" rx="16" ${g}/>`;
+  else if(side==="square")sh=`<rect x="-20" y="-20" width="40" height="40" rx="6" ${g}/>`;
+  else sh=`<rect x="-15" y="-15" width="30" height="30" rx="4" transform="rotate(45)" ${g}/>`;
+  return `<g transform="translate(${x} 60)">${sh}<circle r="6" fill="${c}" stroke="${M[3]}"/></g>`;};
+ const star=(y,r)=>{let d="";for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rr=i%2?r*.42:r;d+=(i?"L":"M")+(rr*Math.cos(a)).toFixed(1)+","+(y+rr*Math.sin(a)).toFixed(1);}return `<path d="${d}Z" fill="${M[3]}" fill-opacity=".8"/>`;};
+ const tag=t.title.includes("Tag");const fs=label.length>14?7.5:label.length>10?9:11;
+ return `<svg viewBox="0 0 340 120" role="img" aria-label="${esc(t.title)} (original Fan HQ design)"><defs><linearGradient id="${id}m" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${M[0]}"/><stop offset=".4" stop-color="${M[1]}"/><stop offset=".75" stop-color="${M[2]}"/><stop offset="1" stop-color="${M[0]}"/></linearGradient><linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a2a2e"/><stop offset="1" stop-color="#0d0d10"/></linearGradient></defs>
+ <rect x="4" y="40" width="332" height="40" rx="${side==="pill"||side==="round"?20:10}" fill="url(#${id}s)"/><rect x="9" y="45" width="322" height="30" rx="${side==="pill"||side==="round"?15:7}" fill="none" stroke="#55555c" stroke-dasharray="3 3"/>
+ ${[40,300].map(sideShape).join("")}${[92,248].map(sideShape).join("")}
+ <g transform="translate(170 60)"><path d="${P}" fill="url(#${id}m)" stroke="${M[3]}" stroke-width="2"/><path d="${P}" transform="scale(.84)" fill="none" stroke="${M[3]}" stroke-opacity=".5" stroke-width="1.4"/>
+ ${tag?star(-26,11).replace("<path",`<path transform="translate(-14 0)"`)+star(-26,11).replace("<path",`<path transform="translate(14 0)"`):star(-24,16)}
+ <rect x="-58" y="2" width="116" height="20" rx="3" fill="${c}" stroke="${M[3]}" stroke-width="1.3"/><text x="0" y="${16-(11-fs)/2}" text-anchor="middle" font-family="Oswald,Impact,sans-serif" font-size="${fs}" letter-spacing="1.2" fill="#fff">${esc(label)}</text>
+ <text x="0" y="34" text-anchor="middle" font-family="Oswald,Impact,sans-serif" font-size="6" letter-spacing="1.6" fill="${M[3]}">CHAMPION${tag?"S":""}</text></g></svg>`;}
 function renderChamps(){const C=F.wwe&&F.wwe.champions;if(!C||!$("#wweChamps"))return;
   const days=d=>Math.max(0,Math.floor((Date.now()-new Date(d+"T12:00:00"))/864e5));
   const belt=(c,top)=>`<svg class="belt" viewBox="0 0 42 42" aria-hidden="true"><rect x="1" y="15" width="40" height="12" rx="4" fill="#1b1b1f" stroke="${c}" stroke-opacity=".5"/><ellipse cx="21" cy="21" rx="${top?12:10}" ry="${top?11:9}" fill="${top?"#e8c35a":"#c9ccd3"}" stroke="${c}" stroke-width="1.6"/><ellipse cx="21" cy="21" rx="${top?6.5:5.5}" ry="${top?6:5}" fill="none" stroke="#3a2c0a" stroke-opacity=".45"/><circle cx="21" cy="21" r="2.2" fill="${c}"/></svg>`;
-  $("#wweChamps").innerHTML=C.brands.map(b=>`<div class="champcol"><div class="bh" style="background:linear-gradient(90deg,${b.color},${b.color}55)">${esc(b.brand)}</div>${b.titles.map((t,ti)=>ti===0?`<div class="champhero">${b.brand==="SmackDown"?roundBelt(b.color,b.brand):bigBelt(b.color,b.brand)}<div class="t">${esc(t.title)}</div><div class="h">${esc(t.holder)}</div><div class="m">Won ${fmtDate(t.since+"T12:00:00",{month:"short",day:"numeric",year:"numeric"})}${t.event?" · "+esc(t.event):""} · <b style="color:var(--text)">${days(t.since)} days</b></div></div>`:`<div class="champ${t.top?" top":""}">${belt(b.color,t.top)}<div style="min-width:0"><div class="t">${esc(t.title)}</div><div class="h">${esc(t.holder)}</div><div class="m">Won ${fmtDate(t.since+"T12:00:00",{month:"short",day:"numeric",year:"numeric"})}${t.event?" · "+esc(t.event):""}${t.note?" · "+esc(t.note):""}</div></div><div class="d"><b>${days(t.since)}</b><span>days</span></div></div>`).join("")}</div>`).join("");
+  $("#wweChamps").innerHTML=C.brands.map(b=>`<div class="champcol"><div class="bh" style="background:linear-gradient(90deg,${b.color},${b.color}55)">${esc(b.brand)}</div>${b.titles.map((t,ti)=>ti===0?`<div class="champhero">${beltSVG(t,b.color,b.brand+ti)}<div class="t">${esc(t.title)}</div><div class="h">${esc(t.holder)}</div><div class="m">Won ${fmtDate(t.since+"T12:00:00",{month:"short",day:"numeric",year:"numeric"})}${t.event?" · "+esc(t.event):""} · <b style="color:var(--text)">${days(t.since)} days</b></div></div>`:`<div class="champ${t.top?" top":""}"><div class="minibelt">${beltSVG(t,b.color,b.brand+ti)}</div><div style="min-width:0"><div class="t">${esc(t.title)}</div><div class="h">${esc(t.holder)}</div><div class="m">Won ${fmtDate(t.since+"T12:00:00",{month:"short",day:"numeric",year:"numeric"})}${t.event?" · "+esc(t.event):""}${t.note?" · "+esc(t.note):""}</div></div><div class="d"><b>${days(t.since)}</b><span>days</span></div></div>`).join("")}</div>`).join("");
   $("#wweChampAsOf").textContent="Checked through "+fmtDate(C.asOf+"T12:00:00",{month:"long",day:"numeric"});
   $("#wweChampSrc").innerHTML="Sources: "+C.sources.map(x=>`<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>`).join(" · ");}
 function renderWWE(){
