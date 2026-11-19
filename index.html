@@ -1323,7 +1323,7 @@ function renderBigCds(){
   const items=[];
   if(ng)items.push({c:"var(--nfl)",go:"nfl",k:`${t.name} · ${t.w}-${t.l}`,t:`${ng.bye?`Week ${curWeek}: Bye · `:""}Next: Week ${ng.week||curWeek} ${ng.home?"vs":"@"} ${team(ng.opp).name}`,d:`${fmtDate(ng.time,{weekday:"long",month:"short",day:"numeric"})}, ${fmtTime(ng.time)} CT${ng.tv?" · "+ng.tv:""}${ng.venue?" · "+ng.venue:""}`,iso:ng.time});
   if(ss)items.push({c:"var(--wwe)",go:"wwe",k:"Next WWE PPV",t:ss.name,d:`${fmtDate(ss.date,{weekday:"long",month:"short",day:"numeric"})}, ${fmtTime(ss.date)} CT · ${ss.city} · ${ss.watch.split(" · ")[0]}`,iso:ss.date});
-  items.push({c:"var(--vg)",go:"games",k:"GTA 6 launch",t:"Grand Theft Auto VI",d:"Thursday, Nov 19 · unlocks at midnight · PS5 & Xbox Series X|S",iso:F.games.gta6});
+  items.push({c:"var(--vg)",go:"games",k:"GTA 6 launch",t:"Grand Theft Auto VI",d:new Date(F.games.gta6)<=Date.now()?"Out now on PS5 & Xbox Series X|S"+(F.games.gta6Note?" · "+F.games.gta6Note:""):"Thursday, Nov 19 · unlocks at midnight · PS5 & Xbox Series X|S",iso:F.games.gta6});
   $("#bigCds").innerHTML=items.map((x,i)=>`<div class="bcd" style="--c:${x.c}" data-go="${x.go}"><div class="k">${esc(x.k)}</div><div class="t">${esc(x.t)}</div><div class="d">${esc(x.d)}</div><div class="ticks" data-iso="${x.iso}"></div></div>`).join("");
   tick();
 }
