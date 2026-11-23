@@ -370,7 +370,7 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 <section class="tab" id="t-nfl">
   <div class="tabhead"><h2 style="color:var(--nfl)">NFL</h2><span class="sub" id="nflWeek"></span>
     <div class="row" style="margin-left:auto;gap:12px"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="nfl"><option value="overview">Team overview</option><option value="scores">Games & scores</option><option value="picks">My picks</option><option value="insiders">Insiders</option><option value="stats">Stats</option><option value="trivia">Trivia</option></select></div>
-    <div class="teamsel"><span class="small muted">Team</span><select id="teamSel"></select></div></div>
+    <div class="teamsel"><span class="small muted">Team</span><select id="teamSel"></select><button class="btn sm" id="favBtn" title="Use this team on the Home screen"></button></div></div>
   </div>
   <div class="subp" data-tab="nfl" data-sub="overview">
   <div class="cols">
@@ -751,7 +751,7 @@ function startQuiz(key){
    ===================================================== */
 const TEAM_COLORS={ARI:"#97233F",ATL:"#A71930",BAL:"#241773",BUF:"#00338D",CAR:"#0085CA",CHI:"#0B162A",CIN:"#FB4F14",CLE:"#311D00",DAL:"#041E42",DEN:"#FB4F14",DET:"#0076B6",GB:"#203731",HOU:"#03202F",IND:"#002C5F",JAC:"#006778",KC:"#E31837",LV:"#3b3f45",LAC:"#0080C6",LA:"#003594",MIA:"#008E97",MIN:"#4F2683",NE:"#002244",NO:"#9a7f4a",NYG:"#0B2265",NYJ:"#125740",PHI:"#004C54",PIT:"#2b2b2b",SF:"#AA0000",SEA:"#002244",TB:"#D50A0A",TEN:"#0C2340",WAS:"#5A1414"};
 const ESPN_ABBR={JAC:"jax",LA:"lar",WAS:"wsh"};
-let nflTeam=lsGet("hq_team","NE"),gameMode="up",confMode="AFC";
+let favTeam=lsGet("hq_fav","NE"),nflTeam=favTeam,gameMode="up",confMode="AFC";
 function team(abbr){return (F.nfl.standings.find(t=>t.abbr===abbr))||{abbr,name:abbr};}
 function short(abbr){const n=team(abbr).name||abbr;return n.split(" ").slice(-1)[0];}
 function pct(t){const g=t.w+t.l;return g?(t.w/g).toFixed(3).replace(/^0/,""):".000";}
@@ -830,8 +830,10 @@ function wireNFL(){
   const sel=$("#teamSel");
   sel.innerHTML=F.nfl.standings.slice().sort((a,b)=>a.name.localeCompare(b.name)).map(t=>`<option value="${t.abbr}">${esc(t.name)}</option>`).join("");
   sel.value=nflTeam;
-  sel.onchange=()=>{nflTeam=sel.value;lsSet("hq_team",nflTeam);renderNFL();};
-  document.addEventListener("click",e=>{const tr=e.target.closest("tr.click[data-ab]");if(tr){nflTeam=tr.dataset.ab;sel.value=nflTeam;lsSet("hq_team",nflTeam);renderNFL();$("#teamCard").scrollIntoView({behavior:"smooth",block:"start"});}});
+  sel.onchange=()=>{nflTeam=sel.value;renderNFL();favUI();};
+  const favUI=()=>{const b=$("#favBtn");const on=nflTeam===favTeam;b.textContent=on?"★ Home team":"☆ Make home team";b.disabled=on;};favUI();
+  $("#favBtn").onclick=()=>{favTeam=nflTeam;lsSet("hq_fav",favTeam);favUI();if(typeof renderHome==="function")renderHome();renderBigCds();};
+  document.addEventListener("click",e=>{const tr=e.target.closest("tr.click[data-ab]");if(tr){nflTeam=tr.dataset.ab;sel.value=nflTeam;renderNFL();favUI();$("#teamCard").scrollIntoView({behavior:"smooth",block:"start"});}});
   segWire("#gameSeg",v=>{gameMode=v;renderGames();});
   segWire("#confSeg",v=>{confMode=v;renderConf();});
 }
@@ -1216,8 +1218,8 @@ function renderWWE(){
 function renderHome(){
   $("#todayLbl").textContent=new Date().toLocaleDateString("en-US",{timeZone:TZ,weekday:"long",month:"long",day:"numeric"});
   if(!F){$("#countdowns").innerHTML=`<div class="card">The news feed didn't load. Try refreshing.</div>`;return;}
-  const ne=team(nflTeam);
-  const myNext=F.nfl.games.filter(g=>(g.away===nflTeam||g.home===nflTeam)&&g.status!=="final").sort((a,b)=>a.time.localeCompare(b.time))[0];
+  const ne=team(favTeam);
+  const myNext=F.nfl.games.filter(g=>(g.away===favTeam||g.home===favTeam)&&g.status!=="final").sort((a,b)=>a.time.localeCompare(b.time))[0];
   const ss=F.wwe.events[0];
   const wk=new Set(Store.workouts.filter(w=>weekStart(w.date)===weekStart(ymd(new Date()))).map(w=>w.date)).size;
   const liveDeals=PLAT.reduce((a,x)=>a+F.games[x.k].deals.filter(d=>dealStatus(d).c==="live").length,0);
@@ -1232,9 +1234,9 @@ function renderHome(){
   $("#countdowns").innerHTML=cds.map(x=>`<div class="cd" style="--c:${x.c}" data-go="${x.t}"><div class="k">${esc(x.k)}</div><div class="v">${esc(x.v)}</div><div class="d">${esc(x.d)}</div></div>`).join("");
   const top=(arr,n)=>arr.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,n);
   const card=(t,c,title,items)=>`<div class="card hcard" data-go="${t}" style="--c:${c}"><h3><span class="bar"></span>${title}<span class="tag">Open →</span></h3><div class="news">${items.map(n=>`<a class="ni" href="${esc(n.url)}" target="_blank" rel="noopener"><div class="t">${esc(n.title)}</div><div class="m"><span>${esc(n.source)}</span><span>·</span><span>${newsDate(n.date)}</span></div></a>`).join("")}</div></div>`;
-  const teamNews=F.nfl.news.filter(n=>n.teams.includes(nflTeam));
+  const teamNews=F.nfl.news.filter(n=>n.teams.includes(favTeam));
   const allGames=[].concat(...PLAT.map(x=>F.games[x.k].news));
-  $("#homeCards").innerHTML=card("nfl","var(--nfl)",short(nflTeam)+" & NFL",top(teamNews.length?teamNews:F.nfl.news,3))+card("starwars","var(--sw)","Star Wars",top(F.starwars.news,3))+card("games","var(--vg)","Video games",top(allGames,3))+card("wwe","var(--wwe)","WWE",top(F.wwe.news,3));
+  $("#homeCards").innerHTML=card("nfl","var(--nfl)",short(favTeam)+" & NFL",top(teamNews.length?teamNews:F.nfl.news,3))+card("starwars","var(--sw)","Star Wars",top(F.starwars.news,3))+card("games","var(--vg)","Video games",top(allGames,3))+card("wwe","var(--wwe)","WWE",top(F.wwe.news,3));
   renderBigCds();renderPods();
 }
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g&&!e.target.closest("a")){location.hash=g.dataset.go;}});
@@ -1358,7 +1360,7 @@ function nextGameFor(ab){
   const ng=(F.nfl.nextGames||{})[ab];return ng?Object.assign({bye:true},ng):null;}
 function renderBigCds(){
   const ss=F.wwe.events.filter(e=>new Date(e.date)>Date.now()-6*36e5).sort((a,b)=>a.date.localeCompare(b.date))[0];
-  const t=team(nflTeam);const ng=nextGameFor(nflTeam);const curWeek=F.nfl.picks?F.nfl.picks.week:F.nfl.week+1;
+  const t=team(favTeam);const ng=nextGameFor(favTeam);const curWeek=F.nfl.picks?F.nfl.picks.week:F.nfl.week+1;
   const items=[];
   if(ng)items.push({c:"var(--nfl)",go:"nfl",k:`${t.name} · ${t.w}-${t.l}`,t:`${ng.bye?`Week ${curWeek}: Bye · `:""}Next: Week ${ng.week||curWeek} ${ng.home?"vs":"@"} ${team(ng.opp).name}`,d:`${fmtDate(ng.time,{weekday:"long",month:"short",day:"numeric"})}, ${fmtTime(ng.time)} CT${ng.tv?" · "+ng.tv:""}${ng.venue?" · "+ng.venue:""}`,iso:ng.time});
   if(ss)items.push({c:"var(--wwe)",go:"wwe",k:"Next WWE PPV",t:ss.name,d:`${fmtDate(ss.date,{weekday:"long",month:"short",day:"numeric"})}, ${fmtTime(ss.date)} CT · ${ss.city} · ${ss.watch.split(" · ")[0]}`,iso:ss.date});
