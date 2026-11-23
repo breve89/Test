@@ -266,6 +266,30 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 .banner .bt .sub{color:#d6dbe6;font-size:14px;text-shadow:0 1px 8px rgba(0,0,0,.8)}
 @media (max-width:640px){.banner{height:120px}.banner .bt h2{font-size:30px}}
 
+
+/* home news ticker */
+.tk{display:flex;align-items:stretch;gap:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:0 0 16px;overflow:hidden;min-height:64px}
+.tk .tkl{display:flex;align-items:center;gap:8px;padding:0 14px;background:var(--panel2);border-right:1px solid var(--line);font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.tk .tkl i{width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 0 0 rgba(255,59,59,.6);animation:tkp 1.8s infinite}
+@keyframes tkp{70%{box-shadow:0 0 0 8px rgba(255,59,59,0)}100%{box-shadow:0 0 0 0 rgba(255,59,59,0)}}
+.tk .tkv{position:relative;flex:1;min-width:0;overflow:hidden}
+.tk .tki{position:absolute;inset:0;display:flex;align-items:center;gap:12px;padding:0 16px;text-decoration:none;color:inherit;transition:transform .5s ease,opacity .5s ease}
+.tk .tki.in{transform:translateY(100%);opacity:0}.tk .tki.out{transform:translateY(-100%);opacity:0}
+.tk .tkc{flex:none;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:6px;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c);border:1px solid color-mix(in srgb,var(--c) 45%,transparent)}
+.tk .tkt{min-width:0;display:flex;flex-direction:column}
+.tk .tkt b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:15px}
+.tk .tkt span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12.5px;color:var(--muted)}
+.tk .tki:hover b{text-decoration:underline}
+.tk .tkr{display:flex;align-items:center;gap:6px;padding:0 10px;border-left:1px solid var(--line)}
+.tk .tkr button{background:none;border:1px solid var(--line);color:inherit;border-radius:8px;width:28px;height:28px;cursor:pointer}
+.tk .tkd{display:flex;gap:4px;margin-right:4px}
+.tk .tkd b{width:8px;height:8px;border-radius:50%;background:var(--c);opacity:.4;cursor:pointer}
+.tk .tkd b.on{opacity:1}
+.tk .tkbar{position:absolute;left:0;bottom:0;height:2px;background:var(--c);width:0}
+.tk.run .tkbar{animation:tkbar var(--dur) linear forwards}.tk.paused .tkbar{animation-play-state:paused}
+@keyframes tkbar{to{width:100%}}
+@media (max-width:700px){.tk .tkl span{display:none}.tk .tkd{display:none}}
+@media (prefers-reduced-motion:reduce){.tk .tki{transition:none}}
 /* big countdowns */
 .bigcds{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-bottom:14px}
 .bcd{border-radius:16px;padding:16px 18px;border:1px solid var(--line);background:linear-gradient(150deg,color-mix(in srgb,var(--c) 22%,var(--panel)) 0%,var(--panel) 60%);cursor:pointer;position:relative;overflow:hidden}
@@ -361,6 +385,7 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 <!-- HOME -->
 <section class="tab" id="t-home">
   <div class="tabhead"><h2>Today</h2><span class="sub" id="todayLbl"></span></div>
+  <div class="tk" id="ticker" aria-live="polite"></div>
   <div class="bigcds" id="bigCds"></div>
   <div class="hero" id="countdowns"></div>
   <div class="cols" style="margin-bottom:16px"><div class="card"><h3>Podcasts <span class="tag" id="podTag"></span></h3><div id="podsHome"></div></div><div class="grid g3" id="homeCards" style="grid-template-columns:1fr 1fr"></div></div>
@@ -1215,6 +1240,49 @@ function renderWWE(){
 /* =====================================================
    HOME
    ===================================================== */
+
+/* ===== HOME NEWS TICKER ===== */
+const TK={i:0,timer:null,dur:6500,items:[],paused:false,pos:{}};
+function tkBuild(){
+  const by=(a)=>(a||[]).filter(x=>x&&x.title||x&&x.text).slice().sort((x,y)=>(y.date||"").localeCompare(x.date||"")).slice(0,6);
+  const PL=(typeof PLAT!=="undefined"?PLAT:[]);
+  const games=[].concat(...PL.map(x=>(F.games[x.k]&&F.games[x.k].news)||[]),...Object.values(F.franchiseNews||{}));
+  const nfl=[...(F.nfl.news||[]).filter(n=>n.teams&&n.teams.includes(favTeam)),...(F.nfl.news||[])].filter((x,i,a)=>a.indexOf(x)===i);
+  const T=[
+    {k:"NFL",c:"var(--nfl)",go:"nfl",list:by(nfl).slice(0,6)},
+    {k:"Insiders",c:"#6b8cff",go:"nfl-insiders",list:by(F.nfl.insiders).map(x=>({date:x.date,title:x.who+": "+x.text,summary:x.source,url:x.url}))},
+    {k:"Star Wars",c:"var(--sw)",go:"starwars",list:by(F.starwars&&F.starwars.news)},
+    {k:"Games",c:"var(--vg)",go:"games",list:by(games)},
+    {k:"WWE",c:"var(--wwe)",go:"wwe",list:by(F.wwe&&F.wwe.news)},
+    {k:"Outages",c:"var(--out)",go:"outages",list:by(F.outages&&F.outages.items).map(x=>({date:x.date,title:x.title,summary:x.impact,url:x.url}))}
+  ].filter(t=>t.list.length);
+  // round-robin: one headline per topic, then the next one from each
+  const out=[];const mx=Math.max(0,...T.map(t=>t.list.length));
+  for(let r=0;r<mx;r++)T.forEach((t,ti)=>{const n=t.list[r];if(n)out.push({t,ti,n});});
+  TK.topics=T;TK.items=out;
+}
+function tkHTML(x){const n=x.n;const sum=n.summary||n.source||"";
+  return `<a class="tki" style="--c:${x.t.c}" href="${esc(n.url||"#"+x.t.go)}" ${n.url?'target="_blank" rel="noopener"':""}><span class="tkc">${esc(x.t.k)}</span><span class="tkt"><b>${esc(n.title)}</b><span>${n.date?esc(newsDate(n.date))+" · ":""}${esc(sum)}</span></span></a>`;}
+function tkShow(i,dir){const el=$("#ticker");if(!el||!TK.items.length)return;
+  TK.i=(i+TK.items.length)%TK.items.length;const x=TK.items[TK.i];
+  const v=el.querySelector(".tkv");const old=v.querySelector(".tki:not(.out)");
+  v.insertAdjacentHTML("beforeend",tkHTML(x));const nw=v.lastElementChild;nw.classList.add("in");
+  if(dir<0)nw.style.transform="translateY(-100%)";
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{nw.classList.remove("in");nw.style.transform="";if(old){old.classList.add("out");if(dir<0)old.style.transform="translateY(100%)";setTimeout(()=>old.remove(),550);}}));
+  el.style.setProperty("--c",x.t.c);
+  el.querySelectorAll(".tkd b").forEach((b,k)=>b.classList.toggle("on",k===x.ti));
+  const bar=el.querySelector(".tkbar");el.classList.remove("run");void bar.offsetWidth;el.classList.add("run");
+  clearTimeout(TK.timer);if(!TK.paused)TK.timer=setTimeout(()=>tkShow(TK.i+1,1),TK.dur);}
+function renderTicker(){const el=$("#ticker");if(!el)return;tkBuild();
+  if(!TK.items.length){el.style.display="none";return;}el.style.display="";
+  el.style.setProperty("--dur",TK.dur+"ms");
+  el.innerHTML=`<div class="tkl"><i></i><span>Latest</span></div><div class="tkv"><div class="tkbar"></div></div><div class="tkr"><div class="tkd">${TK.topics.map((t,k)=>`<b style="--c:${t.c}" title="${esc(t.k)}" data-tk="${k}"></b>`).join("")}</div><button data-tkm="-1" aria-label="Previous headline">‹</button><button data-tkm="1" aria-label="Next headline">›</button></div>`;
+  const pause=(on)=>{TK.paused=on;el.classList.toggle("paused",on);clearTimeout(TK.timer);if(!on)TK.timer=setTimeout(()=>tkShow(TK.i+1,1),TK.dur/2);};
+  el.onmouseenter=()=>pause(true);el.onmouseleave=()=>pause(false);
+  el.onclick=e=>{const m=e.target.closest("[data-tkm]");if(m){e.preventDefault();tkShow(TK.i+ +m.dataset.tkm,+m.dataset.tkm);return;}
+    const d=e.target.closest("[data-tk]");if(d){const k=+d.dataset.tk;const j=TK.items.findIndex((x,ii)=>ii>TK.i&&x.ti===k);tkShow(j>=0?j:TK.items.findIndex(x=>x.ti===k),1);}};
+  if(!TK.vis){TK.vis=1;document.addEventListener("visibilitychange",()=>{if(document.hidden){clearTimeout(TK.timer);}else if(!TK.paused){TK.timer=setTimeout(()=>tkShow(TK.i+1,1),TK.dur);}});}
+  tkShow(0,1);}
 function renderHome(){
   $("#todayLbl").textContent=new Date().toLocaleDateString("en-US",{timeZone:TZ,weekday:"long",month:"long",day:"numeric"});
   if(!F){$("#countdowns").innerHTML=`<div class="card">The news feed didn't load. Try refreshing.</div>`;return;}
@@ -1237,6 +1305,7 @@ function renderHome(){
   const teamNews=F.nfl.news.filter(n=>n.teams.includes(favTeam));
   const allGames=[].concat(...PLAT.map(x=>F.games[x.k].news));
   $("#homeCards").innerHTML=card("nfl","var(--nfl)",short(favTeam)+" & NFL",top(teamNews.length?teamNews:F.nfl.news,3))+card("starwars","var(--sw)","Star Wars",top(F.starwars.news,3))+card("games","var(--vg)","Video games",top(allGames,3))+card("wwe","var(--wwe)","WWE",top(F.wwe.news,3));
+  renderTicker();
   renderBigCds();renderPods();
 }
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g&&!e.target.closest("a")){location.hash=g.dataset.go;}});
