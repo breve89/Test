@@ -268,17 +268,19 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 
 
 /* home news ticker */
-.tk{display:flex;align-items:stretch;gap:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;margin:0 0 16px;overflow:hidden;min-height:64px}
+.tk{display:flex;align-items:stretch;gap:0;background:#121826;border:1px solid var(--line);border-radius:14px;margin:0 0 16px;overflow:hidden;min-height:64px}
 .tk .tkl{display:flex;align-items:center;gap:8px;padding:0 14px;background:var(--panel2);border-right:1px solid var(--line);font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
 .tk .tkl i{width:8px;height:8px;border-radius:50%;background:#ff3b3b;box-shadow:0 0 0 0 rgba(255,59,59,.6);animation:tkp 1.8s infinite}
 @keyframes tkp{70%{box-shadow:0 0 0 8px rgba(255,59,59,0)}100%{box-shadow:0 0 0 0 rgba(255,59,59,0)}}
 .tk .tkv{position:relative;flex:1;min-width:0;overflow:hidden}
-.tk .tki{position:absolute;inset:0;display:flex;align-items:center;gap:12px;padding:0 16px;text-decoration:none;color:inherit;transition:transform .5s ease,opacity .5s ease}
-.tk .tki.in{transform:translateY(100%);opacity:0}.tk .tki.out{transform:translateY(-100%);opacity:0}
+.tk .tki{position:absolute;inset:0;display:flex;align-items:center;gap:12px;padding:0 16px;text-decoration:none;color:inherit}
+.tk .tki.anim{animation:tkin .45s ease both}.tk .tki.anim.back{animation-name:tkback}
+@keyframes tkin{from{transform:translateY(60%);opacity:0}to{transform:none;opacity:1}}
+@keyframes tkback{from{transform:translateY(-60%);opacity:0}to{transform:none;opacity:1}}
 .tk .tkc{flex:none;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:6px;background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c);border:1px solid color-mix(in srgb,var(--c) 45%,transparent)}
 .tk .tkt{min-width:0;display:flex;flex-direction:column}
-.tk .tkt b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:15px}
-.tk .tkt span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12.5px;color:var(--muted)}
+.tk .tkt b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:16px;color:#fff}
+.tk .tkt span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px;color:#c9cfdb;margin-top:2px}
 .tk .tki:hover b{text-decoration:underline}
 .tk .tkr{display:flex;align-items:center;gap:6px;padding:0 10px;border-left:1px solid var(--line)}
 .tk .tkr button{background:none;border:1px solid var(--line);color:inherit;border-radius:8px;width:28px;height:28px;cursor:pointer}
@@ -289,7 +291,7 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 .tk.run .tkbar{animation:tkbar var(--dur) linear forwards}.tk.paused .tkbar{animation-play-state:paused}
 @keyframes tkbar{to{width:100%}}
 @media (max-width:700px){.tk .tkl span{display:none}.tk .tkd{display:none}}
-@media (prefers-reduced-motion:reduce){.tk .tki{transition:none}}
+@media (prefers-reduced-motion:reduce){.tk .tki.anim{animation:none}}
 /* big countdowns */
 .bigcds{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-bottom:14px}
 .bcd{border-radius:16px;padding:16px 18px;border:1px solid var(--line);background:linear-gradient(150deg,color-mix(in srgb,var(--c) 22%,var(--panel)) 0%,var(--panel) 60%);cursor:pointer;position:relative;overflow:hidden}
@@ -1265,10 +1267,10 @@ function tkHTML(x){const n=x.n;const sum=n.summary||n.source||"";
   return `<a class="tki" style="--c:${x.t.c}" href="${esc(n.url||"#"+x.t.go)}" ${n.url?'target="_blank" rel="noopener"':""}><span class="tkc">${esc(x.t.k)}</span><span class="tkt"><b>${esc(n.title)}</b><span>${n.date?esc(newsDate(n.date))+" · ":""}${esc(sum)}</span></span></a>`;}
 function tkShow(i,dir){const el=$("#ticker");if(!el||!TK.items.length)return;
   TK.i=(i+TK.items.length)%TK.items.length;const x=TK.items[TK.i];
-  const v=el.querySelector(".tkv");const old=v.querySelector(".tki:not(.out)");
-  v.insertAdjacentHTML("beforeend",tkHTML(x));const nw=v.lastElementChild;nw.classList.add("in");
-  if(dir<0)nw.style.transform="translateY(-100%)";
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{nw.classList.remove("in");nw.style.transform="";if(old){old.classList.add("out");if(dir<0)old.style.transform="translateY(100%)";setTimeout(()=>old.remove(),550);}}));
+  const v=el.querySelector(".tkv");
+  v.querySelectorAll(".tki").forEach(n=>n.remove());
+  v.insertAdjacentHTML("beforeend",tkHTML(x));const nw=v.lastElementChild;
+  nw.classList.add("anim");if(dir<0)nw.classList.add("back");
   el.style.setProperty("--c",x.t.c);
   el.querySelectorAll(".tkd b").forEach((b,k)=>b.classList.toggle("on",k===x.ti));
   const bar=el.querySelector(".tkbar");el.classList.remove("run");void bar.offsetWidth;el.classList.add("run");
