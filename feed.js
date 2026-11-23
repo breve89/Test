@@ -1,5 +1,5 @@
 window.FEED={
- "updated": "2026-11-23T07:20:00-06:00",
+ "updated": "2026-11-23T11:15:00-06:00",
  "nfl": {
   "week": 11,
   "standings": [
@@ -4391,6 +4391,18 @@ window.FEED={
    }
   ],
   "insiders": [
+   {
+    "who": "Rapoport",
+    "date": "2026-11-23",
+    "teams": [
+     "IND",
+     "NE",
+     "BAL"
+    ],
+    "text": "Jones plans to wait for the right opportunity rather than sign right away. If a playoff team loses its QB, he'd likely be the first call, at the veteran minimum since Indianapolis owes the rest of his salary. Baltimore had offered a fourth-round pick for him before the deadline.",
+    "source": "RotoWire / Athlon (citing ESPN & NFL Network)",
+    "url": "https://www.rotowire.com/football/headlines/daniel-jones-news-could-take-time-before-choosing-next-stop-649034"
+   },
    {
     "who": "Rapoport",
     "date": "2026-11-23",
