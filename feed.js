@@ -5408,5 +5408,53 @@ window.FEED={
     "url": "https://www.gaming.net/ubisoft-says-no-other-assassins-creed-remake-is-in-development/"
    }
   ]
+ },
+ "stocks": {
+  "asOf": "2026-11-23T16:00:00-05:00",
+  "session": "Close · Mon Nov 23",
+  "headline": "Best day since April 2025: stocks rebounded from last week's AI sell-off as Nvidia jumped about 31% on Jensen Huang's return.",
+  "items": [
+   {
+    "sym": "S&P 500",
+    "name": "Large-cap U.S. stocks",
+    "price": 7237.17,
+    "chg": 326.78,
+    "pct": 4.73,
+    "idx": true
+   },
+   {
+    "sym": "DOW",
+    "name": "Dow Jones Industrial Average",
+    "price": 49595.31,
+    "chg": 1447.98,
+    "pct": 3.01,
+    "idx": true
+   },
+   {
+    "sym": "NASDAQ",
+    "name": "Nasdaq Composite",
+    "price": 24089.56,
+    "chg": 1471.82,
+    "pct": 6.51,
+    "idx": true
+   },
+   {
+    "sym": "TTWO",
+    "name": "Take-Two (GTA)",
+    "price": 209.36,
+    "chg": -0.64,
+    "pct": -0.3
+   }
+  ],
+  "sources": [
+   {
+    "name": "CNBC",
+    "url": "https://www.cnbc.com/2026/11/22/stock-market-today-live-updates.html"
+   },
+   {
+    "name": "StockAnalysis (TTWO)",
+    "url": "https://stockanalysis.com/stocks/ttwo/"
+   }
+  ]
  }
 };

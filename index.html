@@ -292,6 +292,24 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 @keyframes tkbar{to{width:100%}}
 @media (max-width:700px){.tk .tkl span{display:none}.tk .tkd{display:none}}
 @media (prefers-reduced-motion:reduce){.tk .tki.anim{animation:none}}
+
+/* verse + markets */
+.vrow{grid-template-columns:1.3fr 1fr;align-items:stretch}
+.verse{display:flex;flex-direction:column;justify-content:center}
+.verse{position:relative;overflow:hidden;background:linear-gradient(135deg,#1a1630,#121826 60%)}
+.verse:before{content:"\201C";position:absolute;right:14px;top:-26px;font:700 140px/1 Georgia,serif;color:rgba(255,215,130,.08)}
+.verse .vk{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#f3c969}
+.verse blockquote{margin:10px 0 12px;font:500 19px/1.55 Georgia,"Times New Roman",serif;color:#f3f0e8}
+.verse .vr{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.verse .vr b{font-size:15px}.verse .vr span{font-size:12px;color:var(--muted)}
+.verse .vr .sp{flex:1}
+.mk{display:grid;grid-template-columns:1fr auto auto;gap:6px 14px;align-items:center;font-variant-numeric:tabular-nums}
+.mk .s b{display:block;font-size:14px}.mk .s span{font-size:12px;color:var(--muted)}
+.mk .p{text-align:right;font-weight:700}
+.mk .c{text-align:right;font-weight:700;font-size:13px;padding:3px 8px;border-radius:7px;min-width:78px}
+.mk .c.up{color:#2fd27c;background:rgba(47,210,124,.12)}.mk .c.dn{color:#ff6b6b;background:rgba(255,107,107,.12)}
+.mk hr{grid-column:1/-1;border:0;border-top:1px solid var(--line);margin:2px 0}
+@media (max-width:800px){.vrow{grid-template-columns:1fr}}
 /* big countdowns */
 .bigcds{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-bottom:14px}
 .bcd{border-radius:16px;padding:16px 18px;border:1px solid var(--line);background:linear-gradient(150deg,color-mix(in srgb,var(--c) 22%,var(--panel)) 0%,var(--panel) 60%);cursor:pointer;position:relative;overflow:hidden}
@@ -389,6 +407,7 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
   <div class="tabhead"><h2>Today</h2><span class="sub" id="todayLbl"></span></div>
   <div class="tk" id="ticker" aria-live="polite"></div>
   <div class="bigcds" id="bigCds"></div>
+  <div class="cols vrow" style="margin-bottom:16px"><div class="card verse" id="verseCard"></div><div class="card" id="mktCard"></div></div>
   <div class="hero" id="countdowns"></div>
   <div class="cols" style="margin-bottom:16px"><div class="card"><h3>Podcasts <span class="tag" id="podTag"></span></h3><div id="podsHome"></div></div><div class="grid g3" id="homeCards" style="grid-template-columns:1fr 1fr"></div></div>
 </section>
@@ -567,6 +586,7 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 <div class="modalbg" id="modal"><div class="modal"><p id="modalMsg"></p><div class="row" style="justify-content:flex-end"><button class="btn" id="modalNo">Cancel</button><button class="btn pri" id="modalYes" style="background:var(--bad)">Delete</button></div></div></div>
 
 <script src="feed.js"></script>
+<script src="verses.js"></script>
 <script src="franchises.js"></script>
 <script src="saber3d.js"></script>
 <script src="characters.js"></script>
@@ -1285,6 +1305,27 @@ function renderTicker(){const el=$("#ticker");if(!el)return;tkBuild();
     const d=e.target.closest("[data-tk]");if(d){const k=+d.dataset.tk;const j=TK.items.findIndex((x,ii)=>ii>TK.i&&x.ti===k);tkShow(j>=0?j:TK.items.findIndex(x=>x.ti===k),1);}};
   if(!TK.vis){TK.vis=1;document.addEventListener("visibilitychange",()=>{if(document.hidden){clearTimeout(TK.timer);}else if(!TK.paused){TK.timer=setTimeout(()=>tkShow(TK.i+1,1),TK.dur);}});}
   tkShow(0,1);}
+
+/* ===== DAILY VERSE + MARKETS ===== */
+function dayIndex(){const n=new Date();const ct=new Date(n.toLocaleString("en-US",{timeZone:"America/Chicago"}));const st=new Date(ct.getFullYear(),0,0);return Math.floor((ct-st)/864e5)+ct.getFullYear()*366;}
+let VOFF=0;
+function renderVerse(){const el=$("#verseCard");const V=window.VERSES;if(!el||!V||!V.length){if(el)el.style.display="none";return;}
+  const i=((dayIndex()+VOFF)%V.length+V.length)%V.length;const [ref,txt]=V[i];
+  const url="https://www.biblegateway.com/passage/?search="+encodeURIComponent(ref)+"&version=KJV";
+  el.innerHTML=`<div class="vk">${VOFF===0?"Verse of the day":"Another verse"}</div><blockquote>${esc(txt)}</blockquote>
+  <div class="vr"><b>${esc(ref)}</b><span>KJV</span><span class="sp"></span>
+  ${VOFF!==0?`<button class="btn sm" data-v="0">Today's</button>`:""}<button class="btn sm" data-v="-1" aria-label="Previous verse">‹</button><button class="btn sm" data-v="1" aria-label="Next verse">›</button>
+  <button class="btn sm" id="vCopy">Copy</button><a class="btn sm" href="${url}" target="_blank" rel="noopener" style="text-decoration:none">Read chapter</a></div>`;
+  el.onclick=async e=>{const b=e.target.closest("[data-v]");if(b){const d=+b.dataset.v;VOFF=d===0?0:VOFF+d;renderVerse();return;}
+    if(e.target.id==="vCopy"){try{await navigator.clipboard.writeText(`"${txt}" (${ref}, KJV)`);e.target.textContent="Copied";}catch(_){e.target.textContent="Copy failed";}}};}
+function renderMarkets(){const el=$("#mktCard");const S=F.stocks;if(!el)return;if(!S||!S.items){el.style.display="none";return;}
+  const f=(n,d=2)=>Number(n).toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});
+  const row=x=>`<div class="s"><b>${esc(x.sym)}</b><span>${esc(x.name)}</span></div><div class="p">${x.idx?"":"$"}${f(x.price)}</div><div class="c ${x.chg>=0?"up":"dn"}">${x.chg>=0?"▲":"▼"} ${f(Math.abs(x.pct))}%</div>`;
+  const idx=S.items.filter(x=>x.idx),stk=S.items.filter(x=>!x.idx);
+  el.innerHTML=`<h3>Markets <span class="tag">${esc(S.session||"")}</span></h3>
+  ${S.headline?`<p class="small muted" style="margin:0 0 10px">${esc(S.headline)}</p>`:""}
+  <div class="mk">${idx.map(row).join("")}${stk.length?"<hr>"+stk.map(row).join(""):""}</div>
+  <div class="small muted" style="margin-top:10px">Updated with each refresh, not live. ${(S.sources||[]).map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join(" · ")}</div>`;}
 function renderHome(){
   $("#todayLbl").textContent=new Date().toLocaleDateString("en-US",{timeZone:TZ,weekday:"long",month:"long",day:"numeric"});
   if(!F){$("#countdowns").innerHTML=`<div class="card">The news feed didn't load. Try refreshing.</div>`;return;}
@@ -1308,6 +1349,7 @@ function renderHome(){
   const allGames=[].concat(...PLAT.map(x=>F.games[x.k].news));
   $("#homeCards").innerHTML=card("nfl","var(--nfl)",short(favTeam)+" & NFL",top(teamNews.length?teamNews:F.nfl.news,3))+card("starwars","var(--sw)","Star Wars",top(F.starwars.news,3))+card("games","var(--vg)","Video games",top(allGames,3))+card("wwe","var(--wwe)","WWE",top(F.wwe.news,3));
   renderTicker();
+  renderVerse();renderMarkets();
   renderBigCds();renderPods();
 }
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g&&!e.target.closest("a")){location.hash=g.dataset.go;}});
