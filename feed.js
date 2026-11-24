@@ -1,7 +1,7 @@
 window.FEED={
- "updated": "2026-11-23T11:15:00-06:00",
+ "updated": "2026-11-23T22:45:00-06:00",
  "nfl": {
-  "week": 11,
+  "week": 12,
   "standings": [
    {
     "abbr": "BUF",
@@ -49,7 +49,7 @@ window.FEED={
     "conf": "AFC",
     "div": "AFC North",
     "w": 7,
-    "l": 2,
+    "l": 3,
     "confRank": 3,
     "divRank": 1
    },
@@ -188,7 +188,7 @@ window.FEED={
     "name": "Washington Commanders",
     "conf": "NFC",
     "div": "NFC East",
-    "w": 3,
+    "w": 4,
     "l": 5,
     "confRank": 11,
     "divRank": 3
@@ -328,16 +328,8 @@ window.FEED={
    "week": 12,
    "label": "Week 12 · Nov 25–30",
    "madeAt": "2026-11-23",
-   "note": "Week 11 is 9-3 with Monday night (CIN@WAS) still to play. Week 12 kicks off Wednesday with GB@LA.",
+   "note": "Week 11 finished 9-4 after Washington upset Cincinnati 22-20 on Monday night. Week 12 kicks off Wednesday with GB@LA.",
    "games": [
-    {
-     "away": "CIN",
-     "home": "WAS",
-     "pick": "CIN",
-     "prob": 70,
-     "week": 11,
-     "why": "Week 11 MNF. Cincinnati (7-2) has been rolling; Washington is 3-5."
-    },
     {
      "away": "GB",
      "home": "LA",
@@ -405,9 +397,8 @@ window.FEED={
      "away": "NO",
      "home": "CIN",
      "pick": "CIN",
-     "prob": 74,
-     "why": "Cincinnati at home on a short week after MNF, but New Orleans (3-7) has struggled to score.",
-     "est": true
+     "prob": 82,
+     "why": "Cincinnati (7-3) comes off a 22-20 MNF loss in Washington; New Orleans (3-7) has struggled to score. Models give CIN about 82%."
     },
     {
      "away": "NYJ",
@@ -494,7 +485,7 @@ window.FEED={
     "week": 11,
     "label": "Week 11",
     "w": 9,
-    "l": 3,
+    "l": 4,
     "games": [
      {
       "away": "IND",
@@ -591,6 +582,14 @@ window.FEED={
       "prob": 57,
       "result": "MIN 10, SF 35",
       "correct": true
+     },
+     {
+      "away": "CIN",
+      "home": "WAS",
+      "pick": "CIN",
+      "prob": 70,
+      "result": "CIN 20, WAS 22",
+      "correct": false
      }
     ]
    }
@@ -4084,11 +4083,11 @@ window.FEED={
    {
     "away": "CIN",
     "home": "WAS",
-    "status": "upcoming",
+    "status": "final",
     "time": "2026-11-24T01:15:00Z",
     "tag": "MNF",
-    "fav": "CIN",
-    "favPct": 70
+    "as": 20,
+    "hs": 22
    },
    {
     "away": "GB",
@@ -4170,7 +4169,9 @@ window.FEED={
     "away": "NO",
     "home": "CIN",
     "status": "upcoming",
-    "time": "2026-11-29T18:00:00Z"
+    "time": "2026-11-29T18:00:00Z",
+    "fav": "CIN",
+    "favPct": 82
    },
    {
     "away": "NYJ",
