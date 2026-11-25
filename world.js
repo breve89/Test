@@ -170,14 +170,14 @@ function renderPanel(){const el=$("#wPanel");if(!el)return;
     <div class="whd"><span class="wflag">${flag(d.iso2)}</span><div><h3>${esc(d.name)}</h3><div class="small muted">${esc(C.n)}${S.featIds&&!S.featIds.has(d.id)?" · too small to outline on this map":""}</div></div></div>
     <div class="wstats">${stat("Capital",esc(d.cap))}${stat("Population",d.pop?esc(fmtPop(d.pop)):"—")}${stat("Area",esc(fmtN(d.area))+" km²")}${stat("Density",dens!=null?esc(fmtN(dens))+" / km²":"—")}${stat("Languages",esc(d.lang))}${stat("Currency",esc(d.cur))}</div>
     <h4>Geography</h4><p>${esc(d.geo)}</p><h4>History</h4><p>${esc(d.hist)}</p>
-    <div class="wnav"><button class="btn sm" data-go="${list[(i-1+list.length)%list.length].id}">‹ ${esc(list[(i-1+list.length)%list.length].name)}</button><button class="btn sm" data-go="${list[(i+1)%list.length].id}">${esc(list[(i+1)%list.length].name)} ›</button></div>
+    <div class="wnav"><button class="btn sm" data-wgo="${list[(i-1+list.length)%list.length].id}">‹ ${esc(list[(i-1+list.length)%list.length].name)}</button><button class="btn sm" data-wgo="${list[(i+1)%list.length].id}">${esc(list[(i+1)%list.length].name)} ›</button></div>
     <div class="small dim" style="margin-top:8px">Population figures are rounded estimates (about 2024).</div>`;}
   else if(S.cont){const C=CONT[S.cont];const list=countriesIn(S.cont);
     el.innerHTML=`<div class="wcrumb"><button class="wlink" data-cont="">World</button> › ${esc(C.n)}</div>
     <h3 style="color:${C.c}">${esc(C.n)}</h3>
     <div class="wstats">${stat("Area",esc(fmtN(C.area))+" km²")}${stat("Population",esc(C.pop))}${stat("Countries & territories listed",list.length)}${stat("Largest country",esc(C.big))}${stat("Highest point",esc(C.hi))}${stat("Lowest point",esc(C.lo))}${stat("Longest river",esc(C.river))}</div>
     <h4>Geography</h4><p>${esc(C.geo)}</p><h4>History</h4><p>${esc(C.hist)}</p>
-    <h4>Countries</h4><div class="wlist">${list.map(d=>`<button data-go="${d.id}"><span>${flag(d.iso2)}</span>${esc(d.name)}</button>`).join("")}</div>`;}
+    <h4>Countries</h4><div class="wlist">${list.map(d=>`<button data-wgo="${d.id}"><span>${flag(d.iso2)}</span>${esc(d.name)}</button>`).join("")}</div>`;}
   else{el.innerHTML=`<h3>Explore the world</h3><p class="muted">Drag to spin the globe, scroll or pinch to zoom, and click any country. Or pick a continent:</p>
     <div class="wconts">${Object.entries(CONT).map(([k,C])=>`<button data-cont="${k}" style="--c:${C.c}"><b>${esc(C.n)}</b><span>${countriesIn(k).length} listed · ${esc(fmtN(C.area/1e6))}M km²</span></button>`).join("")}</div>
     <h4>World at a glance</h4><div class="wstats">${stat("Population","about 8.2 billion")}${stat("Land area","about 149 million km² (29% of Earth)")}${stat("Highest point","Mount Everest, 8,849 m")}${stat("Deepest point","Challenger Deep, about 10,935 m")}${stat("Largest country","Russia")}${stat("Smallest country","Vatican City")}</div>`;}
@@ -191,9 +191,9 @@ function chips(){const el=$("#wChips");if(!el)return;el.innerHTML=`<button data-
 /* ---------- search ---------- */
 function wireSearch(){const inp=$("#wSearch"),box=$("#wSug");const all=Object.values(DATA).sort((a,b)=>a.name.localeCompare(b.name));
   const show=()=>{const q=norm(inp.value);if(!q){box.hidden=true;return;}const hits=all.filter(d=>norm(d.name).includes(q)||norm(d.cap).includes(q)).slice(0,8);
-    box.innerHTML=hits.length?hits.map(d=>`<button data-go="${d.id}"><span>${flag(d.iso2)}</span>${esc(d.name)}<small>${esc(d.cap.split(" (")[0])}</small></button>`).join(""):`<div class="small muted" style="padding:8px 10px">No match</div>`;box.hidden=false;};
+    box.innerHTML=hits.length?hits.map(d=>`<button data-wgo="${d.id}"><span>${flag(d.iso2)}</span>${esc(d.name)}<small>${esc(d.cap.split(" (")[0])}</small></button>`).join(""):`<div class="small muted" style="padding:8px 10px">No match</div>`;box.hidden=false;};
   inp.addEventListener("input",show);inp.addEventListener("focus",show);
-  inp.addEventListener("keydown",e=>{if(e.key==="Enter"){const b=box.querySelector("[data-go]");if(b){b.click();}}if(e.key==="Escape"){box.hidden=true;inp.blur();}});
+  inp.addEventListener("keydown",e=>{if(e.key==="Enter"){const b=box.querySelector("[data-wgo]");if(b){b.click();}}if(e.key==="Escape"){box.hidden=true;inp.blur();}});
   document.addEventListener("click",e=>{if(!e.target.closest(".wsearch"))box.hidden=true;});}
 
 /* ---------- timeline & quiz ---------- */
@@ -213,7 +213,7 @@ function buildQuiz(){const all=Object.values(DATA).filter(d=>d.cont!=="AN"&&d.po
 
 /* ---------- init ---------- */
 async function init(){canvas=$("#wGlobe");if(!canvas)return;ctx=canvas.getContext("2d");chips();renderPanel();renderTimeline();wireSearch();
-  document.getElementById("t-world").addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g&&g.closest("#t-world")&&g.dataset.go&&DATA[g.dataset.go]){e.preventDefault();$("#wSug").hidden=true;$("#wSearch").value="";selectCountry(g.dataset.go,true);return;}
+  document.getElementById("t-world").addEventListener("click",e=>{const g=e.target.closest("[data-wgo]");if(g&&g.closest("#t-world")&&g.dataset.wgo&&DATA[g.dataset.wgo]){e.preventDefault();$("#wSug").hidden=true;$("#wSearch").value="";selectCountry(g.dataset.wgo,true);return;}
     const c=e.target.closest("[data-cont]");if(c&&c.closest("#t-world")){selectCont(c.dataset.cont);return;}
     const t=e.target.closest("[data-tl]");if(t){tlF=t.dataset.tl;renderTimeline();}});
   $("#wZin").onclick=()=>zoom(1.35);$("#wZout").onclick=()=>zoom(1/1.35);$("#wReset").onclick=()=>{S.sel=null;S.cont=null;renderPanel();chips();flyTo([20,15],1);};
