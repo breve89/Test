@@ -540,6 +540,22 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 .ff .tag2{font-size:11.5px;font-weight:800;padding:3px 8px;border-radius:999px}.ff .Start{background:rgba(47,210,124,.15);color:#56e09a}.ff .Monitor{background:rgba(240,163,58,.16);color:#f6b25a}.ff .Bench{background:rgba(255,107,107,.14);color:#ff8b8b}
 .ff ul{margin:6px 0 0;padding-left:18px;font-size:13px;color:#cfd5e0}.ff li{margin:3px 0}
 @media (max-width:800px){.gd .row2{grid-template-columns:1fr}}
+
+/* watch orders, saber battles, character of the day */
+.wo-bar{height:6px;background:var(--panel2);border-radius:6px;overflow:hidden;margin-bottom:12px}.wo-bar i{display:block;height:100%;width:0;background:var(--sw);transition:width .3s}
+.wo{display:grid;grid-template-columns:28px 34px 1fr auto;gap:10px;align-items:center;padding:9px 6px;border-top:1px solid var(--line)}
+.wo input{width:20px;height:20px;accent-color:var(--sw)}.wo .i{font-weight:800;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.wo b{display:block;font-size:15px}.wo small{color:var(--muted);font-size:12.5px}.wo .wh{font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);white-space:nowrap}
+.wo.seen b{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.25)}.wo .kind{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-right:6px;color:var(--sw)}
+.sbsel{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.sbsel select{flex:1;min-width:180px}.sbsel .vs{font-weight:900;font-size:18px;color:var(--sw)}
+.sbgrid{display:grid;grid-template-columns:1fr 120px 1fr;gap:6px 12px;align-items:center}
+.sbgrid .nm{font-size:20px;font-weight:800}.sbgrid .nm.r{text-align:right}.sbgrid .lab{text-align:center;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.sbgrid .v{font-size:14px}.sbgrid .v.r{text-align:right}
+.sbbar{display:flex;gap:6px;align-items:center}.sbbar.r{flex-direction:row-reverse}.sbbar i{height:8px;border-radius:4px;background:var(--c)}.sbbar span{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.blade{display:inline-block;width:46px;height:6px;border-radius:3px;margin-right:6px;vertical-align:middle;box-shadow:0 0 8px var(--g)}
+.cotd{display:flex;gap:14px;align-items:flex-start}.cotd .av{flex:none;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:20px;color:#0b0d12}
+.cotd b{font-size:19px}.cotd p{margin:6px 0 10px;color:#d3d8e2;font-size:14.5px}
+@media (max-width:600px){.sbgrid{grid-template-columns:1fr 76px 1fr}.sbgrid .nm{font-size:16px}.wo{grid-template-columns:26px 1fr auto}.wo .i{display:none}}
 /* ===== design layer: banners, one card style, spacing, polish, search ===== */
 :root{--radius:14px;--gap:16px}
 .banner{display:none}
@@ -639,6 +655,7 @@ table,td,th,.gm,.wst b,.mk,.score,.tag,.bn-s b,.otdrow .yr,.wg .t,.ucd,.mgbig{fo
   <div class="myday" id="myDay" aria-label="My day"></div>
   <div class="bigcds" id="bigCds"></div>
   <div class="cols vrow" style="margin-bottom:16px"><div class="card verse" id="verseCard"></div><div class="card" id="mktCard"></div></div>
+  <div class="cols dailyrow" style="margin-bottom:16px"><div class="card" id="cotdCard"></div><div class="card" id="tilCard" hidden></div></div>
   <div class="card otdhome" id="otdHome" style="margin-bottom:16px"></div>
   <div class="cols wtrow" style="margin-bottom:16px"><div class="card" id="watchCard"></div><div class="card" id="trophyCard"></div></div>
   <div class="hero" id="countdowns"></div>
@@ -704,7 +721,7 @@ table,td,th,.gm,.wst b,.mk,.score,.tag,.bn-s b,.otdrow .yr,.wg .t,.ucd,.mgbig{fo
 
 <!-- STAR WARS -->
 <section class="tab" id="t-starwars">
-  <div class="tabhead"><h2 style="color:var(--sw)">Star Wars</h2><span class="sub">News, saber workshop, saber archive, characters and trivia</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="starwars"><option value="news">News</option><option value="saber">Lightsaber workshop</option><option value="archive">Saber archive</option><option value="characters">Characters</option><option value="trivia">Trivia</option></select></div></div></div>
+  <div class="tabhead"><h2 style="color:var(--sw)">Star Wars</h2><span class="sub">News, saber workshop, saber archive, characters and trivia</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="starwars"><option value="news">News</option><option value="saber">Lightsaber workshop</option><option value="archive">Saber archive</option><option value="characters">Characters</option><option value="watch">Watch order</option><option value="battle">Saber battles</option><option value="trivia">Trivia</option></select></div></div></div>
   <div class="subp" data-tab="starwars" data-sub="saber">
   <div class="card">
     <h3>Lightsaber workshop <span class="tag">Build it, ignite it, save it</span></h3>
@@ -738,6 +755,8 @@ table,td,th,.gm,.wst b,.mk,.score,.tag,.bn-s b,.otdrow .yr,.wg .t,.ucd,.mgbig{fo
   </div>
   <div class="subp" data-tab="starwars" data-sub="characters"><div class="card"><h3>Characters <span class="tag">Backstories and facts, in canon and Legends</span></h3><div id="swChars"></div></div></div>
   <div class="subp" data-tab="starwars" data-sub="news"><div class="card" style="max-width:900px"><h3>Latest from the galaxy</h3><div class="news" id="swNews"></div></div></div>
+  <div class="subp" data-tab="starwars" data-sub="watch"><div class="card"><h3>Star Wars watch order <span class="tag" id="swWProg"></span></h3><div class="row" style="gap:8px;flex-wrap:wrap;margin-bottom:12px"><div class="seg" id="swWMode"></div><span class="sp"></span><label class="small muted"><input type="checkbox" id="swWShows" checked> Include series</label></div><div class="wo-bar"><i id="swWBar"></i></div><div id="swWList"></div></div></div>
+  <div class="subp" data-tab="starwars" data-sub="battle"><div class="card"><h3>Saber battle <span class="tag">Tale of the tape</span></h3><div class="sbsel"><select id="sbA" aria-label="First fighter"></select><span class="vs">VS</span><select id="sbB" aria-label="Second fighter"></select><button class="btn sm" id="sbRand">Random matchup</button></div><div id="sbOut"></div></div></div>
   <div class="subp" data-tab="starwars" data-sub="trivia"><div class="card quiz" style="--qc:var(--sw);max-width:760px"><h3>Star Wars trivia <span class="tag" id="swBest"></span></h3><div id="quiz-sw"></div></div></div>
 </section>
 
@@ -794,12 +813,13 @@ table,td,th,.gm,.wst b,.mk,.score,.tag,.bn-s b,.otdrow .yr,.wg .t,.ucd,.mgbig{fo
 
 <!-- WWE -->
 <section class="tab" id="t-marvel">
-  <div class="tabhead"><h2 style="color:var(--mv)">Marvel</h2><span class="sub">MCU, Fox X-Men and Sony Spider-Man movies</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="marvel"><option value="movies">Movies & trivia facts</option><option value="trivia">Trivia quiz</option></select></div></div></div>
+  <div class="tabhead"><h2 style="color:var(--mv)">Marvel</h2><span class="sub">MCU, Fox X-Men and Sony Spider-Man movies</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="marvel"><option value="movies">Movies & trivia facts</option><option value="watch">Watch order</option><option value="trivia">Trivia quiz</option></select></div></div></div>
   <div class="mvup" id="mvUp"></div>
   <div class="subp" data-tab="marvel" data-sub="movies">
     <div class="row" style="gap:8px;flex-wrap:wrap;margin-bottom:12px"><div class="seg" id="mvFr"></div><span class="sp"></span><input type="text" id="mvQ" placeholder="Search movies, directors, villains…" style="min-width:240px"></div>
     <div id="mvList"></div>
   </div>
+  <div class="subp" data-tab="marvel" data-sub="watch"><div class="card"><h3>MCU watch order <span class="tag" id="mvWProg"></span></h3><div class="row" style="gap:8px;flex-wrap:wrap;margin-bottom:12px"><div class="seg" id="mvWMode"></div></div><div class="wo-bar"><i id="mvWBar" style="background:var(--mv)"></i></div><div id="mvWList"></div></div></div>
   <div class="subp" data-tab="marvel" data-sub="trivia">
     <div class="card quiz" style="--qc:var(--mv);max-width:760px"><h3>Marvel movie trivia <span class="tag" id="mvBest"></span></h3>
       <div class="seg" id="mvQFr" style="margin-bottom:12px"></div><div id="quiz-mv_all" class="mvquiz"></div></div>
@@ -919,7 +939,7 @@ function newsList(items,el,emptyMsg){
 
 /* ---------- tabs ---------- */
 const TABS=["home","nfl","starwars","games","workouts","wwe","marvel","world","history","outages"];
-const SUBS={nfl:["overview","gameday","scores","picks","insiders","injuries","draft","fantasy","stats","trivia"],starwars:["news","saber","archive","characters","trivia"],games:["news","bl","gta","ac","trivia"],wwe:["news","champions","trivia"],marvel:["movies","trivia"],world:["explore","game","timeline","trivia"],history:["today","us","greece","quiz"]};
+const SUBS={nfl:["overview","gameday","scores","picks","insiders","injuries","draft","fantasy","stats","trivia"],starwars:["news","saber","archive","characters","watch","battle","trivia"],games:["news","bl","gta","ac","trivia"],wwe:["news","champions","trivia"],marvel:["movies","watch","trivia"],world:["explore","game","timeline","trivia"],history:["today","us","greece","quiz"]};
 const subState=lsGet("hq_subs",{});
 function showSub(tab,sub){if(!SUBS[tab])return;if(!SUBS[tab].includes(sub))sub=subState[tab]||SUBS[tab][0];subState[tab]=sub;lsSet("hq_subs",subState);
   $$(`.subp[data-tab="${tab}"]`).forEach(p=>p.classList.toggle("on",p.dataset.sub===sub));const sel=$(`.subsel[data-tab="${tab}"]`);if(sel)sel.value=sub;}
@@ -1291,6 +1311,92 @@ function wireFantasy(){const q=$("#ffQ"),sug=$("#ffSug");if(!q)return;
     const d=e.target.closest("[data-ffdel]");if(d){const R=ffRoster();const i=R.indexOf(d.dataset.ffdel);if(i>=0)R.splice(i,1);Store.saveMe();renderFantasy();}});
   document.addEventListener("click",e=>{if(!e.target.closest(".ffadd"))sug.hidden=true;});renderFantasy();}
 function initNFLX(){renderGameDay();renderInjuries();renderDraftOrder();wireFantasy();}
+
+/* =====================================================
+   STAR WARS & MARVEL EXTRAS
+   ===================================================== */
+const SW_WATCH=[
+ /* id, title, kind, release year, chronological rank, era note */
+ ["acolyte","The Acolyte","Series",2024,1,"About 100 years before The Phantom Menace"],
+ ["tpm","Episode I: The Phantom Menace","Film",1999,2,"32 BBY"],
+ ["totj","Tales of the Jedi","Series",2022,3,"Spans the prequel era"],
+ ["aotc","Episode II: Attack of the Clones","Film",2002,4,"22 BBY"],
+ ["tcwmovie","The Clone Wars (animated film)","Film",2008,5,"22 BBY"],
+ ["tcw","The Clone Wars","Series",2008,6,"22–19 BBY"],
+ ["rots","Episode III: Revenge of the Sith","Film",2005,7,"19 BBY"],
+ ["tbb","The Bad Batch","Series",2021,8,"19–18 BBY"],
+ ["solo","Solo: A Star Wars Story","Film",2018,9,"About 13–10 BBY"],
+ ["obi","Obi-Wan Kenobi","Series",2022,10,"9 BBY"],
+ ["andor1","Andor (Season 1)","Series",2022,11,"5 BBY"],
+ ["rebels","Rebels","Series",2014,12,"5–0 BBY"],
+ ["andor2","Andor (Season 2)","Series",2025,13,"4–0 BBY"],
+ ["r1","Rogue One","Film",2016,14,"0 BBY"],
+ ["anh","Episode IV: A New Hope","Film",1977,15,"0 BBY"],
+ ["esb","Episode V: The Empire Strikes Back","Film",1980,16,"3 ABY"],
+ ["rotj","Episode VI: Return of the Jedi","Film",1983,17,"4 ABY"],
+ ["mando","The Mandalorian","Series",2019,18,"9 ABY onward"],
+ ["bobf","The Book of Boba Fett","Series",2021,19,"9 ABY"],
+ ["skel","Skeleton Crew","Series",2024,20,"About 9 ABY"],
+ ["ahsoka","Ahsoka","Series",2023,21,"About 11 ABY"],
+ ["mandog","The Mandalorian and Grogu","Film",2026,22,"After The Mandalorian Season 3"],
+ ["tfa","Episode VII: The Force Awakens","Film",2015,23,"34 ABY"],
+ ["tlj","Episode VIII: The Last Jedi","Film",2017,24,"34 ABY"],
+ ["tros","Episode IX: The Rise of Skywalker","Film",2019,25,"35 ABY"]];
+const SW_MACHETE=["anh","esb","aotc","rots","rotj","tfa","tlj","tros"];
+const MCU_TIMELINE=["Captain America: The First Avenger","Captain Marvel","Iron Man","Iron Man 2","The Incredible Hulk","Thor","The Avengers","Thor: The Dark World","Iron Man 3","Captain America: The Winter Soldier","Guardians of the Galaxy","Guardians of the Galaxy Vol. 2","Avengers: Age of Ultron","Ant-Man","Captain America: Civil War","Black Widow","Black Panther","Spider-Man: Homecoming","Doctor Strange","Thor: Ragnarok","Ant-Man and the Wasp","Avengers: Infinity War","Avengers: Endgame","Spider-Man: Far From Home","Shang-Chi and the Legend of the Ten Rings","Eternals","Spider-Man: No Way Home","Doctor Strange in the Multiverse of Madness","Black Panther: Wakanda Forever","Thor: Love and Thunder","Ant-Man and the Wasp: Quantumania","Guardians of the Galaxy Vol. 3","The Marvels","Deadpool & Wolverine","Captain America: Brave New World","Thunderbolts*","The Fantastic Four: First Steps","Spider-Man: Brand New Day","Avengers: Doomsday"];
+function seenMap(){return Store.me("seen",{});}
+function woRow(key,i,title,sub,kind,where,col){const seen=!!seenMap()[key];return `<label class="wo${seen?" seen":""}"><input type="checkbox" data-seen="${esc(key)}" ${seen?"checked":""} style="accent-color:${col}"><span class="i">${i}</span><span><b>${kind?`<span class="kind" style="color:${col}">${esc(kind)}</span>`:""}${esc(title)}</b><small>${esc(sub)}</small></span><span class="wh">${esc(where)}</span></label>`;}
+let swMode="release";
+function renderSWWatch(){const el=$("#swWList");if(!el)return;const shows=$("#swWShows").checked;
+  $("#swWMode").innerHTML=[["release","Release"],["chrono","Chronological"],["machete","Machete"]].map(([k,l])=>`<button data-swm="${k}" class="${swMode===k?"on":""}">${l}</button>`).join("");
+  let list=SW_WATCH.slice();if(swMode==="machete")list=SW_MACHETE.map(id=>SW_WATCH.find(x=>x[0]===id));else{if(!shows)list=list.filter(x=>x[2]==="Film");list.sort(swMode==="release"?(a,b)=>a[3]-b[3]||a[4]-b[4]:(a,b)=>a[4]-b[4]);}
+  const where=x=>x[0]==="mandog"?"Theaters, then Disney+":"Disney+";
+  el.innerHTML=(swMode==="machete"?`<p class="small muted" style="margin:0 0 8px">Machete order watches IV and V, flashes back to II and III, then finishes with VI, so Vader's reveal stays a surprise. Episode I is optional. The sequels follow.</p>`:"")+list.map((x,i)=>woRow("sw:"+x[0],i+1,x[1],`${x[3]} · ${x[5]}`,x[2],where(x),"var(--sw)")).join("");
+  const done=list.filter(x=>seenMap()["sw:"+x[0]]).length;$("#swWProg").textContent=`${done} of ${list.length} watched`;$("#swWBar").style.width=(list.length?done/list.length*100:0)+"%";}
+let mvMode="release";
+function renderMVWatch(){const el=$("#mvWList");if(!el||!window.MARVEL)return;const mcu=MARVEL.movies.filter(m=>m.fr==="mcu");
+  $("#mvWMode").innerHTML=[["release","Release"],["timeline","Timeline"]].map(([k,l])=>`<button data-mvm="${k}" class="${mvMode===k?"on":""}">${l}</button>`).join("");
+  let list=mvMode==="release"?mcu.slice():MCU_TIMELINE.map(t=>mcu.find(m=>m.t===t)).filter(Boolean);
+  const sony=["Spider-Man: Homecoming","Spider-Man: Far From Home","Spider-Man: No Way Home","Spider-Man: Brand New Day"];
+  const where=m=>m.upcoming?"Theaters Dec 18":m.t==="Spider-Man: Brand New Day"?"Digital / Sony":sony.includes(m.t)?"Varies (Sony)":m.t==="The Incredible Hulk"?"Disney+":"Disney+";
+  el.innerHTML=(mvMode==="timeline"?`<p class="small muted" style="margin:0 0 8px">In-universe story order. The Fantastic Four: First Steps happens in its own universe, so it sits right before Doomsday, where the worlds collide.</p>`:"")+list.map((m,i)=>woRow("mcu:"+m.t,i+1,m.t,`${m.y} · Phase ${m.ph}`,"","" +where(m),"var(--mv)")).join("");
+  const done=list.filter(m=>seenMap()["mcu:"+m.t]).length;$("#mvWProg").textContent=`${done} of ${list.length} watched`;$("#mvWBar").style.width=(list.length?done/list.length*100:0)+"%";}
+function wireWatchOrders(){$("#swWMode").onclick=e=>{const b=e.target.closest("[data-swm]");if(b){swMode=b.dataset.swm;renderSWWatch();}};$("#swWShows").onchange=renderSWWatch;
+  $("#mvWMode").onclick=e=>{const b=e.target.closest("[data-mvm]");if(b){mvMode=b.dataset.mvm;renderMVWatch();}};
+  document.addEventListener("change",e=>{const c=e.target.closest("[data-seen]");if(!c)return;const m=seenMap();if(c.checked)m[c.dataset.seen]=Date.now();else delete m[c.dataset.seen];Store.saveMe();renderSWWatch();renderMVWatch();});
+  renderSWWatch();renderMVWatch();}
+/* saber battles */
+const BLADE_HEX={Blue:"#4aa8ff",Green:"#4cff6a",Red:"#ff3b3b",Purple:"#c06bff",Yellow:"#ffe14a",White:"#f4f7ff",Black:"#222",Orange:"#ff9a2e",Darksaber:"#222"};
+function hashN(s){let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619);}return h>>>0;}
+function sbStats(a){const h=hashN(a.n);const yr=+(String(a.first).match(/\d{4}/)||[2000])[0];
+  const base=k=>55+((h>>>(k*5))%40);let form=base(0),force=base(1),agg=base(2);if(/Sith|dark/i.test(a.side))agg=Math.min(99,agg+8);if(/Jedi/i.test(a.side))force=Math.min(99,force+6);if(/Double|Cross/i.test(a.style))form=Math.min(99,form+5);
+  return {yr,form,force,agg};}
+function renderBattle(){const A=window.SWDATA&&SWDATA.ARCHIVE;if(!A)return;const a=A[+$("#sbA").value],b=A[+$("#sbB").value];const sa=sbStats(a),sb=sbStats(b);
+  const blades=x=>x.blades.map(c=>`<span class="blade" style="background:${BLADE_HEX[c]||"#ccc"};--g:${BLADE_HEX[c]||"#ccc"}"></span>${esc(c)}`).join(" ");
+  const bar=(v,r,c)=>`<div class="sbbar${r?" r":""}" style="--c:${c}"><i style="width:${v}%"></i><span>${v}</span></div>`;
+  const ca=BLADE_HEX[a.blades[0]]||"#ccc",cb=BLADE_HEX[b.blades[0]]||"#ccc";
+  const tot=x=>x.form+x.force+x.agg;const w=tot(sa)===tot(sb)?null:tot(sa)>tot(sb)?a:b;
+  $("#sbOut").innerHTML=`<div class="sbgrid"><div class="nm">${esc(a.n)}</div><div></div><div class="nm r">${esc(b.n)}</div>
+   <div class="v">${esc(a.side)}</div><div class="lab">Side</div><div class="v r">${esc(b.side)}</div>
+   <div class="v">${blades(a)}</div><div class="lab">Blade</div><div class="v r">${blades(b)}</div>
+   <div class="v">${esc(a.style)}</div><div class="lab">Style</div><div class="v r">${esc(b.style)}</div>
+   <div class="v">${esc(a.first)}</div><div class="lab">First seen</div><div class="v r">${esc(b.first)}</div>
+   <div>${bar(sa.form,0,ca)}</div><div class="lab">Bladework</div><div>${bar(sb.form,1,cb)}</div>
+   <div>${bar(sa.force,0,ca)}</div><div class="lab">Force</div><div>${bar(sb.force,1,cb)}</div>
+   <div>${bar(sa.agg,0,ca)}</div><div class="lab">Aggression</div><div>${bar(sb.agg,1,cb)}</div></div>
+   <div class="box" style="margin-top:14px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 14px"><b>${w?`Edge: ${esc(w.n)}`:"Dead even"}</b><div class="small muted" style="margin-top:4px">Side, blades, style and first appearance come from the saber archive. Bladework, Force and Aggression ratings are just for fun, not official stats.</div></div>`;}
+function wireBattle(){const A=window.SWDATA&&SWDATA.ARCHIVE;if(!A||!$("#sbA"))return;const opts=A.map((a,i)=>`<option value="${i}">${esc(a.n)}</option>`).join("");$("#sbA").innerHTML=opts;$("#sbB").innerHTML=opts;
+  const ia=A.findIndex(a=>/Obi-Wan/.test(a.n)),ib=A.findIndex(a=>/Vader/.test(a.n));$("#sbA").value=Math.max(0,ia);$("#sbB").value=Math.max(0,ib);
+  $("#sbA").onchange=renderBattle;$("#sbB").onchange=renderBattle;$("#sbRand").onclick=()=>{let x=Math.floor(Math.random()*A.length),y;do{y=Math.floor(Math.random()*A.length);}while(y===x);$("#sbA").value=x;$("#sbB").value=y;renderBattle();};renderBattle();}
+/* character of the day */
+function renderCOTD(){const el=$("#cotdCard");const C=window.SWCHARS&&SWCHARS.data;if(!el||!C)return;const c=C[((dayIndex()*7)%C.length+C.length)%C.length];
+  const src=c.canon||c.legends;const fact=src&&src.facts&&src.facts[0]||"";const bio=src&&src.bio?src.bio.split(". ").slice(0,2).join(". ").replace(/\.?$/,"."):"";
+  const col=/Sith|Empire|First Order|dark/i.test(c.aff)?"#ff6b6b":/Jedi/i.test(c.aff)?"#4aa8ff":"#ffe81f";
+  el.innerHTML=`<h3>Star Wars character of the day</h3><div class="cotd"><span class="av" style="background:${col}">${esc(c.n.split(" ").map(w=>w[0]).join("").slice(0,2))}</span><div><b>${esc(c.n)}</b><div class="small muted">${esc(c.aff)} · ${esc(c.species)} · First seen in ${esc(c.first)}</div><p>${esc(bio||fact)}</p>
+   <div class="row" style="gap:8px;flex-wrap:wrap"><button class="btn sm" id="cotdBio">Full profile</button>${c.saber?`<button class="btn sm" id="cotdSaber">View their saber</button>`:""}</div></div></div>`;
+  $("#cotdBio").onclick=()=>{location.hash="starwars-characters";setTimeout(()=>{setInput("#chSearch",c.n);const b=document.querySelector("#chList [data-i]");if(b)b.click();},40);};
+  if(c.saber)$("#cotdSaber").onclick=()=>{const a=SWDATA.ARCHIVE.find(x=>x.n===c.saber);if(a&&window.SV){location.hash="starwars-archive";setTimeout(()=>SV.open(a),60);}};}
+function initSWMV(){wireWatchOrders();wireBattle();renderCOTD();}
 /* =====================================================
    SEARCH EVERYTHING
    ===================================================== */
@@ -2199,6 +2305,7 @@ function boot(){
   try{initHistory();}catch(e){console.error(e)}
   try{initSearch();}catch(e){console.error(e)}
   try{initNFLX();}catch(e){console.error(e)}
+  try{initSWMV();}catch(e){console.error(e)}
   try{initPhone();renderMyDay();renderWatch();renderTrophies();Store.onChange(()=>{try{renderTrophies();}catch(e){}});window.addEventListener("hashchange",()=>{try{refreshBanners();}catch(e){}if((location.hash||"#home").startsWith("#home"))try{renderTrophies();}catch(e){}});}catch(e){console.error(e)}
   ["nfl","sw","vg","wwe"].forEach(k=>{renderBest(k);startQuiz(k);});
   if(window.FRANCH){["bl","gta","ac"].forEach(k=>{TRIVIA[k]=FRANCH[k].trivia;renderFranchise(k);});}
