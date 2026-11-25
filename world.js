@@ -82,11 +82,21 @@ function topoFeatures(topo,obj){const tf=topo.transform;const arcs=topo.arcs.map
   const geom=g=>g.type==="Polygon"?{type:"Polygon",coordinates:g.arcs.map(ring)}:g.type==="MultiPolygon"?{type:"MultiPolygon",coordinates:g.arcs.map(p=>p.map(ring))}:null;
   return obj.geometries.map(g=>({type:"Feature",id:g.id,properties:g.properties||{},geometry:geom(g)})).filter(f=>f.geometry);}
 function withTimeout(p,ms){return Promise.race([p,new Promise((_,no)=>setTimeout(()=>no(new Error("timeout")),ms))]);}
+/* echarts 4 shipped world borders as a script that calls echarts.registerMap with compressed coordinates */
+function decodeEcharts(json){if(!json.UTF8Encoding)return json.features;const sc=json.UTF8Scale||1024;
+  const dec=(str,off)=>{const out=[];let px=off[0],py=off[1];for(let i=0;i<str.length;i+=2){let x=str.charCodeAt(i)-64,y=str.charCodeAt(i+1)-64;x=(x>>1)^(-(x&1));y=(y>>1)^(-(y&1));x+=px;y+=py;px=x;py=y;out.push([x/sc,y/sc]);}return out;};
+  return json.features.map(f=>{const g=f.geometry,eo=g.encodeOffsets;let coords;
+    if(g.type==="Polygon")coords=g.coordinates.map((r,i)=>dec(r,eo[i]));else if(g.type==="MultiPolygon")coords=g.coordinates.map((p,i)=>p.map((r,j)=>dec(r,eo[i][j])));else return null;
+    return {type:"Feature",id:f.id,properties:f.properties||{},geometry:{type:g.type,coordinates:coords}};}).filter(Boolean);}
+function loadEcharts(url){return new Promise(async(ok,no)=>{const prev=window.echarts;let got=null;
+  window.echarts={registerMap:(n,j)=>{got=j;}};try{await loadScript(url);}catch(e){window.echarts=prev;return no(e);}window.echarts=prev;
+  if(!got)return no(new Error("no map registered"));try{ok(decodeEcharts(got));}catch(e){no(e);}});}
+function jsonImport(url){return withTimeout(import(url,{with:{type:"json"}}),12000).then(m=>{const t=m.default;return topoFeatures(t,t.objects.countries);});}
 const SOURCES=[
- {name:"Natural Earth (world-atlas)",load:async()=>{const m=await withTimeout(import("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json",{with:{type:"json"}}),15000);const t=m.default;return topoFeatures(t,t.objects.countries);}},
- {name:"Natural Earth (world-atlas, unpkg)",load:async()=>{const m=await withTimeout(import("https://unpkg.com/world-atlas@2.0.2/countries-110m.json",{with:{type:"json"}}),15000);const t=m.default;return topoFeatures(t,t.objects.countries);}},
- {name:"Natural Earth (world-atlas ESM)",load:async()=>{const m=await withTimeout(import("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json/+esm"),15000);const t=m.default;return topoFeatures(t,t.objects.countries);}},
- {name:"Natural Earth (datamaps)",load:async()=>{await loadScript("https://cdn.jsdelivr.net/npm/datamaps@0.5.9/dist/datamaps.world.min.js");const D=window.Datamap||window.Datamaps;const t=D&&D.prototype.worldTopo;if(!t)throw new Error("no topo");return topoFeatures(t,t.objects.world);}}
+ {name:"Natural Earth via ECharts",load:()=>loadEcharts("https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js").catch(()=>loadEcharts("https://unpkg.com/echarts@4.9.0/map/js/world.js"))},
+ {name:"Natural Earth via Datamaps",load:async()=>{await loadScript("https://cdn.jsdelivr.net/npm/datamaps@0.5.9/dist/datamaps.world.min.js");const D=window.Datamap||window.Datamaps;const t=D&&D.prototype.worldTopo;if(!t||typeof t!=="object")throw new Error("no topology");return topoFeatures(t,t.objects.world);}},
+ {name:"Natural Earth (world-atlas)",load:()=>jsonImport("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json")},
+ {name:"Natural Earth (world-atlas, unpkg)",load:()=>jsonImport("https://unpkg.com/world-atlas@2.0.2/countries-110m.json")}
 ];
 function rewind(f){/* d3 needs clockwise exteriors: flip any ring set that would cover more than a hemisphere */
   const fix=poly=>{const a=d3.geoArea({type:"Polygon",coordinates:poly});return a>2*Math.PI?poly.map(r=>r.slice().reverse()):poly;};
@@ -94,9 +104,11 @@ function rewind(f){/* d3 needs clockwise exteriors: flip any ring set that would
 function resolveId(f){const id=f.id!=null?String(f.id):"";const nm=f.properties&&(f.properties.name||f.properties.NAME)||"";
   if(/^[A-Z]{3}$/.test(id)&&DATA[id])return id;if(/^\d+$/.test(id)&&BY_NUM[String(+id)])return BY_NUM[String(+id)];if(/^[A-Z]{2}$/.test(id)&&BY_A2[id])return BY_A2[id];
   const k=BY_NAME[norm(nm)];return k||null;}
-async function loadWorld(){await ensureD3();let lastErr;
-  for(const s of SOURCES){try{const fs=await s.load();if(fs&&fs.length>=(window.WORLD_MINF||50)){S.src=s.name;return fs;}console.warn("[world] too few features from",s.name,fs&&fs.length);}catch(e){lastErr=e;console.warn("[world]",s.name,e&&e.message);}}
-  throw lastErr||new Error("No map source reachable");}
+async function loadWorld(){await ensureD3();const min=window.WORLD_MINF||50;const errs=[];
+  /* try every source at once; the first good one wins */
+  return await new Promise((ok,no)=>{let left=SOURCES.length,done=false;
+    SOURCES.forEach(s=>{Promise.resolve().then(()=>s.load()).then(fs=>{if(done)return;if(fs&&fs.length>=min){done=true;S.src=s.name;ok(fs);}else throw new Error("only "+(fs?fs.length:0)+" shapes");})
+      .catch(e=>{errs.push(s.name+": "+(e&&e.message||e));console.warn("[world]",s.name,e);}).finally(()=>{if(--left===0&&!done)no(new Error(errs.join(" · ")));});});});}
 
 /* ---------- rendering ---------- */
 function contColor(d){return d?CONT[d.cont]&&CONT[d.cont].c:"#7d8796";}
@@ -206,10 +218,12 @@ async function init(){canvas=$("#wGlobe");if(!canvas)return;ctx=canvas.getContex
     const t=e.target.closest("[data-tl]");if(t){tlF=t.dataset.tl;renderTimeline();}});
   $("#wZin").onclick=()=>zoom(1.35);$("#wZout").onclick=()=>zoom(1/1.35);$("#wReset").onclick=()=>{S.sel=null;S.cont=null;renderPanel();chips();flyTo([20,15],1);};
   $("#wSpin").onclick=()=>{S.spin=!S.spin;syncSpin();lastInteract=0;};syncSpin();
-  const st=$("#wStatus");st.hidden=false;st.textContent="Loading the globe…";size();
+  const st=$("#wStatus");st.hidden=false;st.textContent="Loading the globe…";size();loadAndShow();}
+async function loadAndShow(){const st=$("#wStatus");
   try{const feats=await loadWorld();proj=d3.geoOrthographic().clipAngle(90).precision(.4);path=d3.geoPath(proj,ctx);grat=d3.geoGraticule10();
-    S.feats=feats.map(rewind).map(f=>{f._id=resolveId(f);f._d=f._id?DATA[f._id]:null;return f;});S.featIds=new Set(S.feats.map(f=>f._id).filter(Boolean));S.ready=true;st.hidden=true;size();spinLoop();
-    $("#wSrc").textContent="Borders: "+S.src+" (public domain) · 1:110m scale, so the smallest islands aren't outlined.";}
-  catch(e){S.err=e;st.hidden=false;st.innerHTML=`The 3D map couldn't load (${esc(e.message)}). You can still explore every continent and country from the panel.`;}}
+    S.feats=feats.map(rewind).map(f=>{f._id=resolveId(f);f._d=f._id?DATA[f._id]:null;return f;});S.featIds=new Set(S.feats.map(f=>f._id).filter(Boolean));S.ready=true;st.hidden=true;size();if(!S.looping){S.looping=1;spinLoop();}
+    $("#wSrc").textContent="Borders: "+S.src+" (public domain). Very small islands are too tiny to outline; find them with search.";}
+  catch(e){S.err=e;st.hidden=false;st.innerHTML=`<b>The 3D map couldn't load.</b><br>You can still explore every continent and country from the panel.<div style="margin-top:8px"><button class="btn sm" id="wRetry">Try again</button></div><details style="margin-top:8px;text-align:left"><summary class="small">Details</summary><div class="small muted" style="max-height:120px;overflow:auto">${esc(e.message)}</div></details>`;
+    $("#wRetry").onclick=()=>{st.textContent="Loading the globe…";loadAndShow();};}}
 window.WORLD={init,select:selectCountry,cont:selectCont,quiz:buildQuiz,data:DATA,CONT};
 })();
