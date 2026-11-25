@@ -774,6 +774,20 @@ html[data-theme=light] .bcd{background:linear-gradient(150deg,color-mix(in srgb,
 .vmh{color:var(--muted);letter-spacing:.06em}
 .pri2{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}.pri2>div{flex:1;min-width:0}.pri2 small{display:block;color:var(--muted);font-size:12.5px}.pri2 p{margin:4px 0 0;font-size:14px}.pri2.ans b{color:var(--good)}
 .pri2 .x,.je .x{background:none;border:0;color:var(--muted);font-size:18px;cursor:pointer;line-height:1}
+.pohead{display:flex;gap:22px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:16px;flex-wrap:wrap}
+.poring{--p:0deg;width:128px;height:128px;border-radius:50%;flex:none;display:grid;place-items:center;background:conic-gradient(var(--nfl) var(--p),var(--panel2) 0)}
+.poring>div{width:104px;height:104px;border-radius:50%;background:var(--panel);display:flex;flex-direction:column;align-items:center;justify-content:center}.poring b{font-family:Oswald,Impact,sans-serif;font-size:34px;line-height:1}.poring span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.pohtx{flex:1;min-width:240px}.pohtx h3{margin:0 0 4px}.pohtx p{margin:0 0 10px;color:var(--muted)}.pohtx a{color:inherit}
+.poswing{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}.poswing div{height:24px;border-radius:7px;display:flex;align-items:center;padding:0 10px;font-size:12.5px;font-weight:700;white-space:nowrap;min-width:150px}
+.poswing .w{background:color-mix(in srgb,var(--good) 30%,var(--panel2))}.poswing .l{background:color-mix(in srgb,var(--bad) 26%,var(--panel2))}
+.pos{display:grid;grid-template-columns:28px 1fr auto 46px;gap:8px;align-items:center;padding:8px 6px;border-top:1px solid var(--line);font-size:14px}.pos .sd{font-weight:800;color:var(--muted);text-align:center}.pos .rc{font-variant-numeric:tabular-nums;font-weight:700;text-align:right}
+.pos.me{background:color-mix(in srgb,var(--nfl) 14%,transparent);border-radius:8px}.pos.div .sd{color:var(--accent)}
+.pocut{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--bad);border-top:2px dashed var(--bad);padding-top:4px;margin-top:4px}
+.por{display:grid;grid-template-columns:52px 1fr auto auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}.por .wk{font-weight:800;color:var(--muted);font-size:13px}.por small{display:block;color:var(--muted);font-size:12.5px}
+.pill2{font-size:11.5px;font-weight:800;padding:3px 9px;border-radius:999px}.pill2.good{background:color-mix(in srgb,var(--good) 18%,transparent);color:var(--good)}.pill2.warn{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}.pill2.bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.wl button{padding:4px 11px}.wl button[data-v=W].on{background:var(--good);color:#06180d}.wl button[data-v=L].on{background:var(--bad);color:#fff}
+.poproj{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}.poproj span{display:block;font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700}.poproj b{font-size:22px;font-variant-numeric:tabular-nums}.poproj small{font-size:12px;color:var(--muted);font-weight:500}.poproj .btn{margin-left:auto}
+@media (max-width:600px){.por{grid-template-columns:44px 1fr;}.por .pill2{justify-self:start}.por .wl{justify-self:end;grid-column:2}}
 /* compact */
 html[data-density=compact] body{font-size:14px}
 html[data-density=compact] .card{padding:12px 14px}html[data-density=compact] section.tab{padding-top:14px}
@@ -839,7 +853,7 @@ html[data-density=compact] .hb-wrap>*{margin-bottom:10px!important}
 <!-- NFL -->
 <section class="tab" id="t-nfl">
   <div class="tabhead"><h2 style="color:var(--nfl)">NFL</h2><span class="sub" id="nflWeek"></span>
-    <div class="row" style="margin-left:auto;gap:12px"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="nfl"><option value="overview">Team overview</option><option value="gameday">Game day</option><option value="scores">Games & scores</option><option value="picks">My picks</option><option value="insiders">Insiders</option><option value="injuries">Injuries & depth chart</option><option value="draft">Draft order</option><option value="fantasy">Fantasy helper</option><option value="stats">Stats</option><option value="trivia">Trivia</option></select></div>
+    <div class="row" style="margin-left:auto;gap:12px"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="nfl"><option value="overview">Team overview</option><option value="gameday">Game day</option><option value="scores">Games & scores</option><option value="playoffs">Playoff tracker</option><option value="picks">My picks</option><option value="insiders">Insiders</option><option value="injuries">Injuries & depth chart</option><option value="draft">Draft order</option><option value="fantasy">Fantasy helper</option><option value="stats">Stats</option><option value="trivia">Trivia</option></select></div>
     <div class="teamsel"><span class="small muted">Team</span><select id="teamSel"></select><button class="btn sm" id="favBtn" title="Use this team on the Home screen"></button></div></div>
   </div>
   <div class="subp" data-tab="nfl" data-sub="overview">
@@ -862,6 +876,7 @@ html[data-density=compact] .hb-wrap>*{margin-bottom:10px!important}
   <div class="subp" data-tab="nfl" data-sub="draft"><div class="card"><h3>If the season ended today <span class="tag">Projected draft order</span></h3><p class="small muted" style="margin-top:-6px">Worst record picks first. Ties are listed alphabetically here; the NFL breaks them by strength of schedule. The 18 playoff teams pick 19–32 in the real draft, so this ignores playoff results.</p><div id="draftList" class="draft"></div></div></div>
   <div class="subp" data-tab="nfl" data-sub="fantasy"><div class="cols"><div class="card"><h3>My fantasy roster <span class="tag" id="ffCount"></span></h3><div class="ffadd"><input type="text" id="ffQ" placeholder="Add a player (e.g. Stevenson)" autocomplete="off"><div class="wsug" id="ffSug" hidden></div></div><div id="ffList"></div></div><div class="card"><h3>How the flags work</h3><p class="small" style="margin:0 0 8px">Each player shows season stats, this week's opponent and their win odds, injury status from the reports in Fan HQ, and recent news that mentions them.</p><ul class="small muted" style="margin:0;padding-left:18px"><li><b style="color:#ff6b6b">Bench</b>: ruled out, on IR, or on a bye.</li><li><b style="color:#f0a33a">Monitor</b>: questionable or doubtful; check before kickoff.</li><li><b style="color:#2fd27c">Start</b>: no injury flags and playing this week.</li></ul><p class="small dim" style="margin-top:10px">Injury reports cover the Patriots and their opponent; other teams rely on news mentions. This is a guide, not a guarantee.</p></div></div></div>
   <div class="subp" data-tab="nfl" data-sub="insiders"><div class="card"><div class="row" style="gap:8px;flex-wrap:wrap"><h3 style="margin:0">Insiders</h3><span class="sp"></span><div id="insF" class="row" style="gap:6px"></div></div><p class="small muted" style="margin:6px 0 12px">Reports from NFL Network's Ian Rapoport and ESPN's Adam Schefter, gathered from outlets that cite them. Follow them live on X: <a href="https://x.com/RapSheet" target="_blank" rel="noopener">@RapSheet</a> · <a href="https://x.com/AdamSchefter" target="_blank" rel="noopener">@AdamSchefter</a></p><div id="insList"></div></div></div>
+  <div class="subp" data-tab="nfl" data-sub="playoffs"><div id="poWrap"></div></div>
   <div class="subp" data-tab="nfl" data-sub="picks">
   <div class="card" id="picksCard" style="border-color:#3a1d25">
     <h3><span id="picksTitle">My picks</span><span class="seg" id="pickSort" style="margin-left:auto"><button data-v="time" class="on">By kickoff</button><button data-v="conf">By confidence</button></span></h3>
@@ -1147,7 +1162,7 @@ function newsList(items,el,emptyMsg){
 
 /* ---------- tabs ---------- */
 const TABS=["home","nfl","starwars","games","workouts","wwe","marvel","world","history","me","outages"];
-const SUBS={nfl:["overview","gameday","scores","picks","insiders","injuries","draft","fantasy","stats","trivia"],starwars:["news","saber","archive","characters","watch","battle","trivia"],games:["news","backlog","releases","bl","gta","ac","trivia"],wwe:["news","champions","reigns","predict","rumble","trivia"],marvel:["movies","watch","trivia"],world:["explore","game","timeline","trivia"],history:["today","us","greece","quiz"],me:["calendar","bible","faith","journal","countdowns","habits","study","notes","saved"]};
+const SUBS={nfl:["overview","gameday","scores","picks","playoffs","insiders","injuries","draft","fantasy","stats","trivia"],starwars:["news","saber","archive","characters","watch","battle","trivia"],games:["news","backlog","releases","bl","gta","ac","trivia"],wwe:["news","champions","reigns","predict","rumble","trivia"],marvel:["movies","watch","trivia"],world:["explore","game","timeline","trivia"],history:["today","us","greece","quiz"],me:["calendar","bible","faith","journal","countdowns","habits","study","notes","saved"]};
 const subState=lsGet("hq_subs",{});
 function showSub(tab,sub){if(!SUBS[tab])return;if(!SUBS[tab].includes(sub))sub=subState[tab]||SUBS[tab][0];subState[tab]=sub;lsSet("hq_subs",subState);
   $$(`.subp[data-tab="${tab}"]`).forEach(p=>p.classList.toggle("on",p.dataset.sub===sub));const sel=$(`.subsel[data-tab="${tab}"]`);if(sel)sel.value=sub;}
@@ -1410,6 +1425,7 @@ function renderMyDay(){const el=$("#myDay");if(!el||!F)return;const out=[];
   if(F.stocks&&F.stocks.items){const sp=F.stocks.items[0];out.push({c:sp.chg>=0?"#2fd27c":"#ff6b6b",go:"",scroll:"#mktCard",k:"Markets",b:`S&P 500 ${sp.chg>=0?"▲":"▼"} ${Math.abs(sp.pct).toFixed(2)}%`,s:F.stocks.session||""});}
   const V=window.VERSES;if(V&&V.length){const v=V[((dayIndex())%V.length+V.length)%V.length];out.push({c:"#f3c969",go:"",scroll:"#verseCard",k:"Verse",b:v[0],s:"Verse of the day"});}
   try{const st=bpState();const pl=BP_PLANS[st.plan]||BP_PLANS.year;const d=Math.min(Math.max(bpTodayIdx(st),0),pl.days-1);out.unshift({c:"#f3c969",go:"me-bible",k:"Bible plan",b:bpLabel(bpDayReading(pl,d)),s:st.done[d]?"✓ Done today":`Day ${d+1} · ${bpStreak(st)} day streak`});}catch(e){}
+  try{const PO=F.nfl.playoff;if(PO&&PO.odds&&PO.team===favTeam){const me=(F.nfl.standings||[]).find(t=>t.abbr===favTeam)||{};out.push({c:"var(--nfl)",go:"nfl-playoffs",k:"Playoff odds",b:`${PO.odds.pct}% chance`,s:me.confRank?`${ordinal(me.confRank)} in the ${me.conf} right now`:""});}}catch(e){}
   try{const c=myCountdowns().find(x=>x.days>=0);if(c)out.push({c:"var(--me)",go:"me-countdowns",k:"Countdown",b:c.title,s:c.days===0?"Today!":`${c.days} day${c.days===1?"":"s"}`});}catch(e){}
   const o2=typeof otdGet==="function"&&otdGet();if(o2&&o2.exact)out.push({c:"var(--hi)",go:"history-today",k:"On this day",b:`${o2.d.events.length} moments in history`,s:o2.date.toLocaleDateString("en-US",{month:"long",day:"numeric"})});
   el.innerHTML=out.map(x=>`<button class="md" style="--c:${x.c}" ${x.go?`data-go="${x.go}"`:`data-scroll="${x.scroll}"`}><div class="k">${esc(x.k)}</div><b>${esc(x.b)}</b><span>${esc(x.s)}</span></button>`).join("");
@@ -2036,8 +2052,41 @@ function wirePrayers(){const f=$("#prForm");if(!f)return;f.onsubmit=e=>{e.preven
   $("#prList").onclick=async e=>{const L=Store.me("prayers",[]);const a=e.target.closest("[data-pra]"),u=e.target.closest("[data-pru]"),d=e.target.closest("[data-prd]");const id=(a||u||d||{}).dataset;if(!id)return;const x=L.find(p=>p.id===(id.pra||id.pru||id.prd));if(!x)return;
     if(a){x.ans=Date.now();toast("Praise God! Moved to answered.");}if(u){delete x.ans;}
     if(d){if(!(await confirmBox("Delete this prayer request?")))return;L.splice(L.indexOf(x),1);}Store.saveMe();renderPrayers();};renderPrayers();}
-function initFeat2(){[renderChallenge,renderRecap,renderWeekCal,wireCalendar,wireRest,renderPRBoard,wireRumble,wireVerseMem,wireSermons,wirePrayers].forEach(fn=>{try{fn();}catch(e){console.error(e)}});
+function initFeat2(){[renderPlayoffs,renderChallenge,renderRecap,renderWeekCal,wireCalendar,wireRest,renderPRBoard,wireRumble,wireVerseMem,wireSermons,wirePrayers].forEach(fn=>{try{fn();}catch(e){console.error(e)}});
   window.addEventListener("hashchange",()=>{const h=location.hash;if(h==="#home"||h===""){try{renderRecap();renderWeekCal();}catch(e){}}if(h.startsWith("#me-calendar"))try{renderCalendar();}catch(e){}if(h.startsWith("#workouts"))try{renderPRBoard();}catch(e){}});}
+/* =====================================================
+   PLAYOFF TRACKER
+   ===================================================== */
+function poSeeds(conf){const S=(F.nfl.standings||[]).filter(t=>t.conf===conf);const pct=t=>t.w/((t.w+t.l)||1);
+  const ranked=S.slice().sort((a,b)=>(a.confRank||99)-(b.confRank||99)||pct(b)-pct(a));return ranked;}
+function poPick(){return Store.me("poWhatIf",{});}
+function renderPlayoffs(){const el=$("#poWrap");if(!el)return;const P=F.nfl.playoff;if(!P){el.innerHTML=`<div class="empty-state"><b>Playoff data arrives with the next refresh</b></div>`;return;}
+  const T=team(P.team);const conf=T.conf||"AFC";const seeds=poSeeds(conf);const me=seeds.find(t=>t.abbr===P.team)||{w:0,l:0};const s7=seeds[6];
+  const gb=s7&&me.confRank>7?((s7.w-me.w)+(me.l-s7.l))/2:0;const rec=t=>`${t.w}-${t.l}`;const pct=t=>t.w/((t.w+t.l)||1);
+  const O=P.odds||{};const done=new Set((F.nfl.games||[]).filter(g=>g.status==="final").map(g=>g.away+"@"+g.home));
+  const rem=(P.remaining||[]).filter(r=>!done.has(r[3]?r[2]+"@"+P.team:P.team+"@"+r[2]));
+  const opp=a=>(F.nfl.standings||[]).find(t=>t.abbr===a)||{w:0,l:0,name:a};
+  const ow=rem.reduce((a,r)=>a+opp(r[2]).w,0),ol=rem.reduce((a,r)=>a+opp(r[2]).l,0);
+  const diff=o=>{const p=pct(o);return p>=.7?["Tough","bad"]:p>=.45?["Even","warn"]:["Winnable","good"];};
+  const when=r=>/T/.test(r[1])?new Date(r[1]).toLocaleString("en-US",{...CT,weekday:"short",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})+" CT":r[1]+" · time TBD";
+  const W=poPick();const pw=rem.filter(r=>W[r[0]]==="W").length,pl=rem.filter(r=>W[r[0]]==="L").length,open=rem.length-pw-pl;
+  const pace7=s7?Math.round(s7.w/((s7.w+s7.l)||1)*17*10)/10:null;
+  el.innerHTML=`
+  <div class="pohead"><div class="poring" style="--p:${(O.pct||0)*3.6}deg"><div><b>${O.pct??"—"}%</b><span>playoff chance</span></div></div>
+   <div class="pohtx"><h3>${esc(T.name||P.team)} · ${rec(me)} · ${me.confRank?ordinal(me.confRank)+" in the "+conf:""}</h3>
+   <p>${me.confRank<=7?`Holding the No. ${me.confRank} seed right now.`:`${gb?gb+" game"+(gb===1?"":"s"):"Tied"} behind the No. 7 seed (${esc(s7.name)}, ${rec(s7)}).`}</p>
+   ${O.ifWin!=null?`<div class="poswing"><div class="w" style="width:${O.ifWin}%"><span>Win ${esc(O.game||"")}: ${O.ifWin}%</span></div><div class="l" style="width:${O.ifLoss}%"><span>Lose: ${O.ifLoss}%</span></div></div>`:""}
+   <small class="muted">Odds: <a href="${esc(O.src&&O.src.url||"#")}" target="_blank" rel="noopener">${esc(O.src&&O.src.name||"")}</a> · as of ${esc(newsDate(P.asOf))}</small></div></div>
+  <div class="cols">
+   <div class="card"><h3>${conf} playoff picture</h3><div class="poseeds">${seeds.slice(0,12).map((t,i)=>`${i===7?`<div class="pocut">Playoff line</div>`:""}<div class="pos${t.abbr===P.team?" me":""}${i<4?" div":""}"><span class="sd">${i+1}</span><b>${esc(t.name)}</b><span class="small muted">${i<4?"Division leader":i<7?"Wild card":"In the hunt"}</span><span class="rc">${rec(t)}</span></div>`).join("")}</div>
+    <p class="small muted" style="margin:10px 0 0">${(P.notes||[]).map(esc).join(" ")} Seeds use the standings' official order, which includes tiebreakers.</p></div>
+   <div class="card"><h3>Road ahead <span class="tag">Opponents ${ow}-${ol} (${(ow/((ow+ol)||1)).toFixed(3).replace(/^0/,"")})</span></h3>
+    <div class="porem">${rem.map(r=>{const o=opp(r[2]);const d=diff(o);const v=W[r[0]]||"";return `<div class="por"><span class="wk">Wk ${r[0]}</span><div><b>${r[3]?"vs":"@"} ${esc(o.name||r[2])} <span class="small muted">${rec(o)}</span></b><small>${esc(when(r))} · ${esc(r[4])}</small></div><span class="pill2 ${d[1]}">${d[0]}</span><div class="seg wl" data-wk="${r[0]}"><button data-v="W" class="${v==="W"?"on":""}" aria-label="Predict win">W</button><button data-v="L" class="${v==="L"?"on":""}" aria-label="Predict loss">L</button></div></div>`;}).join("")}</div>
+    <div class="poproj"><div><span>Your projection</span><b>${me.w+pw}-${me.l+pl}${open?` <small>+${open} undecided</small>`:""}</b></div>${pace7?`<div><span>No. 7 seed pace</span><b>~${pace7} wins</b></div>`:""}<button class="btn sm" id="poReset">Clear picks</button></div>
+    <p class="small muted" style="margin:8px 0 0">Tap W or L for each game to see where the season could land. The pace line projects the current No. 7 seed (${esc(s7?s7.name:"")}) over 17 games.</p></div>
+  </div>`;
+  el.querySelectorAll(".wl").forEach(g=>g.onclick=e=>{const b=e.target.closest("button");if(!b)return;const S=poPick();const k=g.dataset.wk;S[k]=S[k]===b.dataset.v?"":b.dataset.v;Store.saveMe();renderPlayoffs();});
+  $("#poReset").onclick=()=>{const S=poPick();Object.keys(S).forEach(k=>delete S[k]);Store.saveMe();renderPlayoffs();};}
 /* =====================================================
    SEARCH EVERYTHING
    ===================================================== */

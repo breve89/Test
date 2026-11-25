@@ -30,7 +30,7 @@ window.FEED={
     "div": "AFC East",
     "w": 3,
     "l": 8,
-    "confRank": 13,
+    "confRank": 12,
     "divRank": 3
    },
    {
@@ -50,7 +50,7 @@ window.FEED={
     "div": "AFC North",
     "w": 7,
     "l": 3,
-    "confRank": 3,
+    "confRank": 4,
     "divRank": 1
    },
    {
@@ -60,8 +60,8 @@ window.FEED={
     "div": "AFC North",
     "w": 6,
     "l": 4,
-    "confRank": 6,
-    "divRank": 2
+    "confRank": 7,
+    "divRank": 3
    },
    {
     "abbr": "CLE",
@@ -70,8 +70,8 @@ window.FEED={
     "div": "AFC North",
     "w": 6,
     "l": 4,
-    "confRank": 7,
-    "divRank": 3
+    "confRank": 6,
+    "divRank": 2
    },
    {
     "abbr": "BAL",
@@ -90,7 +90,7 @@ window.FEED={
     "div": "AFC South",
     "w": 7,
     "l": 3,
-    "confRank": 4,
+    "confRank": 3,
     "divRank": 1
    },
    {
@@ -110,7 +110,7 @@ window.FEED={
     "div": "AFC South",
     "w": 3,
     "l": 8,
-    "confRank": 12,
+    "confRank": 13,
     "divRank": 3
    },
    {
@@ -130,8 +130,8 @@ window.FEED={
     "div": "AFC West",
     "w": 8,
     "l": 2,
-    "confRank": 2,
-    "divRank": 1
+    "confRank": 5,
+    "divRank": 2
    },
    {
     "abbr": "DEN",
@@ -140,8 +140,8 @@ window.FEED={
     "div": "AFC West",
     "w": 8,
     "l": 2,
-    "confRank": 5,
-    "divRank": 2
+    "confRank": 2,
+    "divRank": 1
    },
    {
     "abbr": "LV",
@@ -270,8 +270,8 @@ window.FEED={
     "div": "NFC South",
     "w": 3,
     "l": 7,
-    "confRank": 13,
-    "divRank": 3
+    "confRank": 14,
+    "divRank": 4
    },
    {
     "abbr": "ATL",
@@ -280,8 +280,8 @@ window.FEED={
     "div": "NFC South",
     "w": 3,
     "l": 7,
-    "confRank": 14,
-    "divRank": 4
+    "confRank": 13,
+    "divRank": 3
    },
    {
     "abbr": "SF",
@@ -4914,6 +4914,89 @@ window.FEED={
    "date": "2027-02-14",
    "name": "Super Bowl LXI",
    "where": "SoFi Stadium, Inglewood, CA · ESPN/ABC"
+  },
+  "playoff": {
+   "team": "NE",
+   "asOf": "2026-11-25",
+   "odds": {
+    "pct": 39,
+    "ifWin": 54,
+    "ifLoss": 28,
+    "game": "at Chargers (Week 12)",
+    "src": {
+     "name": "NFL.com · Next Gen Stats playoff model",
+     "url": "https://www.nfl.com/news/nfl-playoff-picture-postseason-probabilities-week-12-2026-season"
+    }
+   },
+   "notes": [
+    "New England owns the head-to-head tiebreaker over Pittsburgh, the current No. 7 seed.",
+    "Seeds 1–4 go to division winners; 5–7 are the three best non-division winners."
+   ],
+   "remaining": [
+    [
+     12,
+     "2026-11-29T21:05:00Z",
+     "LAC",
+     false,
+     "CBS"
+    ],
+    [
+     13,
+     "2026-12-06T21:25:00Z",
+     "BUF",
+     true,
+     "CBS"
+    ],
+    [
+     14,
+     "2026-12-11T01:15:00Z",
+     "MIN",
+     true,
+     "Prime Video"
+    ],
+    [
+     15,
+     "2026-12-22T01:15:00Z",
+     "KC",
+     false,
+     "ESPN/ABC"
+    ],
+    [
+     16,
+     "2026-12-27T18:00:00Z",
+     "NYJ",
+     false,
+     "CBS"
+    ],
+    [
+     17,
+     "Jan 2–3",
+     "DEN",
+     true,
+     "TBD"
+    ],
+    [
+     18,
+     "Jan 9–10",
+     "MIA",
+     true,
+     "TBD"
+    ]
+   ],
+   "sources": [
+    {
+     "name": "NFL.com playoff probabilities",
+     "url": "https://www.nfl.com/news/nfl-playoff-picture-postseason-probabilities-week-12-2026-season"
+    },
+    {
+     "name": "98.5 The Sports Hub",
+     "url": "https://985thesportshub.com/2026/11/23/patriots-playoff-odds-week-12-steelers-browns/"
+    },
+    {
+     "name": "ESPN schedule",
+     "url": "https://www.espn.com/nfl/story/_/page/nflschedulerelease-48738217/new-england-patriots-nfl-schedule-2026-takeaways-predictions"
+    }
+   ]
   }
  },
  "starwars": {
