@@ -107,6 +107,8 @@ function rewind(f){/* d3 needs clockwise exteriors: flip any ring set that would
 function resolveId(f){const id=f.id!=null?String(f.id):"";const nm=f.properties&&(f.properties.name||f.properties.NAME)||"";
   if(/^[A-Z]{3}$/.test(id)&&DATA[id])return id;if(/^\d+$/.test(id)&&BY_NUM[String(+id)])return BY_NUM[String(+id)];if(/^[A-Z]{2}$/.test(id)&&BY_A2[id])return BY_A2[id];
   const k=BY_NAME[norm(nm)];return k||null;}
+let featsP=null;
+function getFeats(){if(!featsP){featsP=loadWorld().then(fs=>fs.map(rewind).map(f=>{f._id=resolveId(f);f._d=f._id?DATA[f._id]:null;return f;}));featsP.catch(()=>{featsP=null;});}return featsP;}
 async function loadWorld(){await ensureD3();const min=window.WORLD_MINF||50;const errs=[];
   /* try every source at once; the first good one wins */
   return await new Promise((ok,no)=>{let left=SOURCES.length,done=false;
@@ -117,7 +119,7 @@ async function loadWorld(){await ensureD3();const min=window.WORLD_MINF||50;cons
 function contColor(d){return d?CONT[d.cont]&&CONT[d.cont].c:"#7d8796";}
 function size(){const box=canvas.parentElement;W=box.clientWidth;H=Math.max(320,Math.min(box.clientWidth,620));dpr=Math.min(2,window.devicePixelRatio||1);
   canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+"px";canvas.style.height=H+"px";R=Math.min(W,H)/2-18;if(proj){proj.translate([W/2,H/2]).scale(R*S.scale);}draw();}
-function draw(){if(!ctx)return;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);
+function draw(){if(!ctx||R<=0||W<=0)return;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);
   const r=R*S.scale,cx=W/2,cy=H/2;
   // atmosphere glow
   const glow=ctx.createRadialGradient(cx,cy,r*0.92,cx,cy,r*1.12);glow.addColorStop(0,"rgba(90,160,255,.35)");glow.addColorStop(1,"rgba(90,160,255,0)");ctx.fillStyle=glow;ctx.beginPath();ctx.arc(cx,cy,r*1.12,0,7);ctx.fill();
@@ -223,10 +225,10 @@ async function init(){canvas=$("#wGlobe");if(!canvas)return;ctx=canvas.getContex
   $("#wSpin").onclick=()=>{S.spin=!S.spin;syncSpin();lastInteract=0;};syncSpin();
   const st=$("#wStatus");st.hidden=false;st.textContent="Loading the globe…";size();loadAndShow();}
 async function loadAndShow(){const st=$("#wStatus");
-  try{const feats=await loadWorld();proj=d3.geoOrthographic().clipAngle(90).precision(.4);path=d3.geoPath(proj,ctx);grat=d3.geoGraticule10();
-    S.feats=feats.map(rewind).map(f=>{f._id=resolveId(f);f._d=f._id?DATA[f._id]:null;return f;});S.featIds=new Set(S.feats.map(f=>f._id).filter(Boolean));S.ready=true;st.hidden=true;size();if(!S.looping){S.looping=1;spinLoop();}
+  try{const feats=await getFeats();proj=d3.geoOrthographic().clipAngle(90).precision(.4);path=d3.geoPath(proj,ctx);grat=d3.geoGraticule10();
+    S.feats=feats;S.featIds=new Set(S.feats.map(f=>f._id).filter(Boolean));S.ready=true;st.hidden=true;size();if(!S.looping){S.looping=1;spinLoop();}
     $("#wSrc").textContent="Borders: "+S.src+". Very small islands are too tiny to outline; find them with search.";}
   catch(e){S.err=e;st.hidden=false;st.innerHTML=`<b>The 3D map couldn't load.</b><br>You can still explore every continent and country from the panel.<div style="margin-top:8px"><button class="btn sm" id="wRetry">Try again</button></div><details style="margin-top:8px;text-align:left"><summary class="small">Details</summary><div class="small muted" style="max-height:140px;overflow:auto;white-space:pre-wrap">${esc(e.message.split(" · ").join("\n"))}\nBrowser: ${esc(navigator.userAgent)}</div></details>`;
     $("#wRetry").onclick=()=>{st.textContent="Loading the globe…";loadAndShow();};}}
-window.WORLD={init,select:selectCountry,cont:selectCont,quiz:buildQuiz,data:DATA,CONT};
+window.WORLD={init,select:selectCountry,cont:selectCont,quiz:buildQuiz,data:DATA,CONT,feats:getFeats,h:{loadScript,withTimeout,ensureD3,topoFeatures,geoFeatures,rewind,flag,esc,norm,fmtPop,fmtN}};
 })();

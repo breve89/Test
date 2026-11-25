@@ -358,6 +358,19 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 .wtl .when{font-weight:700;color:var(--c);font-variant-numeric:tabular-nums}.wtl p{margin:4px 0 0;color:#cfd5e0}
 @media (max-width:900px){.wgrid{grid-template-columns:1fr}.wpanel{max-height:none}}
 @media (max-width:520px){.wtl{grid-template-columns:1fr}.wstats,.wlist,.wconts{grid-template-columns:1fr}}
+
+/* map game */
+.mgdecks{flex-wrap:wrap}
+.mgtop{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-bottom:8px}
+.mgprompt{font-size:18px;min-height:32px;display:flex;align-items:center;flex-wrap:wrap}.mgtarget{color:#ffe066;font-size:22px;margin-left:6px}
+.mgprog{height:4px;background:var(--panel2);border-radius:4px;overflow:hidden;margin-bottom:10px}.mgprog i{display:block;height:100%;width:0;background:var(--wo);transition:width .3s}
+.mgwrap{position:relative}.mgwrap canvas{display:block;width:100%;border-radius:10px;touch-action:none;cursor:crosshair}
+.mgtoast{position:absolute;left:50%;top:12px;transform:translateX(-50%);background:rgba(10,16,28,.92);border:1px solid rgba(255,255,255,.15);padding:6px 12px;border-radius:8px;font-weight:600;font-size:14px;pointer-events:none}
+.mgtoast.good{border-color:#2fd27c;color:#7df0b0}
+.mgci-box{margin-top:10px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-height:48px}
+.mgci{display:flex;gap:10px;align-items:flex-start}.mgflag{font-size:30px;line-height:1}
+.mgend{margin-top:12px;text-align:center;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:16px}
+.mgbig{font-size:44px;font-weight:800;color:var(--wo);line-height:1.1}
 /* big countdowns */
 .bigcds{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-bottom:14px}
 .bcd{border-radius:16px;padding:16px 18px;border:1px solid var(--line);background:linear-gradient(150deg,color-mix(in srgb,var(--c) 22%,var(--panel)) 0%,var(--panel) 60%);cursor:pointer;position:relative;overflow:hidden}
@@ -619,7 +632,7 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
   </div>
 </section>
 <section class="tab" id="t-world">
-  <div class="tabhead"><h2 style="color:var(--wo)">World</h2><span class="sub">Spin the globe and learn the geography and history of every country</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="world"><option value="explore">Explore the globe</option><option value="timeline">World history timeline</option><option value="trivia">Geography quiz</option></select></div></div></div>
+  <div class="tabhead"><h2 style="color:var(--wo)">World</h2><span class="sub">Spin the globe and learn the geography and history of every country</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="world"><option value="explore">Explore the globe</option><option value="game">Map game</option><option value="timeline">World history timeline</option><option value="trivia">Geography quiz</option></select></div></div></div>
   <div class="subp" data-tab="world" data-sub="explore">
     <div class="row wtop"><div class="seg wchips" id="wChips"></div><span class="sp"></span><div class="wsearch"><input type="text" id="wSearch" placeholder="Search a country or capital" autocomplete="off" aria-label="Search a country or capital"><div class="wsug" id="wSug" hidden></div></div></div>
     <div class="wgrid">
@@ -627,6 +640,18 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
         <div class="wctl"><button class="btn sm" id="wZin" aria-label="Zoom in">+</button><button class="btn sm" id="wZout" aria-label="Zoom out">−</button><button class="btn sm" id="wReset">Reset</button><button class="btn sm" id="wSpin">Pause spin</button></div></div>
         <div class="small dim" id="wSrc" style="margin-top:8px"></div></div>
       <div class="card wpanel" id="wPanel"></div>
+    </div>
+  </div>
+  <div class="subp" data-tab="world" data-sub="game">
+    <div class="row" style="gap:8px;flex-wrap:wrap;margin-bottom:10px"><div class="seg mgdecks" id="mgDecks"></div><span class="sp"></span><div class="seg" id="mgModes"></div></div>
+    <div class="card mgcard">
+      <div class="mgtop"><div class="mgprompt" id="mgPrompt" aria-live="polite"></div><div class="small muted" id="mgStats"></div></div>
+      <div class="mgprog"><i id="mgBar"></i></div>
+      <div class="mgwrap"><canvas id="mgMap" aria-label="Map game. Click the place named above."></canvas><div class="wtip" id="mgTip" hidden></div><div class="mgtoast" id="mgToast" hidden></div>
+        <div class="wctl"><button class="btn sm" id="mgZin" aria-label="Zoom in">+</button><button class="btn sm" id="mgZout" aria-label="Zoom out">−</button><button class="btn sm" id="mgFit">Fit</button><button class="btn sm" id="mgLabels">Show names</button></div></div>
+      <div id="mgCardWrap" hidden><div class="mgci-box" id="mgCard"></div></div>
+      <div class="mgend" id="mgEnd" hidden></div>
+      <div class="small dim" style="margin-top:8px">Green = first try · yellow = second · orange = third · red = missed. Scroll or pinch to zoom in on small places.</div>
     </div>
   </div>
   <div class="subp" data-tab="world" data-sub="timeline"><div class="card"><h3>World history timeline</h3><div class="seg" id="wTlF" style="margin-bottom:12px;flex-wrap:wrap"></div><div id="wTimeline"></div></div></div>
@@ -673,6 +698,8 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 <script src="world_eu.js"></script>
 <script src="world_am.js"></script>
 <script src="world.js"></script>
+<script src="world_sub.js"></script>
+<script src="worldgame.js"></script>
 <script>
 (function(){
 "use strict";
@@ -702,7 +729,7 @@ function newsList(items,el,emptyMsg){
 
 /* ---------- tabs ---------- */
 const TABS=["home","nfl","starwars","games","workouts","wwe","marvel","world","outages"];
-const SUBS={nfl:["overview","scores","picks","insiders","stats","trivia"],starwars:["news","saber","archive","characters","trivia"],games:["news","bl","gta","ac","trivia"],wwe:["news","champions","trivia"],marvel:["movies","trivia"],world:["explore","timeline","trivia"]};
+const SUBS={nfl:["overview","scores","picks","insiders","stats","trivia"],starwars:["news","saber","archive","characters","trivia"],games:["news","bl","gta","ac","trivia"],wwe:["news","champions","trivia"],marvel:["movies","trivia"],world:["explore","game","timeline","trivia"]};
 const subState=lsGet("hq_subs",{});
 function showSub(tab,sub){if(!SUBS[tab])return;if(!SUBS[tab].includes(sub))sub=subState[tab]||SUBS[tab][0];subState[tab]=sub;lsSet("hq_subs",subState);
   $$(`.subp[data-tab="${tab}"]`).forEach(p=>p.classList.toggle("on",p.dataset.sub===sub));const sel=$(`.subsel[data-tab="${tab}"]`);if(sel)sel.value=sub;}
@@ -1744,6 +1771,7 @@ function boot(){
   if(F){wireNFL();renderNFL();wirePicks();renderPicks();wireStats();renderStats();wirePlayerStats();newsList(F.starwars.news,$("#swNews"));wireGames();renderGames2();renderWWE();renderChamps();renderOutages();renderScores();renderInsiders();}
   try{initMarvel();}catch(e){console.error(e)}
   try{if(window.WORLD){TRIVIA.world=WORLD.quiz();QUIZ_BEST_EL.world="#wBest";WORLD.init();renderBest("world");startQuiz("world");}}catch(e){console.error(e)}
+  try{if(window.MAPGAME)MAPGAME.init();}catch(e){console.error(e)}
   ["nfl","sw","vg","wwe"].forEach(k=>{renderBest(k);startQuiz(k);});
   if(window.FRANCH){["bl","gta","ac"].forEach(k=>{TRIVIA[k]=FRANCH[k].trivia;renderFranchise(k);});}
   renderSaberOpts();renderSaber();wireSaber();savedSabers();wireArchive();
