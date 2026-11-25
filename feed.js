@@ -1,5 +1,5 @@
 window.FEED={
- "updated": "2026-11-23T22:45:00-06:00",
+ "updated": "2026-11-24T12:15:00-06:00",
  "nfl": {
   "week": 12,
   "standings": [
@@ -334,14 +334,14 @@ window.FEED={
      "away": "GB",
      "home": "LA",
      "pick": "LA",
-     "prob": 58,
-     "why": "Rams at home, but Puka Nacua is out for the season (Schefter) and Micah Parsons is on track to make his Packers debut (Rapoport). Closer than it looks."
+     "prob": 56,
+     "why": "Rams at home, but Puka Nacua is out for the season (Schefter) and Micah Parsons is on track to make his Packers debut (Rapoport). Models have slid toward Green Bay (LA 56%). Closer than it looks."
     },
     {
      "away": "CHI",
      "home": "DET",
      "pick": "CHI",
-     "prob": 56,
+     "prob": 57,
      "why": "Thanksgiving opener. Both 8-2; models lean to Chicago even on the road. A true toss-up."
     },
     {
@@ -362,21 +362,21 @@ window.FEED={
      "away": "DEN",
      "home": "PIT",
      "pick": "DEN",
-     "prob": 58,
+     "prob": 59,
      "why": "Black Friday. Denver (8-2) has won convincingly; Pittsburgh (6-4) just lost in Philadelphia."
     },
     {
      "away": "NYG",
      "home": "IND",
      "pick": "NYG",
-     "prob": 74,
+     "prob": 73,
      "why": "Indianapolis released Daniel Jones and turns to Anthony Richardson; the Giants (6-3) are surging."
     },
     {
      "away": "ATL",
      "home": "MIN",
      "pick": "MIN",
-     "prob": 73,
+     "prob": 74,
      "why": "Minnesota (7-3) bounces home after the Mexico City loss; Atlanta is 3-7."
     },
     {
@@ -390,14 +390,14 @@ window.FEED={
      "away": "BAL",
      "home": "HOU",
      "pick": "HOU",
-     "prob": 72,
+     "prob": 73,
      "why": "Houston's defense smothered the Colts 26-3; Baltimore (4-7) lost a shootout in Carolina."
     },
     {
      "away": "NO",
      "home": "CIN",
      "pick": "CIN",
-     "prob": 82,
+     "prob": 81,
      "why": "Cincinnati (7-3) comes off a 22-20 MNF loss in Washington; New Orleans (3-7) has struggled to score. Models give CIN about 82%."
     },
     {
@@ -4095,7 +4095,7 @@ window.FEED={
     "status": "upcoming",
     "time": "2026-11-26T01:00:00Z",
     "fav": "LA",
-    "favPct": 58
+    "favPct": 56
    },
    {
     "away": "CHI",
@@ -4104,7 +4104,7 @@ window.FEED={
     "time": "2026-11-26T18:00:00Z",
     "tag": "Thanksgiving",
     "fav": "CHI",
-    "favPct": 56
+    "favPct": 57
    },
    {
     "away": "PHI",
@@ -4131,7 +4131,7 @@ window.FEED={
     "time": "2026-11-27T20:00:00Z",
     "tag": "Black Friday",
     "fav": "DEN",
-    "favPct": 58
+    "favPct": 59
    },
    {
     "away": "NYG",
@@ -4139,7 +4139,7 @@ window.FEED={
     "status": "upcoming",
     "time": "2026-11-29T18:00:00Z",
     "fav": "NYG",
-    "favPct": 74
+    "favPct": 73
    },
    {
     "away": "ATL",
@@ -4147,7 +4147,7 @@ window.FEED={
     "status": "upcoming",
     "time": "2026-11-29T18:00:00Z",
     "fav": "MIN",
-    "favPct": 73
+    "favPct": 74
    },
    {
     "away": "TEN",
@@ -4163,7 +4163,7 @@ window.FEED={
     "status": "upcoming",
     "time": "2026-11-29T18:00:00Z",
     "fav": "HOU",
-    "favPct": 72
+    "favPct": 73
    },
    {
     "away": "NO",
@@ -4171,7 +4171,7 @@ window.FEED={
     "status": "upcoming",
     "time": "2026-11-29T18:00:00Z",
     "fav": "CIN",
-    "favPct": 82
+    "favPct": 81
    },
    {
     "away": "NYJ",
@@ -4213,6 +4213,17 @@ window.FEED={
    }
   ],
   "news": [
+   {
+    "teams": [
+     "NE",
+     "IND"
+    ],
+    "date": "2026-11-23",
+    "title": "Daniel Jones clears waivers, now a free agent",
+    "summary": "Schefter reports Jones wants a contender; Ravens and Vikings are named as fits. Rapoport has floated the Patriots with Maye sidelined.",
+    "source": "ESPN",
+    "url": "https://africa.espn.com/nfl/story/_/id/42608966/sources-qb-daniel-jones-clears-waivers-becoming-free-agent"
+   },
    {
     "teams": [
      "NE"
@@ -4393,6 +4404,19 @@ window.FEED={
   ],
   "insiders": [
    {
+    "who": "Schefter",
+    "date": "2026-11-23",
+    "teams": [
+     "IND",
+     "BAL",
+     "MIN",
+     "NE"
+    ],
+    "text": "Daniel Jones cleared waivers Monday and is an unrestricted free agent. He prefers a playoff contender; Baltimore and Minnesota are mentioned as potential fits, and Rapoport had named the Patriots as an option while Maye is out.",
+    "source": "ESPN",
+    "url": "https://africa.espn.com/nfl/story/_/id/42608966/sources-qb-daniel-jones-clears-waivers-becoming-free-agent"
+   },
+   {
     "who": "Rapoport",
     "date": "2026-11-23",
     "teams": [
@@ -4538,17 +4562,6 @@ window.FEED={
     "text": "The Vikings targeted Raiders QB Kirk Cousins as a trade candidate ahead of the deadline.",
     "source": "RotoBaller",
     "url": "https://www.rotoballer.com/?p=1989694"
-   },
-   {
-    "who": "Schefter",
-    "date": "2026-11-10",
-    "teams": [
-     "IND",
-     "SF"
-    ],
-    "text": "After trading Keenan Allen to the 49ers, the Colts signed WR Nick Westbrook-Ikhine to the 53-man roster.",
-    "source": "RotoBaller",
-    "url": "https://www.rotoballer.com/?p=1989746"
    }
   ]
  },
@@ -4844,6 +4857,13 @@ window.FEED={
  "wwe": {
   "news": [
    {
+    "date": "2026-11-23",
+    "title": "Raw: Seth Rollins returns for Team USA, Bloodline and 946 brawl",
+    "summary": "Rollins completed Team USA (CM Punk walked out), El Grande Americano joined Team Mexico, and Ethan Page retained the Intercontinental title over Rey Fenix on the final Raw before Survivor Series.",
+    "source": "WWE.com / SI",
+    "url": "https://www.wwe.com/shows/raw/2026-11-23"
+   },
+   {
     "date": "2026-11-14",
     "title": "Rey Fenix joins Team Mexico for Survivor Series",
     "summary": "Rey Mysterio added Fenix to Team Mexico, which faces Cody Rhodes' Team USA in a traditional 5-on-5 elimination match.",
@@ -4913,8 +4933,8 @@ window.FEED={
      },
      {
       "title": "5-on-5 Elimination",
-      "a": "Team USA: Cody Rhodes, CM Punk, Je'Von Evans + 2 TBA",
-      "b": "Team Mexico: Rey Mysterio, Penta, Rey Fenix + 2 TBA"
+      "a": "Team USA: Cody Rhodes, CM Punk, Je'Von Evans, Seth Rollins + 1",
+      "b": "Team Mexico: Rey Mysterio, Penta, Rey Fenix, El Grande Americano + 1"
      }
     ],
     "source": "WWE.com",
