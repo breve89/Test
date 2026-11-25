@@ -5169,7 +5169,101 @@ window.FEED={
     }
    ]
   },
-  "gta6Note": "99 on Metacritic"
+  "gta6Note": "99 on Metacritic",
+  "releases": {
+   "asOf": "2026-11-25",
+   "items": [
+    [
+     "2026-12-01",
+     "Hela: Of Mice & Magic",
+     "PS5, Xbox Series X|S, Switch 2, PC"
+    ],
+    [
+     "2026-12-03",
+     "Dragon Quest Monsters: The Withered World",
+     "PS5, Xbox Series X|S, Switch 2, Switch, PC"
+    ],
+    [
+     "2026-12-03",
+     "Rayman Legends Retold",
+     "PS5, Xbox Series X|S, Switch 2, PC"
+    ],
+    [
+     "2026-12-03",
+     "Thief: The Dark Project Remastered",
+     "PS5, Xbox Series X|S, Switch 2, PC"
+    ],
+    [
+     "2026-12-03",
+     "Edge of Memories",
+     "PS5, Xbox Series X|S, PC"
+    ],
+    [
+     "2026-12-04",
+     "Monster Hunter Wilds (Switch 2 edition)",
+     "Switch 2"
+    ],
+    [
+     "2026-12-09",
+     "Riders Republic (Switch 2 edition)",
+     "Switch 2"
+    ],
+    [
+     "2026-12-10",
+     "Attack on Titan 3",
+     "PS5, Xbox Series X|S, Switch 2, PC"
+    ],
+    [
+     "2026-12-10",
+     "Professor Layton and the New World of Steam",
+     "PS5, Switch 2, Switch, PC"
+    ],
+    [
+     "2026-12-11",
+     "Path of Exile 2 (1.0 full release)",
+     "PS5, Xbox Series X|S, PC"
+    ],
+    [
+     "2027-02-18",
+     "Persona 4 Revival",
+     "PS5, Xbox Series X|S, PC"
+    ],
+    [
+     "Q1 2027",
+     "Lords of the Fallen II",
+     "PS5, Xbox Series X|S, PC"
+    ],
+    [
+     "Spring 2027",
+     "Kirby and the World Beyond",
+     "Switch 2"
+    ],
+    [
+     "Spring 2027",
+     "Spyro: A Realm Beyond",
+     "PS5, Xbox Series X|S, Switch 2, PC"
+    ],
+    [
+     "2027",
+     "Game of Thrones: War for Westeros",
+     "PC"
+    ]
+   ],
+   "sources": [
+    {
+     "name": "GamesRadar",
+     "url": "https://www.gamesradar.com/video-game-release-dates/"
+    },
+    {
+     "name": "GameSpot",
+     "url": "https://www.gamespot.com/articles/2026-upcoming-games-release-schedule/1100-6534941/"
+    },
+    {
+     "name": "2ndShift",
+     "url": "https://www.2ndshift.gg/upcoming-games-release-dates/"
+    }
+   ]
+  }
  },
  "wwe": {
   "news": [
