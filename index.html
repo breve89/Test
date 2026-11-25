@@ -514,6 +514,32 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 .insi{display:flex;gap:12px;padding:12px 0;border-top:1px solid var(--line)}.insi:first-child{border-top:0}.insi .av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:900;flex:none;font-family:Oswald,Impact,sans-serif}
 .insi p{margin:2px 0 4px}.insb{padding:5px 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel2);cursor:pointer;font-weight:700;font-size:12.5px}.insb.on{background:var(--nfl);border-color:var(--nfl);color:#fff}
 
+
+/* game day, injuries, draft, fantasy */
+.gd{position:relative;overflow:hidden;border-radius:16px;border:1px solid color-mix(in srgb,var(--nfl) 45%,var(--line));padding:20px 22px;margin-bottom:16px;background:radial-gradient(120% 140% at 100% 0%,rgba(200,16,46,.35),transparent 55%),linear-gradient(120deg,#1b0d14,#0f131c 60%)}
+.gd .lab{display:inline-flex;gap:8px;align-items:center;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#ff8a9b}.gd .lab i{width:8px;height:8px;border-radius:50%;background:#ff3b3b;animation:tkp 1.8s infinite}
+.gd h3{font-size:28px;margin:6px 0 4px;text-transform:none;letter-spacing:0}.gd .meta{color:#cfd5e0;font-size:14px}
+.gd .row2{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;margin-top:14px}
+.gd .box{background:rgba(8,11,17,.55);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:12px 14px}
+.gd .box h4{margin:0 0 8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.gd .score{display:flex;align-items:center;gap:16px;font-size:34px;font-weight:800;margin-top:8px}
+.gd ol{margin:0;padding-left:18px}.gd li{margin:5px 0;font-size:14px}
+.inj{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:8px 0;border-top:1px solid var(--line)}.inj:first-child{border-top:0}
+.inj b{font-size:14px}.inj small{grid-column:1;color:var(--muted);font-size:12.5px}.inj .st{grid-row:1/3;grid-column:2;align-self:center}
+.st{font-size:11.5px;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.st.Out,.st.IR{background:rgba(255,107,107,.14);color:#ff8b8b}.st.Doubtful{background:rgba(240,163,58,.16);color:#f6b25a}.st.Questionable{background:rgba(232,213,90,.14);color:#e8d55a}
+.injh{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:14px 0 4px}.injh:first-child{margin-top:0}
+.dep{display:grid;grid-template-columns:56px 1fr;gap:8px;padding:6px 0;border-top:1px solid var(--line);font-size:14px}.dep b{color:var(--muted);font-size:12.5px}
+.dep .p1{font-weight:700}.dep .px{color:var(--muted)}
+.draft{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.dr{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.dr .n{font-weight:800;font-size:18px;color:var(--muted);text-align:center}.dr.me{border-color:var(--nfl);background:color-mix(in srgb,var(--nfl) 12%,var(--panel2))}.dr.me .n{color:#ff8a9b}
+.ffadd{position:relative;margin-bottom:12px}.ffadd input{width:100%}
+.ff{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:8px;background:var(--panel2)}
+.ff .top{display:flex;gap:10px;align-items:center}.ff .top b{font-size:15px}.ff .top .x{margin-left:auto;background:none;border:0;color:var(--muted);cursor:pointer;font-size:18px}
+.ff .tag2{font-size:11.5px;font-weight:800;padding:3px 8px;border-radius:999px}.ff .Start{background:rgba(47,210,124,.15);color:#56e09a}.ff .Monitor{background:rgba(240,163,58,.16);color:#f6b25a}.ff .Bench{background:rgba(255,107,107,.14);color:#ff8b8b}
+.ff ul{margin:6px 0 0;padding-left:18px;font-size:13px;color:#cfd5e0}.ff li{margin:3px 0}
+@media (max-width:800px){.gd .row2{grid-template-columns:1fr}}
 /* ===== design layer: banners, one card style, spacing, polish, search ===== */
 :root{--radius:14px;--gap:16px}
 .banner{display:none}
@@ -609,6 +635,7 @@ table,td,th,.gm,.wst b,.mk,.score,.tag,.bn-s b,.otdrow .yr,.wg .t,.ucd,.mgbig{fo
   <div class="tabhead"><h2>Today</h2><span class="sub" id="todayLbl"></span></div>
   <div class="a2hs" id="a2hs" hidden></div>
   <div class="tk" id="ticker" aria-live="polite"></div>
+  <div id="gdHome"></div>
   <div class="myday" id="myDay" aria-label="My day"></div>
   <div class="bigcds" id="bigCds"></div>
   <div class="cols vrow" style="margin-bottom:16px"><div class="card verse" id="verseCard"></div><div class="card" id="mktCard"></div></div>
@@ -621,7 +648,7 @@ table,td,th,.gm,.wst b,.mk,.score,.tag,.bn-s b,.otdrow .yr,.wg .t,.ucd,.mgbig{fo
 <!-- NFL -->
 <section class="tab" id="t-nfl">
   <div class="tabhead"><h2 style="color:var(--nfl)">NFL</h2><span class="sub" id="nflWeek"></span>
-    <div class="row" style="margin-left:auto;gap:12px"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="nfl"><option value="overview">Team overview</option><option value="scores">Games & scores</option><option value="picks">My picks</option><option value="insiders">Insiders</option><option value="stats">Stats</option><option value="trivia">Trivia</option></select></div>
+    <div class="row" style="margin-left:auto;gap:12px"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="nfl"><option value="overview">Team overview</option><option value="gameday">Game day</option><option value="scores">Games & scores</option><option value="picks">My picks</option><option value="insiders">Insiders</option><option value="injuries">Injuries & depth chart</option><option value="draft">Draft order</option><option value="fantasy">Fantasy helper</option><option value="stats">Stats</option><option value="trivia">Trivia</option></select></div>
     <div class="teamsel"><span class="small muted">Team</span><select id="teamSel"></select><button class="btn sm" id="favBtn" title="Use this team on the Home screen"></button></div></div>
   </div>
   <div class="subp" data-tab="nfl" data-sub="overview">
@@ -639,6 +666,10 @@ table,td,th,.gm,.wst b,.mk,.score,.tag,.bn-s b,.otdrow .yr,.wg .t,.ucd,.mgbig{fo
   </div>
   </div>
   <div class="subp" data-tab="nfl" data-sub="scores"><div class="card"><div class="row" style="gap:8px;flex-wrap:wrap"><h3 style="margin:0">Games & scores</h3><span class="sp"></span><button class="btn sm" id="wkPrev">‹</button><b id="wkLbl" style="min-width:150px;text-align:center"></b><button class="btn sm" id="wkNext">›</button></div><div class="small dim" id="wkSum" style="margin:6px 0 12px"></div><div id="wkGames"></div><div class="small dim" style="margin-top:12px">Scores update with each refresh, every few hours. For live play-by-play, use the NFL or ESPN app.</div></div></div>
+  <div class="subp" data-tab="nfl" data-sub="gameday"><div id="gdFull"></div></div>
+  <div class="subp" data-tab="nfl" data-sub="injuries"><div class="cols"><div class="card"><h3>Injury report <span class="tag" id="injAsOf"></span></h3><div id="injList"></div></div><div class="card"><h3>Depth chart <span class="tag" id="depAsOf"></span></h3><div id="depList"></div></div></div></div>
+  <div class="subp" data-tab="nfl" data-sub="draft"><div class="card"><h3>If the season ended today <span class="tag">Projected draft order</span></h3><p class="small muted" style="margin-top:-6px">Worst record picks first. Ties are listed alphabetically here; the NFL breaks them by strength of schedule. The 18 playoff teams pick 19–32 in the real draft, so this ignores playoff results.</p><div id="draftList" class="draft"></div></div></div>
+  <div class="subp" data-tab="nfl" data-sub="fantasy"><div class="cols"><div class="card"><h3>My fantasy roster <span class="tag" id="ffCount"></span></h3><div class="ffadd"><input type="text" id="ffQ" placeholder="Add a player (e.g. Stevenson)" autocomplete="off"><div class="wsug" id="ffSug" hidden></div></div><div id="ffList"></div></div><div class="card"><h3>How the flags work</h3><p class="small" style="margin:0 0 8px">Each player shows season stats, this week's opponent and their win odds, injury status from the reports in Fan HQ, and recent news that mentions them.</p><ul class="small muted" style="margin:0;padding-left:18px"><li><b style="color:#ff6b6b">Bench</b>: ruled out, on IR, or on a bye.</li><li><b style="color:#f0a33a">Monitor</b>: questionable or doubtful; check before kickoff.</li><li><b style="color:#2fd27c">Start</b>: no injury flags and playing this week.</li></ul><p class="small dim" style="margin-top:10px">Injury reports cover the Patriots and their opponent; other teams rely on news mentions. This is a guide, not a guarantee.</p></div></div></div>
   <div class="subp" data-tab="nfl" data-sub="insiders"><div class="card"><div class="row" style="gap:8px;flex-wrap:wrap"><h3 style="margin:0">Insiders</h3><span class="sp"></span><div id="insF" class="row" style="gap:6px"></div></div><p class="small muted" style="margin:6px 0 12px">Reports from NFL Network's Ian Rapoport and ESPN's Adam Schefter, gathered from outlets that cite them. Follow them live on X: <a href="https://x.com/RapSheet" target="_blank" rel="noopener">@RapSheet</a> · <a href="https://x.com/AdamSchefter" target="_blank" rel="noopener">@AdamSchefter</a></p><div id="insList"></div></div></div>
   <div class="subp" data-tab="nfl" data-sub="picks">
   <div class="card" id="picksCard" style="border-color:#3a1d25">
@@ -888,7 +919,7 @@ function newsList(items,el,emptyMsg){
 
 /* ---------- tabs ---------- */
 const TABS=["home","nfl","starwars","games","workouts","wwe","marvel","world","history","outages"];
-const SUBS={nfl:["overview","scores","picks","insiders","stats","trivia"],starwars:["news","saber","archive","characters","trivia"],games:["news","bl","gta","ac","trivia"],wwe:["news","champions","trivia"],marvel:["movies","trivia"],world:["explore","game","timeline","trivia"],history:["today","us","greece","quiz"]};
+const SUBS={nfl:["overview","gameday","scores","picks","insiders","injuries","draft","fantasy","stats","trivia"],starwars:["news","saber","archive","characters","trivia"],games:["news","bl","gta","ac","trivia"],wwe:["news","champions","trivia"],marvel:["movies","trivia"],world:["explore","game","timeline","trivia"],history:["today","us","greece","quiz"]};
 const subState=lsGet("hq_subs",{});
 function showSub(tab,sub){if(!SUBS[tab])return;if(!SUBS[tab].includes(sub))sub=subState[tab]||SUBS[tab][0];subState[tab]=sub;lsSet("hq_subs",subState);
   $$(`.subp[data-tab="${tab}"]`).forEach(p=>p.classList.toggle("on",p.dataset.sub===sub));const sel=$(`.subsel[data-tab="${tab}"]`);if(sel)sel.value=sub;}
@@ -921,7 +952,7 @@ const Store={mode:"local",db:null,uid:null,ready:null,
       const cloudW=ws.docs.map(d=>d.data());
       // first run with account: carry over anything saved on this device
       if(!cloudProf&&(this.profile.sabers.length||Object.keys(this.profile.best).length)){await this.saveProfile();}
-      else if(cloudProf){this.profile={sabers:cloudProf.sabers||[],best:cloudProf.best||{}};}
+      else if(cloudProf){this.profile={sabers:cloudProf.sabers||[],best:cloudProf.best||{},me:Object.assign({},this.profile.me||{},cloudProf.me||{})};}
       const cloudIds=new Set(cloudW.map(w=>w.id));
       const localOnly=this.workouts.filter(w=>!cloudIds.has(w.id));
       for(const w of localOnly){try{await this.wRef(w.id).set(w)}catch(e){}}
@@ -932,7 +963,9 @@ const Store={mode:"local",db:null,uid:null,ready:null,
   },
   setNote(){const n=$("#storeNote");if(!n)return;n.textContent=this.mode==="cloud"?"Saved to your account, so it follows you across devices":"Saved on this device only (sign in to sync across devices)";},
   cache(){lsSet("hq_workouts",this.workouts);lsSet("hq_profile",this.profile);},
-  async saveProfile(){this.cache();if(this.mode!=="cloud")return true;try{await this.profRef().set({sabers:this.profile.sabers,best:this.profile.best});return true}catch(e){toast("Couldn't reach your account. Saved on this device.");return false}},
+  async saveProfile(){this.cache();if(this.mode!=="cloud")return true;try{await this.profRef().set({sabers:this.profile.sabers,best:this.profile.best,me:this.profile.me||{}});return true}catch(e){toast("Couldn't reach your account. Saved on this device.");return false}},
+  me(k,d){const m=this.profile.me||(this.profile.me={});if(!(k in m))m[k]=d;return m[k];},
+  saveMe(){clearTimeout(this._mt);this.cache();this._mt=setTimeout(()=>this.saveProfile(),800);},
   async putWorkout(w){const i=this.workouts.findIndex(x=>x.id===w.id);if(i>=0)this.workouts[i]=w;else this.workouts.push(w);this.cache();if(this.mode==="cloud"){try{await this.wRef(w.id).set(w)}catch(e){toast("Couldn't reach your account. Saved on this device.");}}},
   async delWorkout(id){this.workouts=this.workouts.filter(w=>w.id!==id);this.cache();if(this.mode==="cloud"){try{await this.wRef(id).delete()}catch(e){}}}
 };
@@ -1203,6 +1236,61 @@ function initPhone(){const sheet=$("#bSheet"),more=$("#bMore");if(!sheet)return;
     tip.innerHTML=`<span style="flex:1">Tip: open Fan HQ in ${ios?"Safari, tap Share, then <b>Add to Home Screen</b>":"your browser, open the menu, then <b>Add to Home screen</b>"} to launch it like an app.</span><button class="btn sm" id="a2hsX">Got it</button>`;
     $("#a2hsX").onclick=()=>{tip.hidden=true;try{localStorage.setItem("hq_a2hs","1");}catch(e){}};}}
 
+
+/* =====================================================
+   NFL EXTRAS: game day, injuries & depth, draft order, fantasy
+   ===================================================== */
+function gdGame(){return nextFavGame();}
+function gdHTML(full){const g=gdGame();if(!g)return full?`<div class="card"><div class="empty-state"><b>No upcoming game found</b><span>The schedule refresh will add the next one.</span></div></div>`:"";
+  const home=g.home===favTeam,opp=home?g.away:g.home;const now=Date.now(),t=Date.parse(g.time);const live=g.status==="live";
+  const ct=new Date(new Date().toLocaleString("en-US",CT)),gt=new Date(new Date(g.time).toLocaleString("en-US",CT));const isToday=ct.toDateString()===gt.toDateString();
+  if(!full&&!(live||isToday||(t-now<3*36e5&&t>now-4*36e5)))return "";
+  const GD=F.nfl.gameday||{};const ng=(F.nfl.nextGames||{})[favTeam]||{};const inj=(F.nfl.injuries||{});const mine=(inj[favTeam]||[]).filter(r=>r[3]!=="IR").slice(0,6),theirs=(inj[opp]||[]).slice(0,4);
+  const odds=g.fav&&g.favPct?`${g.fav===favTeam?short(favTeam):short(opp)} ${g.favPct}%`:(GD.line||"");
+  const head=live?`<div class="lab"><i></i>Live${g.live?" · "+esc(g.live):""}</div>`:isToday?`<div class="lab"><i></i>Game day</div>`:`<div class="lab">Next game · ${esc(relDays(g.time))}</div>`;
+  const score=live||g.status==="final"?`<div class="score"><span>${esc(short(g.away))} ${g.as??0}</span><span class="dim">–</span><span>${g.hs??0} ${esc(short(g.home))}</span></div>`:`<div class="score" id="gdCd" data-t="${esc(g.time)}"></div>`;
+  return `<div class="gd">${head}<h3>${esc(team(favTeam).name)} ${home?"vs":"at"} ${esc(team(opp).name)}</h3><div class="meta">${esc(new Date(g.time).toLocaleString("en-US",{...CT,weekday:"long",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}))} CT${ng.tv?" · "+esc(ng.tv.split(" · ")[0]):""}${GD.venue?" · "+esc(GD.venue):""}${GD.weather?" · "+esc(GD.weather):""}${odds?" · "+esc(odds):""}</div>${score}
+   <div class="row2"><div class="box"><h4>Keys to the game</h4>${(GD.keys||[]).length?`<ol>${GD.keys.map(k=>`<li>${esc(k)}</li>`).join("")}</ol>`:`<p class="small muted">Keys arrive with the next refresh.</p>`}</div>
+   <div class="box"><h4>Injury watch</h4>${mine.map(r=>`<div class="inj"><b>${esc(r[0])} <span class="dim">${esc(r[1])}</span></b><span class="st ${esc(r[3])}">${esc(r[3])}</span><small>${esc(short(favTeam))} · ${esc(r[2])}</small></div>`).join("")}${theirs.map(r=>`<div class="inj"><b>${esc(r[0])} <span class="dim">${esc(r[1])}</span></b><span class="st ${esc(r[3])}">${esc(r[3])}</span><small>${esc(short(opp))} · ${esc(r[2])}</small></div>`).join("")||(!mine.length?`<p class="small muted">No injuries listed.</p>`:"")}</div></div>
+   ${full&&(GD.sources||[]).length?`<div class="small dim" style="margin-top:10px">Sources: ${GD.sources.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join(" · ")}</div>`:""}</div>`;}
+function gdTick(){$$("#gdCd").forEach(el=>{const ms=Date.parse(el.dataset.t)-Date.now();if(ms<=0){el.textContent="Kickoff!";return;}const d=Math.floor(ms/864e5),h=Math.floor(ms/36e5)%24,m=Math.floor(ms/6e4)%60,s=Math.floor(ms/1e3)%60;el.innerHTML=`<span style="font-size:15px;color:var(--muted);font-weight:600">Kickoff in</span> ${d?d+"d ":""}${h}h ${String(m).padStart(2,"0")}m ${String(s).padStart(2,"0")}s`;});}
+function renderGameDay(){const h=$("#gdHome");if(h)h.innerHTML=gdHTML(false);const f=$("#gdFull");if(f)f.innerHTML=gdHTML(true);gdTick();}
+setInterval(gdTick,1000);
+function renderInjuries(){const I=F.nfl.injuries,D=F.nfl.depth;if(!$("#injList"))return;
+  if(I){const g=gdGame();const opp=g?(g.home===favTeam?g.away:g.home):null;const order=["Out","Doubtful","Questionable","IR"];
+    const block=(abbr)=>{const rows=(I[abbr]||[]).slice().sort((a,b)=>order.indexOf(a[3])-order.indexOf(b[3]));return rows.length?`<div class="injh">${esc(team(abbr).name||abbr)}</div>`+rows.map(r=>`<div class="inj"><b>${esc(r[0])} <span class="dim">${esc(r[1])}</span></b><span class="st ${esc(r[3])}">${esc(r[3])}</span><small>${esc(r[2])}${r[4]?" · "+esc(r[4]):""}</small></div>`).join(""):"";};
+    $("#injList").innerHTML=block(favTeam)+(opp?block(opp):"")+((I.sources||[]).length?`<div class="small dim" style="margin-top:10px">Sources: ${I.sources.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join(" · ")}</div>`:"")||`<div class="empty-state"><b>No injury report yet</b></div>`;
+    $("#injAsOf").textContent=I.asOf?"As of "+newsDate(I.asOf):"";}
+  if(D&&D.team===favTeam){$("#depList").innerHTML=`<p class="small muted" style="margin:-6px 0 8px">${esc(D.note||"")}</p>`+D.groups.map(([g,rows])=>`<div class="injh">${esc(g)}</div>`+rows.map(([pos,pl])=>`<div class="dep"><b>${esc(pos)}</b><span><span class="p1">${esc(pl[0])}</span>${pl.length>1?`<span class="px"> · ${pl.slice(1).map(esc).join(" · ")}</span>`:""}</span></div>`).join("")).join("")+((D.sources||[]).length?`<div class="small dim" style="margin-top:10px">Sources: ${D.sources.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join(" · ")}</div>`:"");$("#depAsOf").textContent=D.asOf?"As of "+newsDate(D.asOf):"";}
+  else $("#depList").innerHTML=`<div class="empty-state"><b>Depth chart covers the ${esc(team(D?D.team:"NE").name||"Patriots")}</b><span>Switch the team back to see it.</span></div>`;}
+function renderDraftOrder(){const el=$("#draftList");if(!el)return;const pct=t=>(t.w+.5*(t.t||0))/Math.max(1,t.w+t.l+(t.t||0));
+  const list=F.nfl.standings.slice().sort((a,b)=>pct(a)-pct(b)||a.name.localeCompare(b.name));
+  el.innerHTML=list.map((t,i)=>`<div class="dr${t.abbr===favTeam?" me":""}"><span class="n">${i+1}</span><span><b>${esc(t.name)}</b><br><span class="small muted">${esc(t.div||"")}</span></span><span class="small" style="font-variant-numeric:tabular-nums">${t.w}-${t.l}${t.t?"-"+t.t:""}</span></div>`).join("");}
+/* fantasy */
+function ffRoster(){return Store.me("fantasy",[]);}
+function ffEval(r){const name=r.n.toLowerCase();const last=r.n.split(" ").slice(-1)[0].toLowerCase();const out=[];let flag="Start";
+  const inj=Object.entries(F.nfl.injuries||{}).filter(([k,v])=>Array.isArray(v)&&k!=="sources").flatMap(([k,v])=>v.map(x=>[k,...x])).find(x=>x[1].toLowerCase()===name);
+  if(inj){const st=inj[4];flag=st==="Out"||st==="IR"?"Bench":"Monitor";out.push(`Injury: ${st} (${inj[3]})${inj[5]?" · "+inj[5]:""}`);}
+  const now=Date.now()-4*36e5;const g=(F.nfl.games||[]).filter(x=>(x.away===r.t||x.home===r.t)&&x.status!=="final"&&Date.parse(x.time)>now).sort((a,b)=>Date.parse(a.time)-Date.parse(b.time))[0];
+  const wk=g?wkOf(g.time):null;if(!g||wk>F.nfl.week){flag="Bench";out.push("Bye or no game this week");}
+  else{const opp=g.home===r.t?g.away:g.home;out.push(`${ctDay(g.time)} ${g.home===r.t?"vs":"@"} ${short(opp)}${g.fav&&g.favPct?` · ${g.fav===r.t?"favored":"underdog"} (${g.fav} ${g.favPct}%)`:""}`);}
+  const news=[...(F.nfl.news||[]).map(n=>[n.title+" "+(n.summary||""),n.title,n.url]),...(F.nfl.insiders||[]).map(n=>[n.text,n.who+": "+n.text,n.url])].filter(([t])=>t.toLowerCase().includes(name)||(last.length>4&&new RegExp("\\b"+last+"\\b","i").test(t)&&t.toLowerCase().includes(r.n.split(" ")[0].toLowerCase()))).slice(0,2);
+  news.forEach(([,t,u])=>out.push(`News: <a href="${esc(u)}" target="_blank" rel="noopener">${esc(t.length>110?t.slice(0,110)+"…":t)}</a>`));
+  return {flag,notes:out};}
+function ffStats(r){const keys=[["pyds","pass yds"],["ptd","pass TD"],["ryds","rush yds"],["rtd","rush TD"],["rec","rec"],["cyds","rec yds"],["ctd","rec TD"],["tkl","tackles"],["sck","sacks"]];return keys.filter(([k])=>r[k]!=null&&r[k]!==0).slice(0,4).map(([k,l])=>`${typeof r[k]==="number"?r[k].toLocaleString():r[k]} ${l}`).join(" · ");}
+function renderFantasy(){const el=$("#ffList");if(!el)return;let rows=[];try{rows=PS_ROWS||(PS_ROWS=flatPlayers());}catch(e){}const R=ffRoster();
+  $("#ffCount").textContent=R.length?`${R.length} player${R.length===1?"":"s"}`:"";
+  if(!R.length){el.innerHTML=`<div class="empty-state"><b>Build your roster</b><span>Search above to add the players on your fantasy team.</span></div>`;return;}
+  el.innerHTML=R.map(key=>{const r=rows.find(x=>x.n+"|"+x.t===key);if(!r)return `<div class="ff"><div class="top"><b>${esc(key.split("|")[0])}</b><button class="x" data-ffdel="${esc(key)}" aria-label="Remove">×</button></div><div class="small muted">Not found in this season's stats.</div></div>`;
+    const e=ffEval(r);const st=ffStats(r);return `<div class="ff"><div class="top"><span class="tag2 ${e.flag}">${e.flag}</span><b>${esc(r.n)}</b><span class="small muted">${esc(r.pos)} · ${esc(r.t)}</span><button class="x" data-ffdel="${esc(key)}" aria-label="Remove ${esc(r.n)}">×</button></div>${st?`<div class="small muted" style="margin-top:4px">${st}</div>`:""}<ul>${e.notes.map(n=>`<li>${n}</li>`).join("")}</ul></div>`;}).join("");}
+function wireFantasy(){const q=$("#ffQ"),sug=$("#ffSug");if(!q)return;
+  const show=()=>{let rows=[];try{rows=PS_ROWS||(PS_ROWS=flatPlayers());}catch(e){}const v=q.value.trim().toLowerCase();if(v.length<2){sug.hidden=true;return;}
+    const hits=rows.filter(r=>r.n.toLowerCase().includes(v)).slice(0,8);sug.innerHTML=hits.length?hits.map(r=>`<button data-ffadd="${esc(r.n+"|"+r.t)}">${esc(r.n)}<small>${esc(r.pos)} · ${esc(r.t)}</small></button>`).join(""):`<div class="small muted" style="padding:8px 10px">No player found</div>`;sug.hidden=false;};
+  q.oninput=show;q.onfocus=show;
+  document.getElementById("t-nfl").addEventListener("click",e=>{const a=e.target.closest("[data-ffadd]");if(a){const R=ffRoster();if(!R.includes(a.dataset.ffadd))R.push(a.dataset.ffadd);Store.saveMe();q.value="";sug.hidden=true;renderFantasy();return;}
+    const d=e.target.closest("[data-ffdel]");if(d){const R=ffRoster();const i=R.indexOf(d.dataset.ffdel);if(i>=0)R.splice(i,1);Store.saveMe();renderFantasy();}});
+  document.addEventListener("click",e=>{if(!e.target.closest(".ffadd"))sug.hidden=true;});renderFantasy();}
+function initNFLX(){renderGameDay();renderInjuries();renderDraftOrder();wireFantasy();}
 /* =====================================================
    SEARCH EVERYTHING
    ===================================================== */
@@ -1800,7 +1888,7 @@ function renderHome(){
   const allGames=[].concat(...PLAT.map(x=>F.games[x.k].news));
   $("#homeCards").innerHTML=card("nfl","var(--nfl)",short(favTeam)+" & NFL",top(teamNews.length?teamNews:F.nfl.news,3))+card("starwars","var(--sw)","Star Wars",top(F.starwars.news,3))+card("games","var(--vg)","Video games",top(allGames,3))+card("wwe","var(--wwe)","WWE",top(F.wwe.news,3));
   renderTicker();
-  renderVerse();renderMarkets();try{renderOTD();renderMyDay();renderWatch();renderTrophies();refreshBanners();}catch(e){console.error(e)}
+  renderVerse();renderMarkets();try{renderOTD();renderMyDay();renderWatch();renderTrophies();refreshBanners();renderGameDay();}catch(e){console.error(e)}
   renderBigCds();renderPods();
 }
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g&&!e.target.closest("a")){location.hash=g.dataset.go;}});
@@ -2110,6 +2198,7 @@ function boot(){
   try{if(window.MAPGAME)MAPGAME.init();}catch(e){console.error(e)}
   try{initHistory();}catch(e){console.error(e)}
   try{initSearch();}catch(e){console.error(e)}
+  try{initNFLX();}catch(e){console.error(e)}
   try{initPhone();renderMyDay();renderWatch();renderTrophies();Store.onChange(()=>{try{renderTrophies();}catch(e){}});window.addEventListener("hashchange",()=>{try{refreshBanners();}catch(e){}if((location.hash||"#home").startsWith("#home"))try{renderTrophies();}catch(e){}});}catch(e){console.error(e)}
   ["nfl","sw","vg","wwe"].forEach(k=>{renderBest(k);startQuiz(k);});
   if(window.FRANCH){["bl","gta","ac"].forEach(k=>{TRIVIA[k]=FRANCH[k].trivia;renderFranchise(k);});}

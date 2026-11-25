@@ -4563,7 +4563,324 @@ window.FEED={
     "source": "RotoBaller",
     "url": "https://www.rotoballer.com/?p=1989694"
    }
-  ]
+  ],
+  "injuries": {
+   "asOf": "2026-11-24",
+   "NE": [
+    [
+     "Drake Maye",
+     "QB",
+     "Fractured right fibula",
+     "Out",
+     "Not expected back for weeks; no surgery needed"
+    ],
+    [
+     "A.J. Brown",
+     "WR",
+     "Hamstring",
+     "Doubtful",
+     "Vrabel doesn't expect him to play Sunday"
+    ],
+    [
+     "Romeo Doubs",
+     "WR",
+     "Shoulder",
+     "IR",
+     ""
+    ],
+    [
+     "TreVeyon Henderson",
+     "RB",
+     "—",
+     "Out",
+     ""
+    ],
+    [
+     "Carlton Davis III",
+     "CB",
+     "Knee",
+     "Questionable",
+     ""
+    ],
+    [
+     "Walter Rouse",
+     "OT",
+     "Concussion",
+     "Questionable",
+     ""
+    ],
+    [
+     "Brenden Schooler",
+     "S",
+     "Hamstring",
+     "Questionable",
+     ""
+    ],
+    [
+     "Ben Brown",
+     "G",
+     "Knee",
+     "Questionable",
+     ""
+    ],
+    [
+     "Dre'Mont Jones",
+     "DL",
+     "—",
+     "Questionable",
+     ""
+    ],
+    [
+     "Robert Spillane",
+     "LB",
+     "—",
+     "Questionable",
+     ""
+    ],
+    [
+     "Mike Onwenu",
+     "G",
+     "—",
+     "IR",
+     ""
+    ],
+    [
+     "Alijah Vera-Tucker",
+     "G",
+     "—",
+     "IR",
+     ""
+    ],
+    [
+     "Julian Hill",
+     "TE",
+     "—",
+     "IR",
+     ""
+    ],
+    [
+     "Dell Pettus",
+     "S",
+     "—",
+     "IR",
+     ""
+    ]
+   ],
+   "LAC": [
+    [
+     "Justin Herbert",
+     "QB",
+     "Concussion",
+     "Questionable",
+     "In concussion protocol after the Jets loss"
+    ],
+    [
+     "Derwin James Jr.",
+     "S",
+     "Hamstring",
+     "Out",
+     ""
+    ],
+    [
+     "Rashawn Slater",
+     "T",
+     "Ankle",
+     "Out",
+     ""
+    ],
+    [
+     "Daiyan Henley",
+     "LB",
+     "Knee",
+     "Out",
+     ""
+    ]
+   ],
+   "sources": [
+    {
+     "name": "CBS Sports",
+     "url": "https://www.cbssports.com/nfl/teams/ne/new-england-patriots/injuries/"
+    },
+    {
+     "name": "Pats Pulpit",
+     "url": "https://www.patspulpit.com/new-england-patriots-injuries/144976/aj-brown-injury-update-mike-vrabel-confirms-status-nfl-week-12-chargers"
+    },
+    {
+     "name": "NESN",
+     "url": "https://nesn.com/new-england-patriots/news/justin-herbert-concussion-protocol-patriots-week-12/5b0fb27accc3c1cc9b858a83"
+    },
+    {
+     "name": "Fantasy Index",
+     "url": "https://fantasyindex.com/football/nfl-week-12-injury-report/"
+    }
+   ]
+  },
+  "depth": {
+   "asOf": "2026-11-24",
+   "team": "NE",
+   "note": "Projected starters with Maye out; compiled from depth-chart trackers. The Patriots don't publish an official weekly chart.",
+   "groups": [
+    [
+     "Offense",
+     [
+      [
+       "QB",
+       [
+        "Tommy DeVito",
+        "Behren Morton"
+       ]
+      ],
+      [
+       "RB",
+       [
+        "Rhamondre Stevenson",
+        "Corey Kiner",
+        "Lan Larison"
+       ]
+      ],
+      [
+       "WR",
+       [
+        "Mack Hollins",
+        "DeMario Douglas",
+        "Efton Chism III",
+        "Kyle Williams"
+       ]
+      ],
+      [
+       "TE",
+       [
+        "Hunter Henry",
+        "Eli Raridon"
+       ]
+      ],
+      [
+       "LG",
+       [
+        "Greg Van Roten"
+       ]
+      ],
+      [
+       "RG",
+       [
+        "Matt Pryor"
+       ]
+      ]
+     ]
+    ],
+    [
+     "Defense",
+     [
+      [
+       "DL",
+       [
+        "Christian Barmore",
+        "Milton Williams",
+        "DaQuan Jones"
+       ]
+      ],
+      [
+       "NT",
+       [
+        "Cory Durden"
+       ]
+      ],
+      [
+       "EDGE",
+       [
+        "Harold Landry III"
+       ]
+      ],
+      [
+       "LB",
+       [
+        "Robert Spillane",
+        "Christian Elliss"
+       ]
+      ],
+      [
+       "CB",
+       [
+        "Christian Gonzalez",
+        "Carlton Davis III",
+        "Marcus Jones"
+       ]
+      ]
+     ]
+    ],
+    [
+     "Special teams",
+     [
+      [
+       "K",
+       [
+        "Andy Borregales"
+       ]
+      ],
+      [
+       "P",
+       [
+        "Mitch Wishnowsky"
+       ]
+      ],
+      [
+       "LS",
+       [
+        "Julian Ashby"
+       ]
+      ],
+      [
+       "KR",
+       [
+        "Kyle Williams"
+       ]
+      ],
+      [
+       "PR",
+       [
+        "Marcus Jones"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "sources": [
+    {
+     "name": "Statz",
+     "url": "https://statz.ai/nfl/teams/new-england-patriots/depth-chart"
+    },
+    {
+     "name": "New England SportsWire",
+     "url": "https://newenglandsportswire.com/patriots-depth-chart/"
+    },
+    {
+     "name": "WBUR",
+     "url": "https://wbur.org/news/2026/11/24/patriots-tommy-devito-starter-quarterback-drake-maye-injury"
+    }
+   ]
+  },
+  "gameday": {
+   "game": "NE@LAC",
+   "venue": "SoFi Stadium, Inglewood, CA",
+   "weather": "Indoors (covered stadium)",
+   "line": "Patriots are road underdogs",
+   "keys": [
+    "Protect Tommy DeVito: he struggled in relief at Munich, so quick throws and the run game with Rhamondre Stevenson matter.",
+    "Find targets without A.J. Brown: expect more of DeMario Douglas, Mack Hollins and Hunter Henry.",
+    "Pressure a possible backup QB: Justin Herbert is in concussion protocol, and the Chargers are 1-9.",
+    "Win the turnover battle: New England has lost three of its last four and can't afford giveaways."
+   ],
+   "sources": [
+    {
+     "name": "SI",
+     "url": "https://www.si.com/betting/patriots-vs-chargers-prediction-odds-spread-injuries-trends-for-nfl-week-12-01m85jrse2m3"
+    },
+    {
+     "name": "Patch",
+     "url": "https://patch.com/massachusetts/foxborough/here-are-patriots-odds-beat-chargers-week-12"
+    }
+   ]
+  }
  },
  "starwars": {
   "news": [
