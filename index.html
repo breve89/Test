@@ -983,8 +983,11 @@ table,td,th,.gm,.wst b,.mk,.score,.tag,.bn-s b,.otdrow .yr,.wg .t,.ucd,.mgbig{fo
 <script src="world_as.js"></script>
 <script src="world_eu.js"></script>
 <script src="world_am.js"></script>
+<script src="d3.min.js"></script>
+<script src="world_geo.js"></script>
 <script src="world.js"></script>
 <script src="world_sub.js"></script>
+<script src="world_sub_geo.js"></script>
 <script src="worldgame.js"></script>
 <script src="history_data.js"></script>
 <script>
@@ -1785,7 +1788,7 @@ function renderNFL(){
   $("#divName").textContent=t.div;
   $("#divTable").innerHTML=standTable(div);
   // team news
-  const tn=F.nfl.news.filter(n=>n.teams.includes(nflTeam));
+  const tn=F.nfl.news.filter(n=>(n.teams||[]).includes(nflTeam));
   $("#teamNewsTag").textContent=tn.length?"":"League headlines";
   newsList(tn.length?tn:F.nfl.news,$("#teamNews"));
   renderGames();renderConf();if(F.nfl.leaders)renderStats();
@@ -2273,7 +2276,7 @@ function renderHome(){
   $("#countdowns").innerHTML=cds.map(x=>`<div class="cd" style="--c:${x.c}" data-go="${x.t}"><div class="k">${esc(x.k)}</div><div class="v">${esc(x.v)}</div><div class="d">${esc(x.d)}</div></div>`).join("");
   const top=(arr,n)=>arr.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,n);
   const card=(t,c,title,items)=>`<div class="card hcard" data-go="${t}" style="--c:${c}"><h3><span class="bar"></span>${title}<span class="tag">Open →</span></h3><div class="news">${items.map(n=>`<a class="ni" href="${esc(n.url)}" target="_blank" rel="noopener"><div class="t">${esc(n.title)}</div><div class="m"><span>${esc(n.source)}</span><span>·</span><span>${newsDate(n.date)}</span></div></a>`).join("")}</div></div>`;
-  const teamNews=F.nfl.news.filter(n=>n.teams.includes(favTeam));
+  const teamNews=F.nfl.news.filter(n=>(n.teams||[]).includes(favTeam));
   const allGames=[].concat(...PLAT.map(x=>F.games[x.k].news));
   $("#homeCards").innerHTML=card("nfl","var(--nfl)",short(favTeam)+" & NFL",top(teamNews.length?teamNews:F.nfl.news,3))+card("starwars","var(--sw)","Star Wars",top(F.starwars.news,3))+card("games","var(--vg)","Video games",top(allGames,3))+card("wwe","var(--wwe)","WWE",top(F.wwe.news,3));
   renderTicker();
@@ -2583,7 +2586,7 @@ function boot(){
   if(F&&F.updated){$("#upd").textContent="News updated "+fmtDate(F.updated,{month:"short",day:"numeric"})+", "+fmtTime(F.updated);}
   else $("#upd").textContent="News feed unavailable";
   showTab();
-  if(F){wireNFL();renderNFL();wirePicks();renderPicks();wireStats();renderStats();wirePlayerStats();newsList(F.starwars.news,$("#swNews"));wireGames();renderGames2();renderWWE();renderChamps();renderOutages();renderScores();renderInsiders();}
+  if(F){[wireNFL,renderNFL,wirePicks,renderPicks,wireStats,renderStats,wirePlayerStats,()=>newsList(F.starwars.news,$("#swNews")),wireGames,renderGames2,renderWWE,renderChamps,renderOutages,renderScores,renderInsiders].forEach(fn=>{try{fn();}catch(e){console.error(e)}});}
   try{initMarvel();}catch(e){console.error(e)}
   try{if(window.WORLD){TRIVIA.world=WORLD.quiz();QUIZ_BEST_EL.world="#wBest";WORLD.init();renderBest("world");startQuiz("world");}}catch(e){console.error(e)}
   try{if(window.MAPGAME)MAPGAME.init();}catch(e){console.error(e)}

@@ -27,10 +27,10 @@ async function loadDeck(d){await H.ensureD3();
   if(d.type==="world"){if(!cache.world){cache.world=await W.feats();}return cache.world;}
   if(cache[d.type])return cache[d.type];
   let fs;
-  if(d.type==="us"){try{fs=await amLoad(["https://cdn.jsdelivr.net/npm/@amcharts/amcharts5-geodata@5/usaLow.js","https://cdn.jsdelivr.net/npm/@amcharts/amcharts4-geodata@4/usaLow.js"]);}
-    catch(e){await H.loadScript("https://cdn.jsdelivr.net/npm/datamaps@0.5.9/dist/datamaps.usa.min.js");const D=window.Datamap||window.Datamaps;const t=D&&D.prototype.usaTopo;if(!t||typeof t!=="object")throw new Error("US map unavailable");fs=H.topoFeatures(t,t.objects.usa);}
+  if(d.type==="us"){try{if(!window.US_GEO_LOCAL)throw 0;fs=H.geoFeatures(window.US_GEO_LOCAL);}catch(_){try{fs=await amLoad(["https://cdn.jsdelivr.net/npm/@amcharts/amcharts5-geodata@5/usaLow.js","https://cdn.jsdelivr.net/npm/@amcharts/amcharts4-geodata@4/usaLow.js"]);}
+    catch(e){await H.loadScript("https://cdn.jsdelivr.net/npm/datamaps@0.5.9/dist/datamaps.usa.min.js");const D=window.Datamap||window.Datamaps;const t=D&&D.prototype.usaTopo;if(!t||typeof t!=="object")throw new Error("US map unavailable");fs=H.topoFeatures(t,t.objects.usa);}}
     fs=fs.map(H.rewind).map(f=>{const id=String(f.id||"").replace(/^US-/,"");f._id=US[id]?id:US_N[H.norm(f.properties.name)]||null;f._d=f._id?US[f._id]:null;return f;});}
-  else{fs=await amLoad(["https://cdn.jsdelivr.net/npm/@amcharts/amcharts5-geodata@5/canadaLow.js","https://cdn.jsdelivr.net/npm/@amcharts/amcharts4-geodata@4/canadaLow.js"]);
+  else{fs=window.CA_GEO_LOCAL?H.geoFeatures(window.CA_GEO_LOCAL):await amLoad(["https://cdn.jsdelivr.net/npm/@amcharts/amcharts5-geodata@5/canadaLow.js","https://cdn.jsdelivr.net/npm/@amcharts/amcharts4-geodata@4/canadaLow.js"]);
     fs=fs.map(H.rewind).map(f=>{const id=String(f.id||"").replace(/^CA-/,"");f._id=CA[id]?id:CA_N[H.norm(f.properties.name)]||null;f._d=f._id?CA[f._id]:null;return f;});}
   cache[d.type]=fs;return fs;}
 function info(f){const d=G.deck;if(!f||!f._d)return null;

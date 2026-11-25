@@ -4218,14 +4218,20 @@ window.FEED={
     "summary": "Robert Kraft and Bill Belichick moved forward in the selection process for the Pro Football Hall of Fame Class of 2027; Rob Gronkowski is also among ex-Patriots nominated.",
     "source": "Patriots.com",
     "url": "https://www.patriots.com/news/",
-    "date": "2026-11-24"
+    "date": "2026-11-24",
+    "teams": [
+     "NE"
+    ]
    },
    {
     "title": "Vrabel: Tommy DeVito starts Sunday at the Chargers",
     "summary": "Coming off the bye, Mike Vrabel named DeVito the Week 12 starter and sidestepped questions about free agent Daniel Jones; rookie Behren Morton moves up to QB2.",
     "source": "Yahoo Sports",
     "url": "https://sports.yahoo.com/nfl/teams/new-england/",
-    "date": "2026-11-24"
+    "date": "2026-11-24",
+    "teams": [
+     "NE"
+    ]
    },
    {
     "teams": [

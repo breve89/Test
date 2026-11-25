@@ -94,6 +94,7 @@ function loadEcharts(url){return new Promise(async(ok,no)=>{const prev=window.ec
 function geoFeatures(g){if(!g||!g.features)throw new Error("not GeoJSON");return g.features.filter(f=>f.geometry&&/Polygon/.test(f.geometry.type)).map(f=>({type:"Feature",id:f.id||(f.properties&&f.properties.id),properties:f.properties||{},geometry:f.geometry}));}
 function jsonImport(url){return withTimeout(import(url,{with:{type:"json"}}),12000).then(m=>{const t=m.default;return topoFeatures(t,t.objects.countries);});}
 const SOURCES=[
+ {name:"Natural Earth (built in)",load:()=>{if(!window.WORLD_GEO_LOCAL)throw new Error("not bundled");return geoFeatures(window.WORLD_GEO_LOCAL);}},
  {name:"Natural Earth via ECharts",load:()=>loadEcharts("https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js").catch(()=>loadEcharts("https://unpkg.com/echarts@4.9.0/map/js/world.js"))},
  {name:"amCharts world map",load:()=>withTimeout(import("https://cdn.jsdelivr.net/npm/@amcharts/amcharts5-geodata@5/worldLow.js"),12000).then(m=>geoFeatures(m.default))},
  {name:"amCharts 4 world map",load:()=>withTimeout(import("https://cdn.jsdelivr.net/npm/@amcharts/amcharts4-geodata@4/worldLow.js"),12000).then(m=>geoFeatures(m.default))},
