@@ -598,6 +598,18 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 @media (hover:none){.niw .sv{opacity:1}}
 .fcs{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:14px;flex-wrap:wrap}
 .chip{white-space:nowrap;display:inline-flex;gap:6px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:13px}.chip button{background:none;border:0;color:var(--muted);cursor:pointer}
+
+/* workout tools, local */
+.pgx{display:grid;grid-template-columns:1fr auto;gap:4px 10px;padding:6px 0;border-top:1px solid var(--line);font-size:14px}.pgx span{color:var(--muted);font-variant-numeric:tabular-nums}
+.plates{display:flex;align-items:center;gap:3px;margin:8px 0;min-height:64px}.plates .bar{height:10px;width:60px;background:#8a93a3;border-radius:3px}
+.plates i{display:block;width:12px;border-radius:3px;background:var(--c)}
+.rmt{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}.rmt div{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px;text-align:center;font-size:12.5px}.rmt b{display:block;font-size:15px;font-variant-numeric:tabular-nums}
+.localc{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center}
+.localc .now{display:flex;gap:12px;align-items:center}.localc .now b{font-size:40px;line-height:1;font-variant-numeric:tabular-nums}.localc .now span{display:block;color:var(--muted);font-size:13px}
+.lfc{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}.lfc div{text-align:center;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:6px 2px;font-size:12px}
+.lfc span{display:block}.lfc b{display:block;font-size:14px;font-variant-numeric:tabular-nums}.lfc .ic{font-size:11px;color:var(--muted);text-transform:capitalize}.lfc .pp{color:#7cc4ff}
+.localc .side{display:flex;flex-direction:column;gap:6px;font-size:13px;min-width:170px}.localc .side b{font-variant-numeric:tabular-nums}
+@media (max-width:900px){.localc{grid-template-columns:1fr}.lfc{grid-template-columns:repeat(4,minmax(0,1fr))}}
 /* ===== design layer: banners, one card style, spacing, polish, search ===== */
 :root{--radius:14px;--gap:16px}
 .banner{display:none}
@@ -695,6 +707,7 @@ table,td,th,.gm,.wst b,.mk,.score,.tag,.bn-s b,.otdrow .yr,.wg .t,.ucd,.mgbig{fo
   <div class="a2hs" id="a2hs" hidden></div>
   <div class="tk" id="ticker" aria-live="polite"></div>
   <div id="gdHome"></div>
+  <div class="card localc" id="localCard" style="margin-bottom:16px"></div>
   <div class="myday" id="myDay" aria-label="My day"></div>
   <div class="bigcds" id="bigCds"></div>
   <div class="cols vrow" style="margin-bottom:16px"><div class="card verse" id="verseCard"></div><div class="card" id="mktCard"></div></div>
@@ -830,6 +843,11 @@ table,td,th,.gm,.wst b,.mk,.score,.tag,.bn-s b,.otdrow .yr,.wg .t,.ucd,.mgbig{fo
 <section class="tab" id="t-workouts">
   <div class="tabhead"><h2 style="color:var(--fit)">Workouts</h2><span class="sub storeNote" id="storeNote">Loading your log…</span></div>
   <div class="kpis" id="kpis"></div>
+  <div class="grid wtools" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-bottom:16px">
+    <div class="card"><h3>Program <span class="tag" id="pgNext"></span></h3><select id="pgSel" style="width:100%;margin-bottom:10px"></select><div id="pgDay"></div><div class="row" style="gap:8px;margin-top:10px"><button class="btn pri" id="pgLoad" style="background:var(--fit);color:#06180d">Load into log</button><button class="btn sm" id="pgSkip">Skip to next day</button></div></div>
+    <div class="card"><h3>Plate calculator</h3><div class="row" style="gap:8px;flex-wrap:wrap"><label class="small muted">Target <input type="number" id="plTarget" value="225" min="0" step="5" style="width:100px"></label><label class="small muted">Bar <select id="plBar"><option value="45">45 lb</option><option value="35">35 lb</option><option value="25">25 lb</option></select></label></div><div id="plOut" style="margin-top:10px"></div></div>
+    <div class="card"><h3>1-rep max</h3><div class="row" style="gap:8px;flex-wrap:wrap"><label class="small muted">Weight <input type="number" id="rmW" value="185" min="0" step="5" style="width:96px"></label><label class="small muted">Reps <input type="number" id="rmR" value="5" min="1" max="15" style="width:70px"></label></div><div id="rmOut" style="margin-top:10px"></div></div>
+  </div>
   <div class="card" style="margin-bottom:16px"><h3>Gym days <span class="tag">last 20 weeks</span></h3><div class="heat" id="heat"></div></div>
   <div class="cols">
     <div class="card" id="logCard">
@@ -1623,6 +1641,45 @@ function renderTIL(){const el=$("#tilCard");if(!el)return;const di=dayIndex();co
   if(!pools.length){el.hidden=true;return;}const f=pools[di%pools.length];el.hidden=false;
   el.innerHTML=`<h3>Today I learned <span class="tag">${esc(f.src)}</span></h3><p style="margin:0 0 12px;font-size:15.5px;line-height:1.55">${esc(f.t)}</p><button class="btn sm" id="tilGo">Learn more</button>`;$("#tilGo").onclick=f.go;}
 function initMe(){renderBible();wireJournal();wireCountdowns();wireHabits();wireFlash();wireNotes();wireSaved();renderTIL();}
+
+/* =====================================================
+   WORKOUT TOOLS & LOCAL INFO
+   ===================================================== */
+const PROGRAMS={
+ sl5:{n:"5×5 strength (A/B)",days:[{n:"Workout A",ex:[["Squat",5,5],["Bench press",5,5],["Barbell row",5,5]]},{n:"Workout B",ex:[["Squat",5,5],["Overhead press",5,5],["Deadlift",1,5]]}]},
+ ppl:{n:"Push / Pull / Legs",days:[{n:"Push",ex:[["Bench press",4,8],["Overhead press",3,10],["Incline dumbbell press",3,10],["Triceps pushdown",3,12],["Lateral raise",3,15]]},{n:"Pull",ex:[["Deadlift",3,5],["Pull-up",3,8],["Barbell row",3,10],["Face pull",3,15],["Biceps curl",3,12]]},{n:"Legs",ex:[["Squat",4,8],["Romanian deadlift",3,10],["Leg press",3,12],["Leg curl",3,12],["Calf raise",4,15]]}]},
+ ul:{n:"Upper / Lower",days:[{n:"Upper",ex:[["Bench press",4,6],["Barbell row",4,8],["Overhead press",3,8],["Lat pulldown",3,10],["Biceps curl",2,12]]},{n:"Lower",ex:[["Squat",4,6],["Romanian deadlift",3,8],["Lunge",3,10],["Leg curl",3,12],["Calf raise",3,15]]}]},
+ fb:{n:"Full body 3×/week",days:[{n:"Full body",ex:[["Squat",3,8],["Bench press",3,8],["Barbell row",3,8],["Overhead press",2,10],["Plank",3,1]]}]}};
+function pgState(){return Store.me("program",{id:"sl5",next:0});}
+function lastWeight(name){const ws=(Store.workouts||[]).slice().sort((a,b)=>b.date.localeCompare(a.date));for(const w of ws){const e=w.exercises.find(x=>x.name.toLowerCase()===name.toLowerCase());if(e){const top=Math.max(...e.sets.map(s=>+s.weight||0));if(top)return top;}}return null;}
+function renderProgram(){const sel=$("#pgSel");if(!sel)return;const st=pgState();const P=PROGRAMS[st.id]||PROGRAMS.sl5;const d=P.days[st.next%P.days.length];
+  sel.innerHTML=Object.entries(PROGRAMS).map(([k,v])=>`<option value="${k}" ${st.id===k?"selected":""}>${v.n}</option>`).join("");$("#pgNext").textContent="Next: "+d.n;
+  $("#pgDay").innerHTML=d.ex.map(([n,sets,reps])=>{const lw=lastWeight(n);return `<div class="pgx"><b>${esc(n)}</b><span>${sets}×${reps}${lw?` · last ${lw} lb`:""}</span></div>`;}).join("");}
+function wirePrograms(){if(!$("#pgSel"))return;$("#pgSel").onchange=e=>{const st=pgState();st.id=e.target.value;st.next=0;Store.saveMe();renderProgram();};
+  $("#pgSkip").onclick=()=>{const st=pgState();st.next++;Store.saveMe();renderProgram();};
+  $("#pgLoad").onclick=()=>{const st=pgState();const P=PROGRAMS[st.id];const d=P.days[st.next%P.days.length];editingId=null;
+    draft={date:ymd(new Date()),name:`${d.n} (${P.n})`,notes:"",exercises:d.ex.map(([n,sets,reps])=>{const lw=lastWeight(n);return {name:n,sets:Array.from({length:sets},()=>({reps:String(reps),weight:lw?String(lw):""}))};})};
+    renderDraft();st.next++;Store.saveMe();renderProgram();const t=$("#logTitle");if(t)t.scrollIntoView({behavior:"smooth",block:"start"});toast(`${d.n} loaded. Adjust weights, then save.`);};renderProgram();}
+const PLATES=[[45,"#3b6fd8"],[35,"#e3b23c"],[25,"#2fb36a"],[10,"#e8e8e8"],[5,"#d94848"],[2.5,"#9aa3ad"]];
+function renderPlates(){const el=$("#plOut");if(!el)return;const t=+$("#plTarget").value||0,bar=+$("#plBar").value;let side=(t-bar)/2;
+  if(t<bar){el.innerHTML=`<p class="small muted">Target is lighter than the bar.</p>`;return;}const out=[];PLATES.forEach(([w,c])=>{while(side>=w-1e-9){out.push([w,c]);side-=w;}});
+  el.innerHTML=`<div class="plates"><span class="bar"></span>${out.map(([w,c])=>`<i style="--c:${c};height:${20+w*.9}px" title="${w} lb"></i>`).join("")}</div><div class="small"><b>Each side:</b> ${out.length?out.map(p=>p[0]).join(" + ")+" lb":"just the bar"}${side>0.01?` <span class="muted">(${(side*2).toFixed(1)} lb short; can't make exactly)</span>`:""}</div>`;}
+function renderRM(){const el=$("#rmOut");if(!el)return;const w=+$("#rmW").value||0,r=Math.max(1,+$("#rmR").value||1);const epley=r===1?w:w*(1+r/30),brz=r===1?w:w*36/(37-r);const est=Math.round((epley+brz)/2);
+  el.innerHTML=`<div class="small">Estimated 1RM <b style="font-size:22px;display:inline-block;margin-left:6px">${est} lb</b></div><div class="rmt">${[95,90,85,80,75,70,65,60].map(p=>`<div>${p}%<b>${Math.round(est*p/100/5)*5}</b></div>`).join("")}</div><div class="small dim" style="margin-top:6px">Average of the Epley and Brzycki formulas; most accurate for sets of 10 reps or fewer.</div>`;}
+function wireCalcs(){["#plTarget","#plBar"].forEach(id=>{const e=$(id);if(e)e.oninput=e.onchange=renderPlates;});["#rmW","#rmR"].forEach(id=>{const e=$(id);if(e)e.oninput=renderRM;});renderPlates();renderRM();}
+/* local */
+function sunTimes(date,lat,lon){const rad=Math.PI/180;const J=date/864e5+2440587.5-2451545;const n=Math.round(J-0.0009+lon/360);const Js=n+0.0009-lon/360;const M=(357.5291+0.98560028*Js)%360;
+  const C=1.9148*Math.sin(M*rad)+0.02*Math.sin(2*M*rad)+0.0003*Math.sin(3*M*rad);const L=(M+102.9372+C+180)%360;const Jt=2451545+Js+0.0053*Math.sin(M*rad)-0.0069*Math.sin(2*L*rad);
+  const dec=Math.asin(Math.sin(L*rad)*Math.sin(23.44*rad));const H=Math.acos((Math.sin(-0.833*rad)-Math.sin(lat*rad)*Math.sin(dec))/(Math.cos(lat*rad)*Math.cos(dec)))/rad;
+  const toDate=j=>new Date((j-2440587.5)*864e5);return {rise:toDate(Jt-H/360),set:toDate(Jt+H/360)};}
+const WX={snow:"Snow",sleet:"Sleet",rain:"Rain",drizzle:"Drizzle",cloudy:"Cloudy",partly_cloudy:"Partly cloudy",clear:"Clear",sunny:"Sunny",thunderstorm:"Storms",fog:"Fog"};
+function renderLocal(){const el=$("#localCard");const L=F&&F.local;if(!el||!L){if(el)el.style.display="none";return;}const st=sunTimes(Date.now(),L.lat,L.lon);
+  const t=x=>x.toLocaleTimeString("en-US",{...CT,hour:"numeric",minute:"2-digit"});const day=d=>new Date(d+"T12:00:00").toLocaleDateString("en-US",{weekday:"short"});
+  const today=todayKey();const days=(L.days||[]).filter(d=>d[0]>=today).slice(0,7);
+  el.innerHTML=`<div class="now"><div><b>${L.now?Math.round(L.now.temp)+"°":"—"}</b></div><div><strong>${esc(L.city)}</strong><span>${esc(L.now?L.now.cond:"")}${days[0]?` · H ${days[0][2]}° L ${days[0][3]}°`:""}</span><span class="small dim">Updated ${esc(new Date(L.asOf).toLocaleString("en-US",{...CT,weekday:"short",hour:"numeric",minute:"2-digit"}))}</span></div></div>
+   <div class="lfc">${days.map(d=>`<div><span>${day(d[0])}</span><b>${d[2]}°</b><span class="dim">${d[3]}°</span><span class="ic">${esc(WX[d[1]]||d[1])}</span>${d[4]>=30?`<span class="pp">${d[4]}%</span>`:""}</div>`).join("")}</div>
+   <div class="side"><span>Sunrise <b>${t(st.rise)}</b> · Sunset <b>${t(st.set)}</b></span>${L.gas?`<span>Gas (regular) <b>IL $${L.gas.il.toFixed(2)}</b> · US $${L.gas.us.toFixed(2)}</span><span class="small dim">AAA averages as of ${esc(newsDate(L.gas.asOf))}</span>`:""}</div>`;}
+function initLocalFit(){wirePrograms();wireCalcs();renderLocal();}
 /* =====================================================
    SEARCH EVERYTHING
    ===================================================== */
@@ -2220,7 +2277,7 @@ function renderHome(){
   const allGames=[].concat(...PLAT.map(x=>F.games[x.k].news));
   $("#homeCards").innerHTML=card("nfl","var(--nfl)",short(favTeam)+" & NFL",top(teamNews.length?teamNews:F.nfl.news,3))+card("starwars","var(--sw)","Star Wars",top(F.starwars.news,3))+card("games","var(--vg)","Video games",top(allGames,3))+card("wwe","var(--wwe)","WWE",top(F.wwe.news,3));
   renderTicker();
-  renderVerse();renderMarkets();try{renderOTD();renderMyDay();renderWatch();renderTrophies();refreshBanners();renderGameDay();}catch(e){console.error(e)}
+  renderVerse();renderMarkets();try{renderOTD();renderMyDay();renderWatch();renderTrophies();refreshBanners();renderGameDay();renderLocal();}catch(e){console.error(e)}
   renderBigCds();renderPods();
 }
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g&&!e.target.closest("a")){location.hash=g.dataset.go;}});
@@ -2536,6 +2593,7 @@ function boot(){
   try{initSWMV();}catch(e){console.error(e)}
   try{initGW();}catch(e){console.error(e)}
   try{initMe();}catch(e){console.error(e)}
+  try{initLocalFit();}catch(e){console.error(e)}
   try{initPhone();renderMyDay();renderWatch();renderTrophies();Store.onChange(()=>{try{renderTrophies();}catch(e){}});window.addEventListener("hashchange",()=>{try{refreshBanners();}catch(e){}if((location.hash||"#home").startsWith("#home"))try{renderTrophies();}catch(e){}});}catch(e){console.error(e)}
   ["nfl","sw","vg","wwe"].forEach(k=>{renderBest(k);startQuiz(k);});
   if(window.FRANCH){["bl","gta","ac"].forEach(k=>{TRIVIA[k]=FRANCH[k].trivia;renderFranchise(k);});}

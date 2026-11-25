@@ -5888,5 +5888,75 @@ window.FEED={
     "url": "https://stockanalysis.com/stocks/ttwo/"
    }
   ]
+ },
+ "local": {
+  "city": "Bloomington, IL",
+  "lat": 40.4842,
+  "lon": -88.9937,
+  "asOf": "2026-11-25T02:20:00-06:00",
+  "now": {
+   "temp": 27,
+   "cond": "Cloudy"
+  },
+  "days": [
+   [
+    "2026-11-25",
+    "snow",
+    38,
+    27,
+    35
+   ],
+   [
+    "2026-11-26",
+    "sleet",
+    41,
+    36,
+    55
+   ],
+   [
+    "2026-11-27",
+    "cloudy",
+    46,
+    35,
+    10
+   ],
+   [
+    "2026-11-28",
+    "drizzle",
+    53,
+    34,
+    10
+   ],
+   [
+    "2026-11-29",
+    "sleet",
+    45,
+    32,
+    70
+   ],
+   [
+    "2026-11-30",
+    "partly_cloudy",
+    42,
+    31,
+    5
+   ],
+   [
+    "2026-12-01",
+    "partly_cloudy",
+    46,
+    31,
+    25
+   ]
+  ],
+  "gas": {
+   "asOf": "2026-11-12",
+   "il": 4.329,
+   "us": 3.908,
+   "src": {
+    "name": "AAA",
+    "url": "https://gasprices.aaa.com/?state=IL"
+   }
+  }
  }
 };
