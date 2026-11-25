@@ -1,5 +1,5 @@
 window.FEED={
- "updated": "2026-11-25T11:15:00-06:00",
+ "updated": "2026-11-25T15:45:00-06:00",
  "nfl": {
   "week": 12,
   "standings": [
@@ -4214,6 +4214,16 @@ window.FEED={
   ],
   "news": [
    {
+    "title": "Romeo Doubs designated to return from injured reserve",
+    "summary": "The Patriots opened Doubs' 21-day practice window Wednesday after he missed four games with a shoulder injury, giving him a chance to play Sunday at the Chargers. A.J. Brown (hamstring) did not practice.",
+    "source": "CBS Sports",
+    "url": "https://www.cbssports.com/fantasy/football/news/patriots-romeo-doubs-practice-window-opened-wednesday/",
+    "date": "2026-11-25",
+    "teams": [
+     "NE"
+    ]
+   },
+   {
     "title": "Maye's injury confirmed as a fractured fibula, no surgery needed",
     "summary": "Drake Maye's injury is a fractured right fibula that won't require surgery. Rapoport says he'll miss at least six weeks, with an outside chance of returning for the last week or two if the Patriots are still in the playoff race.",
     "source": "Covers / NFL Network",
@@ -4594,7 +4604,7 @@ window.FEED={
    }
   ],
   "injuries": {
-   "asOf": "2026-11-24",
+   "asOf": "2026-11-25",
    "NE": [
     [
      "Drake Maye",
@@ -4608,14 +4618,14 @@ window.FEED={
      "WR",
      "Hamstring",
      "Doubtful",
-     "Vrabel doesn't expect him to play Sunday"
+     "Did not practice Wednesday; Vrabel doesn't expect him to play Sunday"
     ],
     [
      "Romeo Doubs",
      "WR",
      "Shoulder",
-     "IR",
-     ""
+     "IR (designated to return)",
+     "Practice window opened Wednesday; could be activated for Sunday"
     ],
     [
      "TreVeyon Henderson",
@@ -5971,29 +5981,29 @@ window.FEED={
   ]
  },
  "stocks": {
-  "asOf": "2026-11-24T16:00:00-05:00",
-  "session": "Close · Tue Nov 24",
-  "headline": "AI stocks gave back Monday's surge: the S&P 500 slipped 0.5% for its eighth loss in nine days, but the Dow rose more than 400 points as most non-tech stocks climbed.",
+  "asOf": "2026-11-25T16:00:00-05:00",
+  "session": "Close · Wed Nov 25",
+  "headline": "Stocks clawed back most of a steep morning drop: the S&P 500 finished down 0.3% after falling as much as 3.2%, the Dow rose 164 points and the Nasdaq slipped 0.6%. Markets are closed Thursday for Thanksgiving.",
   "items": [
    {
     "sym": "S&P 500",
     "name": "S&P 500",
-    "price": 7201.09,
-    "chg": -36.08,
-    "pct": -0.5,
+    "price": 7182.78,
+    "chg": -18.31,
+    "pct": -0.25,
     "idx": true
    },
    {
     "sym": "DOW",
     "name": "Dow Jones Industrial Average",
-    "price": 50018.7,
-    "chg": 423.39,
-    "pct": 0.85,
+    "price": 50182.95,
+    "chg": 164.25,
+    "pct": 0.33,
     "idx": true
    },
    {
     "sym": "NASDAQ",
-    "name": "Nasdaq Composite",
+    "name": "Nasdaq Composite · Tue close (fell 0.6% Wed)",
     "price": 23733.54,
     "chg": -356.02,
     "pct": -1.48,
@@ -6009,8 +6019,8 @@ window.FEED={
   ],
   "sources": [
    {
-    "name": "AP via WTOP",
-    "url": "https://wtop.com/national/2026/11/how-major-us-stock-indexes-fared-tuesday-11-24-2026"
+    "name": "AP via KRMG",
+    "url": "https://krmg.com/2026/11/25/how-major-us-stock-indexes-fared-wednesday-11-25-2026/"
    },
    {
     "name": "StockAnalysis (TTWO)",
@@ -6022,18 +6032,18 @@ window.FEED={
   "city": "Chatham, IL",
   "lat": 39.6762,
   "lon": -89.704,
-  "asOf": "2026-11-25T11:10:00-06:00",
+  "asOf": "2026-11-25T15:40:00-06:00",
   "now": {
-   "temp": 34,
-   "cond": "Cloudy"
+   "temp": 33,
+   "cond": "Light rain"
   },
   "days": [
    [
     "2026-11-25",
-    "snow",
+    "rain",
     35,
     28,
-    70
+    98
    ],
    [
     "2026-11-26",
@@ -6045,42 +6055,42 @@ window.FEED={
    [
     "2026-11-27",
     "cloudy",
-    45,
-    36,
+    46,
+    35,
     10
    ],
    [
     "2026-11-28",
     "drizzle",
-    55,
+    54,
     35,
     15
    ],
    [
     "2026-11-29",
     "drizzle",
-    45,
-    31,
-    45
+    44,
+    32,
+    65
    ],
    [
     "2026-11-30",
     "clear",
-    48,
+    49,
     31,
-    0
+    5
    ],
    [
     "2026-12-01",
-    "partly_cloudy",
+    "cloudy",
     49,
-    36,
+    35,
     10
    ],
    [
     "2026-12-02",
     "cloudy",
-    50,
+    53,
     38,
     10
    ]
@@ -6100,12 +6110,20 @@ window.FEED={
    [
     "2026-11-24",
     7201.09
+   ],
+   [
+    "2026-11-25",
+    7182.78
    ]
   ],
   "DOW": [
    [
     "2026-11-24",
     50018.7
+   ],
+   [
+    "2026-11-25",
+    50182.95
    ]
   ],
   "NASDAQ": [
