@@ -2,8 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0d12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Fan HQ</title>
+<link rel="artifact-thumbnail" href="thumb.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -389,6 +393,51 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 .grgods b,.grpeople b{display:block}.grgods span,.grpeople span{font-size:12px;color:var(--muted)}
 .grpeople{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px}
 @media (max-width:800px){.otdwrap{grid-template-columns:1fr}}
+
+/* my day */
+.myday{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin:0 0 16px;padding-bottom:2px}.myday::-webkit-scrollbar{display:none}
+.md{flex:1 0 190px;min-width:190px;background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--c);border-radius:12px;padding:10px 12px;cursor:pointer;color:inherit;text-align:left;font:inherit}
+.md:hover{border-color:var(--c)}.md .k{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--c)}.md b{display:block;font-size:15px;margin:3px 0 2px;line-height:1.25}.md span{font-size:12.5px;color:var(--muted)}
+/* watch guide */
+.wtrow{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);align-items:start}
+.wgday{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:12px 0 4px}.wgday:first-of-type{margin-top:4px}
+.wg{display:grid;grid-template-columns:72px 1fr auto;gap:10px;align-items:center;padding:7px 0;border-top:1px solid var(--line)}
+.wg .t{font-weight:700;font-variant-numeric:tabular-nums;font-size:13px}.wg b{font-size:14px;display:block}.wg small{color:var(--muted);font-size:12px}
+.wg .ch{font-size:11px;font-weight:700;padding:3px 7px;border-radius:6px;border:1px solid color-mix(in srgb,var(--c) 50%,transparent);color:var(--c);white-space:nowrap}
+.wg.fav b{color:#fff}.wg.fav{background:linear-gradient(90deg,color-mix(in srgb,var(--nfl) 14%,transparent),transparent 60%)}
+/* trophies */
+.tsum{display:flex;align-items:baseline;gap:8px;margin:-2px 0 10px}.tsum b{font-size:28px;color:#f3c969}
+.tgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.tr{display:flex;gap:10px;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 10px;cursor:pointer;color:inherit;font:inherit;text-align:left}
+.tr .m{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:12px;background:#2a3140;color:#7b8496;border:2px solid #3a4252}
+.tr .m.g{background:radial-gradient(circle at 35% 30%,#ffe9a0,#d4a017 70%);color:#4a3500;border-color:#f3c969}.tr .m.s{background:radial-gradient(circle at 35% 30%,#f4f6f8,#9aa3ad 70%);color:#2a3038;border-color:#d0d6dc}.tr .m.b{background:radial-gradient(circle at 35% 30%,#f2c9a0,#b06a2c 70%);color:#3a1d05;border-color:#d99a5e}
+.tr b{display:block;font-size:13.5px}.tr span{font-size:12px;color:var(--muted)}
+.ttodo{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px}.ttodo button{background:none;border:1px dashed var(--line);color:var(--muted);border-radius:999px;padding:4px 10px;font-size:12.5px;cursor:pointer}.ttodo button:hover{color:var(--text);border-color:var(--muted)}
+.tsec{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:12px 0 6px}
+/* phone polish */
+.a2hs{display:flex;gap:10px;align-items:center;background:#13233a;border:1px solid #23466e;border-radius:12px;padding:10px 12px;margin-bottom:12px;font-size:14px}
+.a2hs[hidden]{display:none}
+.bnav,.bsheet{display:none}
+@media (max-width:700px){
+  header nav#nav{display:none}
+  body{padding-bottom:calc(64px + env(safe-area-inset-bottom))}
+  header{padding-top:env(safe-area-inset-top)}
+  .bnav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;background:rgba(11,13,18,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom));justify-content:space-around}
+  .bnav a,.bnav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;text-decoration:none;color:var(--muted);font-family:inherit;font-weight:600;font-size:11px;line-height:1.1;background:none;border:0;border-radius:0;padding:6px 0;min-height:48px;cursor:pointer}
+  .bnav a.on{background:none;border-bottom:0}
+  .bnav a.on{color:var(--tc,var(--accent))}.bnav svg{display:block}
+  .bnav a[data-t=nfl]{--tc:var(--nfl)}.bnav a[data-t=wwe]{--tc:var(--wwe)}.bnav a[data-t=history]{--tc:var(--hi)}
+  .bsheet{display:block;position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.55)}.bsheet[hidden]{display:none}
+  .bsheet-in{position:absolute;left:0;right:0;bottom:0;background:var(--panel);border-radius:18px 18px 0 0;padding:14px 14px calc(18px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
+  .bsh{display:flex;justify-content:space-between;align-items:center;font-weight:700;margin-bottom:10px}
+  .bgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .bgrid a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:72px;text-decoration:none;color:var(--text);background:var(--panel2);border:1px solid var(--line);border-top:3px solid var(--c);border-radius:12px;font-weight:600;font-size:13px}
+  .tabhead{flex-wrap:wrap;gap:8px}.tabhead>div[style*="margin-left:auto"]{margin-left:0!important;width:100%}.subnav select{flex:1;min-height:44px;font-size:16px}
+  .wtrow{grid-template-columns:1fr}.tgrid{grid-template-columns:1fr}.wg{grid-template-columns:62px 1fr}.wg .ch{grid-column:2;justify-self:start}
+  input,select,textarea{font-size:16px}
+  .tk .tkt b{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;font-size:15px}.tk .tkt span{display:none}.tk{min-height:72px}.tk .tkl{padding:0 10px}
+  .btn{min-height:40px}
+}
 /* big countdowns */
 .bigcds{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-bottom:14px}
 .bcd{border-radius:16px;padding:16px 18px;border:1px solid var(--line);background:linear-gradient(150deg,color-mix(in srgb,var(--c) 22%,var(--panel)) 0%,var(--panel) 60%);cursor:pointer;position:relative;overflow:hidden}
@@ -481,16 +530,21 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
     <a href="#outages" data-t="outages">Outages</a>
   </nav>
 </header>
+<nav class="bnav" id="bnav" aria-label="Quick tabs"><a href="#home" data-t="home"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Home</a><a href="#nfl" data-t="nfl"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="12" rx="9" ry="5.5" transform="rotate(-35 12 12)"/><path d="M9.5 14.5l5-5M10.5 11.5l2 2M12 10l2 2"/></svg>NFL</a><a href="#wwe" data-t="wwe"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="8" rx="2"/><circle cx="12" cy="12" r="3.2"/><path d="M3 12H1M23 12h-2"/></svg>WWE</a><a href="#history" data-t="history"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-5 9 5"/><path d="M5 9v9M9.5 9v9M14.5 9v9M19 9v9"/><path d="M3 20h18"/></svg>History</a><button id="bMore" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>More</button></nav>
+<div class="bsheet" id="bSheet" hidden><div class="bsheet-in" role="menu"><div class="bsh">All sections<button class="btn sm" id="bClose">Close</button></div><div class="bgrid" id="bGrid"></div></div></div>
 
 <div class="wrap">
 
 <!-- HOME -->
 <section class="tab" id="t-home">
   <div class="tabhead"><h2>Today</h2><span class="sub" id="todayLbl"></span></div>
+  <div class="a2hs" id="a2hs" hidden></div>
   <div class="tk" id="ticker" aria-live="polite"></div>
+  <div class="myday" id="myDay" aria-label="My day"></div>
   <div class="bigcds" id="bigCds"></div>
   <div class="cols vrow" style="margin-bottom:16px"><div class="card verse" id="verseCard"></div><div class="card" id="mktCard"></div></div>
   <div class="card otdhome" id="otdHome" style="margin-bottom:16px"></div>
+  <div class="cols wtrow" style="margin-bottom:16px"><div class="card" id="watchCard"></div><div class="card" id="trophyCard"></div></div>
   <div class="hero" id="countdowns"></div>
   <div class="cols" style="margin-bottom:16px"><div class="card"><h3>Podcasts <span class="tag" id="podTag"></span></h3><div id="podsHome"></div></div><div class="grid g3" id="homeCards" style="grid-template-columns:1fr 1fr"></div></div>
 </section>
@@ -1006,6 +1060,79 @@ function initHistory(){renderOTD();renderHistUS();renderHistGR();if(!window.HIST
   TRIVIA.hist_us=HIST_US.quiz;TRIVIA.hist_gr=HIST_GR.quiz;TRIVIA.hist_all=HIST_US.quiz.concat(HIST_GR.quiz);Object.keys(HIQ).forEach(k=>QUIZ_BEST_EL[k]="#hiBest");
   const go=()=>{$("#hiQF").innerHTML=Object.entries(HIQ).map(([k,l])=>`<button data-v="${k}" class="${hiQ===k?"on":""}">${l}</button>`).join("");const box=$(".hiquiz");box.id="quiz-"+hiQ;renderBest(hiQ);startQuiz(hiQ);};
   $("#hiQF").onclick=e=>{const b=e.target.closest("[data-v]");if(!b)return;hiQ=b.dataset.v;go();};go();}
+
+/* =====================================================
+   MY DAY · WATCH GUIDE · TROPHY CASE · PHONE
+   ===================================================== */
+const CT={timeZone:"America/Chicago"};
+function relDays(t){const a=new Date(new Date().toLocaleString("en-US",CT));a.setHours(0,0,0,0);const b=new Date(new Date(t).toLocaleString("en-US",CT));b.setHours(0,0,0,0);const d=Math.round((b-a)/864e5);return d<=0?"today":d===1?"tomorrow":`in ${d} days`;}
+const ctTime=t=>new Date(t).toLocaleTimeString("en-US",{...CT,hour:"numeric",minute:"2-digit"});
+const ctDay=t=>new Date(t).toLocaleDateString("en-US",{...CT,weekday:"short"});
+function nextFavGame(){const now=Date.now()-3*36e5;return (F.nfl.games||[]).filter(g=>(g.away===favTeam||g.home===favTeam)&&g.status!=="final"&&Date.parse(g.time)>now).sort((a,b)=>Date.parse(a.time)-Date.parse(b.time))[0];}
+function renderMyDay(){const el=$("#myDay");if(!el||!F)return;const out=[];
+  const g=nextFavGame();const t=team(favTeam);
+  if(g){const home=g.home===favTeam,opp=home?g.away:g.home;const ng=(F.nfl.nextGames||{})[favTeam];const tv=ng&&ng.time===g.time&&ng.tv?ng.tv.split(" · ")[0]:"";
+    out.push({c:"var(--nfl)",go:"nfl-scores",k:short(favTeam),b:`${home?"vs":"@"} ${team(opp).name||opp}`,s:`${ctDay(g.time)} ${ctTime(g.time)} CT${tv?" · "+tv:""} · ${relDays(g.time)}`});}
+  const ev=(F.wwe.events||[]).filter(e=>Date.parse(e.date)>Date.now()-6*36e5).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date))[0];
+  if(ev)out.push({c:"var(--wwe)",go:"wwe",k:"WWE",b:ev.name.replace(/ 20\d\d$/,""),s:`${ctDay(ev.date)} ${ctTime(ev.date)} CT · ${relDays(ev.date)}`});
+  const ph=(F.nfl.pickHistory||[]).reduce((a,h)=>[a[0]+h.w,a[1]+h.l],[0,0]);out.push({c:"#6b8cff",go:"nfl-picks",k:"Pick'em",b:`${ph[0]}-${ph[1]} season`,s:`Week ${F.nfl.week} picks are in`});
+  const o=(F.outages&&F.outages.items||[]).filter(i=>i.status!=="resolved");out.push({c:"var(--out)",go:"outages",k:"Outages",b:o.length?`${o.length} being tracked`:"All clear",s:o.length?o[0].title:"No active US outages listed"});
+  if(F.stocks&&F.stocks.items){const sp=F.stocks.items[0];out.push({c:sp.chg>=0?"#2fd27c":"#ff6b6b",go:"",scroll:"#mktCard",k:"Markets",b:`S&P 500 ${sp.chg>=0?"▲":"▼"} ${Math.abs(sp.pct).toFixed(2)}%`,s:F.stocks.session||""});}
+  const V=window.VERSES;if(V&&V.length){const v=V[((dayIndex())%V.length+V.length)%V.length];out.push({c:"#f3c969",go:"",scroll:"#verseCard",k:"Verse",b:v[0],s:"Verse of the day"});}
+  const o2=typeof otdGet==="function"&&otdGet();if(o2&&o2.exact)out.push({c:"var(--hi)",go:"history-today",k:"On this day",b:`${o2.d.events.length} moments in history`,s:o2.date.toLocaleDateString("en-US",{month:"long",day:"numeric"})});
+  el.innerHTML=out.map(x=>`<button class="md" style="--c:${x.c}" ${x.go?`data-go="${x.go}"`:`data-scroll="${x.scroll}"`}><div class="k">${esc(x.k)}</div><b>${esc(x.b)}</b><span>${esc(x.s)}</span></button>`).join("");
+  el.onclick=e=>{const b=e.target.closest("[data-scroll]");if(b){const t=$(b.dataset.scroll);if(t)t.scrollIntoView({behavior:"smooth",block:"center"});}};}
+let WG_DAYS=7;
+function watchItems(days){const now=Date.now()-2*36e5,end=Date.now()+days*864e5;const it=[];const add=(t,o)=>{const ms=Date.parse(t);if(ms>=now&&ms<=end)it.push({...o,t});};
+  const ng=(F.nfl.nextGames||{})[favTeam];
+  (F.nfl.games||[]).forEach(g=>{if(g.status==="final")return;const fav=g.away===favTeam||g.home===favTeam;const d=new Date(new Date(g.time).toLocaleString("en-US",CT));
+    const thx=d.getMonth()===10&&d.getDate()>=22&&d.getDate()<=28&&d.getDay()===4;const bf=d.getMonth()===10&&d.getDay()===5;
+    let net=g.tag==="SNF"?"NBC · Peacock":g.tag==="MNF"?"ESPN":g.tag==="TNF"?"Prime Video":bf?"Prime Video":"";if(fav&&ng&&ng.time===g.time&&ng.tv)net=ng.tv.split(" · ")[0];
+    if(fav||g.tag||thx||bf)add(g.time,{c:"var(--nfl)",cat:"NFL",fav,title:`${team(g.away).name||g.away} at ${team(g.home).name||g.home}`,sub:[g.tag?{SNF:"Sunday Night Football",MNF:"Monday Night Football",TNF:"Thursday Night Football"}[g.tag]:thx?"Thanksgiving":bf?"Black Friday":"",g.fav&&g.favPct?`${g.fav} ${g.favPct}%`:""].filter(Boolean).join(" · "),where:net||"Local TV"});});
+  /* WWE weekly shows (Central time) */
+  const base=new Date(new Date().toLocaleString("en-US",CT));base.setHours(0,0,0,0);
+  for(let i=0;i<=days;i++){const d=new Date(base.getTime()+i*864e5);const dow=d.getDay();const show=dow===1?["Raw","Netflix"]:dow===2?["NXT","The CW"]:dow===5?["SmackDown","USA Network"]:null;
+    if(show){const iso=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}T19:00:00-06:00`;add(iso,{c:"var(--wwe)",cat:"WWE",title:`WWE ${show[0]}`,sub:"Weekly show",where:show[1]});}}
+  (F.wwe.events||[]).forEach(e=>add(e.date,{c:"var(--wwe)",cat:"WWE",fav:true,title:e.name,sub:[e.city,e.note].filter(Boolean).join(" · "),where:(e.watch||"").split(" · ")[0]||"ESPN"}));
+  (window.MARVEL&&MARVEL.upcoming||[]).forEach(u=>{if(u.date.length>7)add(u.date+"T12:00:00-06:00",{c:"var(--mv)",cat:"Movie",title:u.t,sub:"Opens in theaters",where:"Theaters",allday:true});});
+  (F.watch||[]).forEach(w=>add(w.time,{c:w.color||"var(--sw)",cat:w.cat||"Watch",title:w.title,sub:w.sub||"",where:w.where||"",allday:!!w.allday}));
+  return it.sort((a,b)=>Date.parse(a.t)-Date.parse(b.t));}
+function renderWatch(){const el=$("#watchCard");if(!el||!F)return;const items=watchItems(WG_DAYS);let last="";
+  el.innerHTML=`<h3>Watch guide <span class="tag">Next ${WG_DAYS} days · Central time</span><span class="seg" style="margin-left:auto"><button data-wgd="7" class="${WG_DAYS===7?"on":""}">7 days</button><button data-wgd="30" class="${WG_DAYS===30?"on":""}">30 days</button></span></h3>`+
+   (items.length?items.map(x=>{const day=new Date(x.t).toLocaleDateString("en-US",{...CT,weekday:"long",month:"short",day:"numeric"});const hd=day!==last?`<div class="wgday">${esc(day)}</div>`:"";last=day;
+     return hd+`<div class="wg${x.fav?" fav":""}" style="--c:${x.c}"><div class="t">${x.allday?"All day":esc(ctTime(x.t))}</div><div><b>${esc(x.title)}</b>${x.sub?`<small>${esc(x.sub)}</small>`:""}</div><span class="ch">${esc(x.where)}</span></div>`;}).join(""):`<p class="muted">Nothing scheduled in this window.</p>`)+
+   `<div class="small dim" style="margin-top:10px">Weekly WWE shows use their regular slots (Raw Mon, NXT Tue, SmackDown Fri, 7 PM CT); holidays and specials can shift them.</div>`;
+  el.onclick=e=>{const b=e.target.closest("[data-wgd]");if(b){WG_DAYS=+b.dataset.wgd;renderWatch();}};}
+const TROPHY_QUIZ=[["nfl","NFL trivia","nfl-trivia"],["sw","Star Wars","starwars-trivia"],["vg","Video games","games-trivia"],["bl","Borderlands","games-bl"],["gta","GTA","games-gta"],["ac","Assassin's Creed","games-ac"],["wwe","WWE","wwe-trivia"],["mv_all","Marvel (all)","marvel-trivia"],["mv_mcu","MCU","marvel-trivia"],["mv_fox","Fox X-Men","marvel-trivia"],["mv_sony","Sony Spider-Man","marvel-trivia"],["world","Geography","world-trivia"],["hist_us","American history","history-quiz"],["hist_gr","Ancient Greece","history-quiz"],["hist_all","History (mixed)","history-quiz"]];
+const MG_NAMES={NA:"North America",SA:"South America",EU:"Europe",AF:"Africa",AS:"Asia",OC:"Oceania",ALL:"Whole world",US:"US states",CA:"Canada"};
+function medal(score,max){const r=score/max;return r>=1?["g","10"]:r>=.8?["s",score]:r>=.6?["b",score]:["",score];}
+function renderTrophies(){const el=$("#trophyCard");if(!el)return;const best=(Store.profile&&Store.profile.best)||{};let earned=0,total=0;const tiles=[];
+  TROPHY_QUIZ.forEach(([k,l,go])=>{total++;const b=best[k];if(b==null){tiles.push({sec:"Quizzes",m:"",txt:"–",b:l,s:"Not played yet",go});return;}const [cls]=medal(b,10);if(cls)earned++;tiles.push({sec:"Quizzes",m:cls,txt:b,b:l,s:`Best ${b}/10${b===10?" · perfect!":""}`,go});});
+  Object.entries(MG_NAMES).forEach(([k,l])=>{total++;let r=null;try{r=JSON.parse(localStorage.getItem("hq_mapgame_"+k)||"null");}catch(e){}if(!r){tiles.push({sec:"Map game",m:"",txt:"–",b:l,s:"Not played yet",go:"world-game"});return;}
+    const cls=r.pct>=100?"g":r.pct>=80?"s":r.pct>=60?"b":"";if(cls)earned++;tiles.push({sec:"Map game",m:cls,txt:r.pct+"%",b:l,s:`${r.pct}% first try · ${Math.floor(r.secs/60)}:${String(r.secs%60).padStart(2,"0")}`,go:"world-game"});});
+  const sab=(Store.profile.sabers||[]).length;const ws=Store.workouts||[];const month=ws.filter(w=>(w.date||"").slice(0,7)===new Date().toISOString().slice(0,7)).length;
+  let heavy=null;ws.forEach(w=>w.exercises.forEach(e=>e.sets.forEach(st=>{const wt=+st.weight||0;if(!heavy||wt>heavy.w)heavy={w:wt,n:e.name};})));
+  const ph=(F&&F.nfl.pickHistory||[]).reduce((a,h)=>[a[0]+h.w,a[1]+h.l],[0,0]);const pct=ph[0]+ph[1]?Math.round(ph[0]/(ph[0]+ph[1])*100):0;
+  const other=[{m:sab>=5?"g":sab>=3?"s":sab>=1?"b":"",txt:sab,b:"Saber workshop",s:sab?`${sab} saber${sab===1?"":"s"} built`:"Build your first saber",go:"starwars-saber"},
+    {m:ws.length>=20?"g":ws.length>=10?"s":ws.length>=1?"b":"",txt:ws.length,b:"Workouts",s:ws.length?`${ws.length} logged · ${month} this month${heavy&&heavy.w?` · top set ${heavy.w} lb ${heavy.n}`:""}`:"Log your first workout",go:"workouts"},
+    {m:pct>=70?"g":pct>=60?"s":pct>=50?"b":"",txt:pct+"%",b:"Pick'em",s:`${ph[0]}-${ph[1]} this season`,go:"nfl-picks"}];
+  other.forEach(o=>{total++;if(o.m)earned++;tiles.push({...o,sec:"Milestones"});});
+  const secs=[...new Set(tiles.map(t=>t.sec))];
+  el.innerHTML=`<h3>Trophy case</h3><div class="tsum"><b>${earned}</b><span class="muted">of ${total} medals earned · bronze 60%+, silver 80%+, gold perfect</span></div>`+
+   secs.map(sec=>{const all=tiles.filter(t=>t.sec===sec);const played=all.filter(t=>t.txt!=="–");const todo=all.filter(t=>t.txt==="–");
+     return `<div class="tsec">${esc(sec)} <span style="font-weight:600;letter-spacing:0;text-transform:none">· ${played.length}/${all.length} played</span></div>`+
+      (played.length?`<div class="tgrid">${played.map(t=>`<button class="tr" data-go="${t.go}"><span class="m ${t.m}">${esc(String(t.txt))}</span><span><b>${esc(t.b)}</b><span>${esc(t.s)}</span></span></button>`).join("")}</div>`:"")+
+      (todo.length?`<div class="ttodo"><span class="small muted">Try next:</span> ${todo.map(t=>`<button data-go="${t.go}">${esc(t.b)}</button>`).join("")}</div>`:"");}).join("");}
+function initPhone(){const sheet=$("#bSheet"),more=$("#bMore");if(!sheet)return;
+  const tabs=[["home","Home","var(--accent)"],["nfl","NFL","var(--nfl)"],["starwars","Star Wars","var(--sw)"],["games","Video Games","var(--vg)"],["workouts","Workouts","var(--fit)"],["wwe","WWE","var(--wwe)"],["marvel","Marvel","var(--mv)"],["world","World","var(--wo)"],["history","History","var(--hi)"],["outages","Outages","var(--out)"]];
+  $("#bGrid").innerHTML=tabs.map(([k,l,c])=>`<a href="#${k}" style="--c:${c}">${esc(l)}</a>`).join("");
+  const open=v=>{sheet.hidden=!v;more.setAttribute("aria-expanded",v);};more.onclick=()=>open(true);$("#bClose").onclick=()=>open(false);sheet.onclick=e=>{if(e.target===sheet||e.target.closest("a"))open(false);};
+  const sync=()=>{const t=(location.hash||"#home").slice(1).split("-")[0];$$("#bnav a").forEach(a=>a.classList.toggle("on",a.dataset.t===t));};window.addEventListener("hashchange",sync);sync();
+  /* one-time add-to-home-screen tip on phones */
+  const tip=$("#a2hs");let seen=false;try{seen=localStorage.getItem("hq_a2hs")==="1";}catch(e){}
+  if(tip&&!seen&&window.matchMedia("(max-width:700px)").matches){tip.hidden=false;const ios=/iPhone|iPad|iPod/.test(navigator.userAgent);
+    tip.innerHTML=`<span style="flex:1">Tip: open Fan HQ in ${ios?"Safari, tap Share, then <b>Add to Home Screen</b>":"your browser, open the menu, then <b>Add to Home screen</b>"} to launch it like an app.</span><button class="btn sm" id="a2hsX">Got it</button>`;
+    $("#a2hsX").onclick=()=>{tip.hidden=true;try{localStorage.setItem("hq_a2hs","1");}catch(e){}};}}
 /* =====================================================
    NFL
    ===================================================== */
@@ -1562,7 +1689,7 @@ function renderHome(){
   const allGames=[].concat(...PLAT.map(x=>F.games[x.k].news));
   $("#homeCards").innerHTML=card("nfl","var(--nfl)",short(favTeam)+" & NFL",top(teamNews.length?teamNews:F.nfl.news,3))+card("starwars","var(--sw)","Star Wars",top(F.starwars.news,3))+card("games","var(--vg)","Video games",top(allGames,3))+card("wwe","var(--wwe)","WWE",top(F.wwe.news,3));
   renderTicker();
-  renderVerse();renderMarkets();try{renderOTD();}catch(e){}
+  renderVerse();renderMarkets();try{renderOTD();renderMyDay();renderWatch();renderTrophies();}catch(e){console.error(e)}
   renderBigCds();renderPods();
 }
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g&&!e.target.closest("a")){location.hash=g.dataset.go;}});
@@ -1846,6 +1973,7 @@ function boot(){
   try{if(window.WORLD){TRIVIA.world=WORLD.quiz();QUIZ_BEST_EL.world="#wBest";WORLD.init();renderBest("world");startQuiz("world");}}catch(e){console.error(e)}
   try{if(window.MAPGAME)MAPGAME.init();}catch(e){console.error(e)}
   try{initHistory();}catch(e){console.error(e)}
+  try{initPhone();renderMyDay();renderWatch();renderTrophies();Store.onChange(()=>{try{renderTrophies();}catch(e){}});window.addEventListener("hashchange",()=>{if((location.hash||"#home").startsWith("#home"))try{renderTrophies();}catch(e){}});}catch(e){console.error(e)}
   ["nfl","sw","vg","wwe"].forEach(k=>{renderBest(k);startQuiz(k);});
   if(window.FRANCH){["bl","gta","ac"].forEach(k=>{TRIVIA[k]=FRANCH[k].trivia;renderFranchise(k);});}
   renderSaberOpts();renderSaber();wireSaber();savedSabers();wireArchive();
