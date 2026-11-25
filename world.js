@@ -91,9 +91,12 @@ function decodeEcharts(json){if(!json.UTF8Encoding)return json.features;const sc
 function loadEcharts(url){return new Promise(async(ok,no)=>{const prev=window.echarts;let got=null;
   window.echarts={registerMap:(n,j)=>{got=j;}};try{await loadScript(url);}catch(e){window.echarts=prev;return no(e);}window.echarts=prev;
   if(!got)return no(new Error("no map registered"));try{ok(decodeEcharts(got));}catch(e){no(e);}});}
+function geoFeatures(g){if(!g||!g.features)throw new Error("not GeoJSON");return g.features.filter(f=>f.geometry&&/Polygon/.test(f.geometry.type)).map(f=>({type:"Feature",id:f.id||(f.properties&&f.properties.id),properties:f.properties||{},geometry:f.geometry}));}
 function jsonImport(url){return withTimeout(import(url,{with:{type:"json"}}),12000).then(m=>{const t=m.default;return topoFeatures(t,t.objects.countries);});}
 const SOURCES=[
  {name:"Natural Earth via ECharts",load:()=>loadEcharts("https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js").catch(()=>loadEcharts("https://unpkg.com/echarts@4.9.0/map/js/world.js"))},
+ {name:"amCharts world map",load:()=>withTimeout(import("https://cdn.jsdelivr.net/npm/@amcharts/amcharts5-geodata@5/worldLow.js"),12000).then(m=>geoFeatures(m.default))},
+ {name:"amCharts 4 world map",load:()=>withTimeout(import("https://cdn.jsdelivr.net/npm/@amcharts/amcharts4-geodata@4/worldLow.js"),12000).then(m=>geoFeatures(m.default))},
  {name:"Natural Earth via Datamaps",load:async()=>{await loadScript("https://cdn.jsdelivr.net/npm/datamaps@0.5.9/dist/datamaps.world.min.js");const D=window.Datamap||window.Datamaps;const t=D&&D.prototype.worldTopo;if(!t||typeof t!=="object")throw new Error("no topology");return topoFeatures(t,t.objects.world);}},
  {name:"Natural Earth (world-atlas)",load:()=>jsonImport("https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json")},
  {name:"Natural Earth (world-atlas, unpkg)",load:()=>jsonImport("https://unpkg.com/world-atlas@2.0.2/countries-110m.json")}
@@ -108,7 +111,7 @@ async function loadWorld(){await ensureD3();const min=window.WORLD_MINF||50;cons
   /* try every source at once; the first good one wins */
   return await new Promise((ok,no)=>{let left=SOURCES.length,done=false;
     SOURCES.forEach(s=>{Promise.resolve().then(()=>s.load()).then(fs=>{if(done)return;if(fs&&fs.length>=min){done=true;S.src=s.name;ok(fs);}else throw new Error("only "+(fs?fs.length:0)+" shapes");})
-      .catch(e=>{errs.push(s.name+": "+(e&&e.message||e));console.warn("[world]",s.name,e);}).finally(()=>{if(--left===0&&!done)no(new Error(errs.join(" · ")));});});});}
+      .catch(e=>{errs.push(s.name+" — "+(e&&e.message||e));console.warn("[world]",s.name,e);}).finally(()=>{if(--left===0&&!done)no(new Error(errs.join(" · ")));});});});}
 
 /* ---------- rendering ---------- */
 function contColor(d){return d?CONT[d.cont]&&CONT[d.cont].c:"#7d8796";}
@@ -222,8 +225,8 @@ async function init(){canvas=$("#wGlobe");if(!canvas)return;ctx=canvas.getContex
 async function loadAndShow(){const st=$("#wStatus");
   try{const feats=await loadWorld();proj=d3.geoOrthographic().clipAngle(90).precision(.4);path=d3.geoPath(proj,ctx);grat=d3.geoGraticule10();
     S.feats=feats.map(rewind).map(f=>{f._id=resolveId(f);f._d=f._id?DATA[f._id]:null;return f;});S.featIds=new Set(S.feats.map(f=>f._id).filter(Boolean));S.ready=true;st.hidden=true;size();if(!S.looping){S.looping=1;spinLoop();}
-    $("#wSrc").textContent="Borders: "+S.src+" (public domain). Very small islands are too tiny to outline; find them with search.";}
-  catch(e){S.err=e;st.hidden=false;st.innerHTML=`<b>The 3D map couldn't load.</b><br>You can still explore every continent and country from the panel.<div style="margin-top:8px"><button class="btn sm" id="wRetry">Try again</button></div><details style="margin-top:8px;text-align:left"><summary class="small">Details</summary><div class="small muted" style="max-height:120px;overflow:auto">${esc(e.message)}</div></details>`;
+    $("#wSrc").textContent="Borders: "+S.src+". Very small islands are too tiny to outline; find them with search.";}
+  catch(e){S.err=e;st.hidden=false;st.innerHTML=`<b>The 3D map couldn't load.</b><br>You can still explore every continent and country from the panel.<div style="margin-top:8px"><button class="btn sm" id="wRetry">Try again</button></div><details style="margin-top:8px;text-align:left"><summary class="small">Details</summary><div class="small muted" style="max-height:140px;overflow:auto;white-space:pre-wrap">${esc(e.message.split(" · ").join("\n"))}\nBrowser: ${esc(navigator.userAgent)}</div></details>`;
     $("#wRetry").onclick=()=>{st.textContent="Loading the globe…";loadAndShow();};}}
 window.WORLD={init,select:selectCountry,cont:selectCont,quiz:buildQuiz,data:DATA,CONT};
 })();
