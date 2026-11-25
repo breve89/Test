@@ -10,7 +10,7 @@
 :root{
   --bg:#0b0d12; --panel:#141821; --panel2:#1b202b; --line:#262c39; --text:#e9ecf2; --muted:#9aa3b5; --dim:#6b7489;
   --accent:#4f8cff; --good:#3ddc84; --warn:#ffb648; --bad:#ff5a5f;
-  --nfl:#c8102e; --nfl2:#3a5bbf; --sw:#ffe81f; --vg:#a26bff; --fit:#2fd27c; --wwe:#ff3b3b; --out:#38bdf8; --mv:#e23636;
+  --nfl:#c8102e; --nfl2:#3a5bbf; --sw:#ffe81f; --vg:#a26bff; --fit:#2fd27c; --wwe:#ff3b3b; --out:#38bdf8; --mv:#e23636; --wo:#3fa9f5;
   --radius:14px;
 }
 *{box-sizing:border-box}
@@ -328,6 +328,36 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 .mvc .mq button.right{border-color:#2fd27c;background:rgba(47,210,124,.12)}.mvc .mq button.wrong{border-color:#ff6b6b;background:rgba(255,107,107,.12)}
 .mvc .mq .ex{margin-top:6px;font-size:12.5px;color:var(--muted)}
 .mvc .soon{font-size:11px;font-weight:800;color:#ffcf5a;border:1px solid #6b5520;border-radius:6px;padding:2px 6px}
+
+/* world */
+.wtop{gap:10px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+.wchips{flex-wrap:wrap}.wchips button i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--c);margin-right:6px;vertical-align:1px}
+.wsearch{position:relative;min-width:240px}.wsearch input{width:100%}
+.wsug{position:absolute;z-index:20;top:calc(100% + 4px);left:0;right:0;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.wsug button{display:flex;gap:8px;align-items:center;width:100%;background:none;border:0;color:inherit;padding:9px 10px;text-align:left;cursor:pointer;font-size:14px}
+.wsug button:hover,.wsug button:focus{background:var(--panel2)}.wsug small{margin-left:auto;color:var(--muted)}
+.wgrid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:14px;align-items:start}
+.wglobe{padding:10px;background:radial-gradient(ellipse at 50% 40%,#0f1d33 0%,var(--panel) 70%)}
+.wcv{position:relative}.wcv canvas{display:block;width:100%;cursor:grab;touch-action:none;border-radius:10px}.wcv canvas:active{cursor:grabbing}
+.wtip{position:absolute;pointer-events:none;background:rgba(10,16,28,.92);color:#fff;font-size:13px;font-weight:600;padding:4px 8px;border-radius:6px;border:1px solid rgba(255,255,255,.15)}
+.wstatus{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(10,16,28,.85);padding:10px 14px;border-radius:10px;max-width:80%;text-align:center;font-size:14px}
+.wctl{position:absolute;right:8px;bottom:8px;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.wpanel{max-height:680px;overflow:auto}
+.wpanel h3{margin:4px 0 8px;font-size:22px}.wpanel h4{margin:16px 0 6px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.wpanel p{margin:0;line-height:1.55}
+.wcrumb{font-size:13px;color:var(--muted);margin-bottom:6px}.wlink{background:none;border:0;color:var(--wo);cursor:pointer;padding:0;font:inherit}
+.whd{display:flex;gap:12px;align-items:center}.wflag{font-size:40px;line-height:1}
+.wstats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+.wst{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 10px}.wst span{display:block;font-size:12px;color:var(--muted)}.wst b{font-size:14px;font-weight:600}
+.wlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.wlist button,.wconts button{background:var(--panel2);border:1px solid var(--line);color:inherit;border-radius:8px;padding:8px 10px;text-align:left;cursor:pointer;font-size:14px;display:flex;gap:8px;align-items:center}
+.wlist button:hover,.wconts button:hover{border-color:var(--wo)}
+.wconts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+.wconts button{flex-direction:column;align-items:flex-start;border-left:4px solid var(--c)}.wconts span{font-size:12px;color:var(--muted)}
+.wnav{display:flex;justify-content:space-between;gap:8px;margin-top:16px;flex-wrap:wrap}
+.wtl{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--line);border-left:3px solid var(--c);padding-left:12px}
+.wtl .when{font-weight:700;color:var(--c);font-variant-numeric:tabular-nums}.wtl p{margin:4px 0 0;color:#cfd5e0}
+@media (max-width:900px){.wgrid{grid-template-columns:1fr}.wpanel{max-height:none}}
+@media (max-width:520px){.wtl{grid-template-columns:1fr}.wstats,.wlist,.wconts{grid-template-columns:1fr}}
 /* big countdowns */
 .bigcds{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-bottom:14px}
 .bcd{border-radius:16px;padding:16px 18px;border:1px solid var(--line);background:linear-gradient(150deg,color-mix(in srgb,var(--c) 22%,var(--panel)) 0%,var(--panel) 60%);cursor:pointer;position:relative;overflow:hidden}
@@ -415,6 +445,7 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
     <a href="#workouts" data-t="workouts">Workouts</a>
     <a href="#wwe" data-t="wwe">WWE</a>
     <a href="#marvel" data-t="marvel">Marvel</a>
+    <a href="#world" data-t="world">World</a>
     <a href="#outages" data-t="outages">Outages</a>
   </nav>
 </header>
@@ -587,6 +618,20 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
       <div class="seg" id="mvQFr" style="margin-bottom:12px"></div><div id="quiz-mv_all" class="mvquiz"></div></div>
   </div>
 </section>
+<section class="tab" id="t-world">
+  <div class="tabhead"><h2 style="color:var(--wo)">World</h2><span class="sub">Spin the globe and learn the geography and history of every country</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="world"><option value="explore">Explore the globe</option><option value="timeline">World history timeline</option><option value="trivia">Geography quiz</option></select></div></div></div>
+  <div class="subp" data-tab="world" data-sub="explore">
+    <div class="row wtop"><div class="seg wchips" id="wChips"></div><span class="sp"></span><div class="wsearch"><input type="text" id="wSearch" placeholder="Search a country or capital" autocomplete="off" aria-label="Search a country or capital"><div class="wsug" id="wSug" hidden></div></div></div>
+    <div class="wgrid">
+      <div class="card wglobe"><div class="wcv"><canvas id="wGlobe" tabindex="0" aria-label="3D globe. Drag to rotate, scroll to zoom, click a country."></canvas><div class="wtip" id="wTip" hidden></div><div class="wstatus" id="wStatus" hidden></div>
+        <div class="wctl"><button class="btn sm" id="wZin" aria-label="Zoom in">+</button><button class="btn sm" id="wZout" aria-label="Zoom out">−</button><button class="btn sm" id="wReset">Reset</button><button class="btn sm" id="wSpin">Pause spin</button></div></div>
+        <div class="small dim" id="wSrc" style="margin-top:8px"></div></div>
+      <div class="card wpanel" id="wPanel"></div>
+    </div>
+  </div>
+  <div class="subp" data-tab="world" data-sub="timeline"><div class="card"><h3>World history timeline</h3><div class="seg" id="wTlF" style="margin-bottom:12px;flex-wrap:wrap"></div><div id="wTimeline"></div></div></div>
+  <div class="subp" data-tab="world" data-sub="trivia"><div class="card quiz" style="--qc:var(--wo);max-width:760px"><h3>Geography quiz <span class="tag" id="wBest"></span></h3><p class="small muted" style="margin-top:-4px">Capitals, continents, biggest and most populous countries. New questions every round.</p><div id="quiz-world"></div></div></div>
+</section>
 <section class="tab" id="t-outages">
   <div class="tabhead"><h2 style="color:var(--out)">Outages</h2><span class="sub">US internet, app, phone and power outages</span></div>
   <div class="card" style="margin-bottom:14px;border-color:#1e3a4a;background:linear-gradient(160deg,#0b2230 0%,var(--panel) 60%)"><div class="row"><span class="pill" style="color:var(--out);border-color:#1e4a5e" id="outNow"></span><span class="sp"></span><span class="small muted" id="outAsOf"></span></div><p style="margin:10px 0 0" id="outSummary"></p></div>
@@ -622,6 +667,12 @@ th.sort{cursor:pointer;user-select:none}th.sort:hover{color:var(--text)}th.sort.
 <script src="saber3d.js"></script>
 <script src="characters.js"></script>
 <script src="marvel.js"></script>
+<script src="world_iso.js"></script>
+<script src="world_af.js"></script>
+<script src="world_as.js"></script>
+<script src="world_eu.js"></script>
+<script src="world_am.js"></script>
+<script src="world.js"></script>
 <script>
 (function(){
 "use strict";
@@ -650,8 +701,8 @@ function newsList(items,el,emptyMsg){
 }
 
 /* ---------- tabs ---------- */
-const TABS=["home","nfl","starwars","games","workouts","wwe","marvel","outages"];
-const SUBS={nfl:["overview","scores","picks","insiders","stats","trivia"],starwars:["news","saber","archive","characters","trivia"],games:["news","bl","gta","ac","trivia"],wwe:["news","champions","trivia"],marvel:["movies","trivia"]};
+const TABS=["home","nfl","starwars","games","workouts","wwe","marvel","world","outages"];
+const SUBS={nfl:["overview","scores","picks","insiders","stats","trivia"],starwars:["news","saber","archive","characters","trivia"],games:["news","bl","gta","ac","trivia"],wwe:["news","champions","trivia"],marvel:["movies","trivia"],world:["explore","timeline","trivia"]};
 const subState=lsGet("hq_subs",{});
 function showSub(tab,sub){if(!SUBS[tab])return;if(!SUBS[tab].includes(sub))sub=subState[tab]||SUBS[tab][0];subState[tab]=sub;lsSet("hq_subs",subState);
   $$(`.subp[data-tab="${tab}"]`).forEach(p=>p.classList.toggle("on",p.dataset.sub===sub));const sel=$(`.subsel[data-tab="${tab}"]`);if(sel)sel.value=sub;}
@@ -1522,8 +1573,13 @@ BANNERS.marvel=`<svg viewBox="0 0 1200 150" preserveAspectRatio="xMidYMid slice"
 <g fill="#2a0a0e" opacity=".9">${[[560,70],[600,50],[640,85],[680,40],[730,65],[770,30],[820,75],[860,55],[910,80],[950,45],[1000,70],[1050,60],[1100,85]].map(([x,h])=>`<rect x="${x}" y="${150-h}" width="38" height="${h}"/>`).join("")}</g>
 <g transform="translate(900 58)" opacity=".85"><path d="M0 -46 L12 -16 L44 -22 L20 2 L38 30 L6 18 L-6 46 L-12 16 L-44 22 L-22 -2 L-40 -30 L-8 -18 Z" fill="#ffd23f"/><path d="M0 -30 L8 -10 L28 -14 L13 2 L24 20 L4 12 L-4 30 L-8 10 L-28 14 L-14 -2 L-26 -20 L-6 -12 Z" fill="#e23636"/></g>
 <path d="M700 30 L735 55 L712 64 L752 104" stroke="#ffd23f" stroke-width="6" fill="none" stroke-linejoin="round" opacity=".6"/></svg>`;
+BANNERS.world=`<svg viewBox="0 0 1200 150" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="wob" x1="0" x2="1"><stop offset="0" stop-color="#03101f"/><stop offset="1" stop-color="#0a2340"/></linearGradient><radialGradient id="wog" cx=".38" cy=".35" r=".7"><stop offset="0" stop-color="#3b82c9"/><stop offset=".7" stop-color="#16467d"/><stop offset="1" stop-color="#0a2547"/></radialGradient></defs><rect width="1200" height="150" fill="url(#wob)"/>
+${Array.from({length:60},(_,i)=>`<circle cx="${(i*197)%1200}" cy="${(i*71)%150}" r="${i%5?0.8:1.4}" fill="#fff" opacity="${.25+(i%4)*.12}"/>`).join("")}
+<circle cx="920" cy="150" r="128" fill="#5aa0ff" opacity=".12"/><circle cx="920" cy="150" r="118" fill="url(#wog)"/>
+<g fill="#3fb57a" opacity=".85"><path d="M850 70 q30 -20 60 -6 q14 18 -6 30 q-24 8 -40 30 q-18 -10 -14 -54z"/><path d="M955 60 q26 -8 40 10 q-6 24 -26 20 q-10 30 -30 40 q-8 -30 16 -70z"/><path d="M880 120 q20 -6 30 8 l-6 22 h-34z"/></g>
+<g fill="none" stroke="#fff" stroke-opacity=".12"><ellipse cx="920" cy="150" rx="118" ry="40"/><ellipse cx="920" cy="150" rx="60" ry="118"/></g></svg>`;
 BANNERS.outages=`<svg viewBox="0 0 1200 150" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="obg" x1="0" x2="1"><stop offset="0" stop-color="#04131c"/><stop offset="1" stop-color="#0a2533"/></linearGradient></defs><rect width="1200" height="150" fill="url(#obg)"/><g stroke="#1e4a5e" stroke-width="2" fill="none"><path d="M560 150 L600 20 L640 150 M575 100 L625 100 M585 65 L615 65"/><path d="M820 150 L850 40 L880 150 M832 105 L868 105"/><path d="M600 32 Q725 70 850 48" stroke="#2a6680"/><path d="M600 48 Q725 86 850 62" stroke="#2a6680"/></g><g transform="translate(980 60)" fill="#38bdf8"><rect x="0" y="40" width="16" height="20" rx="2" opacity=".9"/><rect x="24" y="25" width="16" height="35" rx="2" opacity=".6"/><rect x="48" y="10" width="16" height="50" rx="2" opacity=".3"/><rect x="72" y="-5" width="16" height="65" rx="2" opacity=".15"/></g><path d="M1110 30 L1090 75 L1108 75 L1094 120 L1132 62 L1112 62 L1126 30Z" fill="#fbbf24" opacity=".85"/><g fill="#38bdf8" opacity=".5"><circle cx="740" cy="110" r="3"/><circle cx="700" cy="125" r="2"/><circle cx="780" cy="128" r="2.5"/></g></svg>`;
-const BANNER_TEXT={home:["Fan HQ","Everything you follow, in one place","var(--text)"],nfl:["NFL","","var(--nfl)"],starwars:["Star Wars","News, saber workshop and trivia","var(--sw)"],games:["Video Games","","var(--vg)"],workouts:["Workouts","","var(--fit)"],wwe:["WWE","News, champions and upcoming premium live events","var(--wwe)"],outages:["Outages","","var(--out)"],marvel:["Marvel","","var(--mv)"]};
+const BANNER_TEXT={home:["Fan HQ","Everything you follow, in one place","var(--text)"],nfl:["NFL","","var(--nfl)"],starwars:["Star Wars","News, saber workshop and trivia","var(--sw)"],games:["Video Games","","var(--vg)"],workouts:["Workouts","","var(--fit)"],wwe:["WWE","News, champions and upcoming premium live events","var(--wwe)"],outages:["Outages","","var(--out)"],marvel:["Marvel","","var(--mv)"],world:["World","","var(--wo)"]};
 function addBanners(){
   Object.keys(BANNERS).forEach(k=>{const sec=$("#t-"+k);const head=sec.querySelector(".tabhead");const h2=head.querySelector("h2");const sub=head.querySelector(".sub");
     const b=document.createElement("div");b.className="banner";b.innerHTML=BANNERS[k]+`<div class="bt"><h2 style="color:${BANNER_TEXT[k][2]}">${esc(BANNER_TEXT[k][0])}</h2></div>`;
@@ -1687,6 +1743,7 @@ function boot(){
   showTab();
   if(F){wireNFL();renderNFL();wirePicks();renderPicks();wireStats();renderStats();wirePlayerStats();newsList(F.starwars.news,$("#swNews"));wireGames();renderGames2();renderWWE();renderChamps();renderOutages();renderScores();renderInsiders();}
   try{initMarvel();}catch(e){console.error(e)}
+  try{if(window.WORLD){TRIVIA.world=WORLD.quiz();QUIZ_BEST_EL.world="#wBest";WORLD.init();renderBest("world");startQuiz("world");}}catch(e){console.error(e)}
   ["nfl","sw","vg","wwe"].forEach(k=>{renderBest(k);startQuiz(k);});
   if(window.FRANCH){["bl","gta","ac"].forEach(k=>{TRIVIA[k]=FRANCH[k].trivia;renderFranchise(k);});}
   renderSaberOpts();renderSaber();wireSaber();savedSabers();wireArchive();
