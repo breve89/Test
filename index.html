@@ -67,7 +67,7 @@ section.tab.on{display:block}
 .btn.sm{padding:5px 10px;font-size:13px}
 .btn.ghost{background:transparent}
 .btn:disabled{opacity:.5;cursor:default}
-input[type=text],input[type=number],input[type=date],select,textarea{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:8px 10px;outline:none;min-width:0}
+input[type=text],input[type=number],input[type=date],input:not([type]),input[type=search],input[type=url],select,textarea{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:8px 10px;outline:none;min-width:0}
 input:focus,select:focus,textarea:focus{border-color:var(--accent)}
 select{cursor:pointer}
 
@@ -672,7 +672,114 @@ table,td,th,.gm,.wst b,.mk,.score,.tag,.bn-s b,.otdrow .yr,.wg .t,.ucd,.mgbig{fo
 .gs-empty{padding:14px 10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px;color:var(--muted)}.gs-empty button{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:999px;padding:5px 12px;cursor:pointer;font:inherit;font-size:13px}
 .gs-ft{border-top:1px solid var(--line);padding:8px 14px}
 @media (max-width:700px){.gsbtn{min-width:0;padding:8px}.gsbtn span,.gsbtn kbd{display:none}.hbar .upd{display:none}.gs{padding:0}.gs-box{max-height:100vh;height:100%;border-radius:0}.gs-ft{display:none}.gs-it{flex-direction:column;gap:2px}.gs-it b{max-width:100%}}
+
+/* ===== design pass 2 ===== */
+#setSheet{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.5);display:flex;align-items:flex-start;justify-content:center;padding:70px 14px}#setSheet[hidden]{display:none}
+#setSheet .setin{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:14px 18px 8px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+#setSheet .bsh{display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:17px;padding-bottom:10px}
+@media (max-width:760px){#setSheet{align-items:flex-end;padding:0}#setSheet .setin{border-radius:18px 18px 0 0;max-width:none;padding-bottom:calc(14px + env(safe-area-inset-bottom))}}
+.setbtn{min-width:0!important;padding:8px 10px!important}
+nav .ngrp{position:relative;flex:none;display:flex}
+nav .ngb{background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);font-weight:600;font-size:14px;padding:9px 14px 11px;border-radius:10px 10px 0 0;cursor:pointer;display:flex;gap:6px;align-items:center}
+nav .ngb i{font-style:normal;font-size:10px;opacity:.7}nav .ngb:hover{color:var(--text)}
+nav .ngb.on{color:var(--text);background:var(--panel);border-bottom-color:var(--tc,var(--accent))}
+.ngm{display:none;position:fixed;z-index:60;min-width:190px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px;box-shadow:0 16px 40px rgba(0,0,0,.35)}
+.ngm.open{display:block}.ngm a{display:block;text-decoration:none;font-weight:600;border:0!important;border-radius:8px!important;padding:9px 12px!important;background:none!important;color:var(--text)!important}
+.ngm a:hover,.ngm a.on{background:var(--panel2)!important}.ngm a.on{box-shadow:inset 3px 0 0 var(--tc,var(--accent))}
+.ngm a[data-t=starwars],.ngrp[data-g=fan]{--tc:var(--sw)}.ngm a[data-t=marvel]{--tc:var(--mv)}.ngm a[data-t=games]{--tc:var(--vg)}.ngm a[data-t=world],.ngrp[data-g=learn]{--tc:var(--wo)}.ngm a[data-t=history]{--tc:var(--hi)}
+nav a[data-t=me]{--tc:var(--me)}nav a[data-t=outages]{--tc:var(--out)}
+.setin{max-width:460px}.prefrow{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 2px;border-top:1px solid var(--line);font-weight:600}
+.prefrow small{display:block;font-weight:400;color:var(--muted);font-size:12.5px}.prefrow input[type=checkbox]{width:22px;height:22px;accent-color:var(--accent)}
+/* home customize */
+.hcbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--panel);border:1px dashed var(--accent);border-radius:12px;padding:10px 14px;margin-bottom:14px}
+.hcbar[hidden]{display:none}
+.hb-wrap{position:relative}
+html.hcust .hb-wrap{outline:1px dashed var(--line);outline-offset:4px;border-radius:12px;margin-bottom:22px;padding-top:34px;min-height:40px}
+.hbtool{display:none;position:absolute;top:0;left:0;right:0;height:28px;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--muted);cursor:grab}
+html.hcust .hbtool{display:flex}.hbtool .sp{flex:1}.hbtool button{background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:7px;padding:2px 9px;font-size:12.5px;cursor:pointer}
+.hb-wrap.hb-off{display:none}html.hcust .hb-wrap.hb-off{display:block;opacity:.4}html.hcust .hb-wrap.hb-off>*:not(.hbtool){pointer-events:none}
+.hb-wrap.drag{opacity:.5}.hb-wrap.over{box-shadow:0 -3px 0 var(--accent)}
+/* game day + celebration */
+html.gameday{--accent:var(--gdc2)}
+html.gameday header{border-bottom:3px solid var(--gdc2);box-shadow:inset 0 -3px 0 var(--gdc1)}
+html.gameday .tk{border-color:var(--gdc2)}
+.winb{position:relative;overflow:hidden;border-radius:16px;padding:18px 20px;margin-bottom:16px;background:linear-gradient(110deg,var(--gdc1),color-mix(in srgb,var(--gdc1) 55%,var(--gdc2)));color:#fff;border:1px solid rgba(255,255,255,.15)}
+.winb b{font-family:Oswald,Impact,sans-serif;font-size:26px;letter-spacing:.03em;display:block}.winb span{opacity:.9}.winb button{position:absolute;top:10px;right:10px;background:rgba(0,0,0,.25);border:0;color:#fff;border-radius:8px;width:28px;height:28px;cursor:pointer}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:90}
+/* seasonal */
+.seastrip{height:4px;background:var(--sea,transparent)}.seastrip[hidden]{display:none}
+html.sea-xmas{--sea:repeating-linear-gradient(90deg,#c8102e 0 22px,#f4f4f4 22px 30px,#1b7f3b 30px 52px,#f4f4f4 52px 60px)}
+html.sea-thx{--sea:linear-gradient(90deg,#b5541c,#e0a031,#8a3b12,#e0a031,#b5541c)}
+html.sea-ny{--sea:linear-gradient(90deg,#d4af37,#fff3c4,#d4af37)}
+html.sea-sb{--sea:linear-gradient(90deg,#013369,#d50a0a,#013369)}
+.snow{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}.snow i{position:absolute;top:-10px;width:5px;height:5px;border-radius:50%;background:#fff;opacity:.45;animation:snowf linear infinite}
+html[data-theme=light] .snow i{background:#9bb7d9}
+@keyframes snowf{to{transform:translate3d(var(--dx),105vh,0)}}
+@media (prefers-reduced-motion:reduce){.snow{display:none}}
+.seacard{display:flex;gap:18px;align-items:center;background:linear-gradient(120deg,#5b0f18,#123d23);color:#fff;border-radius:16px;padding:16px 20px;border:1px solid rgba(255,255,255,.12)}
+.seacard .n{font-family:Oswald,Impact,sans-serif;font-size:44px;line-height:1}.seacard small{opacity:.85;display:block}.seacard b{font-size:17px}
+.seacard.thx{background:linear-gradient(120deg,#6b2e0e,#9a5a16)}.seacard.ny{background:linear-gradient(120deg,#1d1a10,#5a4a12)}.seacard.sb{background:linear-gradient(120deg,#013369,#7a0a0a)}
+/* charts */
+.spark{width:64px;height:20px;display:block;flex:none}
+.pchart{display:flex;align-items:flex-end;gap:8px;height:140px;padding-top:8px}
+.pchart .b{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;min-width:0}
+.pchart .b i{display:block;width:100%;max-width:38px;border-radius:6px 6px 2px 2px;background:var(--good)}.pchart .b i.lo{background:var(--warn)}
+.pchart .b span{font-size:11px;color:var(--muted);white-space:nowrap}.pchart .b em{font-style:normal;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
+/* light theme */
+html[data-theme=light]{--bg:#f3f5f9;--panel:#ffffff;--panel2:#eef1f6;--line:#dde2ea;--text:#151a24;--muted:#556074;--dim:#7d8799;--sw:#a88f00}
+html[data-theme=light] header{background:rgba(255,255,255,.92)}
+html[data-theme=light] .card{box-shadow:0 1px 2px rgba(20,30,50,.05)}
+html[data-theme=light] .ngm,html[data-theme=light] .gs-box{box-shadow:0 16px 40px rgba(20,30,50,.15)}
+html[data-theme=light] .bnav{background:rgba(255,255,255,.95)!important}
+
+html[data-theme=light] :is(.banner2,.banner,.verse,.tk,.gd,.frhead,.saberstage,.champcol,.mvup,.seacard,.winb,.a2hs){--text:#e9ecf2;--muted:#a5aec0;--dim:#7a8398;--panel:#141821;--panel2:#1b202b;--line:#2b3242;color:var(--text)}
+html[data-theme=light] .ticks div{background:var(--panel2)}
+html[data-theme=light] .pk .tb.mine,html[data-theme=light] .pk .tb.mine .nm,html[data-theme=light] .wg.fav b{color:var(--text)}
+html[data-theme=light] .mgtarget{color:#b7791f}html[data-theme=light] .tsum b{color:#a87a12}
+html[data-theme=light] .st.Out,html[data-theme=light] .st.IR{color:#c53030}html[data-theme=light] .mk .c.up{color:#15803d}html[data-theme=light] .mk .c.dn{color:#c53030}
+html[data-theme=light] .ost.ongoing{background:#fde2e2;color:#b42318}html[data-theme=light] .ost.resolved{background:#dcfce7;color:#166534}html[data-theme=light] .ost.unknown{background:#fef9c3;color:#854d0e}
+html[data-theme=light] .bcd{background:linear-gradient(150deg,color-mix(in srgb,var(--c) 12%,#fff) 0%,#fff 60%)}
+/* ===== features 2 ===== */
+.chal .chq{font-size:17px;font-weight:600;margin:4px 0 12px;line-height:1.45}
+.chopts{display:grid;grid-template-columns:1fr 1fr;gap:8px}.chopts button{text-align:left;padding:11px 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--text);cursor:pointer;font:inherit;font-size:14.5px}
+.chopts button:hover:not(:disabled){border-color:var(--accent)}.chopts button.right{border-color:var(--good);background:color-mix(in srgb,var(--good) 16%,var(--panel2))}.chopts button.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 14%,var(--panel2))}
+.chexp{margin-top:12px;font-size:14px;color:var(--muted);display:flex;gap:10px;align-items:center;flex-wrap:wrap}.chexp b{color:var(--text)}.chexp .btn{margin-left:auto}
+.chprog{display:flex;gap:6px;align-items:center;margin-top:12px}.chprog i{width:26px;height:6px;border-radius:3px;background:var(--line)}.chprog i.ok{background:var(--good)}.chprog i.no{background:var(--bad)}.chprog i.cur{background:var(--accent)}.chprog span{margin-left:auto}
+.chdone{display:flex;gap:18px;align-items:center}.chdone .n{font-family:Oswald,Impact,sans-serif;font-size:48px;line-height:1;color:var(--accent)}.chdone small{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:6px;font-size:13px}.chdone .ok{color:var(--good)}.chdone .no{color:var(--bad)}
+@media (max-width:600px){.chopts{grid-template-columns:1fr}}
+.rcgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}.rcgrid div{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:grid;grid-template-columns:auto 1fr;gap:0 8px;align-items:center}
+.rcgrid span{grid-row:span 2;font-size:20px}.rcgrid b{font-size:20px;font-variant-numeric:tabular-nums;line-height:1.1}.rcgrid small{color:var(--muted);font-size:12.5px}
+.wkgrid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px}.wkgrid>div{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:8px;min-height:96px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.wkgrid>div.today{border-color:var(--accent)}.wkgrid .wd{font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}.wkgrid .dd{font-size:18px;font-weight:700;line-height:1}
+.wkgrid a,.wkgrid i,.cd i{display:block;font-style:normal;font-size:11.5px;line-height:1.3;padding:2px 6px;border-radius:6px;background:color-mix(in srgb,var(--c) 18%,transparent);border-left:3px solid var(--c);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:none;color:var(--text)}
+.wkgrid em,.cd em{font-style:normal;font-size:11px;color:var(--muted)}
+@media (max-width:760px){.wkgrid{grid-template-columns:repeat(7,minmax(92px,1fr));overflow-x:auto;scrollbar-width:none}}
+.calcols{grid-template-columns:2fr 1fr}@media (max-width:900px){.calcols{grid-template-columns:1fr}}.calgrid{min-width:0}.calhead{display:flex;align-items:center;gap:8px;margin-bottom:12px}.calhead h3{margin:0 auto 0 0}
+.calgrid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}.cw{font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:center;padding:4px 0}
+.cd{min-height:92px;text-align:left;display:flex;flex-direction:column;gap:3px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:6px;cursor:pointer;color:var(--text);font:inherit;min-width:0}
+.cd.out{opacity:.45}.cd.today{border-color:var(--accent)}.cd.today .dn{background:var(--accent);color:#fff;border-radius:999px;padding:0 7px}.cd.sel{box-shadow:0 0 0 2px var(--accent)}.cd .dn{font-weight:700;font-size:13px;align-self:flex-start}
+@media (max-width:700px){.cd{min-height:54px;padding:4px}.cd i{font-size:0;height:5px;padding:0;border-left-width:0;background:var(--c)}.cd em{display:none}}
+.cev{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-radius:10px;background:var(--panel2);border-left:4px solid var(--c);margin-bottom:8px;text-decoration:none;color:var(--text)}.cev span{font-size:13px;color:var(--muted)}
+.rtw{display:flex;gap:16px;align-items:center}.rtring{--p:0deg;width:104px;height:104px;border-radius:50%;flex:none;display:grid;place-items:center;background:conic-gradient(var(--fit) var(--p),var(--panel2) 0)}
+.rtring .rtn{width:84px;height:84px;border-radius:50%;background:var(--panel);display:grid;place-items:center;font-family:Oswald,Impact,sans-serif;font-size:28px;font-variant-numeric:tabular-nums}
+.prb>div{display:grid;grid-template-columns:22px 1fr auto;gap:0 10px;padding:8px 0;border-top:1px solid var(--line);align-items:baseline}.prb>div:first-child{border-top:0}.prb .rk{color:var(--muted);font-weight:800;grid-row:span 2}.prb .v{font-weight:700;font-variant-numeric:tabular-nums}.prb .small{grid-column:2/4}
+.rrh{display:flex;gap:18px;align-items:center;border-radius:16px;padding:18px 20px;margin-bottom:16px;background:linear-gradient(120deg,#2a0a0c,#3a2a08);border:1px solid #5a3a10;color:#fff}
+.rrh .n{font-family:Oswald,Impact,sans-serif;font-size:54px;line-height:1;color:#f3c969}.rrh b{font-size:18px;display:block}.rrh span{display:block;opacity:.9}.rrh small{opacity:.7}
+.rrp h4{margin:0 0 8px;font-size:15px}.rrp label{display:block;margin-bottom:6px}.rrp input{width:100%;margin-top:4px}.rrf4{display:grid;grid-template-columns:1fr 1fr;gap:6px}.rrp+.rrp{margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+.rre{display:flex;gap:10px;align-items:center;padding:8px 0;border-top:1px solid var(--line);flex-wrap:wrap}.rre .no{width:28px;height:28px;border-radius:8px;background:var(--panel2);display:grid;place-items:center;font-weight:800;font-size:13px;flex:none}
+.rre b{flex:1;min-width:110px}.rre .rrby{width:180px}.rre.out{opacity:.55}.rre.out b{text-decoration:line-through}
+.rrwin{margin-top:12px;padding:14px;border-radius:12px;background:color-mix(in srgb,#f3c969 20%,var(--panel2));border:1px solid #f3c969;font-weight:700;font-size:16px}
+.vmi{padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--panel2);color:var(--text);cursor:pointer;font:inherit;font-size:13.5px;margin:0 6px 6px 0}.vmi.on{border-color:#f3c969;box-shadow:inset 0 0 0 1px #f3c969}.vmi.done{color:var(--good)}
+.vmcard{margin-top:10px}.vmcard .vk{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#d9a441}.vmcard blockquote{margin:8px 0 12px;font:500 18px/1.6 Georgia,serif}
+.vmh{color:var(--muted);letter-spacing:.06em}
+.pri2{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line)}.pri2>div{flex:1;min-width:0}.pri2 small{display:block;color:var(--muted);font-size:12.5px}.pri2 p{margin:4px 0 0;font-size:14px}.pri2.ans b{color:var(--good)}
+.pri2 .x,.je .x{background:none;border:0;color:var(--muted);font-size:18px;cursor:pointer;line-height:1}
+/* compact */
+html[data-density=compact] body{font-size:14px}
+html[data-density=compact] .card{padding:12px 14px}html[data-density=compact] section.tab{padding-top:14px}
+html[data-density=compact] .hb-wrap>*{margin-bottom:10px!important}
 </style>
+<script>(function(){try{var p=JSON.parse(localStorage.getItem("hq_prefs")||"{}");var t=p.theme||"dark";if(t==="auto")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.dataset.theme=t;document.documentElement.dataset.density=p.density||"comfy";}catch(e){}})();</script>
 </head>
 <body>
 <header>
@@ -680,35 +787,46 @@ table,td,th,.gm,.wst b,.mk,.score,.tag,.bn-s b,.otdrow .yr,.wg .t,.ucd,.mgbig{fo
     <div class="logo"><span class="dot"></span>FAN HQ</div>
     <button class="gsbtn" id="gsOpen" aria-label="Search everything"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><span>Search</span><kbd>/</kbd></button>
     <div class="upd" id="upd"></div>
+    <button class="gsbtn setbtn" id="setOpen" aria-label="Display settings" title="Display settings"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
   </div>
+  <div class="seastrip" id="seaStrip" hidden></div>
   <nav id="nav">
     <a href="#home" data-t="home">Home</a>
     <a href="#nfl" data-t="nfl">NFL</a>
-    <a href="#starwars" data-t="starwars">Star Wars</a>
-    <a href="#games" data-t="games">Video Games</a>
-    <a href="#workouts" data-t="workouts">Workouts</a>
     <a href="#wwe" data-t="wwe">WWE</a>
-    <a href="#marvel" data-t="marvel">Marvel</a>
-    <a href="#world" data-t="world">World</a>
-    <a href="#history" data-t="history">History</a>
+    <div class="ngrp" data-g="fan"><button class="ngb" aria-haspopup="true" aria-expanded="false">Fandoms<i>▾</i></button><div class="ngm" role="menu"><a href="#starwars" data-t="starwars">Star Wars</a><a href="#marvel" data-t="marvel">Marvel</a><a href="#games" data-t="games">Video Games</a></div></div>
+    <div class="ngrp" data-g="learn"><button class="ngb" aria-haspopup="true" aria-expanded="false">Learn<i>▾</i></button><div class="ngm" role="menu"><a href="#world" data-t="world">World</a><a href="#history" data-t="history">History</a></div></div>
+    <a href="#workouts" data-t="workouts">Workouts</a>
     <a href="#me" data-t="me">Me</a>
     <a href="#outages" data-t="outages">Outages</a>
   </nav>
 </header>
 <nav class="bnav" id="bnav" aria-label="Quick tabs"><a href="#home" data-t="home"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Home</a><a href="#nfl" data-t="nfl"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="12" rx="9" ry="5.5" transform="rotate(-35 12 12)"/><path d="M9.5 14.5l5-5M10.5 11.5l2 2M12 10l2 2"/></svg>NFL</a><a href="#wwe" data-t="wwe"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="8" rx="2"/><circle cx="12" cy="12" r="3.2"/><path d="M3 12H1M23 12h-2"/></svg>WWE</a><a href="#history" data-t="history"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-5 9 5"/><path d="M5 9v9M9.5 9v9M14.5 9v9M19 9v9"/><path d="M3 20h18"/></svg>History</a><button id="bMore" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>More</button></nav>
 <div class="gs" id="gs" hidden><div class="gs-box" role="dialog" aria-label="Search everything"><div class="gs-in"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="gsQ" type="search" placeholder="Search teams, players, characters, countries, movies, news…" autocomplete="off" aria-label="Search"><button class="btn sm" id="gsX">Esc</button></div><div class="gs-res" id="gsRes" role="listbox"></div><div class="gs-ft small dim">↑ ↓ to move · Enter to open · Esc to close</div></div></div>
+<div class="bsheet" id="setSheet" hidden><div class="bsheet-in setin" role="dialog" aria-label="Display settings"><div class="bsh">Display<button class="btn sm" id="setClose">Close</button></div>
+<div class="prefrow"><span>Theme</span><div class="seg" id="setTheme"><button data-v="dark">Dark</button><button data-v="light">Light</button><button data-v="auto">Auto</button></div></div>
+<div class="prefrow"><span>Spacing</span><div class="seg" id="setDensity"><button data-v="comfy">Comfortable</button><button data-v="compact">Compact</button></div></div>
+<label class="prefrow"><span>Seasonal themes<small>Christmas, New Year, Super Bowl week</small></span><input type="checkbox" id="setSeason"></label>
+<label class="prefrow"><span>Game-day colors<small>Your team's colors on game day</small></span><input type="checkbox" id="setGame"></label>
+<div class="prefrow"><span>Home layout</span><button class="btn sm" id="setHome">Customize Home</button></div></div></div>
 <div class="bsheet" id="bSheet" hidden><div class="bsheet-in" role="menu"><div class="bsh">All sections<button class="btn sm" id="bClose">Close</button></div><div class="bgrid" id="bGrid"></div></div></div>
 
 <div class="wrap">
 
 <!-- HOME -->
 <section class="tab" id="t-home">
-  <div class="tabhead"><h2>Today</h2><span class="sub" id="todayLbl"></span></div>
+  <div class="tabhead"><h2>Today</h2><span class="sub" id="todayLbl"></span><span class="sp" style="flex:1"></span><button class="btn sm" id="hcOpen">Customize</button></div>
   <div class="a2hs" id="a2hs" hidden></div>
+  <div class="hcbar" id="hcBar" hidden><b>Customize Home</b><span class="small muted">Drag cards or use the arrows. Hidden cards stay here, dimmed, so you can bring them back.</span><span class="sp"></span><button class="btn sm" id="hcReset">Reset</button><button class="btn sm pri" id="hcDone">Done</button></div>
+  <div id="winBanner"></div>
+  <div id="seaCard"></div>
+  <div id="chalCard"></div>
+  <div id="recapCard"></div>
   <div class="tk" id="ticker" aria-live="polite"></div>
   <div id="gdHome"></div>
   <div class="card localc" id="localCard" style="margin-bottom:16px"></div>
   <div class="myday" id="myDay" aria-label="My day"></div>
+  <div id="weekCal"></div>
   <div class="bigcds" id="bigCds"></div>
   <div class="cols vrow" style="margin-bottom:16px"><div class="card verse" id="verseCard"></div><div class="card" id="mktCard"></div></div>
   <div class="cols dailyrow" style="margin-bottom:16px"><div class="card" id="cotdCard"></div><div class="card" id="tilCard" hidden></div></div>
@@ -748,6 +866,7 @@ table,td,th,.gm,.wst b,.mk,.score,.tag,.bn-s b,.otdrow .yr,.wg .t,.ucd,.mgbig{fo
   <div class="card" id="picksCard" style="border-color:#3a1d25">
     <h3><span id="picksTitle">My picks</span><span class="seg" id="pickSort" style="margin-left:auto"><button data-v="time" class="on">By kickoff</button><button data-v="conf">By confidence</button></span></h3>
     <div class="rec" id="pickRec"></div>
+    <div class="card" id="pickChart" style="margin:0 0 16px"></div>
     <div id="pickList"></div>
     <div class="row" style="margin-top:12px"><button class="btn sm" id="copyPicks">Copy picks</button><button class="btn sm ghost" id="resetPicks">Reset to my picks</button><span class="sp"></span><span class="small dim" id="pickNote"></span></div>
     <div class="small dim" id="pickSrc" style="margin-top:8px"></div>
@@ -843,8 +962,10 @@ table,td,th,.gm,.wst b,.mk,.score,.tag,.bn-s b,.otdrow .yr,.wg .t,.ucd,.mgbig{fo
 <section class="tab" id="t-workouts">
   <div class="tabhead"><h2 style="color:var(--fit)">Workouts</h2><span class="sub storeNote" id="storeNote">Loading your log…</span></div>
   <div class="kpis" id="kpis"></div>
-  <div class="grid wtools" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-bottom:16px">
+  <div class="grid wtools" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-bottom:16px">
     <div class="card"><h3>Program <span class="tag" id="pgNext"></span></h3><select id="pgSel" style="width:100%;margin-bottom:10px"></select><div id="pgDay"></div><div class="row" style="gap:8px;margin-top:10px"><button class="btn pri" id="pgLoad" style="background:var(--fit);color:#06180d">Load into log</button><button class="btn sm" id="pgSkip">Skip to next day</button></div></div>
+    <div class="card"><h3>Rest timer</h3><div class="rtw"><div class="rtring" id="rtOut"><div class="rtn">1:30</div></div><div><div class="seg" id="rtPre" style="flex-wrap:wrap"><button data-rt="60">1:00</button><button data-rt="90" class="on">1:30</button><button data-rt="120">2:00</button><button data-rt="180">3:00</button></div><div class="row" style="gap:8px;margin-top:10px"><button class="btn pri" id="rtGo" style="background:var(--fit);color:#06180d">Start</button><button class="btn sm" id="rtReset">Reset</button></div></div></div></div>
+    <div class="card"><h3>PR board</h3><div id="prBoard"></div></div>
     <div class="card"><h3>Plate calculator</h3><div class="row" style="gap:8px;flex-wrap:wrap"><label class="small muted">Target <input type="number" id="plTarget" value="225" min="0" step="5" style="width:100px"></label><label class="small muted">Bar <select id="plBar"><option value="45">45 lb</option><option value="35">35 lb</option><option value="25">25 lb</option></select></label></div><div id="plOut" style="margin-top:10px"></div></div>
     <div class="card"><h3>1-rep max</h3><div class="row" style="gap:8px;flex-wrap:wrap"><label class="small muted">Weight <input type="number" id="rmW" value="185" min="0" step="5" style="width:96px"></label><label class="small muted">Reps <input type="number" id="rmR" value="5" min="1" max="15" style="width:70px"></label></div><div id="rmOut" style="margin-top:10px"></div></div>
   </div>
@@ -932,13 +1053,17 @@ table,td,th,.gm,.wst b,.mk,.score,.tag,.bn-s b,.otdrow .yr,.wg .t,.ucd,.mgbig{fo
   <div class="subp" data-tab="history" data-sub="quiz"><div class="card quiz" style="--qc:var(--hi);max-width:760px"><h3>History quiz <span class="tag" id="hiBest"></span></h3><div class="seg" id="hiQF" style="margin-bottom:12px"></div><div id="quiz-hist_us" class="hiquiz"></div></div></div>
 </section>
 <section class="tab" id="t-me">
-  <div class="tabhead"><h2 style="color:var(--me)">Me</h2><span class="sub">Your reading plan, journal, countdowns, habits, flashcards and saved stuff</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="me"><option value="bible">Bible reading plan</option><option value="journal">Prayer & gratitude journal</option><option value="countdowns">My countdowns</option><option value="habits">Habits</option><option value="study">Flashcards</option><option value="notes">Notes & links</option><option value="saved">Saved & muted news</option></select></div></div></div>
+  <div class="tabhead"><h2 style="color:var(--me)">Me</h2><span class="sub">Your reading plan, journal, countdowns, habits, flashcards and saved stuff</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="me"><option value="calendar">Calendar</option><option value="bible">Bible reading plan</option><option value="faith">Verse memory, sermons & prayer list</option><option value="journal">Prayer & gratitude journal</option><option value="countdowns">My countdowns</option><option value="habits">Habits</option><option value="study">Flashcards</option><option value="notes">Notes & links</option><option value="saved">Saved & muted news</option></select></div></div></div>
   <div class="subp" data-tab="me" data-sub="bible"><div class="cols"><div class="card"><h3>Today's reading <span class="tag" id="bpDay"></span></h3><div id="bpToday"></div></div><div class="card"><h3>Your plan</h3><div id="bpSetup"></div></div></div><div class="card" style="margin-top:16px"><h3>Plan calendar <span class="tag" id="bpProg"></span></h3><div class="wo-bar"><i id="bpBar" style="background:#f3c969"></i></div><div class="bpgrid" id="bpGrid"></div></div></div>
   <div class="subp" data-tab="me" data-sub="journal"><div class="cols"><div class="card"><h3>New entry</h3><div class="seg" id="jType" style="margin-bottom:10px"></div><textarea id="jText" rows="5" placeholder="What are you praying about or thankful for today?" style="width:100%"></textarea><div class="row" style="margin-top:10px;gap:8px"><span class="small muted" id="jNote"></span><span class="sp"></span><button class="btn pri" id="jSave" style="background:var(--me);color:#1a0612">Save entry</button></div></div><div class="card"><h3>Entries <span class="tag" id="jCount"></span></h3><div class="seg" id="jFilter" style="margin-bottom:10px"></div><div id="jList"></div></div></div></div>
   <div class="subp" data-tab="me" data-sub="countdowns"><div class="card"><h3>My countdowns</h3><form class="blgadd" id="cdForm"><input type="text" id="cdTitle" placeholder="What are you counting down to? (birthday, trip, concert…)" required><input type="date" id="cdDate" required><label class="small muted" style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="cdYearly"> Every year</label><button class="btn pri" type="submit">Add</button></form><div class="cdgrid" id="cdList"></div></div></div>
   <div class="subp" data-tab="me" data-sub="habits"><div class="card"><h3>Today's habits <span class="tag" id="hbDate"></span></h3><div id="hbToday"></div><details style="margin-top:12px"><summary class="small muted">Add or edit habits</summary><form class="blgadd" id="hbForm" style="margin-top:10px"><input type="text" id="hbName" placeholder="Habit (e.g. Read)" required><input type="number" id="hbTarget" placeholder="Daily target" min="1" step="any" required style="max-width:140px"><input type="text" id="hbUnit" placeholder="Unit (e.g. pages)" style="max-width:160px"><button class="btn" type="submit">Add habit</button></form><div id="hbEdit"></div></details></div></div>
   <div class="subp" data-tab="me" data-sub="study"><div class="cols"><div class="card"><h3>Flashcards <span class="tag" id="fcStat"></span></h3><div class="seg" id="fcDecks" style="margin-bottom:12px;flex-wrap:wrap"></div><div id="fcCard"></div></div><div class="card"><h3>How it works</h3><p class="small" style="margin:0 0 8px">Spaced repetition: cards you know come back less often (1, 2, 4, 8, then 16 days); cards you miss come back today. Up to 10 new cards a day per deck.</p><div id="fcDeckStats"></div></div></div></div>
   <div class="subp" data-tab="me" data-sub="notes"><div class="card"><h3>Notes & quick links</h3><form class="blgadd" id="pnForm"><input type="text" id="pnTitle" placeholder="Title or note" required><input type="url" id="pnUrl" placeholder="Link (optional) https://…"><button class="btn pri" type="submit">Pin it</button></form><div class="pngrid" id="pnList"></div></div></div>
+  <div class="subp" data-tab="me" data-sub="calendar"><div class="cols calcols"><div class="card"><div class="calhead"><h3 id="calTitle"></h3><button class="btn sm" id="calPrev" aria-label="Previous month">‹</button><button class="btn sm" id="calToday">Today</button><button class="btn sm" id="calNext" aria-label="Next month">›</button></div><div class="calgrid" id="calGrid"></div><p class="small muted" style="margin:10px 0 0">Patriots games, WWE events, game releases, Marvel movies, holidays and your own countdowns.</p></div><div class="card" id="calDay"></div></div></div>
+  <div class="subp" data-tab="me" data-sub="faith"><div class="cols"><div class="card"><h3>Verse memory <span class="tag" id="vmStat"></span></h3><div id="vmList"></div><select id="vmAdd" style="width:100%;margin-top:6px"></select><div id="vmPractice"></div></div>
+    <div class="grid" style="align-content:start"><div class="card"><h3>Prayer list</h3><form id="prForm" class="row" style="gap:8px;flex-wrap:wrap"><input id="prText" required placeholder="Prayer request" style="flex:2;min-width:180px"><input id="prWho" placeholder="For (optional)" style="flex:1;min-width:120px"><button class="btn pri" type="submit">Add</button></form><div class="seg" id="prFilter" style="margin:12px 0 4px"><button data-v="active">Praying <span></span></button><button data-v="answered">Answered <span></span></button></div><div id="prList"></div></div>
+    <div class="card"><h3>Sermon notes</h3><form id="snForm"><div class="row" style="gap:8px;flex-wrap:wrap"><input type="date" id="snDate"><input id="snWho" placeholder="Church or speaker" style="flex:1;min-width:140px"></div><div class="row" style="gap:8px;flex-wrap:wrap;margin-top:8px"><input id="snTitle" placeholder="Title" style="flex:1;min-width:140px"><input id="snRef" placeholder="Passage (e.g. John 3:16)" style="flex:1;min-width:140px"></div><textarea id="snNotes" rows="4" required placeholder="What stood out?" style="width:100%;margin-top:8px;resize:vertical"></textarea><button class="btn pri" type="submit" style="margin-top:8px">Save notes</button></form><div id="snList" style="margin-top:12px"></div></div></div></div></div>
   <div class="subp" data-tab="me" data-sub="saved"><div class="cols"><div class="card"><h3>Read later <span class="tag" id="svCount"></span></h3><div id="svList"></div></div><div class="card"><h3>Muted topics</h3><p class="small muted" style="margin-top:-6px">Stories containing these words are hidden from news lists and the Home ticker.</p><form class="blgadd" id="muForm"><input type="text" id="muWord" placeholder="Word or name to mute" required><button class="btn" type="submit">Mute</button></form><div id="muList" style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap"></div></div></div></div>
 </section>
 <section class="tab" id="t-outages">
@@ -949,7 +1074,7 @@ table,td,th,.gm,.wst b,.mk,.score,.tag,.bn-s b,.otdrow .yr,.wg .t,.ucd,.mgbig{fo
   <div><div class="card"><h3>Check live status</h3><p class="small muted" style="margin-top:-4px">This page refreshes every few hours. For what's down this minute, use these.</p><div id="outLinks"></div></div></div></div>
 </section>
 <section class="tab" id="t-wwe">
-  <div class="tabhead"><h2 style="color:var(--wwe)">WWE</h2><span class="sub">News, champions and upcoming premium live events</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="wwe"><option value="news">News & PPV card</option><option value="champions">Champions</option><option value="reigns">Title reigns</option><option value="predict">Predictions</option><option value="trivia">Trivia</option></select></div></div></div>
+  <div class="tabhead"><h2 style="color:var(--wwe)">WWE</h2><span class="sub">News, champions and upcoming premium live events</span><div style="margin-left:auto"><div class="subnav"><span class="small muted">Section</span><select class="subsel" data-tab="wwe"><option value="news">News & PPV card</option><option value="champions">Champions</option><option value="reigns">Title reigns</option><option value="rumble">Royal Rumble hub</option><option value="predict">Predictions</option><option value="trivia">Trivia</option></select></div></div></div>
   <div class="subp" data-tab="wwe" data-sub="news">
   <div class="cols">
     <div class="grid" style="align-content:start">
@@ -964,6 +1089,8 @@ table,td,th,.gm,.wst b,.mk,.score,.tag,.bn-s b,.otdrow .yr,.wg .t,.ucd,.mgbig{fo
   </div>
   <div class="subp" data-tab="wwe" data-sub="champions"><div class="row" style="margin-bottom:10px"><h3 style="margin:0">Current champions</h3><span class="sp"></span><span class="small muted" id="wweChampAsOf"></span></div><div class="champgrid" id="wweChamps"></div><div class="small dim" id="wweChampSrc" style="margin-top:10px"></div></div>
   <div class="subp" data-tab="wwe" data-sub="reigns"><div class="card"><h3>Title reigns <span class="tag">Days as champion, as of today</span></h3><div id="reignList"></div></div></div>
+  <div class="subp" data-tab="wwe" data-sub="rumble"><div id="rrHub"><div id="rrHead"></div><datalist id="rrNames"></datalist><div class="cols"><div class="card"><h3>Your predictions</h3><div id="rrPicks"></div><p class="small muted" style="margin:12px 0 0">Saved as you type. Names come from current champions; type anyone you like.</p></div>
+    <div class="card"><h3>Live tracker <span class="tag" id="rrStat"></span></h3><div class="seg" id="rrDiv" style="margin-bottom:10px"><button data-v="m">Men's</button><button data-v="w">Women's</button></div><form id="rrAdd" class="row" style="gap:8px"><input id="rrName" list="rrNames" placeholder="Next entrant" style="flex:1"><button class="btn pri" type="submit">Add #</button></form><div id="rrLive" style="margin-top:8px"></div><div id="rrWin"></div><button class="btn sm" id="rrClear" style="margin-top:10px">Clear tracker</button></div></div></div></div>
   <div class="subp" data-tab="wwe" data-sub="predict"><div class="cols"><div class="card"><h3>Make your picks <span class="tag" id="wpEvent"></span></h3><div id="wpList"></div></div><div class="card"><h3>Your record</h3><div id="wpRecord"></div></div></div></div>
   <div class="subp" data-tab="wwe" data-sub="trivia"><div class="card quiz" style="--qc:var(--wwe);max-width:760px"><h3>WWE trivia <span class="tag" id="wweBest"></span></h3><div id="quiz-wwe"></div></div></div>
 </section>
@@ -1020,7 +1147,7 @@ function newsList(items,el,emptyMsg){
 
 /* ---------- tabs ---------- */
 const TABS=["home","nfl","starwars","games","workouts","wwe","marvel","world","history","me","outages"];
-const SUBS={nfl:["overview","gameday","scores","picks","insiders","injuries","draft","fantasy","stats","trivia"],starwars:["news","saber","archive","characters","watch","battle","trivia"],games:["news","backlog","releases","bl","gta","ac","trivia"],wwe:["news","champions","reigns","predict","trivia"],marvel:["movies","watch","trivia"],world:["explore","game","timeline","trivia"],history:["today","us","greece","quiz"],me:["bible","journal","countdowns","habits","study","notes","saved"]};
+const SUBS={nfl:["overview","gameday","scores","picks","insiders","injuries","draft","fantasy","stats","trivia"],starwars:["news","saber","archive","characters","watch","battle","trivia"],games:["news","backlog","releases","bl","gta","ac","trivia"],wwe:["news","champions","reigns","predict","rumble","trivia"],marvel:["movies","watch","trivia"],world:["explore","game","timeline","trivia"],history:["today","us","greece","quiz"],me:["calendar","bible","faith","journal","countdowns","habits","study","notes","saved"]};
 const subState=lsGet("hq_subs",{});
 function showSub(tab,sub){if(!SUBS[tab])return;if(!SUBS[tab].includes(sub))sub=subState[tab]||SUBS[tab][0];subState[tab]=sub;lsSet("hq_subs",subState);
   $$(`.subp[data-tab="${tab}"]`).forEach(p=>p.classList.toggle("on",p.dataset.sub===sub));const sel=$(`.subsel[data-tab="${tab}"]`);if(sel)sel.value=sub;}
@@ -1683,6 +1810,234 @@ function renderLocal(){const el=$("#localCard");const L=F&&F.local;if(!el||!L){i
    <div class="lfc">${days.map(d=>`<div><span>${day(d[0])}</span><b>${d[2]}°</b><span class="dim">${d[3]}°</span><span class="ic">${esc(WX[d[1]]||d[1])}</span>${d[4]>=30?`<span class="pp">${d[4]}%</span>`:""}</div>`).join("")}</div>
    <div class="side"><span>Sunrise <b>${t(st.rise)}</b> · Sunset <b>${t(st.set)}</b></span>${L.gas?`<span>Gas (regular) <b>IL $${L.gas.il.toFixed(2)}</b> · US $${L.gas.us.toFixed(2)}</span><span class="small dim">AAA averages as of ${esc(newsDate(L.gas.asOf))}</span>`:""}</div>`;}
 function initLocalFit(){wirePrograms();wireCalcs();renderLocal();}
+
+/* =====================================================
+   DESIGN PASS 2: prefs, grouped nav, custom Home, game day, seasons, charts
+   ===================================================== */
+const PREFS_DEF={theme:"dark",density:"comfy",seasonal:true,gameColors:true};
+function prefs(){try{return Object.assign({},PREFS_DEF,JSON.parse(localStorage.getItem("hq_prefs")||"{}"));}catch(e){return {...PREFS_DEF};}}
+function savePrefs(p){try{localStorage.setItem("hq_prefs",JSON.stringify(p));}catch(e){}applyPrefs();}
+function applyPrefs(){const p=prefs();const R=document.documentElement;let t=p.theme;if(t==="auto")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";
+  R.dataset.theme=t;R.dataset.density=p.density;
+  const mc=document.querySelector('meta[name="theme-color"]');if(mc)mc.content=t==="light"?"#f3f5f9":"#0b0d12";
+  try{applySeason();}catch(e){console.error(e)}try{applyGameDay();}catch(e){console.error(e)}}
+function initSettings(){const sh=$("#setSheet");if(!sh)return;const open=()=>{paint();sh.hidden=false;};const close=()=>{sh.hidden=true;};
+  const paint=()=>{const p=prefs();$$("#setTheme button").forEach(b=>b.classList.toggle("on",b.dataset.v===p.theme));$$("#setDensity button").forEach(b=>b.classList.toggle("on",b.dataset.v===p.density));$("#setSeason").checked=p.seasonal;$("#setGame").checked=p.gameColors;};
+  $("#setOpen").onclick=open;$("#setClose").onclick=close;sh.addEventListener("click",e=>{if(e.target===sh)close();});
+  $("#setTheme").onclick=e=>{const b=e.target.closest("button");if(b){savePrefs({...prefs(),theme:b.dataset.v});paint();}};
+  $("#setDensity").onclick=e=>{const b=e.target.closest("button");if(b){savePrefs({...prefs(),density:b.dataset.v});paint();}};
+  $("#setSeason").onchange=e=>savePrefs({...prefs(),seasonal:e.target.checked});$("#setGame").onchange=e=>savePrefs({...prefs(),gameColors:e.target.checked});
+  $("#setHome").onclick=()=>{close();location.hash="home";setTimeout(()=>hcToggle(true),50);};
+  matchMedia("(prefers-color-scheme: light)").addEventListener&&matchMedia("(prefers-color-scheme: light)").addEventListener("change",()=>{if(prefs().theme==="auto")applyPrefs();});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!sh.hidden)close();});}
+/* grouped nav */
+function initNavGroups(){const groups=$$("#nav .ngrp");if(!groups.length)return;
+  const closeAll=()=>groups.forEach(g=>{const mm=$(`.ngm[data-g="${g.dataset.g}"]`);if(mm)mm.classList.remove("open");g.querySelector(".ngb").setAttribute("aria-expanded","false");});
+  groups.forEach(g=>{const b=g.querySelector(".ngb"),m=g.querySelector(".ngm");document.body.appendChild(m);m.dataset.g=g.dataset.g;
+    b.onclick=e=>{e.stopPropagation();const was=m.classList.contains("open");closeAll();if(was)return;const r=b.getBoundingClientRect();m.style.left=Math.min(r.left,innerWidth-200)+"px";m.style.top=(r.bottom+4)+"px";m.classList.add("open");b.setAttribute("aria-expanded","true");const f=m.querySelector("a");f&&f.focus();};
+    m.addEventListener("click",()=>closeAll());});
+  document.addEventListener("click",e=>{if(!e.target.closest(".ngm"))closeAll();});window.addEventListener("scroll",closeAll,{passive:true});window.addEventListener("resize",closeAll);
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")closeAll();});
+  const mark=()=>{const t=(location.hash||"#home").slice(1).split("-")[0];groups.forEach(g=>{const m=$(`.ngm[data-g="${g.dataset.g}"]`);const has=!!(m&&m.querySelector(`a[data-t="${t}"]`));g.querySelector(".ngb").classList.toggle("on",has);
+    if(m)m.querySelectorAll("a").forEach(a=>a.classList.toggle("on",a.dataset.t===t));const lbl=has&&m.querySelector(`a[data-t="${t}"]`).textContent;g.querySelector(".ngb").firstChild.textContent=has?lbl:(g.dataset.g==="fan"?"Fandoms":"Learn");});};
+  window.addEventListener("hashchange",mark);mark();}
+/* customizable Home */
+const HB_DEF=[["winBanner","Game result"],["seaCard","Season"],["ticker","News ticker"],["gdHome","Game day"],["chalCard","Daily challenge"],["recapCard","Weekly recap"],["myDay","My day"],["weekCal","This week"],["localCard","Weather & local"],["bigCds","Big countdowns"],["vrow","Verse & markets"],["dailyrow","Character & Today I learned"],["otdHome","On this day"],["wtrow","Watch guide & trophies"],["countdowns","Countdowns"],["pods","Podcasts & more"]];
+function homeState(){try{return JSON.parse(localStorage.getItem("hq_home")||"{}");}catch(e){return {};}}
+function homeSave(st){try{localStorage.setItem("hq_home",JSON.stringify(st));}catch(e){}}
+function initHomeBlocks(){const home=$("#t-home");if(!home||home.dataset.hb)return;home.dataset.hb="1";
+  const kids=[...home.children].filter(el=>!el.classList.contains("tabhead")&&!el.classList.contains("banner2")&&!el.classList.contains("banner")&&el.id!=="a2hs"&&el.id!=="hcBar");
+  let pc=0;const keyOf=el=>el.id||(el.classList.contains("vrow")?"vrow":el.classList.contains("dailyrow")?"dailyrow":el.classList.contains("wtrow")?"wtrow":(pc++?"extra"+pc:"pods"));
+  kids.forEach(el=>{const k=keyOf(el);const w=document.createElement("div");w.className="hb-wrap";w.dataset.hb=k;const nm=(HB_DEF.find(x=>x[0]===k)||[k,"More"])[1];
+    w.innerHTML=`<div class="hbtool" draggable="true"><span aria-hidden="true">⠿</span>${esc(nm)}<span class="sp"></span><button data-hbm="-1" aria-label="Move ${esc(nm)} up">↑</button><button data-hbm="1" aria-label="Move ${esc(nm)} down">↓</button><button data-hbt aria-label="Show or hide ${esc(nm)}">Hide</button></div>`;
+    el.parentNode.insertBefore(w,el);w.appendChild(el);});
+  hbApply();
+  home.addEventListener("click",e=>{const w=e.target.closest(".hb-wrap");if(!w||!document.documentElement.classList.contains("hcust"))return;const st=homeState();
+    if(e.target.closest("[data-hbt]")){st.hidden=st.hidden||[];const i=st.hidden.indexOf(w.dataset.hb);i>=0?st.hidden.splice(i,1):st.hidden.push(w.dataset.hb);homeSave(st);hbApply();}
+    const m=e.target.closest("[data-hbm]");if(m){const ws=$$("#t-home .hb-wrap");const i=ws.indexOf(w),j=i+(+m.dataset.hbm);if(j<0||j>=ws.length)return;const ord=ws.map(x=>x.dataset.hb);[ord[i],ord[j]]=[ord[j],ord[i]];st.order=ord;homeSave(st);hbApply();$(`[data-hb="${w.dataset.hb}"] [data-hbm="${m.dataset.hbm}"]`).focus();}});
+  let drag=null;home.addEventListener("dragstart",e=>{const w=e.target.closest(".hb-wrap");if(!w)return;drag=w;w.classList.add("drag");e.dataTransfer.effectAllowed="move";try{e.dataTransfer.setData("text/plain",w.dataset.hb);}catch(_){}});
+  home.addEventListener("dragover",e=>{if(!drag)return;e.preventDefault();$$("#t-home .hb-wrap.over").forEach(x=>x.classList.remove("over"));const w=e.target.closest(".hb-wrap");if(w&&w!==drag)w.classList.add("over");});
+  home.addEventListener("drop",e=>{if(!drag)return;e.preventDefault();const w=e.target.closest(".hb-wrap");if(w&&w!==drag){w.parentNode.insertBefore(drag,w);const st=homeState();st.order=$$("#t-home .hb-wrap").map(x=>x.dataset.hb);homeSave(st);}});
+  home.addEventListener("dragend",()=>{if(drag)drag.classList.remove("drag");drag=null;$$("#t-home .hb-wrap.over").forEach(x=>x.classList.remove("over"));});
+  $("#hcOpen").onclick=()=>hcToggle(true);$("#hcDone").onclick=()=>hcToggle(false);$("#hcReset").onclick=()=>{homeSave({});hbApply();toast("Home layout reset");};}
+function hbApply(){const home=$("#t-home");const st=homeState();const ws=$$("#t-home .hb-wrap");const def=HB_DEF.map(x=>x[0]);
+  const rank=k=>{const o=st.order||[];const i=o.indexOf(k);return i>=0?i:100+def.indexOf(k);};
+  ws.sort((a,b)=>rank(a.dataset.hb)-rank(b.dataset.hb)).forEach(w=>home.appendChild(w));
+  ws.forEach(w=>{const off=(st.hidden||[]).includes(w.dataset.hb);w.classList.toggle("hb-off",off);const b=w.querySelector("[data-hbt]");if(b)b.textContent=off?"Show":"Hide";});}
+function hcToggle(on){document.documentElement.classList.toggle("hcust",on);$("#hcBar").hidden=!on;$("#hcOpen").hidden=on;if(on)$("#hcBar").scrollIntoView({block:"nearest"});}
+/* team colors, game day, win celebration */
+const TEAM_PAL={ARI:["#97233f","#000000"],ATL:["#a71930","#000000"],BAL:["#241773","#9e7c0c"],BUF:["#00338d","#c60c30"],CAR:["#0085ca","#101820"],CHI:["#0b162a","#c83803"],CIN:["#fb4f14","#000000"],CLE:["#311d00","#ff3c00"],DAL:["#041e42","#869397"],DEN:["#fb4f14","#002244"],DET:["#0076b6","#b0b7bc"],GB:["#203731","#ffb612"],HOU:["#03202f","#a71930"],IND:["#002c5f","#a2aaad"],JAC:["#006778","#d7a22a"],KC:["#e31837","#ffb81c"],LV:["#000000","#a5acaf"],LAC:["#0080c6","#ffc20e"],LA:["#003594","#ffa300"],MIA:["#008e97","#fc4c02"],MIN:["#4f2683","#ffc62f"],NE:["#002244","#c60c30"],NO:["#101820","#d3bc8d"],NYG:["#0b2265","#a71930"],NYJ:["#125740","#ffffff"],PHI:["#004c54","#a5acaf"],PIT:["#101820","#ffb612"],SF:["#aa0000","#b3995d"],SEA:["#002244","#69be28"],TB:["#d50a0a","#34302b"],TEN:["#0c2340","#4b92db"],WAS:["#5a1414","#ffb612"]};
+const ctYMD=d=>new Date(d).toLocaleDateString("en-CA",{timeZone:"America/Chicago"});
+function favGameToday(){if(!F||!F.nfl)return null;const td=ctYMD(Date.now());return (F.nfl.games||[]).find(g=>(g.away===favTeam||g.home===favTeam)&&ctYMD(g.time)===td)||null;}
+function applyGameDay(){const R=document.documentElement;const c=TEAM_PAL[favTeam]||TEAM_PAL.NE;R.style.setProperty("--gdc1",c[0]);R.style.setProperty("--gdc2",c[1]==="#ffffff"||c[1]==="#000000"?c[0]:c[1]);
+  const g=favGameToday();R.classList.toggle("gameday",!!(prefs().gameColors&&g));renderWin();}
+function lastFavFinal(){if(!F||!F.nfl)return null;return (F.nfl.games||[]).filter(g=>g.status==="final"&&(g.away===favTeam||g.home===favTeam)&&Date.now()-Date.parse(g.time)<48*36e5).sort((a,b)=>Date.parse(b.time)-Date.parse(a.time))[0]||null;}
+function renderWin(){const el=$("#winBanner");if(!el)return;const g=lastFavFinal();if(!g){el.innerHTML="";return;}
+  const home=g.home===favTeam,us=home?g.hs:g.as,them=home?g.as:g.hs,opp=home?g.away:g.home,won=us>them;const key="hq_win_"+g.away+g.home+g.time;
+  let seen=false;try{seen=!!localStorage.getItem(key+"_x");}catch(e){}if(seen||!won){el.innerHTML="";return;}
+  const T=team(favTeam)||{};el.innerHTML=`<div class="winb" role="status"><button aria-label="Dismiss">×</button><b>${esc((T.name||favTeam).toUpperCase())} WIN!</b><span>${esc(favTeam)} ${us}, ${esc(opp)} ${them} · ${esc(new Date(g.time).toLocaleDateString("en-US",{weekday:"long",month:"short",day:"numeric"}))}</span></div>`;
+  el.querySelector("button").onclick=()=>{try{localStorage.setItem(key+"_x","1");}catch(e){}el.innerHTML="";};
+  let shown=false;try{shown=!!localStorage.getItem(key);localStorage.setItem(key,"1");}catch(e){}if(!shown)confetti(TEAM_PAL[favTeam]||["#fff"]);}
+function confetti(cols){if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;const c=document.createElement("canvas");c.className="confetti";document.body.appendChild(c);const x=c.getContext("2d");c.width=innerWidth;c.height=innerHeight;
+  const P=[...Array(140)].map(()=>({x:Math.random()*c.width,y:-20-Math.random()*c.height*.4,vx:(Math.random()-.5)*3,vy:2+Math.random()*3,r:Math.random()*6.28,s:5+Math.random()*6,c:[...cols,"#ffffff"][Math.floor(Math.random()*(cols.length+1))]}));let t=0;
+  (function f(){x.clearRect(0,0,c.width,c.height);P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.r+=.1;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);x.restore();});if(++t<200)requestAnimationFrame(f);else c.remove();})();}
+/* seasons */
+function seasonNow(){const t=new Date(new Date().toLocaleString("en-US",CT));const m=t.getMonth()+1,d=t.getDate(),y=t.getFullYear();
+  const sb=F&&F.nfl&&F.nfl.superBowl;if(sb&&sb.date){const days=Math.round((new Date(sb.date+"T00:00:00")-new Date(y,m-1,d))/864e5);if(days>=0&&days<=7)return {k:"sb",days,title:sb.name||"Super Bowl",sub:sb.where||""};}
+  // Thanksgiving: 4th Thursday of November
+  const nov1=new Date(y,10,1).getDay();const thx=1+((4-nov1+7)%7)+21;
+  if(m===11&&d>=thx-3&&d<=thx)return {k:"thx",days:thx-d,title:"Thanksgiving",sub:"Lions and Cowboys play at home, as always"};
+  if((m===11&&d>thx)||(m===12&&d<=26)){const x=new Date(y,11,25),days=Math.round((x-new Date(y,m-1,d))/864e5);return {k:"xmas",days,title:"Christmas",sub:"Merry Christmas from Fan HQ"};}
+  if((m===12&&d>=27)||(m===1&&d===1)){const days=m===1?0:Math.round((new Date(y+1,0,1)-new Date(y,m-1,d))/864e5);return {k:"ny",days,title:"New Year's Day",sub:""};}
+  return null;}
+function applySeason(){const R=document.documentElement;["sea-xmas","sea-thx","sea-ny","sea-sb"].forEach(c=>R.classList.remove(c));const old=$(".snow");if(old)old.remove();
+  const s=prefs().seasonal&&seasonNow();const strip=$("#seaStrip"),card=$("#seaCard");if(strip)strip.hidden=!s;
+  if(!s){if(card){card.innerHTML="";card.style.display="none";}return;}R.classList.add("sea-"+s.k);
+  if(s.k==="xmas"){const sn=document.createElement("div");sn.className="snow";sn.setAttribute("aria-hidden","true");sn.innerHTML=[...Array(26)].map(()=>`<i style="left:${Math.random()*100}%;--dx:${(Math.random()*80-40).toFixed(0)}px;animation-duration:${(9+Math.random()*10).toFixed(1)}s;animation-delay:-${(Math.random()*18).toFixed(1)}s;transform:scale(${(.5+Math.random()).toFixed(2)})"></i>`).join("");document.body.appendChild(sn);}
+  if(card){card.style.display="";const lbl=s.days===0?(s.k==="thx"?"Happy Thanksgiving!":s.k==="xmas"?"Merry Christmas!":s.k==="ny"?"Happy New Year!":"It's game day!"):`${s.days} day${s.days===1?"":"s"} until ${s.title}`;
+    card.innerHTML=`<div class="seacard ${s.k}"><div class="n">${s.days===0?"🎉":s.days}</div><div><b>${esc(lbl)}</b><small>${esc(s.sub)}</small></div></div>`;}}
+/* charts */
+function sparkSVG(vals,up){if(!vals||vals.length<2)return "";const mn=Math.min(...vals),mx=Math.max(...vals),W=64,H=20;const pts=vals.map((v,i)=>`${(i/(vals.length-1)*W).toFixed(1)},${(H-2-(mx===mn?.5:(v-mn)/(mx-mn))*(H-4)).toFixed(1)}`).join(" ");
+  return `<svg class="spark" viewBox="0 0 ${W} ${H}" aria-hidden="true"><polyline points="${pts}" fill="none" stroke="${up?"var(--good)":"var(--bad)"}" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>`;}
+function addSparks(){const H=F&&F.stockHist;const el=$("#mktCard");if(!H||!el)return;$$("#mktCard .s").forEach(s=>{const sym=(s.querySelector("b")||{}).textContent;const h=H[sym];if(!h||h.length<2||s.querySelector(".spark"))return;const v=h.map(x=>x[1]);
+  const p=s.nextElementSibling;if(p)p.insertAdjacentHTML("afterbegin",`<span title="Last ${h.length} closes" style="display:inline-block;vertical-align:middle;margin-right:8px">${sparkSVG(v,v[v.length-1]>=v[0])}</span>`);});}
+function renderPickChart(){const el=$("#pickChart");if(!el||!F)return;const H=(F.nfl.pickHistory||[]).filter(h=>h.w+h.l>0).sort((a,b)=>a.week-b.week);if(!H.length){el.style.display="none";return;}
+  const tw=H.reduce((a,h)=>a+h.w,0),tl=H.reduce((a,h)=>a+h.l,0);const best=H.reduce((a,h)=>h.w/(h.w+h.l||1)>a.w/(a.w+a.l||1)?h:a,H[0]);
+  el.innerHTML=`<h3>Pick accuracy by week <span class="tag">${tw}-${tl} · ${Math.round(tw/(tw+tl||1)*100)}% season</span></h3><div class="pchart" role="img" aria-label="Pick accuracy by week">${H.map(h=>{const p=h.w/(h.w+h.l||1);return `<div class="b" title="${esc(h.label||"Week "+h.week)}: ${h.w}-${h.l}"><em>${Math.round(p*100)}%</em><i class="${p<.5?"lo":""}" style="height:${Math.max(4,p*100)}%"></i><span>W${h.week}</span></div>`;}).join("")}</div><p class="small muted" style="margin:10px 0 0">Best week: ${esc(best.label||"Week "+best.week)} (${best.w}-${best.l}). Orange bars are weeks under 50%.</p>`;}
+function initDesign2(){initNavGroups();initSettings();initHomeBlocks();applyPrefs();renderPickChart();addSparks();}
+
+/* =====================================================
+   FEATURES 2: daily challenge, weekly recap, calendar, gym timer & PRs, Rumble hub, faith tools
+   ===================================================== */
+const ymdL=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+const ctNow=()=>new Date(new Date().toLocaleString("en-US",CT));
+function seeded(seed){let x=0;for(const c of String(seed))x=(x*31+c.charCodeAt(0))>>>0;return ()=>{x^=x<<13;x>>>=0;x^=x>>17;x^=x<<5;x>>>=0;return x/4294967296;};}
+/* ---- daily challenge ---- */
+const CH_POOLS=[["nfl","NFL"],["sw","Star Wars"],["mv_all","Marvel"],["world","World"],["hist_all","History"],["wwe","WWE"],["vg","Video games"]];
+function chQuestions(day){const r=seeded("chal"+day);const pools=CH_POOLS.filter(([k])=>TRIVIA[k]&&TRIVIA[k].length);const pick=pools.slice().sort(()=>r()-.5).slice(0,5);
+  return pick.map(([k,l])=>{const q=TRIVIA[k][Math.floor(r()*TRIVIA[k].length)];const order=[0,1,2,3].sort(()=>r()-.5);return {src:l,q:q[0],opts:order.map(i=>q[1][i]),ans:order.indexOf(q[2]),exp:q[3]};});}
+function chState(){return Store.me("challenge",{days:{},best:0});}
+function chStreak(st){let n=0;const d=ctNow();for(let i=0;i<400;i++){const k=ymdL(d);if(st.days[k]&&st.days[k].done)n++;else if(i>0)break;d.setDate(d.getDate()-1);}return n;}
+let chIdx=0;
+function renderChallenge(){const el=$("#chalCard");if(!el)return;const day=ymdL(ctNow());const st=chState();const qs=chQuestions(day);if(qs.length<3){el.innerHTML="";return;}
+  const rec=st.days[day]||(st.days[day]={a:[],done:false});
+  if(rec.done){const sc=rec.a.filter((a,i)=>a===qs[i].ans).length;
+    el.innerHTML=`<div class="card chal"><h3>Daily challenge <span class="tag">${chStreak(st)} day streak</span></h3><div class="chdone"><div class="n">${sc}/${qs.length}</div><div><b>${sc===qs.length?"Perfect score!":sc>=3?"Nice work.":"Tomorrow's another shot."}</b><small>${qs.map((q,i)=>`<span class="${rec.a[i]===q.ans?"ok":"no"}" title="${esc(q.src)}">${rec.a[i]===q.ans?"✓":"✗"} ${esc(q.src)}</span>`).join("")}</small><small class="muted">New questions at midnight. Best streak: ${Math.max(st.best||0,chStreak(st))} day${Math.max(st.best||0,chStreak(st))===1?"":"s"}.</small></div></div></div>`;return;}
+  chIdx=Math.min(rec.a.length,qs.length-1);const q=qs[chIdx];const answered=rec.a.length>chIdx;
+  el.innerHTML=`<div class="card chal"><h3>Daily challenge <span class="tag">${esc(q.src)} · ${chIdx+1} of ${qs.length}</span></h3><p class="chq">${esc(q.q)}</p><div class="chopts">${q.opts.map((o,i)=>`<button data-cha="${i}" ${answered?"disabled":""} class="${answered&&i===q.ans?"right":answered&&i===rec.a[chIdx]?"wrong":""}">${esc(o)}</button>`).join("")}</div><div class="chprog">${qs.map((x,i)=>`<i class="${i<rec.a.length?(rec.a[i]===x.ans?"ok":"no"):i===chIdx?"cur":""}"></i>`).join("")}<span class="small muted">${chStreak(st)} day streak</span></div></div>`;
+  el.onclick=e=>{const b=e.target.closest("[data-cha]");if(!b||b.disabled)return;const st2=chState();const r2=st2.days[day];r2.a.push(+b.dataset.cha);const right=+b.dataset.cha===q.ans;
+    $$("#chalCard [data-cha]").forEach((x,i)=>{x.disabled=true;if(i===q.ans)x.classList.add("right");else if(x===b)x.classList.add("wrong");});
+    const nx=document.createElement("div");nx.className="chexp";nx.innerHTML=`<b>${right?"Correct!":"Not quite."}</b> ${esc(q.exp||"")} <button class="btn sm pri" id="chNext">${r2.a.length>=qs.length?"See score":"Next"}</button>`;$("#chalCard .chal").appendChild(nx);
+    if(r2.a.length>=qs.length){r2.done=true;st2.best=Math.max(st2.best||0,chStreak(st2));}
+    const keep=Object.keys(st2.days).sort().slice(-60);Object.keys(st2.days).forEach(k=>{if(!keep.includes(k))delete st2.days[k];});Store.saveMe();
+    $("#chNext").onclick=()=>{renderChallenge();try{renderTrophies();}catch(e){}};};}
+/* ---- weekly recap ---- */
+function weekBounds(off=0){const t=ctNow();t.setHours(0,0,0,0);const dow=(t.getDay()+6)%7;const mon=new Date(t);mon.setDate(t.getDate()-dow+off*7);const sun=new Date(mon);sun.setDate(mon.getDate()+6);return [mon,sun];}
+function renderRecap(){const el=$("#recapCard");if(!el)return;const t=ctNow();const review=(t.getDay()===0&&t.getHours()>=18)||t.getDay()===1;const [mon,sun]=weekBounds(review&&t.getDay()===1?-1:0);
+  const a=ymdL(mon),b=ymdL(sun);const inW=d=>d&&d.slice(0,10)>=a&&d.slice(0,10)<=b;const rows=[];
+  try{const g=(F.nfl.games||[]).filter(g=>(g.home===favTeam||g.away===favTeam)&&g.status==="final"&&inW(ctYMD(g.time)))[0];if(g){const h=g.home===favTeam,us=h?g.hs:g.as,th=h?g.as:g.hs;rows.push(["🏈",`${favTeam} ${us>th?"beat":us<th?"lost to":"tied"} ${h?g.away:g.home}`,`${us}-${th}`]);}}catch(e){}
+  try{const ph=(F.nfl.pickHistory||[]).slice().sort((x,y)=>y.week-x.week)[0];if(ph&&ph.w+ph.l)rows.push(["🎯",`Picks · ${ph.label||"Week "+ph.week}`,`${ph.w}-${ph.l}`]);}catch(e){}
+  try{const ws=(Store.workouts||[]).filter(w=>inW(w.date));rows.push(["🏋️","Workouts",`${ws.length}`]);}catch(e){}
+  try{const H=Store.me("habits",{list:[],log:{}});let met=0,tot=0;for(let d=new Date(mon);d<=sun&&d<=t;d.setDate(d.getDate()+1)){const L=H.log[ymdL(d)]||{};H.list.forEach(h=>{tot++;if((L[h.id]||0)>=h.target)met++;});}if(tot)rows.push(["💧","Habit goals met",`${met}/${tot}`]);}catch(e){}
+  try{const st=Store.me("bible",{done:{}});const n=Object.values(st.done||{}).filter(ts=>{const d=ymdL(new Date(ts));return d>=a&&d<=b;}).length;rows.push(["📖","Bible readings",`${n}`]);}catch(e){}
+  try{const C=chState();const n=Object.entries(C.days).filter(([k,v])=>v.done&&k>=a&&k<=b).length;rows.push(["🧠","Daily challenges",`${n}`]);}catch(e){}
+  try{const P=wpPicks();let r=0,w=0;(F.wwe.events||[]).forEach(ev=>(ev.matches||[]).forEach((m,i)=>{const p=(P[ev.name]||{})[i];if(m.winner&&p&&inW((ev.date||"").slice(0,10))){p===m.winner?r++:w++;}}));if(r+w)rows.push(["🤼","WWE predictions",`${r}-${w}`]);}catch(e){}
+  const fmt=d=>d.toLocaleDateString("en-US",{month:"short",day:"numeric"});
+  el.innerHTML=`<div class="card recap"><h3>${review?"Week in review":"This week so far"} <span class="tag">${fmt(mon)} – ${fmt(sun)}</span></h3><div class="rcgrid">${rows.map(r=>`<div><span aria-hidden="true">${r[0]}</span><b>${esc(r[2])}</b><small>${esc(r[1])}</small></div>`).join("")}</div></div>`;}
+/* ---- calendar ---- */
+function calEvents(){const ev=[];const add=(d,t,c,go,time)=>{if(d)ev.push({d,t,c,go,time});};
+  try{(F.nfl.games||[]).filter(g=>g.home===favTeam||g.away===favTeam).forEach(g=>add(ctYMD(g.time),`${g.away} @ ${g.home}${g.status==="final"?` (${g.as}-${g.hs})`:""}`,"var(--nfl)","nfl-scores",new Date(g.time).toLocaleTimeString("en-US",{...CT,hour:"numeric",minute:"2-digit"})));}catch(e){}
+  try{(F.wwe.events||[]).forEach(e=>add(ctYMD(e.date),e.name,"var(--wwe)","wwe-news",new Date(e.date).toLocaleTimeString("en-US",{...CT,hour:"numeric",minute:"2-digit"})));const R=F.wwe.rumble;if(R)add(R.date,`Royal Rumble · ${R.city}`,"var(--wwe)","wwe-rumble");}catch(e){}
+  try{(F.games.releases.items||[]).forEach(r=>add(r[0],r[1],"var(--vg)","games-releases"));}catch(e){}
+  try{(window.MARVEL&&MARVEL.upcoming||[]).filter(m=>/^\d{4}-\d\d-\d\d$/.test(m.date)).forEach(m=>add(m.date,m.t,"var(--mv)","marvel-movies"));}catch(e){}
+  try{Store.me("countdowns",[]).forEach(c=>{const n=cdNext(c);add(ymdL(n.d),c.title,"var(--me)","me-countdowns");});}catch(e){}
+  try{const sb=F.nfl.superBowl;if(sb)add(sb.date,sb.name||"Super Bowl","var(--nfl)","nfl-overview");}catch(e){}
+  const y=ctNow().getFullYear();[[`${y}-12-25`,"Christmas"],[`${y+1}-01-01`,"New Year's Day"],[`${y}-12-31`,"New Year's Eve"]].forEach(([d,t])=>add(d,t,"var(--good)",null));
+  const nov1=new Date(y,10,1).getDay();add(`${y}-11-${String(1+((4-nov1+7)%7)+21).padStart(2,"0")}`,"Thanksgiving","var(--good)",null);
+  return ev;}
+let calM=null;
+function renderCalendar(){const el=$("#calGrid");if(!el)return;const now=ctNow();if(!calM)calM=new Date(now.getFullYear(),now.getMonth(),1);const ev=calEvents();const by={};ev.forEach(e=>(by[e.d]=by[e.d]||[]).push(e));
+  $("#calTitle").textContent=calM.toLocaleDateString("en-US",{month:"long",year:"numeric"});const start=new Date(calM);start.setDate(1-((calM.getDay()+7)%7));const today=ymdL(now);
+  let h=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(d=>`<div class="cw">${d}</div>`).join("");
+  for(let i=0;i<42;i++){const d=new Date(start);d.setDate(start.getDate()+i);const k=ymdL(d);const E=by[k]||[];
+    h+=`<button class="cd${d.getMonth()!==calM.getMonth()?" out":""}${k===today?" today":""}${k===calSel?" sel":""}" data-cal="${k}"><span class="dn">${d.getDate()}</span>${E.slice(0,3).map(e=>`<i style="--c:${e.c}">${esc(e.t)}</i>`).join("")}${E.length>3?`<em>+${E.length-3} more</em>`:""}</button>`;}
+  el.innerHTML=h;renderCalDay();}
+let calSel=null;
+function renderCalDay(){const el=$("#calDay");if(!el)return;const k=calSel||ymdL(ctNow());const E=calEvents().filter(e=>e.d===k);const d=new Date(k+"T12:00:00");
+  let extra="";try{if(k===ymdL(ctNow())){const st=bpState();const pl=BP_PLANS[st.plan]||BP_PLANS.year;const di=Math.min(Math.max(bpTodayIdx(st),0),pl.days-1);extra=`<div class="cev" style="--c:#f3c969"><b>Bible reading</b><span>${esc(bpLabel(bpDayReading(pl,di)))}</span></div>`;}}catch(e){}
+  el.innerHTML=`<h3>${esc(d.toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"}))}</h3>${E.map(e=>`<${e.go?`a href="#${e.go}"`:"div"} class="cev" style="--c:${e.c}"><b>${esc(e.t)}</b>${e.time?`<span>${esc(e.time)} CT</span>`:""}</${e.go?"a":"div"}>`).join("")}${extra}${!E.length&&!extra?`<p class="muted small">Nothing scheduled.</p>`:""}`;}
+function wireCalendar(){if(!$("#calGrid"))return;$("#calPrev").onclick=()=>{calM.setMonth(calM.getMonth()-1);renderCalendar();};$("#calNext").onclick=()=>{calM.setMonth(calM.getMonth()+1);renderCalendar();};$("#calToday").onclick=()=>{calM=null;calSel=null;renderCalendar();};
+  $("#calGrid").onclick=e=>{const b=e.target.closest("[data-cal]");if(!b)return;calSel=b.dataset.cal;$$("#calGrid .cd").forEach(x=>x.classList.toggle("sel",x===b));renderCalDay();};renderCalendar();}
+function renderWeekCal(){const el=$("#weekCal");if(!el)return;const ev=calEvents();const t=ctNow();const days=[...Array(7).keys()].map(i=>{const d=new Date(t);d.setDate(t.getDate()+i);return d;});
+  el.innerHTML=`<div class="card wkc"><h3>This week <a class="tag" href="#me-calendar">Full calendar →</a></h3><div class="wkgrid">${days.map((d,i)=>{const k=ymdL(d);const E=ev.filter(e=>e.d===k);return `<div class="${i===0?"today":""}"><span class="wd">${i===0?"Today":d.toLocaleDateString("en-US",{weekday:"short"})}</span><span class="dd">${d.getDate()}</span>${E.slice(0,3).map(e=>`<${e.go?`a href="#${e.go}"`:"i"} style="--c:${e.c}">${esc(e.t)}</${e.go?"a":"i"}>`).join("")}${E.length>3?`<em>+${E.length-3}</em>`:""}</div>`;}).join("")}</div></div>`;}
+/* ---- gym: rest timer & PR board ---- */
+let rtLeft=0,rtTotal=90,rtT=null,rtEnd=0;
+function rtBeep(){try{const A=new (window.AudioContext||window.webkitAudioContext)();[0,.25,.5].forEach(o=>{const g=A.createGain(),os=A.createOscillator();os.frequency.value=880;os.connect(g);g.connect(A.destination);g.gain.setValueAtTime(.2,A.currentTime+o);g.gain.exponentialRampToValueAtTime(.001,A.currentTime+o+.2);os.start(A.currentTime+o);os.stop(A.currentTime+o+.22);});}catch(e){}try{navigator.vibrate&&navigator.vibrate([200,100,200]);}catch(e){}}
+function rtPaint(){const el=$("#rtOut");if(!el)return;const m=Math.floor(rtLeft/60),s=rtLeft%60;el.querySelector(".rtn").textContent=`${m}:${String(s).padStart(2,"0")}`;el.style.setProperty("--p",rtTotal?(1-rtLeft/rtTotal)*360+"deg":"0deg");$("#rtGo").textContent=rtT?"Pause":rtLeft&&rtLeft<rtTotal?"Resume":"Start";}
+function rtStart(){if(rtT){clearInterval(rtT);rtT=null;rtPaint();return;}if(!rtLeft)rtLeft=rtTotal;rtEnd=Date.now()+rtLeft*1000;rtT=setInterval(()=>{rtLeft=Math.max(0,Math.round((rtEnd-Date.now())/1000));if(!rtLeft){clearInterval(rtT);rtT=null;rtBeep();toast("Rest's over. Next set!");}rtPaint();},250);rtPaint();}
+function wireRest(){if(!$("#rtOut"))return;$("#rtPre").onclick=e=>{const b=e.target.closest("[data-rt]");if(!b)return;if(rtT){clearInterval(rtT);rtT=null;}rtTotal=rtLeft=+b.dataset.rt;$$("#rtPre button").forEach(x=>x.classList.toggle("on",x===b));rtPaint();};
+  $("#rtGo").onclick=rtStart;$("#rtReset").onclick=()=>{if(rtT){clearInterval(rtT);rtT=null;}rtLeft=rtTotal;rtPaint();};rtLeft=rtTotal;rtPaint();}
+function renderPRBoard(){const el=$("#prBoard");if(!el)return;const best={};(Store.workouts||[]).forEach(w=>(w.exercises||[]).forEach(e=>(e.sets||[]).forEach(s=>{const wt=+s.weight||0,r=+s.reps||0;if(!wt||!r)return;const e1=r===1?wt:Math.round(wt*(1+r/30));const k=e.name.trim();const b=best[k]||(best[k]={n:k,top:0,e1:0,date:"",reps:0});if(wt>b.top){b.top=wt;b.reps=r;b.date=w.date;}if(e1>b.e1)b.e1=e1;})));
+  const L=Object.values(best).sort((a,b)=>b.e1-a.e1).slice(0,8);
+  el.innerHTML=L.length?`<div class="prb">${L.map((b,i)=>`<div><span class="rk">${i+1}</span><b>${esc(b.n)}</b><span class="v">${b.top} lb × ${b.reps}</span><span class="small muted">est. 1RM ${b.e1} lb · ${esc(newsDate(b.date))}</span></div>`).join("")}</div>`:`<div class="empty-state"><b>No lifts logged yet</b><span>Your heaviest sets show up here once you log workouts.</span></div>`;}
+/* ---- Royal Rumble hub ---- */
+function rrState(){return Store.me("rumble",{pick:{m:"",w:""},f4:{m:["","","",""],w:["","","",""]},live:{m:[],w:[]},div:"m"});}
+function renderRumble(){const el=$("#rrHub");if(!el)return;const R=F&&F.wwe&&F.wwe.rumble;const st=rrState();
+  const days=R?Math.max(0,Math.ceil((new Date(R.date+"T19:00:00-07:00")-Date.now())/864e5)):null;
+  $("#rrHead").innerHTML=R?`<div class="rrh"><div class="n">${days}</div><div><b>${days===0?"Tonight!":"days until the Royal Rumble"}</b><span>${esc(new Date(R.date+"T12:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"}))} · ${esc(R.venue)}, ${esc(R.city)}</span><small>${esc(R.note||"")}</small></div></div>`:"";
+  const roster=[...new Set([...(F.wwe.rumbleNames||[]),...((F.wwe.champions&&F.wwe.champions.brands)||[]).flatMap(b=>(b.titles||[]).flatMap(t=>String(t.holder||t.champ||"").split(/ & | and |, /)))])].filter(x=>x&&x.length<40).sort();
+  $("#rrNames").innerHTML=roster.map(n=>`<option value="${esc(n)}">`).join("");
+  $("#rrPicks").innerHTML=[["m","Men's Rumble"],["w","Women's Rumble"]].map(([k,l])=>`<div class="rrp"><h4>${l}</h4><label class="small muted">Your winner<input list="rrNames" data-rrw="${k}" value="${esc(st.pick[k]||"")}" placeholder="Type a name"></label><label class="small muted">Final four</label><div class="rrf4">${[0,1,2,3].map(i=>`<input list="rrNames" data-rrf="${k}${i}" value="${esc(st.f4[k][i]||"")}" placeholder="#${i+1}">`).join("")}</div></div>`).join("");
+  renderRRLive();}
+function renderRRLive(){const el=$("#rrLive");if(!el)return;const st=rrState();const L=st.live[st.div]||[];const inn=L.filter(x=>!x.out);
+  $$("#rrDiv button").forEach(b=>b.classList.toggle("on",b.dataset.v===st.div));
+  $("#rrStat").textContent=L.length?`${L.length} entered · ${inn.length} still in · ${L.filter(x=>x.out).length} eliminated`:"Add each entrant as they come out.";
+  el.innerHTML=L.map((x,i)=>`<div class="rre${x.out?" out":""}"><span class="no">${i+1}</span><b>${esc(x.n)}</b>${x.out?`<span class="small muted">out${x.by?" by "+esc(x.by):""} · ${x.dur}</span><button class="btn sm" data-rru="${i}">Undo</button>`:`<span class="small muted">in ${rrDur(x.at)}</span><input class="rrby" data-rrby="${i}" list="rrNames" placeholder="Eliminated by (optional)"><button class="btn sm" data-rro="${i}">Eliminated</button>`}</div>`).join("")||"";
+  const left=inn.length===1&&L.length>=2;$("#rrWin").innerHTML=left?`<div class="rrwin">🏆 ${esc(inn[0].n)} wins the ${st.div==="m"?"Men's":"Women's"} Royal Rumble!${st.pick[st.div]&&st.pick[st.div].toLowerCase()===inn[0].n.toLowerCase()?" You called it!":""}</div>`:"";}
+const rrDur=at=>{const s=Math.floor((Date.now()-at)/1000);return `${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`;};
+function wireRumble(){const hub=$("#rrHub");if(!hub)return;
+  hub.addEventListener("change",e=>{const st=rrState();const w=e.target.closest("[data-rrw]"),f=e.target.closest("[data-rrf]");if(w)st.pick[w.dataset.rrw]=w.value.trim();if(f){const k=f.dataset.rrf;st.f4[k[0]][+k[1]]=f.value.trim();}if(w||f){Store.saveMe();toast("Prediction saved");}});
+  $("#rrDiv").onclick=e=>{const b=e.target.closest("button");if(!b)return;rrState().div=b.dataset.v;Store.saveMe();renderRRLive();};
+  $("#rrAdd").onsubmit=e=>{e.preventDefault();const v=$("#rrName").value.trim();if(!v)return;const st=rrState();(st.live[st.div]=st.live[st.div]||[]).push({n:v,at:Date.now()});Store.saveMe();e.target.reset();renderRRLive();$("#rrName").focus();};
+  $("#rrLive").onclick=e=>{const st=rrState();const L=st.live[st.div];const o=e.target.closest("[data-rro]"),u=e.target.closest("[data-rru]");
+    if(o){const i=+o.dataset.rro;const by=($(`[data-rrby="${i}"]`)||{}).value||"";L[i].out=Date.now();L[i].by=by.trim();L[i].dur=rrDur(L[i].at);Store.saveMe();renderRRLive();}
+    if(u){const i=+u.dataset.rru;delete L[i].out;delete L[i].by;Store.saveMe();renderRRLive();}};
+  $("#rrClear").onclick=async()=>{if(!(await confirmBox("Clear the live tracker for this match?")))return;const st=rrState();st.live[st.div]=[];Store.saveMe();renderRRLive();};
+  setInterval(()=>{if(location.hash==="#wwe-rumble"&&!document.activeElement.classList.contains("rrby"))renderRRLive();},15000);renderRumble();}
+/* ---- faith: verse memory, sermon notes, prayer list ---- */
+function vmState(){return Store.me("verseMem",{list:[],done:{}});}
+let vmCur=null,vmLevel=0;
+function vmMask(text,level){if(!level)return esc(text);let i=0;return text.split(/(\s+)/).map(w=>{if(/^\s+$/.test(w))return w;i++;const hide=level===3||(level===2&&i%2===0)||(level===1&&i%3===0);return hide?`<span class="vmh">${esc(w[0])}${"_".repeat(Math.max(1,w.replace(/[^A-Za-z]/g,"").length-1))}</span>`:esc(w);}).join("");}
+function renderVerseMem(){const el=$("#vmList");if(!el||!window.VERSES)return;const st=vmState();
+  const list=st.list.map(r=>VERSES.find(v=>v[0]===r)).filter(Boolean);
+  el.innerHTML=list.length?list.map(v=>`<button class="vmi${vmCur===v[0]?" on":""}${st.done[v[0]]?" done":""}" data-vm="${esc(v[0])}">${st.done[v[0]]?"✓ ":""}${esc(v[0])}</button>`).join(""):`<p class="small muted">Pick verses to memorize below. Today's verse is a good start.</p>`;
+  const v=list.find(x=>x[0]===vmCur)||list[0];const P=$("#vmPractice");
+  if(!v){P.innerHTML="";}else{vmCur=v[0];P.innerHTML=`<div class="vmcard"><div class="vk">${esc(v[0])} · KJV</div><blockquote>${vmMask(v[1],vmLevel)}</blockquote><div class="seg" id="vmLv">${["Read","Some hidden","Half hidden","First letters"].map((l,i)=>`<button data-v="${i}" class="${vmLevel===i?"on":""}">${l}</button>`).join("")}</div><div class="row" style="gap:8px;margin-top:10px"><button class="btn sm${st.done[v[0]]?"":" pri"}" id="vmDone">${st.done[v[0]]?"Memorized ✓":"I know it"}</button><button class="btn sm" id="vmDel">Remove</button></div></div>`;
+    $("#vmLv").onclick=e=>{const b=e.target.closest("button");if(b){vmLevel=+b.dataset.v;renderVerseMem();}};
+    $("#vmDone").onclick=()=>{st.done[v[0]]?delete st.done[v[0]]:st.done[v[0]]=Date.now();Store.saveMe();renderVerseMem();};
+    $("#vmDel").onclick=()=>{st.list=st.list.filter(x=>x!==v[0]);delete st.done[v[0]];vmCur=null;Store.saveMe();renderVerseMem();};}
+  $("#vmAdd").innerHTML=`<option value="">Add a verse…</option>`+VERSES.filter(x=>!st.list.includes(x[0])).map(x=>`<option value="${esc(x[0])}">${esc(x[0])}</option>`).join("");
+  $("#vmStat").textContent=`${Object.keys(st.done).length} of ${st.list.length} memorized`;}
+function wireVerseMem(){if(!$("#vmAdd"))return;$("#vmAdd").onchange=e=>{const v=e.target.value;if(!v)return;const st=vmState();if(!st.list.includes(v))st.list.push(v);vmCur=v;vmLevel=0;Store.saveMe();renderVerseMem();};
+  $("#vmList").onclick=e=>{const b=e.target.closest("[data-vm]");if(b){vmCur=b.dataset.vm;vmLevel=0;renderVerseMem();}};
+  const st=vmState();if(!st.list.length&&window.VERSES){const di=dayIndex();const today=VERSES[di%VERSES.length];if(today){st.list.push(today[0]);}}renderVerseMem();}
+function renderSermons(){const el=$("#snList");if(!el)return;const L=Store.me("sermons",[]);
+  el.innerHTML=L.length?L.map(x=>`<div class="je"><div class="h"><b>${esc(x.title||"Sermon")}</b><span>${esc(newsDate(x.date))}${x.who?" · "+esc(x.who):""}</span><button class="x" data-sndel="${x.id}" aria-label="Delete notes">×</button></div>${x.ref?`<div class="small" style="color:#d9a441;font-weight:700;margin-bottom:4px">${esc(x.ref)}</div>`:""}<p>${esc(x.notes)}</p></div>`).join(""):`<div class="empty-state"><b>No sermon notes yet</b><span>Jot down the passage and what stood out.</span></div>`;}
+function wireSermons(){const f=$("#snForm");if(!f)return;$("#snDate").value=ymdL(ctNow());
+  f.onsubmit=e=>{e.preventDefault();const n=$("#snNotes").value.trim();if(!n)return;Store.me("sermons",[]).unshift({id:Date.now().toString(36),date:$("#snDate").value,who:$("#snWho").value.trim(),title:$("#snTitle").value.trim(),ref:$("#snRef").value.trim(),notes:n});Store.saveMe();f.reset();$("#snDate").value=ymdL(ctNow());renderSermons();toast("Notes saved");};
+  $("#snList").onclick=async e=>{const b=e.target.closest("[data-sndel]");if(!b||!(await confirmBox("Delete these notes?")))return;const L=Store.me("sermons",[]);const i=L.findIndex(x=>x.id===b.dataset.sndel);if(i>=0)L.splice(i,1);Store.saveMe();renderSermons();};renderSermons();}
+let prF="active";
+function renderPrayers(){const el=$("#prList");if(!el)return;const L=Store.me("prayers",[]);const act=L.filter(x=>!x.ans),ans=L.filter(x=>x.ans);
+  $$("#prFilter button").forEach(b=>{b.classList.toggle("on",b.dataset.v===prF);b.querySelector("span").textContent=b.dataset.v==="active"?act.length:ans.length;});
+  const rows=prF==="active"?act:ans;
+  el.innerHTML=rows.length?rows.map(x=>`<div class="pri2${x.ans?" ans":""}"><div><b>${esc(x.text)}</b><small>${x.who?esc(x.who)+" · ":""}since ${esc(newsDate(new Date(x.at).toISOString().slice(0,10)))}${x.ans?` · answered ${esc(newsDate(new Date(x.ans).toISOString().slice(0,10)))}`:""}</small>${x.note?`<p>${esc(x.note)}</p>`:""}</div>${x.ans?`<button class="btn sm" data-pru="${x.id}">Move back</button>`:`<button class="btn sm pri" data-pra="${x.id}">Answered</button>`}<button class="x" data-prd="${x.id}" aria-label="Delete">×</button></div>`).join(""):`<div class="empty-state"><b>${prF==="active"?"No prayer requests":"No answered prayers yet"}</b><span>${prF==="active"?"Add someone or something you're praying for.":"Mark a request answered to keep a record of it here."}</span></div>`;}
+function wirePrayers(){const f=$("#prForm");if(!f)return;f.onsubmit=e=>{e.preventDefault();const t=$("#prText").value.trim();if(!t)return;Store.me("prayers",[]).unshift({id:Date.now().toString(36),text:t,who:$("#prWho").value.trim(),at:Date.now()});Store.saveMe();f.reset();prF="active";renderPrayers();};
+  $("#prFilter").onclick=e=>{const b=e.target.closest("button");if(b){prF=b.dataset.v;renderPrayers();}};
+  $("#prList").onclick=async e=>{const L=Store.me("prayers",[]);const a=e.target.closest("[data-pra]"),u=e.target.closest("[data-pru]"),d=e.target.closest("[data-prd]");const id=(a||u||d||{}).dataset;if(!id)return;const x=L.find(p=>p.id===(id.pra||id.pru||id.prd));if(!x)return;
+    if(a){x.ans=Date.now();toast("Praise God! Moved to answered.");}if(u){delete x.ans;}
+    if(d){if(!(await confirmBox("Delete this prayer request?")))return;L.splice(L.indexOf(x),1);}Store.saveMe();renderPrayers();};renderPrayers();}
+function initFeat2(){[renderChallenge,renderRecap,renderWeekCal,wireCalendar,wireRest,renderPRBoard,wireRumble,wireVerseMem,wireSermons,wirePrayers].forEach(fn=>{try{fn();}catch(e){console.error(e)}});
+  window.addEventListener("hashchange",()=>{const h=location.hash;if(h==="#home"||h===""){try{renderRecap();renderWeekCal();}catch(e){}}if(h.startsWith("#me-calendar"))try{renderCalendar();}catch(e){}if(h.startsWith("#workouts"))try{renderPRBoard();}catch(e){}});}
 /* =====================================================
    SEARCH EVERYTHING
    ===================================================== */
@@ -2280,7 +2635,7 @@ function renderHome(){
   const allGames=[].concat(...PLAT.map(x=>F.games[x.k].news));
   $("#homeCards").innerHTML=card("nfl","var(--nfl)",short(favTeam)+" & NFL",top(teamNews.length?teamNews:F.nfl.news,3))+card("starwars","var(--sw)","Star Wars",top(F.starwars.news,3))+card("games","var(--vg)","Video games",top(allGames,3))+card("wwe","var(--wwe)","WWE",top(F.wwe.news,3));
   renderTicker();
-  renderVerse();renderMarkets();try{renderOTD();renderMyDay();renderWatch();renderTrophies();refreshBanners();renderGameDay();renderLocal();}catch(e){console.error(e)}
+  renderVerse();renderMarkets();try{addSparks();renderPickChart();applyGameDay();}catch(e){}try{renderOTD();renderMyDay();renderWatch();renderTrophies();refreshBanners();renderGameDay();renderLocal();}catch(e){console.error(e)}
   renderBigCds();renderPods();
 }
 document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g&&!e.target.closest("a")){location.hash=g.dataset.go;}});
@@ -2597,6 +2952,8 @@ function boot(){
   try{initGW();}catch(e){console.error(e)}
   try{initMe();}catch(e){console.error(e)}
   try{initLocalFit();}catch(e){console.error(e)}
+  try{initFeat2();}catch(e){console.error(e)}
+  try{initDesign2();}catch(e){console.error(e)}
   try{initPhone();renderMyDay();renderWatch();renderTrophies();Store.onChange(()=>{try{renderTrophies();}catch(e){}});window.addEventListener("hashchange",()=>{try{refreshBanners();}catch(e){}if((location.hash||"#home").startsWith("#home"))try{renderTrophies();}catch(e){}});}catch(e){console.error(e)}
   ["nfl","sw","vg","wwe"].forEach(k=>{renderBest(k);startQuiz(k);});
   if(window.FRANCH){["bl","gta","ac"].forEach(k=>{TRIVIA[k]=FRANCH[k].trivia;renderFranchise(k);});}

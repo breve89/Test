@@ -5531,6 +5531,18 @@ window.FEED={
      ]
     }
    ]
+  },
+  "rumble": {
+   "date": "2027-02-06",
+   "venue": "State Farm Stadium",
+   "city": "Glendale, AZ",
+   "note": "The 40th Royal Rumble. Winners earn world title matches at WrestleMania 43.",
+   "sources": [
+    {
+     "name": "Fightful",
+     "url": "https://www.fightful.com/wrestling/wwe-announces-date-for-wwe-royal-rumble-2027"
+    }
+   ]
   }
  },
  "podcasts": [
@@ -5985,5 +5997,25 @@ window.FEED={
     "url": "https://gasprices.aaa.com/?state=IL"
    }
   }
+ },
+ "stockHist": {
+  "S&P 500": [
+   [
+    "2026-11-24",
+    7201.09
+   ]
+  ],
+  "DOW": [
+   [
+    "2026-11-24",
+    50018.7
+   ]
+  ],
+  "NASDAQ": [
+   [
+    "2026-11-24",
+    23733.54
+   ]
+  ]
  }
 };
