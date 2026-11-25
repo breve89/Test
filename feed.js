@@ -1,5 +1,5 @@
 window.FEED={
- "updated": "2026-11-24T12:15:00-06:00",
+ "updated": "2026-11-25T07:15:00-06:00",
  "nfl": {
   "week": 12,
   "standings": [
@@ -341,7 +341,7 @@ window.FEED={
      "away": "CHI",
      "home": "DET",
      "pick": "CHI",
-     "prob": 57,
+     "prob": 53,
      "why": "Thanksgiving opener. Both 8-2; models lean to Chicago even on the road. A true toss-up."
     },
     {
@@ -362,7 +362,7 @@ window.FEED={
      "away": "DEN",
      "home": "PIT",
      "pick": "DEN",
-     "prob": 59,
+     "prob": 65,
      "why": "Black Friday. Denver (8-2) has won convincingly; Pittsburgh (6-4) just lost in Philadelphia."
     },
     {
@@ -383,7 +383,7 @@ window.FEED={
      "away": "TEN",
      "home": "JAC",
      "pick": "JAC",
-     "prob": 90,
+     "prob": 91,
      "why": "Biggest gap on the board: Tennessee is 1-9 and allowed 51 in Dallas."
     },
     {
@@ -4104,7 +4104,7 @@ window.FEED={
     "time": "2026-11-26T18:00:00Z",
     "tag": "Thanksgiving",
     "fav": "CHI",
-    "favPct": 57
+    "favPct": 53
    },
    {
     "away": "PHI",
@@ -4131,7 +4131,7 @@ window.FEED={
     "time": "2026-11-27T20:00:00Z",
     "tag": "Black Friday",
     "fav": "DEN",
-    "favPct": 59
+    "favPct": 65
    },
    {
     "away": "NYG",
@@ -4155,7 +4155,7 @@ window.FEED={
     "status": "upcoming",
     "time": "2026-11-29T18:00:00Z",
     "fav": "JAC",
-    "favPct": 90
+    "favPct": 91
    },
    {
     "away": "BAL",
@@ -4213,6 +4213,20 @@ window.FEED={
    }
   ],
   "news": [
+   {
+    "title": "Kraft and Belichick advance in Hall of Fame voting",
+    "summary": "Robert Kraft and Bill Belichick moved forward in the selection process for the Pro Football Hall of Fame Class of 2027; Rob Gronkowski is also among ex-Patriots nominated.",
+    "source": "Patriots.com",
+    "url": "https://www.patriots.com/news/",
+    "date": "2026-11-24"
+   },
+   {
+    "title": "Vrabel: Tommy DeVito starts Sunday at the Chargers",
+    "summary": "Coming off the bye, Mike Vrabel named DeVito the Week 12 starter and sidestepped questions about free agent Daniel Jones; rookie Behren Morton moves up to QB2.",
+    "source": "Yahoo Sports",
+    "url": "https://sports.yahoo.com/nfl/teams/new-england/",
+    "date": "2026-11-24"
+   },
    {
     "teams": [
      "NE",
@@ -5842,37 +5856,37 @@ window.FEED={
   ]
  },
  "stocks": {
-  "asOf": "2026-11-23T16:00:00-05:00",
-  "session": "Close · Mon Nov 23",
-  "headline": "Best day since April 2025: stocks rebounded from last week's AI sell-off as Nvidia jumped about 31% on Jensen Huang's return.",
+  "asOf": "2026-11-24T16:00:00-05:00",
+  "session": "Close · Tue Nov 24",
+  "headline": "AI stocks gave back Monday's surge: the S&P 500 slipped 0.5% for its eighth loss in nine days, but the Dow rose more than 400 points as most non-tech stocks climbed.",
   "items": [
    {
     "sym": "S&P 500",
-    "name": "Large-cap U.S. stocks",
-    "price": 7237.17,
-    "chg": 326.78,
-    "pct": 4.73,
+    "name": "S&P 500",
+    "price": 7201.09,
+    "chg": -36.08,
+    "pct": -0.5,
     "idx": true
    },
    {
     "sym": "DOW",
     "name": "Dow Jones Industrial Average",
-    "price": 49595.31,
-    "chg": 1447.98,
-    "pct": 3.01,
+    "price": 50018.7,
+    "chg": 423.39,
+    "pct": 0.85,
     "idx": true
    },
    {
     "sym": "NASDAQ",
     "name": "Nasdaq Composite",
-    "price": 24089.56,
-    "chg": 1471.82,
-    "pct": 6.51,
+    "price": 23733.54,
+    "chg": -356.02,
+    "pct": -1.48,
     "idx": true
    },
    {
     "sym": "TTWO",
-    "name": "Take-Two (GTA)",
+    "name": "Take-Two (GTA) · Mon close",
     "price": 209.36,
     "chg": -0.64,
     "pct": -0.3
@@ -5880,8 +5894,8 @@ window.FEED={
   ],
   "sources": [
    {
-    "name": "CNBC",
-    "url": "https://www.cnbc.com/2026/11/22/stock-market-today-live-updates.html"
+    "name": "AP via WTOP",
+    "url": "https://wtop.com/national/2026/11/how-major-us-stock-indexes-fared-tuesday-11-24-2026"
    },
    {
     "name": "StockAnalysis (TTWO)",
@@ -5893,18 +5907,18 @@ window.FEED={
   "city": "Bloomington, IL",
   "lat": 40.4842,
   "lon": -88.9937,
-  "asOf": "2026-11-25T02:20:00-06:00",
+  "asOf": "2026-11-25T07:10:00-06:00",
   "now": {
-   "temp": 27,
+   "temp": 26,
    "cond": "Cloudy"
   },
   "days": [
    [
     "2026-11-25",
-    "snow",
+    "sleet",
     38,
-    27,
-    35
+    25,
+    90
    ],
    [
     "2026-11-26",
@@ -5929,24 +5943,31 @@ window.FEED={
    ],
    [
     "2026-11-29",
-    "sleet",
-    45,
-    32,
-    70
+    "snow",
+    42,
+    30,
+    65
    ],
    [
     "2026-11-30",
     "partly_cloudy",
-    42,
-    31,
-    5
+    44,
+    30,
+    0
    ],
    [
     "2026-12-01",
     "partly_cloudy",
-    46,
-    31,
-    25
+    47,
+    32,
+    10
+   ],
+   [
+    "2026-12-02",
+    "cloudy",
+    50,
+    32,
+    10
    ]
   ],
   "gas": {
