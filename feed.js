@@ -1,5 +1,5 @@
 window.FEED={
- "updated": "2026-11-25T07:15:00-06:00",
+ "updated": "2026-11-25T11:15:00-06:00",
  "nfl": {
   "week": 12,
   "standings": [
@@ -4214,6 +4214,16 @@ window.FEED={
   ],
   "news": [
    {
+    "title": "Maye's injury confirmed as a fractured fibula, no surgery needed",
+    "summary": "Drake Maye's injury is a fractured right fibula that won't require surgery. Rapoport says he'll miss at least six weeks, with an outside chance of returning for the last week or two if the Patriots are still in the playoff race.",
+    "source": "Covers / NFL Network",
+    "url": "https://www.covers.com/nfl/when-will-drake-maye-return-2026",
+    "date": "2026-11-25",
+    "teams": [
+     "NE"
+    ]
+   },
+   {
     "title": "Kraft and Belichick advance in Hall of Fame voting",
     "summary": "Robert Kraft and Bill Belichick moved forward in the selection process for the Pro Football Hall of Fame Class of 2027; Rob Gronkowski is also among ex-Patriots nominated.",
     "source": "Patriots.com",
@@ -4424,6 +4434,16 @@ window.FEED={
   ],
   "insiders": [
    {
+    "who": "Rapoport",
+    "date": "2026-11-25",
+    "teams": [
+     "NE"
+    ],
+    "text": "Drake Maye (fractured right fibula, no surgery) is out at least six weeks; there's an outside chance he returns for the final week or two if New England is still alive for a playoff spot.",
+    "source": "NFL Network via Covers",
+    "url": "https://www.covers.com/nfl/when-will-drake-maye-return-2026"
+   },
+   {
     "who": "Schefter",
     "date": "2026-11-23",
     "teams": [
@@ -4571,17 +4591,6 @@ window.FEED={
     "text": "The Broncos are trading for LB Daiyan Henley.",
     "source": "RotoBaller",
     "url": "https://www.rotoballer.com/?p=1989746"
-   },
-   {
-    "who": "Schefter",
-    "date": "2026-11-10",
-    "teams": [
-     "MIN",
-     "LV"
-    ],
-    "text": "The Vikings targeted Raiders QB Kirk Cousins as a trade candidate ahead of the deadline.",
-    "source": "RotoBaller",
-    "url": "https://www.rotoballer.com/?p=1989694"
    }
   ],
   "injuries": {
@@ -4590,9 +4599,9 @@ window.FEED={
     [
      "Drake Maye",
      "QB",
-     "Fractured right fibula",
+     "Fractured right fibula (no surgery)",
      "Out",
-     "Not expected back for weeks; no surgery needed"
+     "Out at least six weeks (Rapoport); outside chance to return late in the season"
     ],
     [
      "A.J. Brown",
@@ -4900,6 +4909,11 @@ window.FEED={
      "url": "https://patch.com/massachusetts/foxborough/here-are-patriots-odds-beat-chargers-week-12"
     }
    ]
+  },
+  "superBowl": {
+   "date": "2027-02-14",
+   "name": "Super Bowl LXI",
+   "where": "SoFi Stadium, Inglewood, CA · ESPN/ABC"
   }
  },
  "starwars": {
@@ -5925,51 +5939,51 @@ window.FEED={
   "city": "Chatham, IL",
   "lat": 39.6762,
   "lon": -89.704,
-  "asOf": "2026-11-25T08:00:00-06:00",
+  "asOf": "2026-11-25T11:10:00-06:00",
   "now": {
-   "temp": 29,
+   "temp": 34,
    "cond": "Cloudy"
   },
   "days": [
    [
     "2026-11-25",
-    "sleet",
-    36,
+    "snow",
+    35,
     28,
-    86
+    70
    ],
    [
     "2026-11-26",
     "sleet",
-    40,
-    36,
-    60
+    39,
+    35,
+    65
    ],
    [
     "2026-11-27",
     "cloudy",
-    46,
-    35,
+    45,
+    36,
     10
    ],
    [
     "2026-11-28",
     "drizzle",
-    54,
+    55,
     35,
-    30
+    15
    ],
    [
     "2026-11-29",
     "drizzle",
-    44,
+    45,
     31,
-    55
+    45
    ],
    [
     "2026-11-30",
     "clear",
-    47,
+    48,
     31,
     0
    ],
@@ -5977,14 +5991,14 @@ window.FEED={
     "2026-12-01",
     "partly_cloudy",
     49,
-    33,
+    36,
     10
    ],
    [
     "2026-12-02",
     "cloudy",
-    52,
-    33,
+    50,
+    38,
     10
    ]
   ],
