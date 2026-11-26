@@ -1,5 +1,5 @@
 window.FEED={
- "updated": "2026-11-25T21:05:00-06:00",
+ "updated": "2026-11-25T22:35:00-06:00",
  "nfl": {
   "week": 12,
   "standings": [
@@ -239,7 +239,7 @@ window.FEED={
     "conf": "NFC",
     "div": "NFC North",
     "w": 6,
-    "l": 4,
+    "l": 5,
     "confRank": 7,
     "divRank": 4
    },
@@ -308,7 +308,7 @@ window.FEED={
     "name": "Los Angeles Rams",
     "conf": "NFC",
     "div": "NFC West",
-    "w": 6,
+    "w": 7,
     "l": 4,
     "confRank": 9,
     "divRank": 3
@@ -587,6 +587,22 @@ window.FEED={
       "prob": 70,
       "result": "CIN 20, WAS 22",
       "correct": false
+     }
+    ]
+   },
+   {
+    "week": 12,
+    "label": "Week 12",
+    "w": 1,
+    "l": 0,
+    "games": [
+     {
+      "away": "GB",
+      "home": "LA",
+      "pick": "LA",
+      "prob": 56,
+      "result": "GB 13, LA 26",
+      "correct": true
      }
     ]
    }
@@ -4089,10 +4105,10 @@ window.FEED={
    {
     "away": "GB",
     "home": "LA",
-    "status": "upcoming",
+    "status": "final",
     "time": "2026-11-26T01:00:00Z",
-    "fav": "LA",
-    "favPct": 56
+    "as": 13,
+    "hs": 26
    },
    {
     "away": "CHI",
