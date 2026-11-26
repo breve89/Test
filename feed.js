@@ -1,5 +1,5 @@
 window.FEED={
- "updated": "2026-11-25T15:45:00-06:00",
+ "updated": "2026-11-25T21:05:00-06:00",
  "nfl": {
   "week": 12,
   "standings": [
@@ -369,7 +369,7 @@ window.FEED={
      "away": "NYG",
      "home": "IND",
      "pick": "NYG",
-     "prob": 73,
+     "prob": 71,
      "why": "Indianapolis released Daniel Jones and turns to Anthony Richardson; the Giants (6-3) are surging."
     },
     {
@@ -383,7 +383,7 @@ window.FEED={
      "away": "TEN",
      "home": "JAC",
      "pick": "JAC",
-     "prob": 91,
+     "prob": 90,
      "why": "Biggest gap on the board: Tennessee is 1-9 and allowed 51 in Dallas."
     },
     {
@@ -404,17 +404,15 @@ window.FEED={
      "away": "NYJ",
      "home": "MIA",
      "pick": "NYJ",
-     "prob": 55,
-     "why": "The Jets won at LAC; Miami (1-9) has the league's worst record. Low confidence.",
-     "est": true
+     "prob": 68,
+     "why": "The Jets won at LAC; Miami (1-9) has the league's worst record. Low confidence."
     },
     {
      "away": "NE",
      "home": "LAC",
      "pick": "NE",
-     "prob": 60,
-     "why": "Patriots (5-5) off the bye but without Drake Maye; Chargers are 1-9. Flexed to 3:05 PM CT on CBS.",
-     "est": true
+     "prob": 52,
+     "why": "Patriots (5-5) off the bye but without Drake Maye; Chargers are 1-9. Flexed to 3:05 PM CT on CBS."
     },
     {
      "away": "SEA",
@@ -436,9 +434,8 @@ window.FEED={
      "away": "LV",
      "home": "CLE",
      "pick": "CLE",
-     "prob": 64,
-     "why": "Flexed into SNF. Cleveland (6-4) at home; Las Vegas may be without Brock Bowers again.",
-     "est": true
+     "prob": 68,
+     "why": "Flexed into SNF. Cleveland (6-4) at home; Las Vegas may be without Brock Bowers again."
     },
     {
      "away": "CAR",
@@ -4139,7 +4136,7 @@ window.FEED={
     "status": "upcoming",
     "time": "2026-11-29T18:00:00Z",
     "fav": "NYG",
-    "favPct": 73
+    "favPct": 71
    },
    {
     "away": "ATL",
@@ -4155,7 +4152,7 @@ window.FEED={
     "status": "upcoming",
     "time": "2026-11-29T18:00:00Z",
     "fav": "JAC",
-    "favPct": 91
+    "favPct": 90
    },
    {
     "away": "BAL",
@@ -4177,7 +4174,9 @@ window.FEED={
     "away": "NYJ",
     "home": "MIA",
     "status": "upcoming",
-    "time": "2026-11-29T18:00:00Z"
+    "time": "2026-11-29T18:00:00Z",
+    "fav": "NYJ",
+    "favPct": 68
    },
    {
     "away": "SEA",
@@ -4195,14 +4194,18 @@ window.FEED={
     "away": "NE",
     "home": "LAC",
     "status": "upcoming",
-    "time": "2026-11-29T21:05:00Z"
+    "time": "2026-11-29T21:05:00Z",
+    "fav": "NE",
+    "favPct": 52
    },
    {
     "away": "LV",
     "home": "CLE",
     "status": "upcoming",
     "time": "2026-11-30T01:20:00Z",
-    "tag": "SNF"
+    "tag": "SNF",
+    "fav": "CLE",
+    "favPct": 68
    },
    {
     "away": "CAR",
