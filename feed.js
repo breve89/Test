@@ -1,5 +1,5 @@
 window.FEED={
- "updated": "2026-11-27T12:55:00-06:00",
+ "updated": "2026-11-27T17:35:00-06:00",
  "nfl": {
   "week": 12,
   "standings": [
@@ -58,7 +58,7 @@ window.FEED={
     "name": "Pittsburgh Steelers",
     "conf": "AFC",
     "div": "AFC North",
-    "w": 6,
+    "w": 7,
     "l": 4,
     "confRank": 7,
     "divRank": 3
@@ -139,7 +139,7 @@ window.FEED={
     "conf": "AFC",
     "div": "AFC West",
     "w": 8,
-    "l": 2,
+    "l": 3,
     "confRank": 2,
     "divRank": 1
    },
@@ -592,7 +592,7 @@ window.FEED={
     "week": 12,
     "label": "Week 12",
     "w": 3,
-    "l": 1,
+    "l": 2,
     "games": [
      {
       "away": "GB",
@@ -625,6 +625,14 @@ window.FEED={
       "prob": 58,
       "result": "KC 10, BUF 13",
       "correct": true
+     },
+     {
+      "away": "DEN",
+      "home": "PIT",
+      "pick": "DEN",
+      "prob": 69,
+      "result": "DEN 5, PIT 27",
+      "correct": false
      }
     ]
    }
@@ -4162,11 +4170,11 @@ window.FEED={
    {
     "away": "DEN",
     "home": "PIT",
-    "status": "upcoming",
+    "status": "final",
     "time": "2026-11-27T20:00:00Z",
     "tag": "Black Friday",
-    "fav": "DEN",
-    "favPct": 69
+    "as": 5,
+    "hs": 27
    },
    {
     "away": "NYG",
@@ -4258,6 +4266,29 @@ window.FEED={
    }
   ],
   "news": [
+   {
+    "title": "Steelers rout Broncos 27-5 on Black Friday",
+    "summary": "Pittsburgh scored on a T.J. Watt fumble recovery and a Jalen Ramsey pick-six to improve to 7-4, putting more distance between itself and the 5-5 Patriots in the AFC wild-card race.",
+    "source": "ESPN",
+    "url": "https://www.espn.com/nfl/scoreboard",
+    "date": "2026-11-27",
+    "teams": [
+     "NE",
+     "PIT",
+     "DEN"
+    ]
+   },
+   {
+    "title": "Herbert out; DJ Uiagalelei to make first NFL start vs. Patriots",
+    "summary": "The Chargers ruled out Justin Herbert (concussion) Friday, so it's a backup-vs-backup matchup Sunday: Tommy DeVito for New England, DJ Uiagalelei for Los Angeles.",
+    "source": "Yahoo Sports",
+    "url": "https://sports.yahoo.com/nfl/breaking-news/article/chargers-qb-justin-herbert-concussion-to-miss-week-12-dj-uiagalelei-will-make-first-nfl-start-vs-patriots-223704177.html",
+    "date": "2026-11-27",
+    "teams": [
+     "NE",
+     "LAC"
+    ]
+   },
    {
     "title": "Thanksgiving: Bears outlast Lions, Eagles edge Cowboys, Bills hold off Chiefs",
     "summary": "Chicago won 39-35 in Detroit, Philadelphia beat Dallas 39-38, and Buffalo beat Kansas City 13-10 to improve to 10-1 ahead of its Week 13 trip to New England.",
@@ -4526,6 +4557,17 @@ window.FEED={
   ],
   "insiders": [
    {
+    "who": "Schefter",
+    "date": "2026-11-27",
+    "teams": [
+     "LAC",
+     "NE"
+    ],
+    "text": "Chargers ruled out Justin Herbert (concussion protocol); DJ Uiagalelei is expected to make his first NFL start against the Patriots.",
+    "source": "Schefter on X via ClutchPoints",
+    "url": "https://clutchpoints.com/nfl/los-angeles-chargers/chargers-news-justin-herbert-officially-ruled-out-patriots-clash-dj-uiagalelei-will-start"
+   },
+   {
     "who": "Rapoport",
     "date": "2026-11-25",
     "teams": [
@@ -4672,17 +4714,6 @@ window.FEED={
     "text": "The Bills gave up a second-round pick to acquire safety Amani Hooker from the Titans at the trade deadline.",
     "source": "RotoBaller",
     "url": "https://www.rotoballer.com/?p=1989746"
-   },
-   {
-    "who": "Rapoport",
-    "date": "2026-11-10",
-    "teams": [
-     "DEN",
-     "LAC"
-    ],
-    "text": "The Broncos are trading for LB Daiyan Henley.",
-    "source": "RotoBaller",
-    "url": "https://www.rotoballer.com/?p=1989746"
    }
   ],
   "injuries": {
@@ -4792,8 +4823,8 @@ window.FEED={
      "Justin Herbert",
      "QB",
      "Concussion",
-     "Questionable",
-     "In concussion protocol after the Jets loss"
+     "Out",
+     "Ruled out Friday; DJ Uiagalelei makes his first NFL start, Jake Browning backs up"
     ],
     [
      "Derwin James Jr.",
@@ -4815,6 +4846,48 @@ window.FEED={
      "Knee",
      "Out",
      ""
+    ],
+    [
+     "Keaton Mitchell",
+     "RB",
+     "Knee",
+     "Out",
+     ""
+    ],
+    [
+     "David Njoku",
+     "TE",
+     "Shoulder",
+     "Questionable",
+     ""
+    ],
+    [
+     "Tarheeb Still",
+     "CB",
+     "Ankle",
+     "Questionable",
+     ""
+    ],
+    [
+     "Dalvin Tomlinson",
+     "DT",
+     "Knee",
+     "Questionable",
+     ""
+    ],
+    [
+     "Tuli Tuipulotu",
+     "OLB",
+     "Ankle",
+     "Questionable",
+     ""
+    ],
+    [
+     "Kendall Williamson",
+     "S",
+     "—",
+     "Questionable",
+     ""
     ]
    ],
    "sources": [
@@ -4825,6 +4898,10 @@ window.FEED={
     {
      "name": "Chargers.com",
      "url": "https://www.chargers.com/news/justin-herbert-akheem-mesidor-patriots-injury-report-2026"
+    },
+    {
+     "name": "Bolts From The Blue (Chargers final report)",
+     "url": "https://www.boltsfromtheblue.com/los-angeles-chargers-injuries/67371/chargers-injury-report-justin-herbert-ruled-out-patriots-daiyan-henley"
     }
    ]
   },
@@ -4978,9 +5055,9 @@ window.FEED={
    "weather": "Indoors (covered stadium)",
    "line": "Patriots are road underdogs",
    "keys": [
+    "Backup vs. backup: Justin Herbert (concussion) is out, so DJ Uiagalelei makes his first NFL start against Tommy DeVito.",
     "Protect Tommy DeVito: he struggled in relief at Munich, so quick throws and the run game with Rhamondre Stevenson matter.",
     "Find targets without A.J. Brown: expect more of DeMario Douglas, Mack Hollins and Hunter Henry.",
-    "Pressure a possible backup QB: Justin Herbert is in concussion protocol, and the Chargers are 1-9.",
     "Win the turnover battle: New England has lost three of its last four and can't afford giveaways."
    ],
    "sources": [
@@ -6055,32 +6132,32 @@ window.FEED={
   ]
  },
  "stocks": {
-  "asOf": "2026-11-25T16:00:00-05:00",
-  "session": "Close · Wed Nov 25",
-  "headline": "Stocks clawed back most of a steep morning drop: the S&P 500 finished down 0.3% after falling as much as 3.2%, the Dow rose 164 points and the Nasdaq slipped 0.6%. Markets are closed Thursday for Thanksgiving.",
+  "asOf": "2026-11-27T13:00:00-05:00",
+  "session": "Close · Fri Nov 27 (early close)",
+  "headline": "Wall Street's best week in more than a year: the S&P 500 rose 1.6% Friday and 5.6% for the week, its biggest weekly gain since April 2025.",
   "items": [
    {
     "sym": "S&P 500",
     "name": "S&P 500",
-    "price": 7182.78,
-    "chg": -18.31,
-    "pct": -0.25,
+    "price": 7297.49,
+    "chg": 114.71,
+    "pct": 1.6,
     "idx": true
    },
    {
     "sym": "DOW",
     "name": "Dow Jones Industrial Average",
-    "price": 50182.95,
-    "chg": 164.25,
-    "pct": 0.33,
+    "price": 50774.94,
+    "chg": 591.99,
+    "pct": 1.18,
     "idx": true
    },
    {
     "sym": "NASDAQ",
     "name": "Nasdaq Composite",
-    "price": 23585.8,
-    "chg": -147.73,
-    "pct": -0.62,
+    "price": 24129.5,
+    "chg": 543.7,
+    "pct": 2.31,
     "idx": true
    },
    {
@@ -6093,16 +6170,12 @@ window.FEED={
   ],
   "sources": [
    {
-    "name": "AP via KRMG",
-    "url": "https://krmg.com/2026/11/25/how-major-us-stock-indexes-fared-wednesday-11-25-2026/"
+    "name": "AP via Yahoo Finance",
+    "url": "https://finance.yahoo.com/markets/world-indices/articles/major-us-stock-indexes-fared-184551517.html"
    },
    {
     "name": "StockAnalysis (TTWO)",
     "url": "https://stockanalysis.com/stocks/ttwo/"
-   },
-   {
-    "name": "AP via ABC News",
-    "url": "https://abcnews.com/Business/wireStory/major-us-stock-indexes-fared-wednesday-11252026-138453529"
    }
   ]
  },
@@ -6192,6 +6265,10 @@ window.FEED={
    [
     "2026-11-25",
     7182.78
+   ],
+   [
+    "2026-11-27",
+    7297.49
    ]
   ],
   "DOW": [
@@ -6202,6 +6279,10 @@ window.FEED={
    [
     "2026-11-25",
     50182.95
+   ],
+   [
+    "2026-11-27",
+    50774.94
    ]
   ],
   "NASDAQ": [
@@ -6212,6 +6293,10 @@ window.FEED={
    [
     "2026-11-25",
     23585.8
+   ],
+   [
+    "2026-11-27",
+    24129.5
    ]
   ]
  }
