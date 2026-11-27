@@ -1,5 +1,5 @@
 window.FEED={
- "updated": "2026-11-26T07:15:00-06:00",
+ "updated": "2026-11-27T12:55:00-06:00",
  "nfl": {
   "week": 12,
   "standings": [
@@ -8,7 +8,7 @@ window.FEED={
     "name": "Buffalo Bills",
     "conf": "AFC",
     "div": "AFC East",
-    "w": 9,
+    "w": 10,
     "l": 1,
     "confRank": 1,
     "divRank": 1
@@ -129,7 +129,7 @@ window.FEED={
     "conf": "AFC",
     "div": "AFC West",
     "w": 8,
-    "l": 2,
+    "l": 3,
     "confRank": 5,
     "divRank": 2
    },
@@ -179,9 +179,9 @@ window.FEED={
     "conf": "NFC",
     "div": "NFC East",
     "w": 5,
-    "l": 6,
-    "confRank": 10,
-    "divRank": 2
+    "l": 7,
+    "confRank": 11,
+    "divRank": 3
    },
    {
     "abbr": "WAS",
@@ -190,17 +190,17 @@ window.FEED={
     "div": "NFC East",
     "w": 4,
     "l": 5,
-    "confRank": 11,
-    "divRank": 3
+    "confRank": 10,
+    "divRank": 2
    },
    {
     "abbr": "PHI",
     "name": "Philadelphia Eagles",
     "conf": "NFC",
     "div": "NFC East",
-    "w": 3,
+    "w": 4,
     "l": 7,
-    "confRank": 15,
+    "confRank": 12,
     "divRank": 4
    },
    {
@@ -209,9 +209,9 @@ window.FEED={
     "conf": "NFC",
     "div": "NFC North",
     "w": 8,
-    "l": 2,
-    "confRank": 2,
-    "divRank": 1
+    "l": 3,
+    "confRank": 5,
+    "divRank": 2
    },
    {
     "abbr": "MIN",
@@ -228,10 +228,10 @@ window.FEED={
     "name": "Chicago Bears",
     "conf": "NFC",
     "div": "NFC North",
-    "w": 8,
+    "w": 9,
     "l": 2,
-    "confRank": 5,
-    "divRank": 2
+    "confRank": 2,
+    "divRank": 1
    },
    {
     "abbr": "GB",
@@ -240,7 +240,7 @@ window.FEED={
     "div": "NFC North",
     "w": 6,
     "l": 5,
-    "confRank": 7,
+    "confRank": 9,
     "divRank": 4
    },
    {
@@ -260,7 +260,7 @@ window.FEED={
     "div": "NFC South",
     "w": 3,
     "l": 7,
-    "confRank": 12,
+    "confRank": 13,
     "divRank": 2
    },
    {
@@ -270,7 +270,7 @@ window.FEED={
     "div": "NFC South",
     "w": 3,
     "l": 7,
-    "confRank": 14,
+    "confRank": 15,
     "divRank": 4
    },
    {
@@ -280,7 +280,7 @@ window.FEED={
     "div": "NFC South",
     "w": 3,
     "l": 7,
-    "confRank": 13,
+    "confRank": 14,
     "divRank": 3
    },
    {
@@ -301,7 +301,7 @@ window.FEED={
     "w": 6,
     "l": 4,
     "confRank": 8,
-    "divRank": 2
+    "divRank": 3
    },
    {
     "abbr": "LA",
@@ -310,8 +310,8 @@ window.FEED={
     "div": "NFC West",
     "w": 7,
     "l": 4,
-    "confRank": 9,
-    "divRank": 3
+    "confRank": 7,
+    "divRank": 2
    },
    {
     "abbr": "ARI",
@@ -362,14 +362,14 @@ window.FEED={
      "away": "DEN",
      "home": "PIT",
      "pick": "DEN",
-     "prob": 65,
+     "prob": 69,
      "why": "Black Friday. Denver (8-2) has won convincingly; Pittsburgh (6-4) just lost in Philadelphia."
     },
     {
      "away": "NYG",
      "home": "IND",
      "pick": "NYG",
-     "prob": 71,
+     "prob": 70,
      "why": "Indianapolis released Daniel Jones and turns to Anthony Richardson; the Giants (6-3) are surging."
     },
     {
@@ -404,31 +404,29 @@ window.FEED={
      "away": "NYJ",
      "home": "MIA",
      "pick": "NYJ",
-     "prob": 68,
+     "prob": 69,
      "why": "The Jets won at LAC; Miami (1-9) has the league's worst record. Low confidence."
     },
     {
      "away": "NE",
      "home": "LAC",
      "pick": "NE",
-     "prob": 52,
+     "prob": 55,
      "why": "Patriots (5-5) off the bye but without Drake Maye; Chargers are 1-9. Flexed to 3:05 PM CT on CBS."
     },
     {
      "away": "SEA",
      "home": "SF",
      "pick": "SF",
-     "prob": 66,
-     "why": "San Francisco (9-1) rolled Minnesota 35-10 on Sunday night; Seattle is 6-4.",
-     "est": true
+     "prob": 58,
+     "why": "San Francisco (9-1) rolled Minnesota 35-10 on Sunday night; Seattle is 6-4."
     },
     {
      "away": "WAS",
      "home": "ARI",
      "pick": "WAS",
-     "prob": 52,
-     "why": "Coin flip between two struggling teams; Arizona was held to 7 in Kansas City.",
-     "est": true
+     "prob": 73,
+     "why": "Coin flip between two struggling teams; Arizona was held to 7 in Kansas City."
     },
     {
      "away": "LV",
@@ -593,8 +591,8 @@ window.FEED={
    {
     "week": 12,
     "label": "Week 12",
-    "w": 1,
-    "l": 0,
+    "w": 3,
+    "l": 1,
     "games": [
      {
       "away": "GB",
@@ -602,6 +600,30 @@ window.FEED={
       "pick": "LA",
       "prob": 56,
       "result": "GB 13, LA 26",
+      "correct": true
+     },
+     {
+      "away": "CHI",
+      "home": "DET",
+      "pick": "CHI",
+      "prob": 53,
+      "result": "CHI 39, DET 35",
+      "correct": true
+     },
+     {
+      "away": "PHI",
+      "home": "DAL",
+      "pick": "DAL",
+      "prob": 79,
+      "result": "PHI 39, DAL 38",
+      "correct": false
+     },
+     {
+      "away": "KC",
+      "home": "BUF",
+      "pick": "BUF",
+      "prob": 58,
+      "result": "KC 10, BUF 13",
       "correct": true
      }
     ]
@@ -4113,29 +4135,29 @@ window.FEED={
    {
     "away": "CHI",
     "home": "DET",
-    "status": "upcoming",
+    "status": "final",
     "time": "2026-11-26T18:00:00Z",
     "tag": "Thanksgiving",
-    "fav": "CHI",
-    "favPct": 53
+    "as": 39,
+    "hs": 35
    },
    {
     "away": "PHI",
     "home": "DAL",
-    "status": "upcoming",
+    "status": "final",
     "time": "2026-11-26T21:30:00Z",
     "tag": "Thanksgiving",
-    "fav": "DAL",
-    "favPct": 79
+    "as": 39,
+    "hs": 38
    },
    {
     "away": "KC",
     "home": "BUF",
-    "status": "upcoming",
+    "status": "final",
     "time": "2026-11-27T01:20:00Z",
     "tag": "Thanksgiving night",
-    "fav": "BUF",
-    "favPct": 58
+    "as": 10,
+    "hs": 13
    },
    {
     "away": "DEN",
@@ -4144,7 +4166,7 @@ window.FEED={
     "time": "2026-11-27T20:00:00Z",
     "tag": "Black Friday",
     "fav": "DEN",
-    "favPct": 65
+    "favPct": 69
    },
    {
     "away": "NYG",
@@ -4152,7 +4174,7 @@ window.FEED={
     "status": "upcoming",
     "time": "2026-11-29T18:00:00Z",
     "fav": "NYG",
-    "favPct": 71
+    "favPct": 70
    },
    {
     "away": "ATL",
@@ -4192,19 +4214,23 @@ window.FEED={
     "status": "upcoming",
     "time": "2026-11-29T18:00:00Z",
     "fav": "NYJ",
-    "favPct": 68
+    "favPct": 69
    },
    {
     "away": "SEA",
     "home": "SF",
     "status": "upcoming",
-    "time": "2026-11-29T21:25:00Z"
+    "time": "2026-11-29T21:25:00Z",
+    "fav": "SF",
+    "favPct": 58
    },
    {
     "away": "WAS",
     "home": "ARI",
     "status": "upcoming",
-    "time": "2026-11-29T21:25:00Z"
+    "time": "2026-11-29T21:25:00Z",
+    "fav": "WAS",
+    "favPct": 73
    },
    {
     "away": "NE",
@@ -4212,7 +4238,7 @@ window.FEED={
     "status": "upcoming",
     "time": "2026-11-29T21:05:00Z",
     "fav": "NE",
-    "favPct": 52
+    "favPct": 55
    },
    {
     "away": "LV",
@@ -4232,6 +4258,43 @@ window.FEED={
    }
   ],
   "news": [
+   {
+    "title": "Thanksgiving: Bears outlast Lions, Eagles edge Cowboys, Bills hold off Chiefs",
+    "summary": "Chicago won 39-35 in Detroit, Philadelphia beat Dallas 39-38, and Buffalo beat Kansas City 13-10 to improve to 10-1 ahead of its Week 13 trip to New England.",
+    "source": "ESPN",
+    "url": "https://www.espn.com/nfl/scoreboard",
+    "date": "2026-11-27",
+    "teams": [
+     "NE",
+     "BUF",
+     "CHI",
+     "DET",
+     "PHI",
+     "DAL",
+     "KC"
+    ]
+   },
+   {
+    "title": "Chargers QB Justin Herbert sits Thursday with a concussion",
+    "summary": "Herbert was among nine Chargers who didn't practice Thursday ahead of Sunday's game against New England.",
+    "source": "Chargers.com",
+    "url": "https://www.chargers.com/news/justin-herbert-akheem-mesidor-patriots-injury-report-2026",
+    "date": "2026-11-26",
+    "teams": [
+     "NE",
+     "LAC"
+    ]
+   },
+   {
+    "title": "A.J. Brown ruled out vs. Chargers; Doubs unlikely to return",
+    "summary": "Brown (hamstring) missed every practice this week and is out Sunday. Vrabel said Romeo Doubs (shoulder) likely won't be activated, leaving Mack Hollins, DeMario Douglas, Efton Chism and Kyle Williams as the receivers.",
+    "source": "Patriots.com / RotoWire",
+    "url": "https://www.rotowire.com/football/headlines/romeo-doubs-injury-unlikely-to-return-sunday-650098",
+    "date": "2026-11-27",
+    "teams": [
+     "NE"
+    ]
+   },
    {
     "title": "Romeo Doubs designated to return from injured reserve",
     "summary": "The Patriots opened Doubs' 21-day practice window Wednesday after he missed four games with a shoulder injury, giving him a chance to play Sunday at the Chargers. A.J. Brown (hamstring) did not practice.",
@@ -4623,7 +4686,7 @@ window.FEED={
    }
   ],
   "injuries": {
-   "asOf": "2026-11-25",
+   "asOf": "2026-11-27",
    "NE": [
     [
      "Drake Maye",
@@ -4636,15 +4699,15 @@ window.FEED={
      "A.J. Brown",
      "WR",
      "Hamstring",
-     "Doubtful",
-     "Did not practice Wednesday; Vrabel doesn't expect him to play Sunday"
+     "Out",
+     "Ruled out for Sunday (DNP all week)"
     ],
     [
      "Romeo Doubs",
      "WR",
      "Shoulder",
      "IR (designated to return)",
-     "Practice window opened Wednesday; could be activated for Sunday"
+     "Limited Thu; Vrabel says he likely won't play Sunday"
     ],
     [
      "TreVeyon Henderson",
@@ -4658,14 +4721,14 @@ window.FEED={
      "CB",
      "Knee",
      "Questionable",
-     ""
+     "Did not practice Thursday"
     ],
     [
      "Walter Rouse",
      "OT",
      "Concussion",
      "Questionable",
-     ""
+     "Concussion protocol; did not practice Thursday"
     ],
     [
      "Brenden Schooler",
@@ -4706,8 +4769,8 @@ window.FEED={
      "Alijah Vera-Tucker",
      "G",
      "—",
-     "IR",
-     ""
+     "IR (designated to return)",
+     "Limited Thursday (hamstring)"
     ],
     [
      "Julian Hill",
@@ -4756,20 +4819,12 @@ window.FEED={
    ],
    "sources": [
     {
-     "name": "CBS Sports",
-     "url": "https://www.cbssports.com/nfl/teams/ne/new-england-patriots/injuries/"
+     "name": "Patriots.com Week 12 injury report",
+     "url": "https://www.patriots.com/news/week-12-injury-report-patriots-at-chargers"
     },
     {
-     "name": "Pats Pulpit",
-     "url": "https://www.patspulpit.com/new-england-patriots-injuries/144976/aj-brown-injury-update-mike-vrabel-confirms-status-nfl-week-12-chargers"
-    },
-    {
-     "name": "NESN",
-     "url": "https://nesn.com/new-england-patriots/news/justin-herbert-concussion-protocol-patriots-week-12/5b0fb27accc3c1cc9b858a83"
-    },
-    {
-     "name": "Fantasy Index",
-     "url": "https://fantasyindex.com/football/nfl-week-12-injury-report/"
+     "name": "Chargers.com",
+     "url": "https://www.chargers.com/news/justin-herbert-akheem-mesidor-patriots-injury-report-2026"
     }
    ]
   },
@@ -6022,10 +6077,10 @@ window.FEED={
    },
    {
     "sym": "NASDAQ",
-    "name": "Nasdaq Composite · Tue close (fell 0.6% Wed)",
-    "price": 23733.54,
-    "chg": -356.02,
-    "pct": -1.48,
+    "name": "Nasdaq Composite",
+    "price": 23585.8,
+    "chg": -147.73,
+    "pct": -0.62,
     "idx": true
    },
    {
@@ -6044,6 +6099,10 @@ window.FEED={
    {
     "name": "StockAnalysis (TTWO)",
     "url": "https://stockanalysis.com/stocks/ttwo/"
+   },
+   {
+    "name": "AP via ABC News",
+    "url": "https://abcnews.com/Business/wireStory/major-us-stock-indexes-fared-wednesday-11252026-138453529"
    }
   ]
  },
@@ -6051,66 +6110,66 @@ window.FEED={
   "city": "Chatham, IL",
   "lat": 39.6762,
   "lon": -89.704,
-  "asOf": "2026-11-26T07:10:00-06:00",
+  "asOf": "2026-11-27T12:55:00-06:00",
   "now": {
-   "temp": 36,
+   "temp": 40,
    "cond": "Cloudy"
   },
   "days": [
    [
-    "2026-11-26",
-    "sleet",
-    39,
-    36,
-    74
-   ],
-   [
     "2026-11-27",
     "cloudy",
-    45,
+    42,
     35,
-    10
+    20
    ],
    [
     "2026-11-28",
-    "drizzle",
-    55,
+    "cloudy",
+    53,
     35,
     10
    ],
    [
     "2026-11-29",
     "rain",
-    46,
+    44,
     32,
-    75
+    70
    ],
    [
     "2026-11-30",
-    "cloudy",
+    "clear",
     47,
     31,
-    10
+    0
    ],
    [
     "2026-12-01",
-    "cloudy",
-    51,
-    34,
+    "clear",
+    52,
+    35,
     10
    ],
    [
     "2026-12-02",
-    "partly_cloudy",
-    56,
-    38,
+    "cloudy",
+    57,
+    37,
     10
    ],
    [
     "2026-12-03",
+    "cloudy",
+    60,
+    48,
+    15
+   ],
+   [
+    "2026-12-04",
     "rain",
-    58,
-    51,
+    63,
+    50,
     75
    ]
   ],
@@ -6149,6 +6208,10 @@ window.FEED={
    [
     "2026-11-24",
     23733.54
+   ],
+   [
+    "2026-11-25",
+    23585.8
    ]
   ]
  }
