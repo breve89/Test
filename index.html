@@ -1723,6 +1723,10 @@ function renderBacklog(){const el=$("#blgList");if(!el)return;const L=blgList();
   el.innerHTML=rows.length?rows.map(g=>`<div class="blg" data-id="${esc(g.id)}"><div><div class="t">${esc(g.t)}</div><div class="m">${esc(g.p)} · ${+g.h||0} hr${(+g.h||0)===1?"":"s"}${g.st==="done"&&g.fin?` · finished ${newsDate(g.fin)}`:""}</div></div>
    <div class="ctl"><button class="btn sm blgchk${g.st==="done"?" on":""}" data-blgdone aria-label="${g.st==="done"?"Mark not finished":"Mark finished"}">${g.st==="done"?"✓ Finished":"✓ Done"}</button><span class="stars">${[1,2,3,4,5].map(n=>`<button data-blgr="${n}" class="${(g.r||0)>=n?"on":""}" aria-label="${n} stars">★</button>`).join("")}</span><button class="btn sm" data-blgh="1">+1 hr</button><select data-blgs aria-label="Status">${Object.entries(BLG_ST).map(([k,l])=>`<option value="${k}" ${g.st===k?"selected":""}>${l}</option>`).join("")}</select><button class="btn sm" data-blgdel aria-label="Remove">×</button></div>
    <div class="goal"><input type="checkbox" data-blggd ${g.gd?"checked":""} aria-label="Goal done"><input type="text" data-blgg value="${esc(g.g||"")}" placeholder="Achievement or trophy goal (e.g. Platinum, 100% sync)"></div></div>`).join(""):`<div class="empty-state"><b>Nothing in ${esc(BLG_ST[blgTab])} yet</b><span>Add a game above.</span></div>`;}
+function blgImport(){try{const M=window.MY_GAMES;if(!M)return;const imp=Store.me("blgImported",{v:0});const L=blgList();const pre="c"+M.v+"_";
+  const lost=imp.v>=M.v&&!L.some(g=>String(g.id).startsWith(pre));if(imp.v>=M.v&&!lost)return;
+  const have=new Set(L.map(g=>(g.t+"|"+g.p).toLowerCase()));let n=0;M.list.forEach(([t,p],i)=>{if(have.has((t+"|"+p).toLowerCase()))return;L.push({id:pre+i,t,p,st:"backlog",h:0,r:0,g:"",gd:false,own:1});n++;});
+  imp.v=M.v;Store.saveMe();if(n){blgTab="backlog";setTimeout(()=>toast(`Added ${n} games from your shelf to Up next`),800);}}catch(e){console.error(e)}}
 function wireBacklog(){const f=$("#blgForm");if(!f)return;
   f.onsubmit=e=>{e.preventDefault();const t=$("#blgTitle").value.trim();if(!t)return;const st=$("#blgStatus").value;blgList().push({id:Date.now().toString(36),t,p:$("#blgPlat").value,st,h:0,r:0,g:"",gd:false});Store.saveMe();$("#blgTitle").value="";blgTab=st;renderBacklog();try{renderTrophies();}catch(e){}};
   const root=$("#blgList");const find=el=>{const c=el.closest("[data-id]");return c&&blgList().find(g=>g.id===c.dataset.id);};
@@ -1740,7 +1744,7 @@ function wireBacklog(){const f=$("#blgForm");if(!f)return;
     Store.saveMe();renderBacklog();try{renderTrophies();}catch(e){}});
   if(blgTab==="playing"&&!blgList().some(g=>g.st==="playing")&&blgList().some(g=>g.st==="backlog"))blgTab="backlog";
   const Q=$("#blgQ"),PF=$("#blgPF");if(Q)Q.oninput=()=>renderBacklog();if(PF)PF.onchange=()=>renderBacklog();
-  try{const M=window.MY_GAMES;const imp=Store.me("blgImported",{v:0});if(M&&imp.v<M.v){const L=blgList();const have=new Set(L.map(g=>(g.t+"|"+g.p).toLowerCase()));let n=0;M.list.forEach(([t,p],i)=>{if(have.has((t+"|"+p).toLowerCase()))return;L.push({id:"c"+M.v+"_"+i,t,p,st:"backlog",h:0,r:0,g:"",gd:false,own:1});n++;});imp.v=M.v;Store.saveMe();if(n)blgTab="backlog";if(n)setTimeout(()=>toast(`Added ${n} games from your shelf to Up next`),800);}}catch(e){console.error(e)}
+  blgImport();Store.onChange(()=>{blgImport();renderBacklog();});
   renderBacklog();}
 let relPlat="";
 function renderReleases(){const R=F.games&&F.games.releases;const el=$("#relList");if(!el||!R)return;const plats=["PS5","Xbox","Switch 2","PC"];
